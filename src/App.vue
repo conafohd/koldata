@@ -1,6 +1,23 @@
 <script setup lang="ts">
+import { onMounted, ref, type Ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { supabase } from './services/supabase'
+
+const data: Ref<any[]> = ref([])
+async function fetchData() {
+  const { data: associations, error } = await supabase.from('associations').select('*')
+  console.log('fetchedData', associations)
+  console.log('error', error)
+  if (error) {
+    console.error('Error fetching data:', error)
+  } else {
+    data.value = associations
+  }
+}
+onMounted(() => {
+  fetchData()
+})
 </script>
 
 <template>
@@ -9,6 +26,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
+      {{ data }}
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
