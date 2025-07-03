@@ -22,11 +22,11 @@ onMounted(() => {
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
-      {{ data }}
+      <span class="test">{{ data }}</span>
+
+      <v-btn prepend-icon="$accountCircle">YOooooo</v-btn>
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -38,7 +38,10 @@ onMounted(() => {
   <RouterView />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.test {
+  color: $red-blue;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
