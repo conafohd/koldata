@@ -1,8 +1,14 @@
+<template>
+  <Header />
+  <RouterView />
+</template>
+
 <script setup lang="ts">
+import '@/assets/styles/main.scss'
 import { onMounted, ref, type Ref } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
 import { supabase } from './services/supabase'
+import Header from './views/_layout/header/Header.vue'
 
 const data: Ref<any[]> = ref([])
 async function fetchData() {
@@ -18,30 +24,15 @@ async function fetchData() {
 onMounted(() => {
   fetchData()
 })
+
+import { useAuthenticationStore } from '@/stores/authStore'
+const authStore = useAuthenticationStore()
+onMounted(() => {
+  authStore.initAuth()
+})
 </script>
 
-<template>
-  <header>
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <span class="test">{{ data }}</span>
-
-      <v-btn prepend-icon="$accountCircle">YOooooo</v-btn>
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>
-
 <style scoped lang="scss">
-.test {
-  color: $red-blue;
-}
 header {
   line-height: 1.5;
   max-height: 100vh;

@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 
 import App from './App.vue'
+import { i18nInstance } from './plugins/i18n'
 import router from './router'
 
 const app = createApp(App)
@@ -10,5 +11,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(vuetify)
 app.use(router)
+app.use(i18nInstance)
 
 app.mount('#app')

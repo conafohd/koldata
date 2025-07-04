@@ -1,0 +1,11 @@
+{
+  "header": {
+    "title": "Plateforme Conafohd",
+    "tabs": {
+      "home": "Accueil",
+      "projectsMap": "Carte des projets",
+      "associations": "Profils des ONG",
+      "admin": "Administration"
+    }
+  }
+}

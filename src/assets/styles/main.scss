@@ -1,0 +1,12 @@
+@import '_variables';
+
+@media (max-width: $bp-sm) {
+  body {
+    padding: 0 $mobile-side-padding;
+  }
+}
+@media (min-width: $bp-sm) {
+  body {
+    padding: 0 $desktop-side-padding;
+  }
+}

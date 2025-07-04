@@ -1,5 +1,5 @@
 import {
-    mdiAccountCircle
+  mdiAccountCircle
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -7,16 +7,10 @@ import 'vuetify/styles'
 
 const customTheme: ThemeDefinition = {
   colors: {
-    'main-blue': '#1c3b87',
-    'bright-blue': '#111EF7',
-    'light-blue': '#6176AB',
-    'main-red': '#E83323',
-    'main-yellow': '#F6CC47',
-    'light-yellow': '#fdf5da',
-    'main-grey': '#E0E0E0',
-    'dark-grey': '#999999',
-    'light-grey': '#F6F7FA',
-    'main-green': '#2D6438'
+    'main-blue': '#1952BD',
+    'light-blue': '#8ED1FC',
+    'main-purple': '#6431F6',
+    'main-grey': '#777777'
   }
 }
 
