@@ -5,7 +5,9 @@ import { ref, type Ref } from 'vue';
 
 export const useAuthenticationStore = defineStore('authentication', () => {
   const showAuthModal = ref(false)
+  const showForgotPasswordModal = ref(false)
   const authSession: Ref<Session | null> = ref(null)
+  const showResetPasswordModal = ref(false)
 
   async function initAuth() {
     try {
@@ -21,6 +23,10 @@ export const useAuthenticationStore = defineStore('authentication', () => {
 
     supabase.auth.onAuthStateChange((event, session) => {
       authSession.value = session
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.has('reset-password')) {
+        showResetPasswordModal.value = true
+      }
     })
   }
 
@@ -69,7 +75,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   async function signOut() {
-    console.log('Signing out...')
     await supabase.auth.signOut().then(({ error }) => {
       if (error) {
         console.error('Sign out error:', error)
@@ -79,5 +84,34 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     })
   }
 
-  return { showAuthModal, authSession, initAuth, signIn, signUp, signOut }
+  async function recoverPassword(email: string) {
+    console.log('Recovering password for:', email)
+    const { error } = await supabase.auth.resetPasswordForEmail(
+      email,
+      {
+        redirectTo: window.location.origin + '?reset-password'
+      }
+    )
+    if (error) {
+      console.error('Password recovery error:', error)
+    } else {
+      showForgotPasswordModal.value = false
+      console.log('Password recovery email sent successfully')
+    }
+  }
+  
+  async function updatePassword(newPassword: string) {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    })
+    if (error) {
+      console.error('Password update error:', error)
+    } else {
+      window.history.replaceState({}, document.title, window.location.origin)
+      showResetPasswordModal.value = false
+      console.log('Password updated successfully')
+    }
+  }
+
+  return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword }
 })

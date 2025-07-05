@@ -96,6 +96,35 @@ export class AuthFormValidator {
     return { form, errors, handleSubmit, isSubmitting, isValid }
   }
 
+  static getResetPasswordForm() {
+    const validationSchema = toTypedSchema(
+      z.object({
+        newPassword: this.commonValidations.password,
+        confirmNewPassword: z.string().min(1, { message: i18n.t('forms.errors.required') })
+      })
+      .refine((data) => data.newPassword === data.confirmNewPassword, {
+        message: i18n.t('forms.errors.passwordsDoNotMatch'),
+        path: ['confirmNewPassword']
+      })
+    )
+
+    const { errors, handleSubmit, isSubmitting, meta } = useForm({
+      validationSchema,
+      initialValues: {
+        newPassword: '',
+        confirmNewPassword: ''
+      }
+    })
+
+    const form = {
+      newPassword: useField<string>('newPassword', '', { validateOnValueUpdate: true }),
+      confirmNewPassword: useField<string>('confirmNewPassword', '', { validateOnValueUpdate: true })
+    }
+
+    const isValid = computed(() => meta.value.valid)
+
+    return { form, errors, handleSubmit, isSubmitting, isValid }
+  }
 
   static sanitizeFormData<T extends Record<string, any>>(data: T): T {
     const sanitized = { ...data } as { [key: string]: any }

@@ -11,7 +11,7 @@
           </v-tab>
         </v-tabs>
 
-        <!-- Formulaire de connexion -->
+        <!-- Sign In -->
         <template v-if="activeTab === 1">
           <v-card-text>
             <v-form @submit.prevent="onSignIn">
@@ -32,6 +32,9 @@
                 autocomplete="current-password"
               />
             </v-form>
+            <span class="cursor-pointer" @click="showForgotPassword">{{
+              $t('auth.forgotPassword')
+            }}</span>
           </v-card-text>
           <v-card-actions>
             <v-btn @click="authStore.showAuthModal = false">
@@ -48,7 +51,7 @@
           </v-card-actions>
         </template>
 
-        <!-- Formulaire d'inscription -->
+        <!-- Sign Up -->
         <template v-else>
           <v-card-text>
             <v-form @submit.prevent="onSignUp">
@@ -139,4 +142,9 @@ const onSignUp = signUpForm.handleSubmit(async (values) => {
     password: sanitizedData.password,
   })
 })
+
+function showForgotPassword() {
+  authStore.showAuthModal = false
+  authStore.showForgotPasswordModal = true
+}
 </script>
