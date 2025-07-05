@@ -1,7 +1,7 @@
 <template>
-  <div class="app">
+  <div class="App">
     <Header />
-    <div v-show="!appStore.isLoading"><RouterView /></div>
+    <div v-show="!appStore.isLoading" class="App__content"><RouterView /></div>
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
   </div>
@@ -42,9 +42,16 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.app {
+.App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+.App__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding-top: 1rem;
 }
 </style>

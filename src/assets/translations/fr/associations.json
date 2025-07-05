@@ -1,0 +1,6 @@
+{
+  "associations": {
+    "fetchError": "Erreur lors de la récupération des associations",
+    "title": "Profils des ONG"
+  }
+}

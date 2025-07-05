@@ -36,8 +36,9 @@ export interface Association {
   linkedin: string | null;
   tiktok: string | null;
   autre_social_media: string | null;
+  updated_at: string;
 }
 
 export interface AssociationUpdate extends Association {
-  origin_association_id: number;
+  association_id: number;
 }

@@ -4,7 +4,7 @@
     <div class="Header__content">
       <span class="Header__title">{{ $t('header.title') }}</span>
       <div class="Header__actions">
-        <v-tabs v-model="appStore.activeTab" align-tabs="end" color="main-blue">
+        <v-tabs v-model="appStore.activeTab" align-tabs="start" color="main-blue">
           <v-tab
             v-for="(tab, index) in NavigationTabsService.getContent()"
             :value="tab.value"
@@ -44,6 +44,7 @@ const appStore = useApplicationStore()
 .Header__title {
   font-size: 1.5rem;
   font-weight: bold;
+  padding-left: 1rem;
 }
 .Header__actions {
   display: flex;

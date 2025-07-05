@@ -1,5 +1,6 @@
 import {
-  mdiAccountCircle
+  mdiAccountCircle,
+  mdiCalendar
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -19,7 +20,8 @@ export default createVuetify({
     defaultSet: 'mdi',
     aliases: {
       ...aliases,
-      accountCircle: mdiAccountCircle
+      accountCircle: mdiAccountCircle,
+      calendar: mdiCalendar
     },
     sets: {
       mdi

@@ -1,4 +1,5 @@
 import { NotificationType } from '@/models/enums/NotificationType';
+import type { UserInfos } from '@/models/interfaces/UserInfos';
 import { i18n } from '@/plugins/i18n';
 import { supabase } from '@/plugins/supabase';
 import { addNotification } from '@/services/NotificationsService';
@@ -9,8 +10,9 @@ import { ref, type Ref } from 'vue';
 export const useAuthenticationStore = defineStore('authentication', () => {
   const showAuthModal = ref(false)
   const showForgotPasswordModal = ref(false)
-  const authSession: Ref<Session | null> = ref(null)
   const showResetPasswordModal = ref(false)
+  const authSession: Ref<Session | null> = ref(null)
+  const userInfos: Ref<UserInfos | null> = ref(null)
 
   async function initAuth() {
     try {
@@ -80,6 +82,13 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       addNotification(i18n.t('auth.errorFetchingSession'), NotificationType.ERROR)
     } else {
       authSession.value = session
+      const { data: profile, error } = await supabase.from('user_profiles').select('*').eq('id', authSession.value?.user.id).single()
+      if (error) {
+        console.error('Error fetching user profile:', error)
+        addNotification(i18n.t('auth.errorFetchingProfile'), NotificationType.ERROR)
+      } else {
+        userInfos.value = profile as UserInfos
+      }
     }
   }
 
