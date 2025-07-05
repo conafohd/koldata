@@ -5,9 +5,6 @@ import { onMounted } from 'vue'
 
 const applicationStore = useApplicationStore()
 onMounted(() => {
-  // Simulate data fetching
-  setTimeout(() => {
-    applicationStore.isLoading = false
-  }, 3000) // Adjust the timeout as needed
+  applicationStore.isLoading = false
 })
 </script>
