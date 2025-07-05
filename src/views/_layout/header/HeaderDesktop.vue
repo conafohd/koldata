@@ -11,7 +11,7 @@
             :to="tab.route"
             :key="index"
           >
-            <span class="Header__tabsText">{{ tab.name }}</span>
+            <span class="Tabs--text">{{ tab.name }}</span>
           </v-tab>
         </v-tabs>
         <AuthButton />

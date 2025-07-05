@@ -7,7 +7,7 @@
 import '@/assets/styles/main.scss'
 import { onMounted, ref, type Ref } from 'vue'
 import { RouterView } from 'vue-router'
-import { supabase } from './services/supabase'
+import { supabase } from './plugins/supabase'
 import Header from './views/_layout/header/Header.vue'
 
 const data: Ref<any[]> = ref([])

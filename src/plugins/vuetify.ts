@@ -41,6 +41,16 @@ export default createVuetify({
       customTheme
     }
   },
-  defaults: {}
+  defaults: {
+    VBtn: {
+      style: [
+        {
+          textTransform: 'none',
+          fontWeight: 'bold',
+          letterSpacing: '.045rem'
+        }
+      ]
+    },
+  }
 })
 

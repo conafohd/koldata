@@ -1,0 +1,12 @@
+{
+  "forms": {
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "email": "Veuillez entrer une adresse e-mail valide.",
+      "minLength": "Ce champ doit contenir au moins {min} caractères.",
+      "maxLength": "Ce champ ne doit pas dépasser {max} caractères.",
+      "passwordsDoNotMatch": "Les mots de passe ne correspondent pas."
+    },
+    "cancel": "Annuler"
+  }
+}
