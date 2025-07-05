@@ -16,5 +16,8 @@
     "unauthorized": "Accès non autorisé.",
     "forbidden": "Action interdite.",
     "serverError": "Erreur du serveur, veuillez réessayer plus tard."
+  },
+  "loading": {
+    "message": "Chargement en cours, veuillez patienter..."
   }
 }

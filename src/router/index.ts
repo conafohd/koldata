@@ -1,3 +1,5 @@
+import { pinia } from '@/main'
+import { useApplicationStore } from '@/stores/applicationStore'
 import HomeView from '@/views/homepage/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -12,25 +14,38 @@ const router = createRouter({
     {
       path: '/projectsMap',
       name: 'projectsMap',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/projectsMap/ProjectsMapView.vue'),
+      component: () => import('@/views/projectsMap/ProjectsMapView.vue'),
+      beforeEnter: () => {
+        const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = true
+      }
     },
     {
       path: '/associations',
       name: 'associations',
       component: () => import('../views/associations/AssociationsListView.vue'),
+      beforeEnter: () => {
+        const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = true
+      }
     },
     {
       path: '/associations/:id',
       name: 'association',
       component: () => import('../views/associations/AssociationView.vue'),
+      beforeEnter: () => {
+        const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = true
+      }
     },
     {
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/AdminView.vue'),
+      beforeEnter: () => {
+        const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = true
+      },
       meta: { requiresAuth: true },
     }
   ],

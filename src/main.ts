@@ -8,7 +8,8 @@ import router from './router'
 
 const app = createApp(App)
 
-app.use(createPinia())
+export const pinia = createPinia()
+app.use(pinia)
 app.use(vuetify)
 app.use(router)
 app.use(i18nInstance)
