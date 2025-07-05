@@ -9,5 +9,12 @@
     },
     "validate": "Valider",
     "cancel": "Annuler"
+  },
+  "error": {
+    "generic": "Une erreur s'est produite, veuillez réessayer.",
+    "notFound": "Page non trouvée.",
+    "unauthorized": "Accès non autorisé.",
+    "forbidden": "Action interdite.",
+    "serverError": "Erreur du serveur, veuillez réessayer plus tard."
   }
 }

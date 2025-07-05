@@ -1,4 +1,7 @@
+import { NotificationType } from '@/models/enums/NotificationType';
+import { i18n } from '@/plugins/i18n';
 import { supabase } from '@/plugins/supabase';
+import { addNotification } from '@/services/NotificationsService';
 import type { Session } from '@supabase/supabase-js';
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
@@ -14,11 +17,13 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       const { data: { session }, error } = await supabase.auth.getSession()
       if (error) {
         console.error('Error fetching session:', error)
+        addNotification(i18n.t('auth.authError'), NotificationType.ERROR)
       } else {
         authSession.value = session
       }
     } catch (error) {
       console.error('Auth initialization error:', error)
+      addNotification(i18n.t('auth.authError'), NotificationType.ERROR)
     }
 
     supabase.auth.onAuthStateChange((event, session) => {
@@ -37,6 +42,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }).then(async ({ error }) => {
       if (error) {
         console.error('Login error:', error)
+        addNotification(i18n.t('auth.authError'), NotificationType.ERROR)
       } else {
         showAuthModal.value = false
         getSession()
@@ -58,8 +64,10 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }).then(async ({ error }) => {
       if (error) {
         console.error('Signup error:', error)
+        addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
       } else {
         showAuthModal.value = false
+        addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
         getSession()
       }
     })
@@ -69,6 +77,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     const { data: { session }, error } = await supabase.auth.getSession()
     if (error) {
       console.error('Error fetching session:', error)
+      addNotification(i18n.t('auth.errorFetchingSession'), NotificationType.ERROR)
     } else {
       authSession.value = session
     }
@@ -94,9 +103,10 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     )
     if (error) {
       console.error('Password recovery error:', error)
+      addNotification(i18n.t('auth.passwordRecoveryError'), NotificationType.ERROR)
     } else {
       showForgotPasswordModal.value = false
-      console.log('Password recovery email sent successfully')
+      addNotification(i18n.t('auth.passwordRecoverySuccess'), NotificationType.SUCCESS)
     }
   }
   
@@ -106,10 +116,11 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     })
     if (error) {
       console.error('Password update error:', error)
+      addNotification(i18n.t('auth.passwordRecoveryError'), NotificationType.ERROR)
     } else {
       window.history.replaceState({}, document.title, window.location.origin)
       showResetPasswordModal.value = false
-      console.log('Password updated successfully')
+      addNotification(i18n.t('auth.passwordUpdateSuccess'), NotificationType.SUCCESS)
     }
   }
 

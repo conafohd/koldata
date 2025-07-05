@@ -1,6 +1,7 @@
 <template>
   <Header />
   <RouterView />
+  <NotificationBox />
 </template>
 
 <script setup lang="ts">
@@ -26,6 +27,7 @@ onMounted(() => {
 })
 
 import { useAuthenticationStore } from '@/stores/authStore'
+import NotificationBox from './views/_layout/notification/NotificationBox.vue'
 const authStore = useAuthenticationStore()
 onMounted(() => {
   authStore.initAuth()

@@ -20,7 +20,7 @@
             {{ $t('forms.cancel') }}
           </v-btn>
           <v-btn @click="recoverPassword" color="main-purple">
-            {{ $t('forms.validate') }}
+            {{ $t('auth.sendResetLink') }}
           </v-btn>
         </v-card-actions>
       </v-card>
