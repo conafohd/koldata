@@ -1,6 +1,11 @@
 {
   "associations": {
     "fetchError": "Erreur lors de la récupération des associations",
-    "title": "Profils des ONG"
+    "title": "Profils des ONG",
+    "resetFilters": "Réinitialiser les filtres",
+    "edit": "Modifier",
+    "updatedAt": "Mis à jour le",
+    "infos": "Informations générales",
+    "projects": "Projets"
   }
 }

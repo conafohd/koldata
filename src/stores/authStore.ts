@@ -5,7 +5,7 @@ import { supabase } from '@/plugins/supabase';
 import { addNotification } from '@/services/NotificationsService';
 import type { Session } from '@supabase/supabase-js';
 import { defineStore } from 'pinia';
-import { ref, type Ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 
 export const useAuthenticationStore = defineStore('authentication', () => {
   const showAuthModal = ref(false)
@@ -13,6 +13,9 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   const showResetPasswordModal = ref(false)
   const authSession: Ref<Session | null> = ref(null)
   const userInfos: Ref<UserInfos | null> = ref(null)
+  const isAdmin = computed(() => {
+    return userInfos.value?.role === 'admin'
+  })
 
   async function initAuth() {
     try {
@@ -21,7 +24,10 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         console.error('Error fetching session:', error)
         addNotification(i18n.t('auth.authError'), NotificationType.ERROR)
       } else {
-        authSession.value = session
+        if (session) {
+          authSession.value = session
+          getUserInfos()
+        }
       }
     } catch (error) {
       console.error('Auth initialization error:', error)
@@ -81,15 +87,22 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       console.error('Error fetching session:', error)
       addNotification(i18n.t('auth.errorFetchingSession'), NotificationType.ERROR)
     } else {
-      authSession.value = session
-      const { data: profile, error } = await supabase.from('user_profiles').select('*').eq('id', authSession.value?.user.id).single()
+      if (session) {
+        console.log(session)
+        authSession.value = session
+        getUserInfos()
+      }
+    }
+  }
+
+  async function getUserInfos() {
+    const { data: profile, error } = await supabase.from('user_profiles').select('*').eq('id', authSession.value?.user.id).single()
       if (error) {
         console.error('Error fetching user profile:', error)
         addNotification(i18n.t('auth.errorFetchingProfile'), NotificationType.ERROR)
       } else {
         userInfos.value = profile as UserInfos
       }
-    }
   }
 
   async function signOut() {
@@ -98,6 +111,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         console.error('Sign out error:', error)
       } else {
         authSession.value = null
+        userInfos.value = null
       }
     })
   }
@@ -133,5 +147,5 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }
   }
 
-  return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword }
+  return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, userInfos, isAdmin, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword }
 })

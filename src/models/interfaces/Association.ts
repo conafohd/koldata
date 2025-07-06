@@ -1,5 +1,5 @@
 export interface Association {
-  id: number;
+  id: string;
   created_at: string;
   nom: string;
   acronyme: string;

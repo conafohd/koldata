@@ -11,7 +11,17 @@
             :to="tab.route"
             :key="index"
           >
-            <span class="Tabs--text">{{ tab.name }}</span>
+            <v-icon :icon="tab.icon" class="mr-1"></v-icon>
+            {{ tab.name }}
+          </v-tab>
+          <v-tab
+            v-if="authStore.authSession && authStore.userInfos?.role === 'admin'"
+            :value="3"
+            :to="{ name: 'admin' }"
+            class="AdminTab"
+          >
+            <v-icon icon="$security" class="mr-1"></v-icon>
+            {{ $t('header.tabs.admin') }}
           </v-tab>
         </v-tabs>
         <AuthButton />
@@ -23,7 +33,9 @@
 import AuthButton from '@/components/auth/AuthButton.vue'
 import { NavigationTabsService } from '@/services/NavigationService'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useAuthenticationStore } from '@/stores/authStore'
 const appStore = useApplicationStore()
+const authStore = useAuthenticationStore()
 </script>
 <style scoped lang="scss">
 .Header {
@@ -54,5 +66,8 @@ const appStore = useApplicationStore()
 .Header__tabsText {
   text-transform: none;
   text-decoration: none;
+}
+.AdminTab {
+  color: rgb(var(--v-theme-main-purple));
 }
 </style>

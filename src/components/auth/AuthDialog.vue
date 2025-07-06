@@ -2,6 +2,7 @@
   <v-dialog v-model="authStore.showAuthModal" max-width="400">
     <template #default>
       <v-card>
+        <div class="AuthDialog__welcome">{{ $t('auth.welcome') }}</div>
         <v-tabs v-model="activeTab" align-tabs="center" color="main-purple">
           <v-tab :value="1">
             <span class="Tabs--text">{{ $t('auth.signIn') }}</span>
@@ -148,3 +149,15 @@ function showForgotPassword() {
   authStore.showForgotPasswordModal = true
 }
 </script>
+
+<style scoped lang="scss">
+.AuthDialog__welcome {
+  font-size: 1.1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  color: rgb(var(--v-theme-main-purple));
+  font-weight: bold;
+  border-bottom: 1.5px solid rgb(var(--v-theme-main-purple));
+}
+</style>

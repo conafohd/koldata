@@ -7,7 +7,7 @@ export class NavigationTabsService {
         name: i18n.t('header.tabs.home'),
         value: 0,
         route: '/',
-        visible: true
+        icon: '$monitorDashboard'
       },
       {
         name: i18n.t('header.tabs.projectsMap'),
@@ -15,7 +15,7 @@ export class NavigationTabsService {
         route: {
           name: 'projectsMap'
         },
-        visible: true
+        icon: '$map'
       },
       {
         name: i18n.t('header.tabs.associations'),
@@ -23,19 +23,11 @@ export class NavigationTabsService {
         route: {
           name: 'associations'
         },
-        visible: true
-      },
-      
-      {
-        name: i18n.t('header.tabs.admin'),
-        value: 3,
-        route: {
-          name: 'admin'
-        },
-        visible: true
-      },
+        icon: '$accountGroup'
+      }
     ]
   }
+
   static getTabsNumberFromRoute(route: RouteLocationNormalizedLoadedGeneric, actualNumber: number) {
     const segments = route.path.split('/').filter(Boolean)
     //When Homepage
@@ -49,6 +41,9 @@ export class NavigationTabsService {
       )
       .filter(Boolean)
       .pop()?.value
+    if (segments.length === 1 && segments[0] === 'admin') {
+      return 3 // Admin tab
+    }
     if (newTabsNumber && newTabsNumber !== actualNumber) {
       return newTabsNumber
     }

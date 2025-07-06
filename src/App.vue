@@ -38,6 +38,7 @@ import NotificationBox from './views/_layout/notification/NotificationBox.vue'
 const authStore = useAuthenticationStore()
 onMounted(() => {
   authStore.initAuth()
+  appStore.setActiveTab()
 })
 </script>
 

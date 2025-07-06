@@ -1,8 +1,8 @@
 {
   "header": {
-    "title": "Plateforme Conafohd",
+    "title": "Plateforme CONAFOHD",
     "tabs": {
-      "home": "Accueil",
+      "home": "Dashboard",
       "projectsMap": "Carte des projets",
       "associations": "Profils des ONG",
       "admin": "Administration"

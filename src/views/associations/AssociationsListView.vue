@@ -1,9 +1,9 @@
 <template>
   <div class="Associations">
     <header class="Associations__header">
-      <h1 class="Associations__title">Profils des ONG</h1>
+      <h1 class="Associations__title">{{ $t('associations.title') }}</h1>
       <v-btn variant="text" size="small" class="Associations__reset-btn">
-        Réinitialiser les filtres
+        {{ $t('associations.resetFilters') }}
       </v-btn>
     </header>
 
@@ -62,7 +62,15 @@
           </div>
 
           <div class="Associations__card-content">
-            <h3 class="Associations__card-title">{{ association.nom }}</h3>
+            <div class="d-flex justify-space-between">
+              <h3 class="Associations__card-title">{{ association.nom }}</h3>
+              <v-icon
+                size="small"
+                icon="$squareEditOutline"
+                :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                v-if="hasPermissionToEdit(association.id)"
+              ></v-icon>
+            </div>
             <p class="Associations__card-description">{{ association.desc }}</p>
             <div class="Associations__card-footer">
               <v-icon size="small" class="Associations__card-icon" icon="$calendar"></v-icon>
@@ -77,10 +85,12 @@
 <script setup lang="ts">
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
+import { useAuthenticationStore } from '@/stores/authStore'
 import { computed, onBeforeMount, onMounted } from 'vue'
 
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
+const authStore = useAuthenticationStore()
 const associations = computed(() => associationsStore.associationsList)
 onBeforeMount(async () => {
   await associationsStore.getAssociationsList()
@@ -88,6 +98,8 @@ onBeforeMount(async () => {
 onMounted(() => {
   applicationStore.isLoading = false
 })
+const hasPermissionToEdit = (id: number) =>
+  authStore.isAdmin || authStore.userInfos?.edit_association_id === id
 </script>
 
 <style scoped lang="scss">
