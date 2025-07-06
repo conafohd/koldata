@@ -1,5 +1,5 @@
 export enum AssociationType {
-    INTERNATIONAL = 'ONG Internationale',
+    NATIONAL = 'ONG Nationale',
     LOCAL = 'ONG Locale',
     OTHER = 'Autre'
 }

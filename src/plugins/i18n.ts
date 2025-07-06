@@ -1,3 +1,4 @@
+import adminFR from '@/assets/translations/fr/admin.json'
 import associationsFR from '@/assets/translations/fr/associations.json'
 import authFR from '@/assets/translations/fr/auth.json'
 import commonFR from '@/assets/translations/fr/common.json'
@@ -13,7 +14,8 @@ export const i18nInstance = createI18n({
       ...headerFR,
       ...authFR,
       ...commonFR,
-      ...associationsFR
+      ...associationsFR,
+      ...adminFR
     }
   }
 })

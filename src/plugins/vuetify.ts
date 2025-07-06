@@ -3,13 +3,18 @@ import {
   mdiAccountGroup,
   mdiArrowLeft,
   mdiCalendar,
+  mdiCardAccountMailOutline,
+  mdiChartBoxMultipleOutline,
   mdiClose,
+  mdiInformationSlabBoxOutline,
   mdiLogin,
   mdiLogout,
   mdiMap,
   mdiMonitorDashboard,
   mdiSecurity,
-  mdiSquareEditOutline
+  mdiSelectMarker,
+  mdiSquareEditOutline,
+  mdiTimerEditOutline
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -39,7 +44,12 @@ export default createVuetify({
       monitorDashboard: mdiMonitorDashboard,
       map: mdiMap,
       accountGroup: mdiAccountGroup,
-      close: mdiClose
+      close: mdiClose,
+      selectMarker: mdiSelectMarker,
+      informationSlabBoxOutline: mdiInformationSlabBoxOutline,
+      cardAccountMailOutline: mdiCardAccountMailOutline,
+      chartBoxMultipleOutline: mdiChartBoxMultipleOutline,
+      timerEditOutline: mdiTimerEditOutline
     },
     sets: {
       mdi

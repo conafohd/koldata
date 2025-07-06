@@ -20,3 +20,14 @@ body {
   text-transform: none;
   text-decoration: none;
 }
+
+.fullScreenCard {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
+
+.v-tooltip .v-overlay__content {
+  background-color: #8ed1fc !important;
+  color: black !important;
+}

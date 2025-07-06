@@ -4,7 +4,7 @@
     <div v-show="!appStore.isLoading" class="App__content"><RouterView /></div>
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
-    <AssociationForm />
+    <AssociationForm v-if="associationsStore.editStatus" />
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import Header from './views/_layout/header/Header.vue'
 import Loader from './views/_layout/loader/Loader.vue'
 
 const appStore = useApplicationStore()
+const associationsStore = useAssociationsStore()
 
 const data: Ref<any[]> = ref([])
 async function fetchData() {
@@ -35,6 +36,7 @@ onMounted(() => {
 
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useApplicationStore } from './stores/applicationStore'
+import { useAssociationsStore } from './stores/associationsStore'
 import NotificationBox from './views/_layout/notification/NotificationBox.vue'
 import AssociationForm from './views/associations/components/AssociationForm.vue'
 const authStore = useAuthenticationStore()

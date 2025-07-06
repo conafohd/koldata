@@ -64,12 +64,28 @@
           <div class="Associations__card-content">
             <div class="d-flex justify-space-between">
               <h3 class="Associations__card-title">{{ association.nom }}</h3>
-              <v-icon
-                size="small"
-                icon="$squareEditOutline"
-                :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
-                v-if="hasPermissionToEdit(association.id)"
-              ></v-icon>
+              <div>
+                <v-tooltip :text="$t('admin.disclaimer')" color="main-grey">
+                  <template v-slot:activator="{ props }">
+                    <v-icon
+                      v-bind="props"
+                      size="small"
+                      icon="$timerEditOutline"
+                      :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                      class="mr-1"
+                      v-if="hasPermissionToEdit(association.id)"
+                      @click.stop
+                    ></v-icon>
+                  </template>
+                </v-tooltip>
+                <v-icon
+                  size="small"
+                  icon="$squareEditOutline"
+                  :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                  v-if="hasPermissionToEdit(association.id)"
+                  @click.stop="editAssociation(association)"
+                ></v-icon>
+              </div>
             </div>
             <p class="Associations__card-description">{{ association.desc }}</p>
             <div class="Associations__card-footer">
@@ -83,6 +99,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import { FormOperation } from '@/models/enums/FormOperation'
+import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
@@ -100,6 +118,13 @@ onMounted(() => {
 })
 const hasPermissionToEdit = (id: string) =>
   authStore.isAdmin || authStore.userInfos?.edit_association_id === id
+
+function editAssociation(association: Association) {
+  associationsStore.associationToEdit = association
+  associationsStore.editStatus = authStore.isAdmin
+    ? FormOperation.ADMIN_UPDATE
+    : FormOperation.EDITOR_UPDATE
+}
 </script>
 
 <style scoped lang="scss">
