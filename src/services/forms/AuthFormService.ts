@@ -67,7 +67,7 @@ export class AuthFormValidator {
         confirmPassword: z.string().min(1, { message: i18n.t('forms.errors.required') })
       })
       .refine((data) => data.password === data.confirmPassword, {
-        message: i18n.t('forms.errors.passwordsDoNotMatch'),
+        message: i18n.t('auth.passwordsDoNotMatch'),
         path: ['confirmPassword']
       })
     )
@@ -103,7 +103,7 @@ export class AuthFormValidator {
         confirmNewPassword: z.string().min(1, { message: i18n.t('forms.errors.required') })
       })
       .refine((data) => data.newPassword === data.confirmNewPassword, {
-        message: i18n.t('forms.errors.passwordsDoNotMatch'),
+        message: i18n.t('auth.passwordsDoNotMatch'),
         path: ['confirmNewPassword']
       })
     )
@@ -124,16 +124,5 @@ export class AuthFormValidator {
     const isValid = computed(() => meta.value.valid)
 
     return { form, errors, handleSubmit, isSubmitting, isValid }
-  }
-
-  static sanitizeFormData<T extends Record<string, any>>(data: T): T {
-    const sanitized = { ...data } as { [key: string]: any }
-    Object.keys(sanitized).forEach(key => {
-      if (typeof sanitized[key] === 'string') {
-        sanitized[key] = sanitized[key].trim()
-      }
-    })
-
-    return sanitized as T
   }
 }

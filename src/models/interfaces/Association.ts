@@ -1,13 +1,16 @@
+import type { AssociationInterventionSector } from "../enums/associations/AssociationInterventionSector";
+import type { AssociationType } from "../enums/associations/AssociationType";
+
 export interface Association {
   id: string;
   created_at: string;
   nom: string;
   acronyme: string;
   desc: string;
-  type_org: string;
+  type_org: AssociationType;
   type_org_autre: string | null;
   annee_creation: number;
-  secteurs_interv: string[];
+  secteurs_interv: AssociationInterventionSector[];
   secteurs_interv_autre: string | null;
   province: string;
   territoire: string;
@@ -39,6 +42,9 @@ export interface Association {
   updated_at: string;
 }
 
+export type AssociationCreate = Omit<Association, 'id' | 'created_at' | 'updated_at'>
+
 export interface AssociationUpdate extends Association {
-  association_id: number;
+  association_id: string;
+  user_id: string
 }

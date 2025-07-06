@@ -6,6 +6,9 @@
     "edit": "Modifier",
     "updatedAt": "Mis à jour le",
     "infos": "Informations générales",
-    "projects": "Projets"
+    "projects": "Projets",
+    "form": {
+      "title": "Modifier les informations de l'ONG"
+    }
   }
 }

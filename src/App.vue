@@ -4,6 +4,7 @@
     <div v-show="!appStore.isLoading" class="App__content"><RouterView /></div>
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
+    <AssociationForm />
   </div>
 </template>
 
@@ -35,6 +36,7 @@ onMounted(() => {
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useApplicationStore } from './stores/applicationStore'
 import NotificationBox from './views/_layout/notification/NotificationBox.vue'
+import AssociationForm from './views/associations/components/AssociationForm.vue'
 const authStore = useAuthenticationStore()
 onMounted(() => {
   authStore.initAuth()

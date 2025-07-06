@@ -116,7 +116,8 @@
 </template>
 
 <script setup lang="ts">
-import { AuthFormValidator } from '@/services/AuthFormService'
+import { AuthFormValidator } from '@/services/forms/AuthFormService'
+import { CommonFormService } from '@/services/forms/CommonFormService'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { ref } from 'vue'
 
@@ -127,7 +128,7 @@ const signInForm = AuthFormValidator.getSignInForm()
 const signUpForm = AuthFormValidator.getSignUpForm()
 
 const onSignIn = signInForm.handleSubmit(async (values) => {
-  const sanitizedData = AuthFormValidator.sanitizeFormData(values)
+  const sanitizedData = CommonFormService.sanitizeFormData(values)
   await authStore.signIn({
     email: sanitizedData.email,
     password: sanitizedData.password,
@@ -135,7 +136,7 @@ const onSignIn = signInForm.handleSubmit(async (values) => {
 })
 
 const onSignUp = signUpForm.handleSubmit(async (values) => {
-  const sanitizedData = AuthFormValidator.sanitizeFormData(values)
+  const sanitizedData = CommonFormService.sanitizeFormData(values)
   await authStore.signUp({
     email: sanitizedData.email,
     first_name: sanitizedData.firstName,

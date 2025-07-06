@@ -3,6 +3,7 @@ import {
   mdiAccountGroup,
   mdiArrowLeft,
   mdiCalendar,
+  mdiClose,
   mdiLogin,
   mdiLogout,
   mdiMap,
@@ -37,7 +38,8 @@ export default createVuetify({
       security: mdiSecurity,
       monitorDashboard: mdiMonitorDashboard,
       map: mdiMap,
-      accountGroup: mdiAccountGroup
+      accountGroup: mdiAccountGroup,
+      close: mdiClose
     },
     sets: {
       mdi

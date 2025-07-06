@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { AuthFormValidator } from '@/services/AuthFormService'
+import { AuthFormValidator } from '@/services/forms/AuthFormService'
 import { useAuthenticationStore } from '@/stores/authStore'
 const authStore = useAuthenticationStore()
 const resetPasswordForm = AuthFormValidator.getResetPasswordForm()

@@ -1,3 +1,4 @@
+import type { FormOperation } from "@/models/enums/FormOperation"
 import { NotificationType } from "@/models/enums/NotificationType"
 import type { Association } from "@/models/interfaces/Association"
 import { i18n } from "@/plugins/i18n"
@@ -10,6 +11,8 @@ import { useRouter } from "vue-router"
 export const useAssociationsStore = defineStore('associations', () => {
   const associationsList: Ref<Association[]> = ref([])
   const router = useRouter()
+  const associationToEdit: Ref<Association | null> = ref(null)
+  const editStatus: Ref<FormOperation | null> = ref(null)
 
   async function getAssociationsList() {
     const { data: associations, error } = await supabase.from('associations').select('*')
@@ -25,5 +28,5 @@ export const useAssociationsStore = defineStore('associations', () => {
     router.push({ name: 'association', params: { id: associationId } })
   }
 
-  return { associationsList, getAssociationsList, navigateToAssociation }
+  return { associationsList, associationToEdit, editStatus, getAssociationsList, navigateToAssociation }
 })
