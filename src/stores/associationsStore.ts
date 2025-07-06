@@ -24,7 +24,7 @@ export const useAssociationsStore = defineStore('associations', () => {
     }
   }
 
-  function navigateToAssociation(associationId: number) {
+  function navigateToAssociation(associationId: string) {
     router.push({ name: 'association', params: { id: associationId } })
   }
 
