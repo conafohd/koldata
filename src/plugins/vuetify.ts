@@ -25,7 +25,8 @@ const customTheme: ThemeDefinition = {
     'main-blue': '#1952BD',
     'light-blue': '#8ED1FC',
     'main-purple': '#6431F6',
-    'main-grey': '#575757'
+    'main-grey': '#575757',
+    'light-grey': '#D9D9D9'
   }
 }
 

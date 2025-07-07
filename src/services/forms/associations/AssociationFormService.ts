@@ -6,7 +6,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useField, useForm } from "vee-validate";
 import { computed } from "vue";
 import z from "zod";
-import { CommonFormService } from "./CommonFormService";
+import { CommonFormService } from "../CommonFormService";
 
 export class AssociationFormService {
     private static readonly validations = {
@@ -32,6 +32,7 @@ export class AssociationFormService {
         type_org_autre: z
         .string()
         .optional()
+        .nullable()
         .or(z.literal('')),
 
         annee_creation: z
@@ -46,6 +47,7 @@ export class AssociationFormService {
 
         secteurs_interv_autre: z.string()
         .optional()
+        .nullable()
         .or(z.literal('')),
 
         province: z
@@ -163,42 +165,42 @@ export class AssociationFormService {
         website: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         facebook: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         twitter: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         instagram: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         linkedin: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         tiktok: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         autre_social_media: z
         .string()
-        .optional()
+        .nullable()
         .or(z.literal(''))
     }
     static getAssociationForm(associationToEdit: Association | null){
@@ -207,7 +209,7 @@ export class AssociationFormService {
                 .refine(
                     (data) => {
                         if (data.type_org === AssociationType.OTHER) {
-                            return data.type_org_autre !== undefined && data.type_org_autre.trim() !== ''
+                            return data.type_org_autre && data.type_org_autre.trim() !== ''
                         }
                         return true
                     },
@@ -219,7 +221,7 @@ export class AssociationFormService {
                 .refine(
                     (data) => {
                         if (data.secteurs_interv.includes( AssociationInterventionSector.OTHER)) {
-                            return data.secteurs_interv_autre !== undefined && data.secteurs_interv_autre.trim() !== ''
+                            return data.secteurs_interv_autre && data.secteurs_interv_autre.trim() !== ''
                         }
                         return true
                     },

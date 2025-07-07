@@ -7,6 +7,9 @@
     "updatedAt": "Mis à jour le",
     "infos": "Informations générales",
     "projects": "Projets",
+    "updateError": "Erreur lors de la mise à jour des informations de l'ONG",
+    "updateSuccess": "Les modifications ont été soumies à l'administrateur pour validation",
+    "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
     "form": {
       "title": "Modifier les informations de l'ONG",
       "categories": {
@@ -73,17 +76,17 @@
         "nb_salaries": "Nombre de salariés",
         "nb_benevoles": "Nombre de bénévoles",
         "nom_resp_edition": "Nom complet du responsable",
-        "email_resp_edition": "email@exemple.com",
-        "email_org": "contact@organisation.org",
+        "email_resp_edition": "email[at]exemple.com",
+        "email_org": "contact[at]organisation.org",
         "nom_contact": "Nom de la personne de contact",
         "tel_contact": "+243 XXX XXX XXX",
-        "email_contact": "contact@exemple.com",
+        "email_contact": "contact[at]exemple.com",
         "website": "https://www.exemple.com",
         "facebook": "https://facebook.com/organisation",
         "twitter": "https://twitter.com/organisation",
         "instagram": "https://instagram.com/organisation",
         "linkedin": "https://linkedin.com/company/organisation",
-        "tiktok": "https://tiktok.com/@organisation",
+        "tiktok": "https://tiktok.com/organisation",
         "autre_social_media": "Autres liens de réseaux sociaux"
       },
       "hints": {
@@ -93,6 +96,10 @@
         "responsable_edition": "Personne responsable de la mise à jour des informations",
         "contact_public": "Contact principal pour les partenaires",
         "social_media": "Réseaux sociaux et présence en ligne"
+      },
+      "buttons": {
+        "save": "Sauvegarder",
+        "saveDisclaimer": "Cette modidication va être soumise à un administrateur de la plateforme pour validation."
       },
       "lists": {
         "type_org": {

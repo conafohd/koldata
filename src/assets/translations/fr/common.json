@@ -1,11 +1,19 @@
 {
   "forms": {
     "errors": {
+      "formNotValid": "Veuillez corriger les erreurs du formulaire.",
       "required": "Ce champ est obligatoire.",
       "email": "Veuillez entrer une adresse e-mail valide.",
       "minLength": "Ce champ doit contenir au moins {min} caractères.",
       "maxLength": "Ce champ ne doit pas dépasser {max} caractères.",
-      "emailValid": "Veuillez entrer une adresse e-mail valide."
+      "minValue": "La valeur minimale acceptée est: {min}.",
+      "maxValue": "La valeur maximale acceptée est: {max}.",
+      "emailValid": "Veuillez entrer une adresse e-mail valide.",
+      "invalidUrl": "Veuillez entrer une URL valide.",
+      "invalidLatitude": "Veuillez entrer une latitude valide.",
+      "invalidLongitude": "Veuillez entrer une longitude valide.",
+      "positiveNumber": "Veuillez entrer un nombre positif.",
+      "invalidPhone": "Veuillez entrer un numério de téléphone valide."
     },
     "validate": "Valider",
     "cancel": "Annuler"

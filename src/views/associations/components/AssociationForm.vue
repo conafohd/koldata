@@ -4,8 +4,41 @@
       <v-toolbar :color="authStore.isAdmin ? 'main-purple' : 'main-blue'">
         <v-btn icon="$close" @click="cancelEdition"></v-btn>
         <v-toolbar-title>{{ $t('associations.form.title') }}</v-toolbar-title>
-        <v-toolbar-items>
-          <v-btn text="Save" variant="text" @click="cancelEdition"></v-btn>
+        <v-toolbar-items class="bg-white">
+          <template v-if="authStore.isAdmin">
+            <v-tooltip :text="$t('admin.refuseUpdateDisclaimer')" bottom>
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  @click="cancelEdition"
+                  base-color="light-grey"
+                  variant="flat"
+                  v-bind="props"
+                  >{{ $t('admin.refuseUpdate') }}</v-btn
+                >
+              </template>
+            </v-tooltip>
+            <v-tooltip :text="$t('admin.acceptUpdateDisclaimer')" bottom>
+              <template v-slot:activator="{ props }">
+                <v-btn @click="cancelEdition" variant="flat" color="main-purple" v-bind="props">{{
+                  $t('admin.acceptUpdate')
+                }}</v-btn>
+              </template>
+            </v-tooltip>
+          </template>
+          <template v-else>
+            <v-tooltip :text="$t('associations.form.buttons.saveDisclaimer')" bottom>
+              <template v-slot:activator="{ props }">
+                <v-btn
+                  @click="submitUpdate"
+                  variant="flat"
+                  color="light-blue"
+                  v-bind="props"
+                  :is-loading="associationForm.isSubmitting"
+                  >{{ $t('associations.form.buttons.save') }}</v-btn
+                >
+              </template>
+            </v-tooltip>
+          </template>
         </v-toolbar-items>
       </v-toolbar>
       <div class="AssociationForm">
@@ -14,7 +47,7 @@
             <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.location') }}</span
           >
-          <div class="AssociationForm__field">
+          <div class="AssociationForm__fields">
             <v-select
               variant="outlined"
               :label="$t('associations.form.fields.province')"
@@ -68,7 +101,7 @@
             <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.organisation') }}</span
           >
-          <div class="AssociationForm__field">
+          <div class="AssociationForm__fields">
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom')"
@@ -98,6 +131,15 @@
               :item-value="(item) => item"
               required
             />
+            <v-text-field
+              variant="outlined"
+              :label="$t('associations.form.fields.type_org_autre')"
+              :placeholder="$t('associations.form.placeholders.type_org_autre')"
+              v-model="associationForm.form.type_org_autre.value.value"
+              :error-messages="associationForm.form.type_org_autre.errorMessage.value"
+              @blur="associationForm.form.type_org_autre.handleBlur"
+              v-if="associationForm.form.type_org.value.value.includes(AssociationType.OTHER)"
+            />
             <v-textarea
               variant="outlined"
               :label="$t('associations.form.fields.desc')"
@@ -121,6 +163,19 @@
               multiple
               chips
               required
+            />
+            <v-text-field
+              variant="outlined"
+              :label="$t('associations.form.fields.secteurs_interv_autre')"
+              :placeholder="$t('associations.form.placeholders.secteurs_interv_autre')"
+              v-model="associationForm.form.secteurs_interv_autre.value.value"
+              :error-messages="associationForm.form.secteurs_interv_autre.errorMessage.value"
+              @blur="associationForm.form.secteurs_interv_autre.handleBlur"
+              v-if="
+                associationForm.form.secteurs_interv.value.value.includes(
+                  AssociationInterventionSector.OTHER,
+                )
+              "
             />
             <v-number-input
               controlVariant="stacked"
@@ -147,8 +202,7 @@
             <v-icon icon="$cardAccountMailOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.contacts') }}</span
           >
-
-          <div class="AssociationForm__field">
+          <div class="AssociationForm__fields">
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom_resp_edition')"
@@ -275,6 +329,39 @@
             <v-icon icon="$chartBoxMultipleOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.finances') }}</span
           >
+          <div class="AssociationForm__fields">
+            <span class="AssociationForm__fieldsTitle">{{
+              $t('associations.form.hints.budgets_history')
+            }}</span>
+            <v-number-input
+              controlVariant="stacked"
+              :label="$t('associations.form.fields.budget_2024')"
+              :placeholder="$t('associations.form.placeholders.budget_2024')"
+              v-model="associationForm.form.budget_2024.value.value"
+              :error-messages="associationForm.form.budget_2024.errorMessage.value"
+              @blur="associationForm.form.budget_2024.handleBlur"
+              variant="outlined"
+            />
+            <v-number-input
+              controlVariant="stacked"
+              :label="$t('associations.form.fields.budget_2023')"
+              :placeholder="$t('associations.form.placeholders.budget_2023')"
+              v-model="associationForm.form.budget_2023.value.value"
+              :error-messages="associationForm.form.budget_2023.errorMessage.value"
+              @blur="associationForm.form.budget_2023.handleBlur"
+              variant="outlined"
+            />
+            <v-number-input
+              controlVariant="stacked"
+              :label="$t('associations.form.fields.budget_2022')"
+              :placeholder="$t('associations.form.placeholders.budget_2022')"
+              v-model="associationForm.form.budget_2022.value.value"
+              :error-messages="associationForm.form.budget_2022.errorMessage.value"
+              @blur="associationForm.form.budget_2022.handleBlur"
+              variant="outlined"
+            />
+            <v-divider color="light-blue mb-6" thickness="2" opacity="1"></v-divider>
+          </div>
         </div>
       </div>
     </v-card>
@@ -283,27 +370,40 @@
 <script setup lang="ts">
 import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
-import { AssociationFormService } from '@/services/forms/AssociationFormService'
+import { NotificationType } from '@/models/enums/NotificationType'
+import type { AssociationUpdate } from '@/models/interfaces/Association'
+import { i18n } from '@/plugins/i18n'
+import { AssociationFormService } from '@/services/forms/associations/AssociationFormService'
+import { CommonFormService } from '@/services/forms/CommonFormService'
+import { addNotification } from '@/services/NotificationsService'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
-const showDialog = computed(() => associationsStore.editStatus !== null)
+const showDialog = computed(() => associationsStore.associationToEdit !== null)
+
 function cancelEdition() {
-  associationsStore.editStatus = null
   associationsStore.associationToEdit = null
 }
-
 const associationForm = AssociationFormService.getAssociationForm(
   associationsStore.associationToEdit,
 )
-onMounted(() => {
-  console.log('associationForm', associationForm)
-})
-const onSubmit = associationForm.handleSubmit((values) => {
-  console.log('values', values)
-})
+
+const submitUpdate = associationForm.handleSubmit(
+  async (values) => {
+    const sanitizedData = CommonFormService.sanitizeFormData(values)
+    const updatedAssociation: AssociationUpdate = {
+      ...sanitizedData,
+      association_id: associationsStore.associationToEdit?.id as string,
+    }
+    await associationsStore.submitUpdate(updatedAssociation)
+  },
+  ({ errors }) => {
+    console.log(errors)
+    addNotification(i18n.t('forms.errors.formNotValid'), NotificationType.ERROR)
+  },
+)
 </script>
 <style scoped lang="scss">
 .AssociationForm {
@@ -334,8 +434,16 @@ const onSubmit = associationForm.handleSubmit((values) => {
   flex-shrink: 0;
   font-weight: bold;
 }
-.AssociationForm__field {
+.AssociationForm__fields {
   margin-top: 2rem;
   flex: 1;
+}
+.AssociationForm__fieldsTitle {
+  display: flex;
+  align-items: center;
+  color: rgb(var(--v-theme-main-grey));
+  flex-shrink: 0;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 </style>

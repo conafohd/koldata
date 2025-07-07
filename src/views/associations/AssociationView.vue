@@ -37,7 +37,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { FormOperation } from '@/models/enums/FormOperation'
 import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -76,10 +75,7 @@ const hasPermission = computed(() => {
 })
 const selectedTab = ref('infos')
 function editAssociation() {
-  associationsStore.associationToEdit = selectedAssociation.value
-  associationsStore.editStatus = authStore.isAdmin
-    ? FormOperation.ADMIN_UPDATE
-    : FormOperation.EDITOR_UPDATE
+  associationsStore.activeAssociationEdition(selectedAssociation.value?.id as string)
 }
 </script>
 

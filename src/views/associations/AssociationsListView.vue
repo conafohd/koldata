@@ -65,7 +65,7 @@
             <div class="d-flex justify-space-between">
               <h3 class="Associations__card-title">{{ association.nom }}</h3>
               <div>
-                <v-tooltip :text="$t('admin.disclaimer')" color="main-grey">
+                <v-tooltip :text="$t('admin.disclaimer')">
                   <template v-slot:activator="{ props }">
                     <v-icon
                       v-bind="props"
@@ -73,7 +73,7 @@
                       icon="$timerEditOutline"
                       :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
                       class="mr-1"
-                      v-if="hasPermissionToEdit(association.id)"
+                      v-if="association.waiting_for_validation"
                       @click.stop
                     ></v-icon>
                   </template>
@@ -99,7 +99,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import { FormOperation } from '@/models/enums/FormOperation'
 import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -120,10 +119,7 @@ const hasPermissionToEdit = (id: string) =>
   authStore.isAdmin || authStore.userInfos?.edit_association_id === id
 
 function editAssociation(association: Association) {
-  associationsStore.associationToEdit = association
-  associationsStore.editStatus = authStore.isAdmin
-    ? FormOperation.ADMIN_UPDATE
-    : FormOperation.EDITOR_UPDATE
+  associationsStore.activeAssociationEdition(association.id)
 }
 </script>
 

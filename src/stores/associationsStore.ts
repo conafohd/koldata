@@ -1,8 +1,7 @@
-import type { FormOperation } from "@/models/enums/FormOperation"
 import { NotificationType } from "@/models/enums/NotificationType"
-import type { Association } from "@/models/interfaces/Association"
+import type { Association, AssociationUpdate } from "@/models/interfaces/Association"
 import { i18n } from "@/plugins/i18n"
-import { supabase } from "@/plugins/supabase"
+import { AssociationDbService } from "@/services/forms/associations/AssociationDbService"
 import { addNotification } from "@/services/NotificationsService"
 import { defineStore } from "pinia"
 import { ref, type Ref } from "vue"
@@ -10,17 +9,17 @@ import { useRouter } from "vue-router"
 
 export const useAssociationsStore = defineStore('associations', () => {
   const associationsList: Ref<Association[]> = ref([])
+  const updateslist: Ref<AssociationUpdate[]> = ref([])
   const router = useRouter()
   const associationToEdit: Ref<Association | null> = ref(null)
-  const editStatus: Ref<FormOperation | null> = ref(null)
 
   async function getAssociationsList() {
-    const { data: associations, error } = await supabase.from('associations').select('*')
-    if (error) {
-        console.error('Error fetching data:', error)
-        addNotification(i18n.t('associations.fetchError'), NotificationType.ERROR)
-    } else {
-        associationsList.value = associations
+    try {
+      const { associations, updates } = await AssociationDbService.getAssociations();
+      associationsList.value = associations;
+      updateslist.value = updates;
+    } catch (error) {
+      console.log('Error fetching associations:', error)
     }
   }
 
@@ -28,5 +27,29 @@ export const useAssociationsStore = defineStore('associations', () => {
     router.push({ name: 'association', params: { id: associationId } })
   }
 
-  return { associationsList, associationToEdit, editStatus, getAssociationsList, navigateToAssociation }
+  function activeAssociationEdition(id: string) {
+    const updateSubmission = updateslist.value.find(association => association.association_id === id)
+    if (updateSubmission) {
+      associationToEdit.value = updateSubmission
+    } else {
+      const association = associationsList.value.find(association => association.id === id)
+      if (association) {
+        associationToEdit.value = association
+      } else {
+        addNotification(i18n.t('associations.associationNotFound'), NotificationType.ERROR)
+      }
+    }
+  }
+
+  async function submitUpdate(association: AssociationUpdate) {
+    try {
+      await AssociationDbService.submitAssociationUpdate(association)
+      await getAssociationsList()
+      associationToEdit.value = null
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate }
 })

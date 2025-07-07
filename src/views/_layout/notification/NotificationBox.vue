@@ -3,8 +3,7 @@
     class="NotificationBox"
     v-model="isNotificationShown"
     :timeout="notificationTime"
-    variant="outlined"
-    bg-color="white"
+    :bg-color="color"
     :color="color"
   >
     <span class="NotificationBox__message font-weight-bold">{{ activeNotification?.message }}</span>

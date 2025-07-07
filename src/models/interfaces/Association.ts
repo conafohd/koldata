@@ -40,11 +40,11 @@ export interface Association {
   tiktok: string | null;
   autre_social_media: string | null;
   updated_at: string;
+  waiting_for_validation: boolean;
 }
 
 export type AssociationCreate = Omit<Association, 'id' | 'created_at' | 'updated_at'>
 
 export interface AssociationUpdate extends Association {
   association_id: string;
-  user_id: string
 }
