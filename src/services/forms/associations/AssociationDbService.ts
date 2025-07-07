@@ -20,6 +20,7 @@ export class AssociationDbService {
                     const association = associations.find((association: Association) => association.id === updated_submission.association_id)
                     if (association) {
                         association.waiting_for_validation = true
+                        updated_submission.waiting_for_validation = true
                     }
                 })
             }
