@@ -41,15 +41,13 @@ export class AssociationDbService {
         }
     }
 
-    public static async removeAssociationUpdate(id: number, raiseResult: boolean) {
+    public static async removeAssociationUpdate(id: number) {
         const { error } = await supabase.from('associations_maj').delete().eq('id', id)
-        if (error && raiseResult) {
+        if (error) {
             addNotification(i18n.t('associations.updateDeletionError'), NotificationType.ERROR)
         throw error
         } else {
-            if (raiseResult) {
-                addNotification(i18n.t('associations.updateDeletionSuccess'), NotificationType.SUCCESS)
-            }
+            addNotification(i18n.t('associations.updateDeletionSuccess'), NotificationType.SUCCESS)
         }
     }
 

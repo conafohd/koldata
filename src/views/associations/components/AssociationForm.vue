@@ -412,7 +412,7 @@ const submitUpdate = associationForm.handleSubmit(
     await associationsStore.submitUpdate(updatedAssociation)
   },
   ({ errors }) => {
-    console.log(errors)
+    console.error(errors)
     addNotification(i18n.t('forms.errors.formNotValid'), NotificationType.ERROR)
   },
 )
@@ -435,7 +435,7 @@ const validateUpdate = associationForm.handleSubmit(
     await associationsStore.validateUpdate(updatedAssociation)
   },
   ({ errors }) => {
-    console.log(errors)
+    console.error(errors)
     addNotification(i18n.t('forms.errors.formNotValid'), NotificationType.ERROR)
   },
 )
