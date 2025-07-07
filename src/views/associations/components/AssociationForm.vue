@@ -13,15 +13,26 @@
                   base-color="light-grey"
                   variant="flat"
                   v-bind="props"
+                  :loading="associationForm.isSubmitting.value"
+                  v-if="associationsStore.associationToEdit?.waiting_for_validation"
                   >{{ $t('admin.refuseUpdate') }}</v-btn
                 >
               </template>
             </v-tooltip>
             <v-tooltip :text="$t('admin.acceptUpdateDisclaimer')" bottom>
               <template v-slot:activator="{ props }">
-                <v-btn @click="validateUpdate" variant="flat" color="main-purple" v-bind="props">{{
-                  $t('admin.acceptUpdate')
-                }}</v-btn>
+                <v-btn
+                  @click="validateUpdate"
+                  variant="flat"
+                  color="main-purple"
+                  v-bind="props"
+                  :loading="associationForm.isSubmitting.value"
+                  >{{
+                    associationsStore.associationToEdit?.waiting_for_validation
+                      ? $t('admin.acceptUpdate')
+                      : $t('forms.validate')
+                  }}</v-btn
+                >
               </template>
             </v-tooltip>
           </template>
