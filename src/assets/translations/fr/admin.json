@@ -3,7 +3,8 @@
     "disclaimer": "Une modification de ce contenu est en attente de validation par un administrateur de la plateforme.",
     "refuseUpdate": "Refuser la modification",
     "refuseUpdateDisclaimer": "Cette action entraine une suppression de la demande de modification faite par l'utilisateur.",
-    "acceptUpdate": "Accepter la modification",
-    "acceptUpdateDisclaimer": "Cette action entraine une mise à jour des informations qui seront visibles par tous les utilisateurs du site."
+    "acceptUpdate": "Valider la modification",
+    "acceptUpdateDisclaimer": "Cette action entraine une mise à jour des informations qui seront visibles par tous les utilisateurs du site.",
+    "validationSuccess": "La validation a bien été enregistrée"
   }
 }

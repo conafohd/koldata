@@ -28,6 +28,7 @@ body {
 }
 
 .v-tooltip .v-overlay__content {
-  background-color: #8ed1fc !important;
-  color: black !important;
+  background-color: rgb(var(--v-theme-main-grey)) !important;
+  color: rgb(255, 255, 255) !important;
+  border: 1px solid rgb(255, 255, 255) !important;
 }

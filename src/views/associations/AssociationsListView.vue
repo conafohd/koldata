@@ -103,12 +103,13 @@ import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { computed, onBeforeMount, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { onBeforeMount, onMounted } from 'vue'
 
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
-const associations = computed(() => associationsStore.associationsList)
+const { associationsList: associations } = storeToRefs(associationsStore)
 onBeforeMount(async () => {
   await associationsStore.getAssociationsList()
 })

@@ -51,5 +51,26 @@ export const useAssociationsStore = defineStore('associations', () => {
     }
   }
 
-  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate }
+  async function refuseUpdate(id: number, raiseError: boolean = true) {
+    try {
+      await AssociationDbService.removeAssociationUpdate(id, raiseError)
+      associationToEdit.value = null
+      await getAssociationsList()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function validateUpdate(association: Association) {
+    try {
+      await AssociationDbService.validateAssociationUpdate(association)
+      await refuseUpdate(associationToEdit.value!.id as unknown as number, false)
+      await getAssociationsList()
+      associationToEdit.value = null
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate, refuseUpdate, validateUpdate }
 })

@@ -2,14 +2,14 @@
   <v-dialog v-model="showDialog" fullscreen>
     <v-card class="fullScreenCard">
       <v-toolbar :color="authStore.isAdmin ? 'main-purple' : 'main-blue'">
-        <v-btn icon="$close" @click="cancelEdition"></v-btn>
+        <v-btn icon="$close" @click="associationsStore.associationToEdit = null"></v-btn>
         <v-toolbar-title>{{ $t('associations.form.title') }}</v-toolbar-title>
         <v-toolbar-items class="bg-white">
           <template v-if="authStore.isAdmin">
             <v-tooltip :text="$t('admin.refuseUpdateDisclaimer')" bottom>
               <template v-slot:activator="{ props }">
                 <v-btn
-                  @click="cancelEdition"
+                  @click="refuseUpdate"
                   base-color="light-grey"
                   variant="flat"
                   v-bind="props"
@@ -19,7 +19,7 @@
             </v-tooltip>
             <v-tooltip :text="$t('admin.acceptUpdateDisclaimer')" bottom>
               <template v-slot:activator="{ props }">
-                <v-btn @click="cancelEdition" variant="flat" color="main-purple" v-bind="props">{{
+                <v-btn @click="validateUpdate" variant="flat" color="main-purple" v-bind="props">{{
                   $t('admin.acceptUpdate')
                 }}</v-btn>
               </template>
@@ -33,7 +33,7 @@
                   variant="flat"
                   color="light-blue"
                   v-bind="props"
-                  :is-loading="associationForm.isSubmitting"
+                  :loading="associationForm.isSubmitting.value"
                   >{{ $t('associations.form.buttons.save') }}</v-btn
                 >
               </template>
@@ -371,7 +371,7 @@
 import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import { NotificationType } from '@/models/enums/NotificationType'
-import type { AssociationUpdate } from '@/models/interfaces/Association'
+import type { Association, AssociationUpdate } from '@/models/interfaces/Association'
 import { i18n } from '@/plugins/i18n'
 import { AssociationFormService } from '@/services/forms/associations/AssociationFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
@@ -383,9 +383,6 @@ const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
 const showDialog = computed(() => associationsStore.associationToEdit !== null)
 
-function cancelEdition() {
-  associationsStore.associationToEdit = null
-}
 const associationForm = AssociationFormService.getAssociationForm(
   associationsStore.associationToEdit,
 )
@@ -393,11 +390,38 @@ const associationForm = AssociationFormService.getAssociationForm(
 const submitUpdate = associationForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
+    // If this association already have an update submitted, use the update id
+    const associationId = (associationsStore.associationToEdit as AssociationUpdate).association_id
+      ? (associationsStore.associationToEdit as AssociationUpdate).association_id
+      : associationsStore.associationToEdit!.id
     const updatedAssociation: AssociationUpdate = {
       ...sanitizedData,
-      association_id: associationsStore.associationToEdit?.id as string,
+      association_id: associationId,
     }
     await associationsStore.submitUpdate(updatedAssociation)
+  },
+  ({ errors }) => {
+    console.log(errors)
+    addNotification(i18n.t('forms.errors.formNotValid'), NotificationType.ERROR)
+  },
+)
+
+function refuseUpdate() {
+  associationsStore.refuseUpdate(associationsStore.associationToEdit!.id as unknown as number)
+}
+
+const validateUpdate = associationForm.handleSubmit(
+  async (values) => {
+    const sanitizedData = CommonFormService.sanitizeFormData(values)
+    // If this association already have an update submitted, use the update id
+    const associationId = (associationsStore.associationToEdit as AssociationUpdate).association_id
+      ? (associationsStore.associationToEdit as AssociationUpdate).association_id
+      : associationsStore.associationToEdit!.id
+    const updatedAssociation: Association = {
+      ...sanitizedData,
+      id: associationId,
+    }
+    await associationsStore.validateUpdate(updatedAssociation)
   },
   ({ errors }) => {
     console.log(errors)

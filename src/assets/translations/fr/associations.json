@@ -10,6 +10,8 @@
     "updateError": "Erreur lors de la mise à jour des informations de l'ONG",
     "updateSuccess": "Les modifications ont été soumies à l'administrateur pour validation",
     "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
+    "updateDeletionError": "Une erreur est survenue lors de la suppression de la modification",
+    "updateDeletionSuccess": "La modification a bien été supprimée",
     "form": {
       "title": "Modifier les informations de l'ONG",
       "categories": {
@@ -99,7 +101,7 @@
       },
       "buttons": {
         "save": "Sauvegarder",
-        "saveDisclaimer": "Cette modidication va être soumise à un administrateur de la plateforme pour validation."
+        "saveDisclaimer": "Cette modification va être soumise à un administrateur de la plateforme pour validation."
       },
       "lists": {
         "type_org": {

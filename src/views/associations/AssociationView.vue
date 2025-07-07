@@ -9,7 +9,7 @@
         </v-chip>
         <v-btn
           :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
-          class="ml-2"
+          class="ml-6"
           flat
           v-if="hasPermission"
           prepend-icon="$squareEditOutline"
@@ -17,6 +17,17 @@
         >
           {{ $t('associations.edit') }}
         </v-btn>
+        <v-tooltip :text="$t('admin.disclaimer')">
+          <template v-slot:activator="{ props }">
+            <v-icon
+              v-bind="props"
+              icon="$timerEditOutline"
+              :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+              class="ml-2"
+              v-if="selectedAssociation.waiting_for_validation"
+            ></v-icon>
+          </template>
+        </v-tooltip>
       </div>
       <span class="Association__header--date"
         >{{ $t('associations.updatedAt') }}:
@@ -41,7 +52,8 @@ import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { computed, onBeforeMount, onMounted, ref, type Ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import AssociationInfos from './components/AssociationInfos.vue'
 import AssociationProjects from './components/AssociationProjects.vue'
@@ -49,19 +61,20 @@ import AssociationProjects from './components/AssociationProjects.vue'
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
-const selectedAssociation: Ref<Association | null> = ref(null)
-
 const route = useRoute()
+const { associationsList } = storeToRefs(associationsStore)
+
+const selectedAssociation = computed(() => {
+  return (
+    associationsList.value.find((association: Association) => association.id === route.params.id) ||
+    null
+  )
+})
 
 onBeforeMount(async () => {
   if (associationsStore.associationsList.length === 0) {
     await associationsStore.getAssociationsList()
   }
-
-  selectedAssociation.value =
-    associationsStore.associationsList.find(
-      (association: Association) => association.id === route.params.id,
-    ) || ({} as Association)
 })
 
 onMounted(() => {
