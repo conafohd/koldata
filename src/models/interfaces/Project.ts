@@ -30,10 +30,11 @@ export interface Project {
   created_at: string | null;
   updated_at: string | null;
   created_by: string;
+  waiting_for_validation: boolean
 }
 
-export type CreateProjet = Omit<Project, 'id' | 'created_at' | 'updated_at' | 'created_by'>
+export type CreateProject = Omit<Project, 'id' | 'created_at' | 'updated_at' | 'created_by'>
 
-export interface UpdateProjet extends Partial<Omit<Project, 'id' | 'created_at' | 'updated_at' | 'created_by'>> {
-  id: string;
+export interface ProjectUpdate extends Project {
+  projet_id: string;
 }

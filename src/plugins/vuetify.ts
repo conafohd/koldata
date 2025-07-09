@@ -14,7 +14,8 @@ import {
   mdiSecurity,
   mdiSelectMarker,
   mdiSquareEditOutline,
-  mdiTimerEditOutline
+  mdiTimerEditOutline,
+  mdiTrashCanOutline
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -50,7 +51,8 @@ export default createVuetify({
       informationSlabBoxOutline: mdiInformationSlabBoxOutline,
       cardAccountMailOutline: mdiCardAccountMailOutline,
       chartBoxMultipleOutline: mdiChartBoxMultipleOutline,
-      timerEditOutline: mdiTimerEditOutline
+      timerEditOutline: mdiTimerEditOutline,
+      trashCanOutline: mdiTrashCanOutline
     },
     sets: {
       mdi

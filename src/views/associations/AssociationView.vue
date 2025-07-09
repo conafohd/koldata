@@ -42,8 +42,14 @@
           <v-btn value="projects"> {{ $t('associations.projects') }} </v-btn>
         </v-btn-toggle>
       </div>
-      <AssociationInfos v-show="selectedTab === 'infos'" :association="selectedAssociation" />
-      <AssociationProjects v-show="selectedTab === 'projects'" :association="selectedAssociation" />
+      <div class="Association__contentCtn">
+        <AssociationInfos v-show="selectedTab === 'infos'" :association="selectedAssociation" />
+        <AssociationProjects
+          v-show="selectedTab === 'projects'"
+          :projects="projects"
+          :association-id="selectedAssociation.id"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +58,7 @@ import type { Association } from '@/models/interfaces/Association'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
+import { useProjectsStore } from '@/stores/projectsStore'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -61,6 +68,7 @@ import AssociationProjects from './components/AssociationProjects.vue'
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
+const projectsStore = useProjectsStore()
 const route = useRoute()
 const { associationsList } = storeToRefs(associationsStore)
 
@@ -71,10 +79,17 @@ const selectedAssociation = computed(() => {
   )
 })
 
+const projects = computed(() => {
+  return projectsStore.projectsList.filter(
+    (project) => project.association_id === selectedAssociation.value?.id,
+  )
+})
+
 onBeforeMount(async () => {
   if (associationsStore.associationsList.length === 0) {
     await associationsStore.getAssociationsList()
   }
+  projectsStore.getProjectsList()
 })
 
 onMounted(() => {
@@ -127,5 +142,12 @@ function editAssociation() {
 .Association__content--switch {
   margin-top: 2rem;
   display: flex;
+}
+.Association__contentCtn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  margin-top: 2rem;
 }
 </style>

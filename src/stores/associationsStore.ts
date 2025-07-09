@@ -1,7 +1,7 @@
 import { NotificationType } from "@/models/enums/NotificationType"
 import type { Association, AssociationUpdate } from "@/models/interfaces/Association"
 import { i18n } from "@/plugins/i18n"
-import { AssociationDbService } from "@/services/forms/associations/AssociationDbService"
+import { AssociationDbService } from "@/services/associations/AssociationDbService"
 import { addNotification } from "@/services/NotificationsService"
 import { defineStore } from "pinia"
 import { ref, type Ref } from "vue"

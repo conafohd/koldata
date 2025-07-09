@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/projectsMap',
       name: 'projectsMap',
-      component: () => import('@/views/projectsMap/ProjectsMapView.vue'),
+      component: () => import('@/views/projects/ProjectsView.vue'),
       beforeEnter: () => {
         const applicationStore = useApplicationStore(pinia)
         applicationStore.isLoading = true

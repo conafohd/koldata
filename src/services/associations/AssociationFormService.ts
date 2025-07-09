@@ -6,7 +6,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useField, useForm } from "vee-validate";
 import { computed } from "vue";
 import z from "zod";
-import { CommonFormService } from "../CommonFormService";
+import { CommonFormService } from "../forms/CommonFormService";
 
 export class AssociationFormService {
     private static readonly validations = {

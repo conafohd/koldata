@@ -53,8 +53,8 @@
         </v-toolbar-items>
       </v-toolbar>
       <div class="AssociationForm">
-        <div class="AssociationForm__categoryCtn">
-          <span class="AssociationForm__categoryTitle">
+        <div class="AssociationForm__categoryCtn ContentCard">
+          <span class="ContentCard__title">
             <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.location') }}</span
           >
@@ -107,8 +107,8 @@
             <v-divider color="light-blue" thickness="2" opacity="1"></v-divider>
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn">
-          <span class="AssociationForm__categoryTitle">
+        <div class="AssociationForm__categoryCtn ContentCard">
+          <span class="ContentCard__title">
             <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.organisation') }}</span
           >
@@ -208,8 +208,8 @@
             ></v-number-input>
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn">
-          <span class="AssociationForm__categoryTitle">
+        <div class="AssociationForm__categoryCtn ContentCard">
+          <span class="ContentCard__title">
             <v-icon icon="$cardAccountMailOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.contacts') }}</span
           >
@@ -335,8 +335,8 @@
             />
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn">
-          <span class="AssociationForm__categoryTitle">
+        <div class="AssociationForm__categoryCtn ContentCard">
+          <span class="ContentCard__title">
             <v-icon icon="$chartBoxMultipleOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.finances') }}</span
           >
@@ -384,7 +384,7 @@ import { AssociationType } from '@/models/enums/associations/AssociationType'
 import { NotificationType } from '@/models/enums/NotificationType'
 import type { Association, AssociationUpdate } from '@/models/interfaces/Association'
 import { i18n } from '@/plugins/i18n'
-import { AssociationFormService } from '@/services/forms/associations/AssociationFormService'
+import { AssociationFormService } from '@/services/associations/AssociationFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { addNotification } from '@/services/NotificationsService'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -454,20 +454,10 @@ const validateUpdate = associationForm.handleSubmit(
   flex-direction: column;
   flex: 1;
   padding: 1rem;
-  border-radius: 5px;
-  border: 1px solid rgb(var(--v-theme-light-blue));
   height: 100%;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgb(var(--v-theme-light-blue)) transparent;
-}
-.AssociationForm__categoryTitle {
-  display: flex;
-  align-items: center;
-  color: rgb(var(--v-theme-main-grey));
-  font-size: 1.2rem;
-  flex-shrink: 0;
-  font-weight: bold;
 }
 .AssociationForm__fields {
   margin-top: 2rem;

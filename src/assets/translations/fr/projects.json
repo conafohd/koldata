@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "fetchError": "Erreur lors de la récupération des projets",
+    "associationTable": {
+      "intitule_projet": "Intitulé du projet",
+      "statut_projet": "Statut du projet",
+      "ongoing": "En cours",
+      "finished": "Termine",
+      "unknown": "Inconnu",
+      "noms_bailleurs_fonds": "Bailleurs de fonds",
+      "nombre_total_personnes_cibles": "Nombre de bénéficaires",
+      "timeline": "Durée du projet",
+      "budget_projet": "Budget",
+      "actions": "Actions",
+      "unknownEndDate": "Date de fin non précisée",
+      "unknownDates": "Dates non précisées"
+    }
+  }
+}
