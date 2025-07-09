@@ -13,7 +13,14 @@
       "budget_projet": "Budget",
       "actions": "Actions",
       "unknownEndDate": "Date de fin non précisée",
-      "unknownDates": "Dates non précisées"
+      "unknownDates": "Dates non précisées",
+      "form": {
+        "title": "Modifier le projet",
+        "buttons": {
+          "save": "Sauvegarder",
+          "saveDisclaimer": "Cette modification va être soumise à un administrateur de la plateforme pour validation."
+        }
+      }
     }
   }
 }

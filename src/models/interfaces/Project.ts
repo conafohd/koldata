@@ -1,14 +1,14 @@
 export interface Project {
   id: string;
   intitule_projet: string;
-  partenaire_financier_technique: string | null;
+  partenaire_financier_technique: string;
   noms_bailleurs_fonds: string[];
   autre_bailleur_fonds: string | null;
   secteurs_intervention: string[];
   autre_secteur_intervention: string | null;
-  date_debut_projet: string;
+  date_debut_projet: string | null;
   date_fin_projet: string | null;
-  statut_projet: string;
+  statut_projet: string | null;
   province: string;
   territoire: string;
   aire_sante: string;
@@ -27,8 +27,8 @@ export interface Project {
   nombre_personnes_handicapees: number | null;
   nombre_personnes_agees: number | null;
   association_id: string;
-  created_at: string | null;
-  updated_at: string | null;
+  created_at: string;
+  updated_at: string;
   created_by: string;
   waiting_for_validation: boolean
 }

@@ -53,7 +53,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ProjectStatus } from '@/models/enums/ProjectStatus'
+import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
 import { useAuthenticationStore } from '@/stores/authStore'
