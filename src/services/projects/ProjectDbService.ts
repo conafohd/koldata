@@ -1,5 +1,4 @@
 import { NotificationType } from "@/models/enums/NotificationType"
-import type { Association, AssociationUpdate } from "@/models/interfaces/Association"
 import type { Project, ProjectUpdate } from "@/models/interfaces/Project"
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
@@ -32,32 +31,32 @@ export class ProjectDbService {
         }
     }
 
-    public static async submitAssociationUpdate(association: AssociationUpdate) {
-        const { error } = await supabase.rpc('submit_association_update', association)
+    public static async submitProjectUpdate(project: ProjectUpdate) {
+        const { error } = await supabase.rpc('submit_projet_update', project)
         if (error) {
-            addNotification(i18n.t('associations.updateError'), NotificationType.ERROR)
-        throw error
+            addNotification(i18n.t('projects.updateError'), NotificationType.ERROR)
+            throw error
         } else {
-            addNotification(i18n.t('associations.updateSuccess'), NotificationType.SUCCESS)
+            addNotification(i18n.t('projects.updateSuccess'), NotificationType.SUCCESS)
         }
     }
 
-    public static async removeAssociationUpdate(id: number, raiseResult: boolean) {
-        const { error } = await supabase.from('associations_maj').delete().eq('id', id)
+    public static async removeProjectUpdate(id: number, raiseResult: boolean) {
+        const { error } = await supabase.from('projets_maj').delete().eq('id', id)
         if (error && raiseResult) {
-            addNotification(i18n.t('associations.updateDeletionError'), NotificationType.ERROR)
-        throw error
+            addNotification(i18n.t('projects.updateDeletionError'), NotificationType.ERROR)
+            throw error
         } else {
             if (raiseResult) {
-                addNotification(i18n.t('associations.updateDeletionSuccess'), NotificationType.SUCCESS)
+                addNotification(i18n.t('projects.updateDeletionSuccess'), NotificationType.SUCCESS)
             }
         }
     }
 
-    public static async validateAssociationUpdate(association: Association) {
-        const { error } = await supabase.from('associations').update(association).eq('id', association.id)
+    public static async validateProjectUpdate(project: Project) {
+        const { error } = await supabase.from('projets').update(project).eq('id', project.id)
         if (error) {
-            addNotification(i18n.t('associations.updateError'), NotificationType.ERROR)
+            addNotification(i18n.t('projects.updateError'), NotificationType.ERROR)
             throw error
         } else {
             addNotification(i18n.t('admin.validationSuccess'), NotificationType.SUCCESS)

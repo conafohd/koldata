@@ -37,5 +37,38 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
-    return { projectsList, selectedProject, projectToEdit, getProjectsList, activeProjectEdition }
+    async function submitUpdate(project: ProjectUpdate) {
+        try {
+            await ProjectDbService.submitProjectUpdate(project)
+            await getProjectsList(true)
+            projectToEdit.value = null
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function refuseUpdate(id: number, raiseResult: boolean = true) {
+        try {
+            await ProjectDbService.removeProjectUpdate(id, raiseResult)
+            projectToEdit.value = null
+            await getProjectsList(true)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function validateUpdate(project: Project) {
+    try {
+      await ProjectDbService.validateProjectUpdate(project)
+      if (projectToEdit.value!.waiting_for_validation) {
+        await refuseUpdate(projectToEdit.value!.id as unknown as number, false)
+      }
+      await getProjectsList(true)
+      projectToEdit.value = null
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+    return { projectsList, selectedProject, projectToEdit, getProjectsList, activeProjectEdition, submitUpdate, refuseUpdate, validateUpdate }
 })

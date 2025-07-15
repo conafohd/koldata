@@ -13,7 +13,8 @@
       "invalidLatitude": "Veuillez entrer une latitude valide.",
       "invalidLongitude": "Veuillez entrer une longitude valide.",
       "positiveNumber": "Veuillez entrer un nombre positif.",
-      "invalidPhone": "Veuillez entrer un numério de téléphone valide."
+      "invalidPhone": "Veuillez entrer un numério de téléphone valide.",
+      "dateRange": "La date de début doit être antérieure à la date de fin."
     },
     "validate": "Valider",
     "cancel": "Annuler"

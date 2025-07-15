@@ -516,13 +516,14 @@ const submitUpdate = projectForm.handleSubmit(
     const sanitizedData = CommonFormService.sanitizeFormData(values)
     // If this project already have an update submitted, use the update id
     const projectId = (projectsStore.projectToEdit as ProjectUpdate).projet_id
-      ? (projectsStore.projectToEdit as ProjectUpdate).association_id
+      ? (projectsStore.projectToEdit as ProjectUpdate).projet_id
       : projectsStore.projectToEdit!.id
     const updatedProject: ProjectUpdate = {
       ...sanitizedData,
+      association_id: projectsStore.projectToEdit!.association_id,
       projet_id: projectId,
     }
-    // await projectsStore.submitUpdate(updatedProject)
+    await projectsStore.submitUpdate(updatedProject)
   },
   ({ errors }) => {
     console.error(errors)
@@ -531,8 +532,7 @@ const submitUpdate = projectForm.handleSubmit(
 )
 
 function refuseUpdate() {
-  console.log('refuse')
-  // projectsStore.refuseUpdate(projectsStore.projectToEdit!.id as unknown as number)
+  projectsStore.refuseUpdate(projectsStore.projectToEdit!.id as unknown as number)
 }
 
 const validateUpdate = projectForm.handleSubmit(
@@ -546,7 +546,7 @@ const validateUpdate = projectForm.handleSubmit(
       ...sanitizedData,
       id: projectId,
     }
-    // await projectsStore.validateUpdate(updatedProject)
+    await projectsStore.validateUpdate(updatedProject)
   },
   ({ errors }) => {
     console.error(errors)
