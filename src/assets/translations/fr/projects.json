@@ -94,7 +94,7 @@
       "lists": {
         "projectStatus": {
           "En cours": "En cours",
-          "Terminé": "Terminé"
+          "Termine": "Terminé"
         },
         "serviceTypes": {
           "Soins médicaux": "Soins médicaux",
@@ -102,7 +102,7 @@
           "Formation": "Formation",
           "Distribution de kits": "Distribution de kits",
           "Sensibilisation": "Sensibilisation",
-          "Réhabilitation d'infrastructures": "Réhabilitation d'infrastructures",
+          "Rehabilitation_infrastructures": "Réhabilitation d'infrastructures",
           "Autre": "Autre"
         },
         "interventionSectors": {
@@ -111,7 +111,7 @@
           "Formation": "Formation",
           "Distribution de kits": "Distribution de kits",
           "Sensibilisation": "Sensibilisation",
-          "Réhabilitation d'infrastructures": "Réhabilitation d'infrastructures",
+          "Rehabilitation_infrastructures": "Réhabilitation d'infrastructures",
           "Autre": "Autre"
         },
         "projectFunders": {
