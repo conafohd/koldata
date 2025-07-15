@@ -52,13 +52,13 @@
           </template>
         </v-toolbar-items>
       </v-toolbar>
-      <div class="AssociationForm">
-        <div class="AssociationForm__categoryCtn ContentCard">
+      <div class="Form">
+        <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.location') }}</span
           >
-          <div class="AssociationForm__fields">
+          <div class="Form__fields">
             <v-select
               variant="outlined"
               :label="$t('associations.form.fields.province')"
@@ -107,12 +107,12 @@
             <v-divider color="light-blue" thickness="2" opacity="1"></v-divider>
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn ContentCard">
+        <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.organisation') }}</span
           >
-          <div class="AssociationForm__fields">
+          <div class="Form__fields">
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom')"
@@ -208,12 +208,12 @@
             ></v-number-input>
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn ContentCard">
+        <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$cardAccountMailOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.contacts') }}</span
           >
-          <div class="AssociationForm__fields">
+          <div class="Form__fields">
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom_resp_edition')"
@@ -335,13 +335,13 @@
             />
           </div>
         </div>
-        <div class="AssociationForm__categoryCtn ContentCard">
+        <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$chartBoxMultipleOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.finances') }}</span
           >
-          <div class="AssociationForm__fields">
-            <span class="AssociationForm__fieldsTitle">{{
+          <div class="Form__fields">
+            <span class="Form__fieldsTitle">{{
               $t('associations.form.hints.budgets_history')
             }}</span>
             <v-number-input
@@ -440,35 +440,4 @@ const validateUpdate = associationForm.handleSubmit(
   },
 )
 </script>
-<style scoped lang="scss">
-.AssociationForm {
-  display: flex;
-  flex-grow: 1;
-  width: 100%;
-  padding: 1rem;
-  gap: 1rem;
-  height: calc(100vh - 64px);
-}
-.AssociationForm__categoryCtn {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 1rem;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--v-theme-light-blue)) transparent;
-}
-.AssociationForm__fields {
-  margin-top: 2rem;
-  flex: 1;
-}
-.AssociationForm__fieldsTitle {
-  display: flex;
-  align-items: center;
-  color: rgb(var(--v-theme-main-grey));
-  flex-shrink: 0;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-</style>
+<style scoped lang="scss"></style>

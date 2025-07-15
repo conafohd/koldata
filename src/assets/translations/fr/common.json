@@ -23,7 +23,11 @@
     "notFound": "Page non trouvée.",
     "unauthorized": "Accès non autorisé.",
     "forbidden": "Action interdite.",
-    "serverError": "Erreur du serveur, veuillez réessayer plus tard."
+    "serverError": "Erreur du serveur, veuillez réessayer plus tard.",
+    "errorFetchingBoundaries": "Une erreur est survenue lors de la récupération des limites administratives.",
+    "errorFetchingProvinces": "Une erreur est survenue lors de la récupération des provinces.",
+    "errorFetchingTerritories": "Une erreur est survenue lors de la récupération des territoires.",
+    "errorFetchingHealthAreas": "Une erreur est survenue lors de la récupération des zones de santé."
   },
   "loading": {
     "message": "Chargement en cours, veuillez patienter..."

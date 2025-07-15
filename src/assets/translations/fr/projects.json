@@ -13,13 +13,115 @@
       "budget_projet": "Budget",
       "actions": "Actions",
       "unknownEndDate": "Date de fin non précisée",
-      "unknownDates": "Dates non précisées",
-      "form": {
-        "title": "Modifier le projet",
-        "buttons": {
-          "save": "Sauvegarder",
-          "saveDisclaimer": "Cette modification va être soumise à un administrateur de la plateforme pour validation."
+      "unknownDates": "Dates non précisées"
+    },
+    "form": {
+      "title": "Modifier le projet",
+      "categories": {
+        "general": "Informations générales",
+        "beneficiaries": "Bénéficiaires"
+      },
+      "fields": {
+        "intitule_projet": "Intitulé du projet",
+        "partenaire_financier_technique": "Partenaire financier et technique",
+        "noms_bailleurs_fonds": "Bailleurs de fonds",
+        "autre_bailleur_fonds": "Autre bailleur de fonds",
+        "secteurs_intervention": "Secteurs d'intervention",
+        "autre_secteur_intervention": "Autre secteur d'intervention",
+        "date_debut_projet": "Date de début du projet",
+        "date_fin_projet": "Date de fin du projet",
+        "statut_projet": "Statut du projet",
+        "province": "Province",
+        "territoire": "Territoire",
+        "aire_sante": "Aire de santé",
+        "localite_village_quartier": "Localité/Village/Quartier",
+        "budget_projet": "Budget du projet",
+        "types_services_fournis": "Types de services fournis",
+        "autre_type_services_fournis": "Autre type de services fournis",
+        "types_beneficiaires_populations_cibles": "Types de bénéficiaires/populations cibles",
+        "autre_types_beneficiaires_populations_cibles": "Autres types de bénéficiaires",
+        "nombre_total_personnes_cibles": "Nombre total de personnes cibles",
+        "nombre_hommes": "Nombre d'hommes",
+        "nombre_femmes": "Nombre de femmes",
+        "nombre_filles": "Nombre de filles",
+        "nombre_garcons": "Nombre de garçons",
+        "nombre_personnes_atteintes": "Nombre de personnes atteintes",
+        "nombre_personnes_handicapees": "Nombre de personnes handicapées",
+        "nombre_personnes_agees": "Nombre de personnes âgées"
+      },
+      "placeholders": {
+        "intitule_projet": "Entrez l'intitulé du projet",
+        "partenaire_financier_technique": "Nom du partenaire financier et technique",
+        "autre_bailleur_fonds": "Précisez l'autre bailleur de fonds",
+        "autre_secteur_intervention": "Précisez l'autre secteur d'intervention",
+        "date_debut_projet": "Sélectionnez la date de début",
+        "date_fin_projet": "Sélectionnez la date de fin",
+        "province": "Sélectionnez une province",
+        "territoire": "Sélectionnez un territoire",
+        "aire_sante": "Sélectionnez une aire de santé",
+        "localite_village_quartier": "Nom de la localité, village ou quartier",
+        "budget_projet": "Montant en USD",
+        "autre_type_services_fournis": "Précisez l'autre type de services",
+        "autre_types_beneficiaires_populations_cibles": "Précisez les autres types de bénéficiaires",
+        "nombre_total_personnes_cibles": "Nombre total de bénéficiaires",
+        "nombre_hommes": "Nombre d'hommes bénéficiaires",
+        "nombre_femmes": "Nombre de femmes bénéficiaires",
+        "nombre_filles": "Nombre de filles bénéficiaires",
+        "nombre_garcons": "Nombre de garçons bénéficiaires",
+        "nombre_personnes_atteintes": "Nombre de personnes atteintes",
+        "nombre_personnes_handicapees": "Nombre de personnes handicapées",
+        "nombre_personnes_agees": "Nombre de personnes âgées"
+      },
+      "hints": {
+        "dates_projet": "Période d'exécution du projet",
+        "localisation": "Localisation géographique du projet",
+        "budget_financement": "Budget total et sources de financement",
+        "beneficiaires_detail": "Répartition détaillée des bénéficiaires",
+        "services_offerts": "Types de services et d'interventions proposés"
+      },
+      "lists": {
+        "projectStatus": {
+          "En cours": "En cours",
+          "Terminé": "Terminé"
+        },
+        "serviceTypes": {
+          "Soins médicaux": "Soins médicaux",
+          "Vaccination": "Vaccination",
+          "Formation": "Formation",
+          "Distribution de kits": "Distribution de kits",
+          "Sensibilisation": "Sensibilisation",
+          "Réhabilitation d'infrastructures": "Réhabilitation d'infrastructures",
+          "Autre": "Autre"
+        },
+        "interventionSectors": {
+          "Soins médicaux": "Soins médicaux",
+          "Vaccination": "Vaccination",
+          "Formation": "Formation",
+          "Distribution de kits": "Distribution de kits",
+          "Sensibilisation": "Sensibilisation",
+          "Réhabilitation d'infrastructures": "Réhabilitation d'infrastructures",
+          "Autre": "Autre"
+        },
+        "projectFunders": {
+          "UNICEF": "UNICEF",
+          "OMS": "OMS",
+          "UE": "UE",
+          "USAID": "USAID",
+          "Banque Mondiale": "Banque Mondiale",
+          "Coopération Belge": "Coopération Belge",
+          "Autre (préciser)": "Autre (préciser)"
+        },
+        "beneficiariesTypes": {
+          "Déplacés": "Déplacés",
+          "Réfugiés": "Réfugiés",
+          "Populations autochtones": "Populations autochtones",
+          "Retournés": "Retournés",
+          "Autre": "Autre"
         }
+      },
+      "buttons": {
+        "save": "Sauvegarder",
+        "saveDisclaimer": "Cette modification va être soumise à un administrateur de la plateforme pour validation."
       }
     }
   }
