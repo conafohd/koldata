@@ -83,6 +83,7 @@
                 class="cursor-pointer"
                 color="main-purple"
                 v-if="authStore.isAdmin"
+                @click="deleteProject(value)"
               ></v-icon>
             </template>
           </div>
@@ -90,6 +91,18 @@
       </v-data-table>
     </div>
   </div>
+  <v-dialog v-model="showDeleteDialog" max-width="400px">
+    <v-card>
+      <v-card-title>{{ $t('projects.deleteProject') }}</v-card-title>
+      <v-card-text>
+        {{ $t('projects.confirmDeleteProject') }}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="confirmDeleteProject">{{ $t('projects.confirm') }}</v-btn>
+        <v-btn @click="showDeleteDialog = false">{{ $t('projects.cancel') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <script setup lang="ts">
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
@@ -97,7 +110,7 @@ import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useProjectsStore } from '@/stores/projectsStore'
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 
 const props = defineProps<{
   projects: Project[]
@@ -120,6 +133,20 @@ function addProject() {
 
 function validateProject(projectId: string) {
   projectsStore.activeNewProjectEdition(projectId)
+}
+
+const showDeleteDialog = ref(false)
+const projectToDelete = ref<string | null>(null)
+function deleteProject(projectId: string) {
+  projectToDelete.value = projectId
+  showDeleteDialog.value = true
+}
+function confirmDeleteProject() {
+  if (projectToDelete.value) {
+    projectsStore.deleteProject(projectToDelete.value)
+    projectToDelete.value = null
+  }
+  showDeleteDialog.value = false
 }
 
 const headers = [

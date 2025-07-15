@@ -122,5 +122,16 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
-    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeNewProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, refuseNewProject, validateUpdate, validateNewProject, createProject }
+    async function deleteProject(projectId: string) {
+        try {
+            await ProjectDbService.deleteProject(projectId)
+            addNotification(i18n.t('projects.deleteProjectSuccess'), NotificationType.SUCCESS)
+            await getProjectsList(true)
+        } catch (error) {
+            console.error(error)
+            addNotification(i18n.t('projects.deleteProjectError'), NotificationType.ERROR)
+        }
+    }
+
+    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeNewProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, refuseNewProject, validateUpdate, validateNewProject, createProject, deleteProject }
 })

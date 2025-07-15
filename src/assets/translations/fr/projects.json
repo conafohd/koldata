@@ -25,6 +25,12 @@
     "updateDeletionError": "Erreur lors de la suppression de la mise à jour du projet",
     "updateDeletionSuccess": "Mise à jour du projet supprimée avec succès",
     "projectNotFound": "Projet non trouvé",
+    "deleteProject": "Supprimer le projet",
+    "deleteProjectSuccess": "Projet supprimé avec succès",
+    "deleteProjectError": "Erreur lors de la suppression du projet",
+    "confirmDeleteProject": "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.",
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
     "form": {
       "updateTitle": "Modifier le projet",
       "createTitle": "Créer un nouveau projet",

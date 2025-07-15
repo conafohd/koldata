@@ -216,6 +216,7 @@
                 :error-messages="projectForm.form.province.errorMessage.value"
                 @blur="projectForm.form.province.handleBlur"
                 :items="adminBoundariesStore.provincesList.map((p) => p.province)"
+                @update:model-value="projectForm.form.territoire.value.value = ''"
                 required
               />
               <v-select

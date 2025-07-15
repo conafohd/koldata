@@ -103,4 +103,14 @@ export class ProjectDbService {
             addNotification(i18n.t('projects.createSuccess'), NotificationType.SUCCESS)
         }
     }
+
+    public static async deleteProject(id: string) {
+        const { error } = await supabase.from('projets').delete().eq('id', id)
+        if (error) {
+            addNotification(i18n.t('projects.deleteProjectError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('projects.deleteProjectSuccess'), NotificationType.SUCCESS)
+        }
+    }
 }
