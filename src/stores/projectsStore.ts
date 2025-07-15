@@ -5,22 +5,31 @@ import { addNotification } from "@/services/NotificationsService"
 import { ProjectDbService } from "@/services/projects/ProjectDbService"
 import { defineStore } from "pinia"
 import { ref, type Ref } from "vue"
+import { useAuthenticationStore } from "./authStore"
 
 export const useProjectsStore = defineStore('projects', () => {
     const projectsList: Ref<Project[]> = ref([])
     const updateslist: Ref<ProjectUpdate[]> = ref([])
+    const newProjectsList: Ref<Project[]> = ref([])
     const selectedProject: Ref<Project | null> = ref(null)
     const projectToEdit: Ref<Project | null> = ref(null)
+    const projectToCreate: Ref<string | null> = ref(null)
 
     async function getProjectsList(force = false) {
         if (!force && projectsList.value.length > 0) return
         try {
-            const { projects, updates } = await ProjectDbService.getProjects();
+            const { projects, updates, newProjects } = await ProjectDbService.getProjects();
             projectsList.value = projects;
             updateslist.value = updates;
+            newProjectsList.value = newProjects;
         } catch (error) {
             console.log('Error fetching associations:', error)
         }
+    }
+
+    async function activeProjectCreation(associationId: string) {
+        console.log('activeProjectCreation', associationId)
+        projectToCreate.value = associationId
     }
 
     function activeProjectEdition(id: string) {
@@ -58,17 +67,29 @@ export const useProjectsStore = defineStore('projects', () => {
     }
 
     async function validateUpdate(project: Project) {
-    try {
-      await ProjectDbService.validateProjectUpdate(project)
-      if (projectToEdit.value!.waiting_for_validation) {
-        await refuseUpdate(projectToEdit.value!.id as unknown as number, false)
-      }
-      await getProjectsList(true)
-      projectToEdit.value = null
-    } catch (error) {
-      console.error(error)
+        try {
+            await ProjectDbService.validateProjectUpdate(project)
+            if (projectToEdit.value?.waiting_for_validation) {
+                await refuseUpdate(projectToEdit.value!.id as unknown as number, false)
+            }
+            await getProjectsList(true)
+            projectToEdit.value = null
+        } catch (error) {
+            console.error(error)
+        }
     }
-  }
 
-    return { projectsList, selectedProject, projectToEdit, getProjectsList, activeProjectEdition, submitUpdate, refuseUpdate, validateUpdate }
+    async function createProject(project: Project) {
+        try {
+            await ProjectDbService.createProject(project, useAuthenticationStore().isAdmin)
+            addNotification(i18n.t('projects.createSuccess'), NotificationType.SUCCESS)
+            projectToCreate.value = null
+            await getProjectsList(true)
+        } catch (error) {
+            console.error(error)
+            addNotification(i18n.t('projects.createError'), NotificationType.ERROR)
+        }
+    }
+
+    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, validateUpdate, createProject }
 })

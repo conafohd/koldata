@@ -37,6 +37,7 @@ export interface Project {
   updated_at: string;
   created_by: string;
   waiting_for_validation: boolean
+  newProject?: boolean;
 }
 
 export type CreateProject = Omit<Project, 'id' | 'created_at' | 'updated_at' | 'created_by'>

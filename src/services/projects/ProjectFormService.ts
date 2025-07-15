@@ -13,81 +13,89 @@ import z from "zod";
 export class ProjectFormService {
     private static readonly validations = {
         intitule_projet: z
-        .string()
+        .string( { message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
         partenaire_financier_technique: z
-        .string()
+        .string( { message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
-        noms_bailleurs_fonds: z.array(z.nativeEnum(ProjectFunder))
+        noms_bailleurs_fonds: z.array(z.nativeEnum(ProjectFunder), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         autre_bailleur_fonds: z
-        .string()
+        .string( { message: i18n.t('forms.errors.required') })
         .optional()
         .nullable()
         .or(z.literal('')),
 
-        secteurs_intervention: z.array(z.nativeEnum(ProjectInterventionSector))
+        secteurs_intervention: z.array(z.nativeEnum(ProjectInterventionSector), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         autre_secteur_intervention: z
-        .string()
+        .string( { message: i18n.t('forms.errors.required') })
         .optional()
         .nullable()
         .or(z.literal('')),
 
         date_debut_projet: z
-        .string()
+        .string( { message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .nullable(),
 
         date_fin_projet: z
         .string()
         .min(1, { message: i18n.t('forms.errors.required') })
-        .nullable(),
+        .optional(),
 
         statut_projet: z
         .nativeEnum(ProjectStatus)
-        .nullable(),
+        .optional(),
 
         province: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         territoire: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         aire_sante: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') } )
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         localite_village_quartier: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         budget_projet: z
         .number({ message: i18n.t('forms.errors.required') })
         .min(0, { message: i18n.t('forms.errors.positiveNumber') }),
 
-        types_services_fournis: z.array(z.nativeEnum(ProjectServiceType))
+        types_services_fournis: z.array(z.nativeEnum(ProjectServiceType), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         autre_type_services_fournis: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .optional()
         .nullable()
         .or(z.literal('')),
 
-        types_beneficiaires_populations_cibles: z.array(z.nativeEnum(ProjectBeneficiaryType))
+        types_beneficiaires_populations_cibles: z.array(z.nativeEnum(ProjectBeneficiaryType), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         autre_types_beneficiaires_populations_cibles: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .optional()
         .nullable()
         .or(z.literal('')),

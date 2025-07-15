@@ -5,7 +5,7 @@
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
     <AssociationForm v-if="associationsStore.associationToEdit" />
-    <ProjectForm v-if="projectsStore.projectToEdit" />
+    <ProjectForm v-if="projectsStore.projectToEdit || projectsStore.projectToCreate" />
   </div>
 </template>
 

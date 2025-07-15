@@ -17,6 +17,8 @@
       "dateRange": "La date de début doit être antérieure à la date de fin."
     },
     "validate": "Valider",
+    "confirm": "Confirmer",
+    "submit": "Soumettre",
     "cancel": "Annuler"
   },
   "error": {

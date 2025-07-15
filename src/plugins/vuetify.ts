@@ -6,11 +6,14 @@ import {
   mdiCardAccountMailOutline,
   mdiChartBoxMultipleOutline,
   mdiClose,
+  mdiFileCheckOutline,
   mdiInformationSlabBoxOutline,
   mdiLogin,
   mdiLogout,
   mdiMap,
   mdiMonitorDashboard,
+  mdiNewBox,
+  mdiReceiptClock,
   mdiSecurity,
   mdiSelectMarker,
   mdiSquareEditOutline,
@@ -52,7 +55,10 @@ export default createVuetify({
       cardAccountMailOutline: mdiCardAccountMailOutline,
       chartBoxMultipleOutline: mdiChartBoxMultipleOutline,
       timerEditOutline: mdiTimerEditOutline,
-      trashCanOutline: mdiTrashCanOutline
+      trashCanOutline: mdiTrashCanOutline,
+      newBox: mdiNewBox,
+      fileCheckOutline: mdiFileCheckOutline,
+      receiptClock: mdiReceiptClock
     },
     sets: {
       mdi

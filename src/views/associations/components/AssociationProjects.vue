@@ -5,9 +5,13 @@
         <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
         {{ $t('associations.projectsLabel') }}
       </span>
-      <v-btn :color="authStore.isAdmin ? 'main-purple' : 'main-blue'" prepend-icon="$plus">{{
-        $t('associations.addProject')
-      }}</v-btn>
+      <v-btn
+        :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+        prepend-icon="$plus"
+        @click="addProject"
+        v-if="hasEditPermission"
+        >{{ $t('associations.addProject') }}</v-btn
+      >
     </div>
     <div class="Projects__table">
       <v-data-table :headers="headers" :items="projects" item-key="name" hide-default-footer>
@@ -24,6 +28,17 @@
               ></v-icon>
             </template>
           </v-tooltip>
+          <v-tooltip :text="$t('projects.associationTable.newProject')">
+            <template v-slot:activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$newBox"
+                :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                class="ml-2"
+                v-if="projects.find((p) => p.intitule_projet === value)?.newProject"
+              ></v-icon>
+            </template>
+          </v-tooltip>
         </template>
         <template #item.statut_projet="{ value }">
           <v-chip
@@ -34,18 +49,42 @@
         </template>
         <template #item.actions="{ value }">
           <div class="d-flex justify-center">
-            <v-icon
-              icon="$squareEditOutline"
-              class="mr-1 cursor-pointer"
-              color="light-blue"
-              @click="editProject(value)"
-            ></v-icon>
-            <v-icon
-              icon="$trashCanOutline"
-              class="cursor-pointer"
-              color="main-purple"
-              v-if="authStore.isAdmin"
-            ></v-icon>
+            <template v-if="projects.find((p) => p.id === value)?.newProject">
+              <v-tooltip
+                :text="$t('projects.associationTable.validateNewProject')"
+                v-if="authStore.isAdmin"
+              >
+                <template v-slot:activator="{ props }">
+                  <v-icon
+                    v-bind="props"
+                    icon="$fileCheckOutline"
+                    class="cursor-pointer"
+                    color="main-purple"
+                    @click="validateProject(value)"
+                  ></v-icon>
+                </template>
+              </v-tooltip>
+              <v-tooltip :text="$t('projects.associationTable.validationPending')" v-else>
+                <template v-slot:activator="{ props }">
+                  <v-icon v-bind="props" icon="$receiptClock" color="main-grey"></v-icon>
+                </template>
+              </v-tooltip>
+            </template>
+            <template v-else>
+              <v-icon
+                icon="$squareEditOutline"
+                class="mr-1 cursor-pointer"
+                color="light-blue"
+                @click="editProject(value)"
+                v-if="hasEditPermission"
+              ></v-icon>
+              <v-icon
+                icon="$trashCanOutline"
+                class="cursor-pointer"
+                color="main-purple"
+                v-if="authStore.isAdmin"
+              ></v-icon>
+            </template>
           </div>
         </template>
       </v-data-table>
@@ -68,8 +107,15 @@ const props = defineProps<{
 const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
 
+const hasEditPermission =
+  authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId
+
 function editProject(projectId: string) {
   projectsStore.activeProjectEdition(projectId)
+}
+
+function addProject() {
+  projectsStore.activeProjectCreation(props.associationId)
 }
 
 const headers = [

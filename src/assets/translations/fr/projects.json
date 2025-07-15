@@ -13,7 +13,10 @@
       "budget_projet": "Budget",
       "actions": "Actions",
       "unknownEndDate": "Date de fin non précisée",
-      "unknownDates": "Dates non précisées"
+      "unknownDates": "Dates non précisées",
+      "newProject": "Nouveau projet en attente de validation",
+      "validationPending": "En attente de validation",
+      "validateNewProject": "Valider le nouveau projet"
     },
     "updateError": "Erreur lors de la mise à jour du projet",
     "updateSuccess": "Mise à jour du projet réussie",

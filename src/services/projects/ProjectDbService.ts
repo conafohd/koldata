@@ -24,9 +24,18 @@ export class ProjectDbService {
                     }
                 })
             }
+            const { data: new_projects, error: errorNewProjects } = await supabase.from('projets_new').select('*')
+            if (errorNewProjects) {
+                addNotification(i18n.t('projects.fetchError'), NotificationType.ERROR)
+                throw error
+            }
             return {
                 projects: projects,
-                updates: update_submissions
+                updates: update_submissions,
+                newProjects: new_projects.map((project: Project) => {
+                    project.newProject = true
+                    return project
+                })
             }
         }
     }
@@ -60,6 +69,16 @@ export class ProjectDbService {
             throw error
         } else {
             addNotification(i18n.t('admin.validationSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
+    public static async createProject(project: Project, isAdmin: boolean = false) {
+        const { error } = await supabase.from(isAdmin ? 'projets' : 'projets_new').insert(project)
+        if (error) {
+            addNotification(i18n.t('projects.createError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('projects.createSuccess'), NotificationType.SUCCESS)
         }
     }
 }

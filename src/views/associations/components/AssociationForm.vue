@@ -65,7 +65,7 @@
               v-model="associationForm.form.province.value.value"
               :error-messages="associationForm.form.province.errorMessage.value"
               @blur="associationForm.form.province.handleBlur"
-              :items="['Kinshasa', 'autre']"
+              :items="adminBoundariesStore.provincesList.map((p) => p.province)"
               required
             />
             <v-select
@@ -74,7 +74,7 @@
               v-model="associationForm.form.territoire.value.value"
               :error-messages="associationForm.form.territoire.errorMessage.value"
               @blur="associationForm.form.territoire.handleBlur"
-              :items="['Kinshasa', 'autre']"
+              :items="territoriesList"
               required
             />
             <v-select
@@ -387,16 +387,31 @@ import { i18n } from '@/plugins/i18n'
 import { AssociationFormService } from '@/services/associations/AssociationFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { addNotification } from '@/services/NotificationsService'
+import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
+const adminBoundariesStore = useAdminBoundariesStore()
 const showDialog = computed(() => associationsStore.associationToEdit !== null)
 
 const associationForm = AssociationFormService.getAssociationForm(
   associationsStore.associationToEdit,
 )
+
+onMounted(async () => {
+  await adminBoundariesStore.fetchBoundaries()
+})
+const territoriesList = computed(() => {
+  if (!associationForm.form.province.value.value) {
+    return adminBoundariesStore.territoriesList.map((t) => t.territoire)
+  } else {
+    return adminBoundariesStore.territoriesList
+      .filter((t) => t.province === associationForm.form.province.value.value)
+      .map((t) => t.territoire)
+  }
+})
 
 const submitUpdate = associationForm.handleSubmit(
   async (values) => {

@@ -2,7 +2,10 @@
   <v-dialog v-model="showDialog" fullscreen>
     <v-card class="fullScreenCard">
       <v-toolbar :color="authStore.isAdmin ? 'main-purple' : 'main-blue'">
-        <v-btn icon="$close" @click="projectsStore.projectToEdit = null"></v-btn>
+        <v-btn
+          icon="$close"
+          @click="((projectsStore.projectToEdit = null), (projectsStore.projectToCreate = null))"
+        ></v-btn>
         <v-toolbar-title>{{ $t('projects.form.title') }}</v-toolbar-title>
         <v-toolbar-items class="bg-white">
           <template v-if="authStore.isAdmin">
@@ -22,7 +25,7 @@
             <v-tooltip :text="$t('admin.acceptUpdateDisclaimer')" bottom>
               <template v-slot:activator="{ props }">
                 <v-btn
-                  @click="validateUpdate"
+                  @click="projectsStore.projectToCreate ? createProject() : validateUpdate()"
                   variant="flat"
                   color="main-purple"
                   v-bind="props"
@@ -111,7 +114,7 @@
                 :error-messages="projectForm.form.autre_bailleur_fonds.errorMessage.value"
                 @blur="projectForm.form.autre_bailleur_fonds.handleBlur"
                 v-if="
-                  projectForm.form.noms_bailleurs_fonds.value.value.includes(ProjectFunder.OTHER)
+                  projectForm.form.noms_bailleurs_fonds.value.value?.includes(ProjectFunder.OTHER)
                 "
                 clearable
               />
@@ -140,7 +143,7 @@
                 :error-messages="projectForm.form.autre_secteur_intervention.errorMessage.value"
                 @blur="projectForm.form.autre_secteur_intervention.handleBlur"
                 v-if="
-                  projectForm.form.secteurs_intervention.value.value.includes(
+                  projectForm.form.secteurs_intervention.value.value?.includes(
                     ProjectInterventionSector.OTHER,
                   )
                 "
@@ -184,7 +187,6 @@
                 append-inner-icon="$calendar"
                 @click:append-inner="openDatePicker('end')"
                 clearable
-                required
               />
             </div>
 
@@ -260,7 +262,7 @@
                 :error-messages="projectForm.form.autre_type_services_fournis.errorMessage.value"
                 @blur="projectForm.form.autre_type_services_fournis.handleBlur"
                 v-if="
-                  projectForm.form.types_services_fournis.value.value.includes(
+                  projectForm.form.types_services_fournis.value.value?.includes(
                     ProjectServiceType.OTHER,
                   )
                 "
@@ -297,7 +299,7 @@
                 "
                 @blur="projectForm.form.autre_types_beneficiaires_populations_cibles.handleBlur"
                 v-if="
-                  projectForm.form.types_beneficiaires_populations_cibles.value.value.includes(
+                  projectForm.form.types_beneficiaires_populations_cibles.value.value?.includes(
                     ProjectBeneficiaryType.OTHER,
                   )
                 "
@@ -451,7 +453,9 @@ import { computed, onMounted, ref } from 'vue'
 const projectsStore = useProjectsStore()
 const authStore = useAuthenticationStore()
 const adminBoundariesStore = useAdminBoundariesStore()
-const showDialog = computed(() => projectsStore.projectToEdit !== null)
+const showDialog = computed(
+  () => projectsStore.projectToEdit !== null || projectsStore.projectToCreate !== null,
+)
 const projectForm = ProjectFormService.getProjectForm(projectsStore.projectToEdit)
 const showStartDatePicker = ref(false)
 const showEndDatePicker = ref(false)
@@ -510,6 +514,22 @@ function confirmEndDate() {
 function formatDateToString(date: Date): string {
   return new Intl.DateTimeFormat('fr-CA').format(date)
 }
+
+const createProject = projectForm.handleSubmit(
+  async (values) => {
+    console.log('Creating project with values:', values)
+    const sanitizedData = CommonFormService.sanitizeFormData(values)
+    const newProject = {
+      ...sanitizedData,
+      association_id: projectsStore.projectToCreate as string,
+    }
+    projectsStore.createProject(newProject as unknown as Project)
+  },
+  ({ errors }) => {
+    console.error(errors)
+    addNotification(i18n.t('forms.errors.formNotValid'), NotificationType.ERROR)
+  },
+)
 
 const submitUpdate = projectForm.handleSubmit(
   async (values) => {

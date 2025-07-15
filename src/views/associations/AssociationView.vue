@@ -71,7 +71,7 @@ const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
 const route = useRoute()
 const { associationsList } = storeToRefs(associationsStore)
-const { projectsList } = storeToRefs(projectsStore)
+const { projectsList, newProjectsList } = storeToRefs(projectsStore)
 
 const selectedAssociation = computed(() => {
   return (
@@ -81,9 +81,14 @@ const selectedAssociation = computed(() => {
 })
 
 const projects = computed(() => {
-  return projectsList.value.filter(
-    (project) => project.association_id === selectedAssociation.value?.id,
-  )
+  return [
+    projectsList.value.filter(
+      (project) => project.association_id === selectedAssociation.value?.id,
+    ),
+    newProjectsList.value.filter(
+      (project) => project.association_id === selectedAssociation.value?.id,
+    ),
+  ].flat()
 })
 
 onBeforeMount(async () => {
