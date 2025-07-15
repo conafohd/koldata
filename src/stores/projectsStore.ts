@@ -46,6 +46,16 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
+    function activeNewProjectEdition(id: string) {
+        const project = newProjectsList.value.find(project => project.id === id)
+        console.log('activeNewProjectEdition', project)
+        if (project) {
+            projectToEdit.value = project
+        } else {
+            addNotification(i18n.t('projects.projectNotFound'), NotificationType.ERROR)
+        }
+    }
+
     async function submitUpdate(project: ProjectUpdate) {
         try {
             await ProjectDbService.submitProjectUpdate(project)
@@ -66,6 +76,16 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
+    async function refuseNewProject(id: number) {
+        try {
+            await ProjectDbService.removeNewProject(id, true)
+            projectToEdit.value = null
+            await getProjectsList(true)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     async function validateUpdate(project: Project) {
         try {
             await ProjectDbService.validateProjectUpdate(project)
@@ -74,6 +94,17 @@ export const useProjectsStore = defineStore('projects', () => {
             }
             await getProjectsList(true)
             projectToEdit.value = null
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function validateNewProject(project: Project) {
+        try {
+            await ProjectDbService.validateNewProject(project)
+            await refuseNewProject(projectToEdit.value?.id as unknown as number)
+            projectToEdit.value = null
+            await getProjectsList(true)
         } catch (error) {
             console.error(error)
         }
@@ -91,5 +122,5 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
-    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, validateUpdate, createProject }
+    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeNewProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, refuseNewProject, validateUpdate, validateNewProject, createProject }
 })

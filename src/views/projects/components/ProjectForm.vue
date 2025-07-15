@@ -6,7 +6,15 @@
           icon="$close"
           @click="((projectsStore.projectToEdit = null), (projectsStore.projectToCreate = null))"
         ></v-btn>
-        <v-toolbar-title>{{ $t('projects.form.title') }}</v-toolbar-title>
+        <v-toolbar-title
+          >{{
+            projectsStore.projectToCreate
+              ? $t('projects.form.createTitle')
+              : projectsStore.projectToEdit?.newProject
+                ? $t('projects.form.validateNewProjectTitle')
+                : $t('projects.form.updateTitle')
+          }}
+        </v-toolbar-title>
         <v-toolbar-items class="bg-white">
           <template v-if="authStore.isAdmin">
             <v-tooltip :text="$t('admin.refuseUpdateDisclaimer')" bottom>
@@ -17,8 +25,15 @@
                   variant="flat"
                   v-bind="props"
                   :loading="projectForm.isSubmitting.value"
-                  v-if="projectsStore.projectToEdit?.waiting_for_validation"
-                  >{{ $t('admin.refuseUpdate') }}</v-btn
+                  v-if="
+                    projectsStore.projectToEdit?.waiting_for_validation ||
+                    projectsStore.projectToEdit?.newProject
+                  "
+                  >{{
+                    projectsStore.projectToEdit?.newProject
+                      ? $t('admin.refuseSubmission')
+                      : $t('admin.refuseUpdate')
+                  }}</v-btn
                 >
               </template>
             </v-tooltip>
@@ -31,8 +46,11 @@
                   v-bind="props"
                   :loading="projectForm.isSubmitting.value"
                   >{{
-                    projectsStore.projectToEdit?.waiting_for_validation
-                      ? $t('admin.acceptUpdate')
+                    projectsStore.projectToEdit?.waiting_for_validation ||
+                    projectsStore.projectToEdit?.newProject
+                      ? projectsStore.projectToEdit?.newProject
+                        ? $t('admin.acceptSubmission')
+                        : $t('admin.acceptUpdate')
                       : $t('forms.validate')
                   }}</v-btn
                 >
@@ -517,7 +535,6 @@ function formatDateToString(date: Date): string {
 
 const createProject = projectForm.handleSubmit(
   async (values) => {
-    console.log('Creating project with values:', values)
     const sanitizedData = CommonFormService.sanitizeFormData(values)
     const newProject = {
       ...sanitizedData,
@@ -534,16 +551,20 @@ const createProject = projectForm.handleSubmit(
 const submitUpdate = projectForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
-    // If this project already have an update submitted, use the update id
-    const projectId = (projectsStore.projectToEdit as ProjectUpdate).projet_id
-      ? (projectsStore.projectToEdit as ProjectUpdate).projet_id
-      : projectsStore.projectToEdit!.id
-    const updatedProject: ProjectUpdate = {
-      ...sanitizedData,
-      association_id: projectsStore.projectToEdit!.association_id,
-      projet_id: projectId,
+    if (projectsStore.projectToEdit) {
+      // If this project already have an update submitted, use the update id
+      const projectId = (projectsStore.projectToEdit as ProjectUpdate).projet_id
+        ? (projectsStore.projectToEdit as ProjectUpdate).projet_id
+        : projectsStore.projectToEdit!.id
+      const updatedProject: ProjectUpdate = {
+        ...sanitizedData,
+        association_id: projectsStore.projectToEdit!.association_id,
+        projet_id: projectId,
+      }
+      await projectsStore.submitUpdate(updatedProject)
+    } else {
+      createProject()
     }
-    await projectsStore.submitUpdate(updatedProject)
   },
   ({ errors }) => {
     console.error(errors)
@@ -552,21 +573,33 @@ const submitUpdate = projectForm.handleSubmit(
 )
 
 function refuseUpdate() {
-  projectsStore.refuseUpdate(projectsStore.projectToEdit!.id as unknown as number)
+  if (projectsStore.projectToEdit?.newProject) {
+    projectsStore.refuseNewProject(projectsStore.projectToEdit!.id as unknown as number)
+  } else {
+    projectsStore.refuseUpdate(projectsStore.projectToEdit!.id as unknown as number)
+  }
 }
 
 const validateUpdate = projectForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
-    // If this association already have an update submitted, use the update id
-    const projectId = (projectsStore.projectToEdit as ProjectUpdate).projet_id
-      ? (projectsStore.projectToEdit as ProjectUpdate).projet_id
-      : projectsStore.projectToEdit!.id
-    const updatedProject: Project = {
-      ...sanitizedData,
-      id: projectId,
+    if (projectsStore.projectToEdit?.newProject) {
+      const newProject: Project = {
+        ...sanitizedData,
+        association_id: projectsStore.projectToEdit!.association_id,
+      }
+      await projectsStore.validateNewProject(newProject)
+    } else {
+      // If this association already have an update submitted, use the update id
+      const projectId = (projectsStore.projectToEdit as ProjectUpdate).projet_id
+        ? (projectsStore.projectToEdit as ProjectUpdate).projet_id
+        : projectsStore.projectToEdit!.id
+      const updatedProject: Project = {
+        ...sanitizedData,
+        id: projectId,
+      }
+      await projectsStore.validateUpdate(updatedProject)
     }
-    await projectsStore.validateUpdate(updatedProject)
   },
   ({ errors }) => {
     console.error(errors)

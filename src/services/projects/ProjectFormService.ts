@@ -46,17 +46,18 @@ export class ProjectFormService {
 
         date_debut_projet: z
         .string( { message: i18n.t('forms.errors.required') })
-        .min(1, { message: i18n.t('forms.errors.required') })
-        .nullable(),
+        .min(1, { message: i18n.t('forms.errors.required') }),
 
         date_fin_projet: z
         .string()
         .min(1, { message: i18n.t('forms.errors.required') })
-        .optional(),
+        .optional()
+        .nullable(),
 
         statut_projet: z
         .nativeEnum(ProjectStatus)
-        .optional(),
+        .optional()
+        .nullable(),
 
         province: z
         .string({ message: i18n.t('forms.errors.required') })

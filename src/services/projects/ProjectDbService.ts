@@ -62,6 +62,18 @@ export class ProjectDbService {
         }
     }
 
+    public static async removeNewProject(id: number, raiseResult: boolean) {
+        const { error } = await supabase.from('projets_new').delete().eq('id', id)
+        if (error && raiseResult) {
+            addNotification(i18n.t('projects.updateDeletionError'), NotificationType.ERROR)
+            throw error
+        } else {
+            if (raiseResult) {
+                addNotification(i18n.t('projects.updateDeletionSuccess'), NotificationType.SUCCESS)
+            }
+        }
+    }
+
     public static async validateProjectUpdate(project: Project) {
         const { error } = await supabase.from('projets').update(project).eq('id', project.id)
         if (error) {
@@ -69,6 +81,16 @@ export class ProjectDbService {
             throw error
         } else {
             addNotification(i18n.t('admin.validationSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
+    public static async validateNewProject(project: Project) {
+        const { error } = await supabase.from('projets').insert(project)
+        if (error) {
+            addNotification(i18n.t('projects.createError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('projects.createSuccess'), NotificationType.SUCCESS)
         }
     }
 

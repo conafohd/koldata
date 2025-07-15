@@ -4,7 +4,7 @@
     "associationTable": {
       "intitule_projet": "Intitulé du projet",
       "statut_projet": "Statut du projet",
-      "ongoing": "En cours",
+      "onGoing": "En cours",
       "finished": "Termine",
       "unknown": "Inconnu",
       "noms_bailleurs_fonds": "Bailleurs de fonds",
@@ -18,12 +18,17 @@
       "validationPending": "En attente de validation",
       "validateNewProject": "Valider le nouveau projet"
     },
+    "createSuccess": "Projet créé avec succès",
+    "createError": "Erreur lors de la création du projet",
     "updateError": "Erreur lors de la mise à jour du projet",
     "updateSuccess": "Mise à jour du projet réussie",
     "updateDeletionError": "Erreur lors de la suppression de la mise à jour du projet",
     "updateDeletionSuccess": "Mise à jour du projet supprimée avec succès",
+    "projectNotFound": "Projet non trouvé",
     "form": {
-      "title": "Modifier le projet",
+      "updateTitle": "Modifier le projet",
+      "createTitle": "Créer un nouveau projet",
+      "validateNewProjectTitle": "Valider le nouveau projet",
       "categories": {
         "general": "Informations générales",
         "beneficiaries": "Bénéficiaires"

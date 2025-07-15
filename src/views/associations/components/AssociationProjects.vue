@@ -118,6 +118,10 @@ function addProject() {
   projectsStore.activeProjectCreation(props.associationId)
 }
 
+function validateProject(projectId: string) {
+  projectsStore.activeNewProjectEdition(projectId)
+}
+
 const headers = [
   { title: i18n.t('projects.associationTable.intitule_projet'), key: 'intitule_projet' },
   { title: i18n.t('projects.associationTable.statut_projet'), key: 'statut_projet' },

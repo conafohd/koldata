@@ -2,8 +2,10 @@
   "admin": {
     "disclaimer": "Une modification de ce contenu est en attente de validation par un administrateur de la plateforme.",
     "refuseUpdate": "Refuser la modification",
+    "refuseSubmission": "Refuser ce contenu",
     "refuseUpdateDisclaimer": "Cette action entraine une suppression de la demande de modification faite par l'utilisateur.",
     "acceptUpdate": "Valider la modification",
+    "acceptSubmission": "Valider ce contenu",
     "acceptUpdateDisclaimer": "Cette action entraine une mise à jour des informations qui seront visibles par tous les utilisateurs du site.",
     "validationSuccess": "La validation a bien été enregistrée"
   }
