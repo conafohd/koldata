@@ -18,6 +18,7 @@
     "@vee-validate/zod": "^4.15.1",
     "maplibre-gl": "^5.6.1",
     "pinia": "^3.0.3",
+    "uuid": "^11.1.0",
     "vee-validate": "^4.15.1",
     "vite-plugin-inspect": "^11.3.0",
     "vite-plugin-vuetify": "^2.1.1",

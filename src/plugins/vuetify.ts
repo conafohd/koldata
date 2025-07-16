@@ -8,6 +8,7 @@ import {
   mdiChartBoxMultipleOutline,
   mdiClose,
   mdiFileCheckOutline,
+  mdiImagePlus,
   mdiInformationSlabBoxOutline,
   mdiLogin,
   mdiLogout,
@@ -20,7 +21,7 @@ import {
   mdiSelectMarker,
   mdiSquareEditOutline,
   mdiTimerEditOutline,
-  mdiTrashCanOutline
+  mdiTrashCanOutline,
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -62,7 +63,8 @@ export default createVuetify({
       fileCheckOutline: mdiFileCheckOutline,
       receiptClock: mdiReceiptClock,
       applicationArrayOutline: mdiApplicationArrayOutline,
-      magnify: mdiMagnify
+      magnify: mdiMagnify,
+      imagePlus: mdiImagePlus
     },
     sets: {
       mdi

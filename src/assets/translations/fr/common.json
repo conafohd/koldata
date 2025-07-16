@@ -43,5 +43,14 @@
     "searchLabel": "Rechercher",
     "latitudeError": "Latitude invalide (-90 à 90)",
     "longitudeError": "Longitude invalide (-180 à 180)"
+  },
+  "logoStorage": {
+    "permissionRefused": "Vous n'avez pas les permissions nécessaires pour télécharger des logos",
+    "uploadFailed": "Échec du téléchargement du logo",
+    "uploadSuccess": "Logo téléchargé avec succès",
+    "sizeExceeded": "La taille du fichier dépasse la limite autorisée de 1 Mo",
+    "invalidType": "Type de fichier non autorisé. Seuls les fichiers JPEG, PNG et WebP sont autorisés.",
+    "permissionDenied": "Vous n'avez pas les permissions nécessaires pour effectuer cette action",
+    "deleteFailed": "Échec de la suppression du logo"
   }
 }

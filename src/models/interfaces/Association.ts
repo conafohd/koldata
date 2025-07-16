@@ -4,6 +4,7 @@ import type { AssociationType } from "../enums/associations/AssociationType";
 export interface Association {
   id: string;
   created_at: string;
+  logo_url: string | null;
   nom: string;
   acronyme: string;
   desc: string;

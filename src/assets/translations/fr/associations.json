@@ -24,6 +24,7 @@
       },
       "fields": {
         "nom": "Nom de l'organisation",
+        "logo": "Logo de l'organisation",
         "acronyme": "Acronyme",
         "desc": "Description",
         "type_org": "Type d'organisation",

@@ -15,6 +15,8 @@ export class AssociationFormService {
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
+        logo_url: z.string().nullable(),
+
         acronyme: z
         .string()
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) })
@@ -239,6 +241,7 @@ export class AssociationFormService {
 
         const form = {
             nom: useField<string>('nom', '', { validateOnValueUpdate: true }),
+            logo_url: useField<string | null>('logo_url', '', { validateOnValueUpdate: true }),
             acronyme: useField<string>('acronyme', '', { validateOnValueUpdate: true }),
             desc: useField<string>('desc', '', { validateOnValueUpdate: true }),
             type_org: useField<string>('type_org', '', { validateOnValueUpdate: true }),

@@ -58,7 +58,12 @@
           @click="() => associationsStore.navigateToAssociation(association.id)"
         >
           <div class="Associations__card-avatar">
-            <v-avatar size="2.5rem" color="black" class="Associations__avatar" />
+            <v-avatar
+              size="2.5rem"
+              color="black"
+              class="Associations__avatar"
+              :image="association.logo_url ? association.logo_url : undefined"
+            />
           </div>
 
           <div class="Associations__card-content">

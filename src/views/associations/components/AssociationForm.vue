@@ -68,6 +68,11 @@
               @blur="associationForm.form.nom.handleBlur"
               required
             />
+            <LogoUpload
+              v-model="associationForm.form.logo_url.value.value"
+              :association-id="associationsStore.associationToEdit?.id || 'temp-' + Date.now()"
+              @update:model-value="associationForm.form.logo_url.handleChange"
+            />
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.acronyme')"
@@ -412,6 +417,7 @@
 </template>
 <script setup lang="ts">
 import Geocoder from '@/components/forms/Geocoder.vue'
+import LogoUpload from '@/components/forms/LogoUpload.vue'
 import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import { NotificationType } from '@/models/enums/NotificationType'

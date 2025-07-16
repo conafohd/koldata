@@ -3,6 +3,12 @@
     <div class="Association__header">
       <div class="d-flex align-center">
         <v-btn variant="text" icon="$arrowLeft" to="/associations" color="main-blue" />
+        <img
+          v-if="selectedAssociation.logo_url"
+          :src="selectedAssociation.logo_url"
+          alt="Logo ONG"
+          class="Association__logo"
+        />
         <h2 class="Associations__title ml-2">{{ selectedAssociation.nom }}</h2>
         <v-chip v-if="selectedAssociation.acronyme" class="ml-2" color="main-grey">
           {{ selectedAssociation.acronyme }}
@@ -125,6 +131,10 @@ function editAssociation() {
     align-items: center;
     margin-bottom: 0.5rem;
   }
+}
+.Association__logo {
+  height: 5rem;
+  object-fit: cover;
 }
 
 .Association__header--date {
