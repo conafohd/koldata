@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.2",
+    "@types/maplibre-gl": "^1.13.2",
     "@vee-validate/zod": "^4.15.1",
+    "maplibre-gl": "^5.6.1",
     "pinia": "^3.0.3",
     "vee-validate": "^4.15.1",
     "vite-plugin-inspect": "^11.3.0",

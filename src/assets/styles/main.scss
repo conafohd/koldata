@@ -68,6 +68,10 @@ body {
 .Form__fields {
   margin-top: 2rem;
   flex: 1;
+
+  &--noMargin {
+    margin-top: 0;
+  }
 }
 .Form__fieldsTitle {
   display: flex;

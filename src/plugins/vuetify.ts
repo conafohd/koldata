@@ -11,6 +11,7 @@ import {
   mdiInformationSlabBoxOutline,
   mdiLogin,
   mdiLogout,
+  mdiMagnify,
   mdiMap,
   mdiMonitorDashboard,
   mdiNewBox,
@@ -60,7 +61,8 @@ export default createVuetify({
       newBox: mdiNewBox,
       fileCheckOutline: mdiFileCheckOutline,
       receiptClock: mdiReceiptClock,
-      applicationArrayOutline: mdiApplicationArrayOutline
+      applicationArrayOutline: mdiApplicationArrayOutline,
+      magnify: mdiMagnify
     },
     sets: {
       mdi

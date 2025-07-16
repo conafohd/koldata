@@ -55,70 +55,6 @@
       <div class="Form">
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
-            <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
-            {{ $t('associations.form.categories.location') }}</span
-          >
-          <div class="Form__fields">
-            <v-select
-              variant="outlined"
-              :label="$t('associations.form.fields.province')"
-              v-model="associationForm.form.province.value.value"
-              :error-messages="associationForm.form.province.errorMessage.value"
-              @blur="associationForm.form.province.handleBlur"
-              :items="adminBoundariesStore.provincesList.map((p) => p.province)"
-              @update:model-value="
-                ((associationForm.form.territoire.value.value = ''),
-                (associationForm.form.zone_sante.value.value = ''),
-                (associationForm.form.aire_sante.value.value = ''))
-              "
-              required
-            />
-            <v-select
-              variant="outlined"
-              :label="$t('associations.form.fields.territoire')"
-              v-model="associationForm.form.territoire.value.value"
-              :error-messages="associationForm.form.territoire.errorMessage.value"
-              @blur="associationForm.form.territoire.handleBlur"
-              :items="territoriesList"
-              @update:model-value="
-                ((associationForm.form.zone_sante.value.value = ''),
-                (associationForm.form.aire_sante.value.value = ''))
-              "
-              required
-            />
-            <v-select
-              variant="outlined"
-              :label="$t('associations.form.fields.zone_sante')"
-              v-model="associationForm.form.zone_sante.value.value"
-              :error-messages="associationForm.form.zone_sante.errorMessage.value"
-              @blur="associationForm.form.zone_sante.handleBlur"
-              :items="healthAreasList"
-              @update:model-value="associationForm.form.aire_sante.value.value = ''"
-              required
-            />
-            <v-text-field
-              variant="outlined"
-              :label="$t('associations.form.fields.aire_sante')"
-              :placeholder="$t('associations.form.placeholders.aire_sante')"
-              v-model="associationForm.form.aire_sante.value.value"
-              :error-messages="associationForm.form.aire_sante.errorMessage.value"
-              @blur="associationForm.form.aire_sante.handleBlur"
-              required
-            />
-            <v-text-field
-              variant="outlined"
-              :label="$t('associations.form.fields.localite')"
-              :placeholder="$t('associations.form.placeholders.localite')"
-              v-model="associationForm.form.localite.value.value"
-              :error-messages="associationForm.form.localite.errorMessage.value"
-              @blur="associationForm.form.localite.handleBlur"
-              required
-            />
-            <v-divider color="light-blue" thickness="2" opacity="1"></v-divider>
-          </div>
-        </div>
-        <div class="Form__categoryCtn ContentCard">
-          <span class="ContentCard__title">
             <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.organisation') }}</span
           >
@@ -198,6 +134,10 @@
                 )
               "
             />
+            <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
+            <span class="Form__fieldsTitle">{{
+              $t('associations.form.hints.ressources_humaines')
+            }}</span>
             <v-number-input
               controlVariant="stacked"
               :label="$t('associations.form.fields.nb_salaries')"
@@ -218,12 +158,90 @@
             ></v-number-input>
           </div>
         </div>
+
+        <div class="Form__categoryCtn ContentCard">
+          <span class="ContentCard__title">
+            <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
+            {{ $t('associations.form.categories.location') }}</span
+          >
+          <div class="Form__fields">
+            <v-select
+              variant="outlined"
+              :label="$t('associations.form.fields.province')"
+              v-model="associationForm.form.province.value.value"
+              :error-messages="associationForm.form.province.errorMessage.value"
+              @blur="associationForm.form.province.handleBlur"
+              :items="adminBoundariesStore.provincesList.map((p) => p.province)"
+              @update:model-value="
+                ((associationForm.form.territoire.value.value = ''),
+                (associationForm.form.zone_sante.value.value = ''),
+                (associationForm.form.aire_sante.value.value = ''))
+              "
+              required
+            />
+            <v-select
+              variant="outlined"
+              :label="$t('associations.form.fields.territoire')"
+              v-model="associationForm.form.territoire.value.value"
+              :error-messages="associationForm.form.territoire.errorMessage.value"
+              @blur="associationForm.form.territoire.handleBlur"
+              :items="territoriesList"
+              @update:model-value="
+                ((associationForm.form.zone_sante.value.value = ''),
+                (associationForm.form.aire_sante.value.value = ''))
+              "
+              required
+            />
+            <v-select
+              variant="outlined"
+              :label="$t('associations.form.fields.zone_sante')"
+              v-model="associationForm.form.zone_sante.value.value"
+              :error-messages="associationForm.form.zone_sante.errorMessage.value"
+              @blur="associationForm.form.zone_sante.handleBlur"
+              :items="healthAreasList"
+              @update:model-value="associationForm.form.aire_sante.value.value = ''"
+              required
+            />
+            <v-text-field
+              variant="outlined"
+              :label="$t('associations.form.fields.aire_sante')"
+              :placeholder="$t('associations.form.placeholders.aire_sante')"
+              v-model="associationForm.form.aire_sante.value.value"
+              :error-messages="associationForm.form.aire_sante.errorMessage.value"
+              @blur="associationForm.form.aire_sante.handleBlur"
+              required
+            />
+            <v-text-field
+              variant="outlined"
+              :label="$t('associations.form.fields.localite')"
+              :placeholder="$t('associations.form.placeholders.localite')"
+              v-model="associationForm.form.localite.value.value"
+              :error-messages="associationForm.form.localite.errorMessage.value"
+              @blur="associationForm.form.localite.handleBlur"
+              required
+            />
+            <v-divider color="light-blue" thickness="2" opacity="1"></v-divider>
+            <span class="Form__fieldsTitle mt-3">{{
+              $t('associations.form.hints.coord_gps')
+            }}</span>
+            <Geocoder
+              :latitude="associationForm.form.latitude.value.value"
+              :longitude="associationForm.form.longitude.value.value"
+              :on-coordinates-change="handleCoordinatesChange"
+              class="mt-4"
+            />
+          </div>
+        </div>
+
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$cardAccountMailOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.contacts') }}</span
           >
-          <div class="Form__fields">
+          <div class="Form__fields--noMargin mt-2">
+            <span class="Form__fieldsTitle">{{
+              $t('associations.form.hints.responsable_edition')
+            }}</span>
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom_resp_edition')"
@@ -242,6 +260,10 @@
               @blur="associationForm.form.email_resp_edition.handleBlur"
               required
             />
+            <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
+            <span class="Form__fieldsTitle">{{
+              $t('associations.form.hints.contact_public')
+            }}</span>
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.nom_contact')"
@@ -278,8 +300,8 @@
               @blur="associationForm.form.email_org.handleBlur"
               required
             />
-            <v-divider color="light-blue mb-6" thickness="2" opacity="1"></v-divider>
-
+            <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
+            <span class="Form__fieldsTitle">{{ $t('associations.form.hints.social_media') }}</span>
             <v-text-field
               variant="outlined"
               :label="$t('associations.form.fields.website')"
@@ -350,7 +372,7 @@
             <v-icon icon="$chartBoxMultipleOutline" class="mr-1" color="light-blue"></v-icon>
             {{ $t('associations.form.categories.finances') }}</span
           >
-          <div class="Form__fields">
+          <div class="Form__fields--noMargin mt-2">
             <span class="Form__fieldsTitle">{{
               $t('associations.form.hints.budgets_history')
             }}</span>
@@ -381,7 +403,7 @@
               @blur="associationForm.form.budget_2022.handleBlur"
               variant="outlined"
             />
-            <v-divider color="light-blue mb-6" thickness="2" opacity="1"></v-divider>
+            <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
           </div>
         </div>
       </div>
@@ -389,6 +411,7 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
+import Geocoder from '@/components/forms/Geocoder.vue'
 import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import { NotificationType } from '@/models/enums/NotificationType'
@@ -431,6 +454,11 @@ const healthAreasList = computed(() => {
       .map((h) => h.zone_sante)
   }
 })
+
+const handleCoordinatesChange = (lat: number, lng: number) => {
+  associationForm.form.latitude.value.value = lat
+  associationForm.form.longitude.value.value = lng
+}
 
 const submitUpdate = associationForm.handleSubmit(
   async (values) => {

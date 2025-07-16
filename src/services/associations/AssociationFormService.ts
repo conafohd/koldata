@@ -11,23 +11,23 @@ import { CommonFormService } from "../forms/CommonFormService";
 export class AssociationFormService {
     private static readonly validations = {
         nom: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
         acronyme: z
         .string()
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) })
-        .optional()
+        .nullable()
         .or(z.literal('')),
 
         desc: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .min(10, { message: i18n.t('forms.errors.minLength', { min: 10 }) }),
 
         type_org: z
-        .nativeEnum(AssociationType),
+        .nativeEnum(AssociationType, { message: i18n.t('forms.errors.required') }),
 
         type_org_autre: z
         .string()
@@ -42,7 +42,7 @@ export class AssociationFormService {
             message: i18n.t('forms.errors.maxValue', { max: new Date().getFullYear() }) 
         }),
 
-        secteurs_interv: z.array(z.nativeEnum(AssociationInterventionSector))
+        secteurs_interv: z.array(z.nativeEnum(AssociationInterventionSector), { message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         secteurs_interv_autre: z.string()
@@ -51,15 +51,15 @@ export class AssociationFormService {
         .or(z.literal('')),
 
         province: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         territoire: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         zone_sante: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         aire_sante: z
@@ -67,7 +67,7 @@ export class AssociationFormService {
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         localite: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         latitude: z
@@ -119,12 +119,12 @@ export class AssociationFormService {
         .max(32767, { message: i18n.t('forms.errors.maxValue', { max: 32767 }) }),
 
         nom_resp_edition: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
         email_resp_edition: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .email({ message: i18n.t('forms.errors.email') })
         .refine(
@@ -133,7 +133,7 @@ export class AssociationFormService {
         ),
 
         email_org: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .email({ message: i18n.t('forms.errors.email') })
         .refine(
@@ -142,19 +142,19 @@ export class AssociationFormService {
         ),
 
         nom_contact: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) }),
 
         tel_contact: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .regex(/^[\+]?[0-9\s\-\(\)]{8,20}$/, { 
             message: i18n.t('forms.errors.invalidPhone') 
         }),
 
         email_contact: z
-        .string()
+        .string({ message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') })
         .email({ message: i18n.t('forms.errors.email') })
         .refine(
