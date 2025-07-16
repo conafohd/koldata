@@ -66,6 +66,11 @@
               :error-messages="associationForm.form.province.errorMessage.value"
               @blur="associationForm.form.province.handleBlur"
               :items="adminBoundariesStore.provincesList.map((p) => p.province)"
+              @update:model-value="
+                ((associationForm.form.territoire.value.value = ''),
+                (associationForm.form.zone_sante.value.value = ''),
+                (associationForm.form.aire_sante.value.value = ''))
+              "
               required
             />
             <v-select
@@ -75,6 +80,10 @@
               :error-messages="associationForm.form.territoire.errorMessage.value"
               @blur="associationForm.form.territoire.handleBlur"
               :items="territoriesList"
+              @update:model-value="
+                ((associationForm.form.zone_sante.value.value = ''),
+                (associationForm.form.aire_sante.value.value = ''))
+              "
               required
             />
             <v-select
@@ -83,7 +92,8 @@
               v-model="associationForm.form.zone_sante.value.value"
               :error-messages="associationForm.form.zone_sante.errorMessage.value"
               @blur="associationForm.form.zone_sante.handleBlur"
-              :items="['Biyela', 'autre']"
+              :items="healthAreasList"
+              @update:model-value="associationForm.form.aire_sante.value.value = ''"
               required
             />
             <v-text-field
@@ -410,6 +420,15 @@ const territoriesList = computed(() => {
     return adminBoundariesStore.territoriesList
       .filter((t) => t.province === associationForm.form.province.value.value)
       .map((t) => t.territoire)
+  }
+})
+const healthAreasList = computed(() => {
+  if (!associationForm.form.territoire.value.value) {
+    return adminBoundariesStore.healthAreasList.map((h) => h.zone_sante)
+  } else {
+    return adminBoundariesStore.healthAreasList
+      .filter((h) => h.territoire === associationForm.form.territoire.value.value)
+      .map((h) => h.zone_sante)
   }
 })
 

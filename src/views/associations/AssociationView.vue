@@ -43,9 +43,9 @@
         </v-btn-toggle>
       </div>
       <div class="Association__contentCtn">
-        <AssociationInfos v-show="selectedTab === 'infos'" :association="selectedAssociation" />
+        <AssociationInfos v-if="selectedTab === 'infos'" :association="selectedAssociation" />
         <AssociationProjects
-          v-show="selectedTab === 'projects'"
+          v-if="selectedTab === 'projects'"
           :projects="projects"
           :association-id="selectedAssociation.id"
         />

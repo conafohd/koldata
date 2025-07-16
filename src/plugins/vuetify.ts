@@ -1,6 +1,7 @@
 import {
   mdiAccountCircle,
   mdiAccountGroup,
+  mdiApplicationArrayOutline,
   mdiArrowLeft,
   mdiCalendar,
   mdiCardAccountMailOutline,
@@ -58,7 +59,8 @@ export default createVuetify({
       trashCanOutline: mdiTrashCanOutline,
       newBox: mdiNewBox,
       fileCheckOutline: mdiFileCheckOutline,
-      receiptClock: mdiReceiptClock
+      receiptClock: mdiReceiptClock,
+      applicationArrayOutline: mdiApplicationArrayOutline
     },
     sets: {
       mdi

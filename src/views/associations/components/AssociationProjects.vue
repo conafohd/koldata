@@ -2,7 +2,7 @@
   <div class="Projects__ctn ContentCard">
     <div class="Projects__header">
       <span class="ContentCard__title">
-        <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
+        <v-icon icon="$applicationArrayOutline" class="mr-1" color="light-blue"></v-icon>
         {{ $t('associations.projectsLabel') }}
       </span>
       <v-btn
