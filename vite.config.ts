@@ -15,6 +15,7 @@ export default defineConfig({
       styles: 'sass'
     }),
   ],
+  base: '/plateforme-conafohd/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
