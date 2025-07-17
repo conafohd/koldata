@@ -36,8 +36,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
