@@ -508,11 +508,11 @@ function openDatePicker(type: 'start' | 'end') {
   }
 }
 
-function onStartDateSelected(date: Date) {
+function onStartDateSelected(date: Date | null) {
   tempStartDate.value = date
 }
 
-function onEndDateSelected(date: Date) {
+function onEndDateSelected(date: Date | null) {
   tempEndDate.value = date
 }
 
