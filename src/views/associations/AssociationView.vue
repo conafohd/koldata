@@ -1,7 +1,7 @@
 <template>
   <div class="Association" v-if="selectedAssociation">
     <div class="Association__header">
-      <div class="d-flex align-center">
+      <div class="Association__headerContent">
         <v-btn variant="text" icon="$arrowLeft" to="/associations" color="main-blue" />
         <img
           v-if="selectedAssociation.logo_url"
@@ -125,23 +125,48 @@ function editAssociation() {
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-
-  &__header {
+}
+@media (max-width: $bp-sm) {
+  .Association__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .Association__headerContent {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .Association__header--date {
+    font-size: 0.8rem;
+    color: var(--main-grey);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+}
+@media (min-width: $bp-sm) {
+  .Association__header {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
   }
+  .Association__headerContent {
+    display: flex;
+    align-items: center;
+  }
+  .Association__header--date {
+    font-size: 0.9rem;
+    color: var(--main-grey);
+    margin-left: auto;
+    font-style: italic;
+  }
 }
+
 .Association__logo {
   height: 5rem;
   object-fit: cover;
-}
-
-.Association__header--date {
-  font-size: 0.9rem;
-  color: var(--main-grey);
-  margin-left: auto;
-  font-style: italic;
 }
 
 .Association__content {
@@ -149,6 +174,7 @@ function editAssociation() {
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
+  margin-top: 1rem;
 }
 .Association__content--description {
   font-size: 0.9rem;
@@ -158,6 +184,9 @@ function editAssociation() {
 .Association__content--switch {
   margin-top: 2rem;
   display: flex;
+  @media (max-width: $bp-sm) {
+    justify-content: center;
+  }
 }
 .Association__contentCtn {
   display: flex;

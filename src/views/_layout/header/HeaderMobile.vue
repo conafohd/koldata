@@ -44,6 +44,16 @@
               >
             </RouterLink>
           </v-list-item>
+          <v-list-item v-if="authStore.authSession && authStore.userInfos?.role === 'admin'">
+            <RouterLink :to="{ name: 'admin' }" class="Header__tabsText">
+              <span
+                :class="{ 'Header__tabsText--active': appStore.activeTab === 3 }"
+                class="Header__tabsText--admin"
+                @click="((appStore.activeTab = 3), (showMobileMenu = !showMobileMenu))"
+                >{{ $t('header.tabs.admin') }}</span
+              >
+            </RouterLink>
+          </v-list-item>
           <v-list-item>
             <AuthButton />
           </v-list-item>
@@ -56,9 +66,11 @@
 import AuthButton from '@/components/auth/AuthButton.vue'
 import { NavigationTabsService } from '@/services/NavigationService'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useAuthenticationStore } from '@/stores/authStore'
 import { ref } from 'vue'
 
 const appStore = useApplicationStore()
+const authStore = useAuthenticationStore()
 const showMobileMenu = ref(false)
 </script>
 
@@ -66,7 +78,7 @@ const showMobileMenu = ref(false)
 .Header {
   &--mobile {
     height: $header-mobile-height;
-    margin-top: $header-mobile-height;
+    // margin-top: $header-mobile-height;
 
     &::after {
       width: 100%;
@@ -88,13 +100,17 @@ const showMobileMenu = ref(false)
     }
 
     .Header__tabsText {
-      color: rgb(var(--v-theme-main-blue));
+      color: rgb(var(--v-theme-main-grey));
       font-weight: 600;
       text-transform: none;
       text-decoration: none;
 
+      &--admin {
+        color: rgb(var(--v-theme-main-purple));
+      }
+
       &--active {
-        color: rgb(var(--v-theme-main-red));
+        color: rgb(var(--v-theme-main-blue));
       }
     }
 
