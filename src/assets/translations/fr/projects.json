@@ -103,7 +103,7 @@
           "Termine": "Terminé"
         },
         "serviceTypes": {
-          "Soins médicaux": "Soins médicaux",
+          "Soins_medicaux": "Soins médicaux",
           "Vaccination": "Vaccination",
           "Formation": "Formation",
           "Distribution de kits": "Distribution de kits",
@@ -112,7 +112,7 @@
           "Autre": "Autre"
         },
         "interventionSectors": {
-          "Soins médicaux": "Soins médicaux",
+          "Soins_medicaux": "Soins médicaux",
           "Vaccination": "Vaccination",
           "Formation": "Formation",
           "Distribution de kits": "Distribution de kits",
@@ -133,7 +133,7 @@
           "Déplacés": "Déplacés",
           "Réfugiés": "Réfugiés",
           "Populations autochtones": "Populations autochtones",
-          "Retournés": "Retournés",
+          "retournés": "Retournés",
           "Autre": "Autre"
         }
       },

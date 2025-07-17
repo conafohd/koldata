@@ -54,6 +54,7 @@ export class AssociationDbService {
     }
 
     public static async validateAssociationUpdate(association: Association) {
+        association.updated_at = new Date().toISOString()
         const { error } = await supabase.from('associations').update(association).eq('id', association.id)
         if (error) {
             addNotification(i18n.t('associations.updateError'), NotificationType.ERROR)
