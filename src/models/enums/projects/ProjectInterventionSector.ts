@@ -5,5 +5,5 @@ export enum ProjectInterventionSector {
     KIT_DISTRIBUTION = "Distribution de kits",
     AWARENESS = "Sensibilisation",
     INFRASTRUCTURE_REHABILITATION = "Rehabilitation_infrastructures",
-    OTHER = "Autre"
+    OTHER = "Autre (préciser)"
 }
