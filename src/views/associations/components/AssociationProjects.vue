@@ -9,7 +9,7 @@
         :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
         prepend-icon="$plus"
         @click="addProject"
-        v-if="hasEditPermission"
+        v-if="hasEditPermission && !appStore.mobile"
         >{{ $t('associations.addProject') }}</v-btn
       >
     </div>

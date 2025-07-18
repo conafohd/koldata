@@ -2,7 +2,21 @@
   <div class="Association" v-if="selectedAssociation">
     <div class="Association__header">
       <div class="Association__headerContent">
-        <v-btn variant="text" icon="$arrowLeft" to="/associations" color="main-blue" />
+        <v-btn
+          variant="text"
+          icon="$arrowLeft"
+          to="/associations"
+          color="main-blue"
+          v-if="!applicationStore.mobile"
+        />
+        <v-btn
+          variant="text"
+          icon="$arrowLeft"
+          to="/associations"
+          color="main-blue"
+          class="Association__closeBtn"
+          v-else
+        />
         <img
           v-if="selectedAssociation.logo_url"
           :src="selectedAssociation.logo_url"
@@ -17,7 +31,7 @@
           :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
           class="ml-6"
           flat
-          v-if="hasPermission"
+          v-if="hasPermission && !applicationStore.mobile"
           prepend-icon="$squareEditOutline"
           @click="editAssociation"
         >
@@ -139,11 +153,21 @@ function editAssociation() {
     justify-content: center;
     gap: 1rem;
   }
+  .Association__closeBtn {
+    position: absolute;
+    top: 5rem;
+    left: 1rem;
+    z-index: 2000;
+  }
   .Association__header--date {
     font-size: 0.8rem;
     color: var(--main-grey);
     margin-top: 1rem;
     font-style: italic;
+  }
+
+  .Associations__title {
+    text-align: center;
   }
 }
 @media (min-width: $bp-sm) {

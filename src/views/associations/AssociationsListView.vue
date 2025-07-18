@@ -78,7 +78,11 @@
                       icon="$timerEditOutline"
                       :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
                       class="mr-1"
-                      v-if="association.waiting_for_validation"
+                      v-if="
+                        association.waiting_for_validation &&
+                        hasPermissionToEdit(association.id) &&
+                        !applicationStore.mobile
+                      "
                       @click.stop
                     ></v-icon>
                   </template>
@@ -87,7 +91,7 @@
                   size="small"
                   icon="$squareEditOutline"
                   :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
-                  v-if="hasPermissionToEdit(association.id)"
+                  v-if="hasPermissionToEdit(association.id) && !applicationStore.mobile"
                   @click.stop="editAssociation(association)"
                 ></v-icon>
               </div>
@@ -200,6 +204,7 @@ function editAssociation(association: Association) {
     gap: 1rem;
     padding: 1.5rem;
     border: 0.0625rem solid #e0e0e0;
+    max-width: 90vw;
     border-radius: 0.5rem;
     background: white;
     transition: all 0.3s ease;
