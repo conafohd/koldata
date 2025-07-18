@@ -7,14 +7,14 @@
     :fullscreen="appStore.mobile"
   >
     <v-card class="ProjectDetails">
-      <v-card-title class="ProjectDetails__header">
-        <span class="ProjectDetails__title">
+      <div class="ProjectDetails__header">
+        <div class="ProjectDetails__title">
           {{ project.intitule_projet }}
-        </span>
+        </div>
         <v-btn icon variant="text" @click="closeDialog" class="ProjectDetails__close-btn">
           <v-icon icon="$close"></v-icon>
         </v-btn>
-      </v-card-title>
+      </div>
 
       <v-card-text class="ProjectDetails__content">
         <v-container fluid class="pa-0">
@@ -488,13 +488,14 @@ const getStatusLabel = (status: ProjectStatus | null): string => {
   }
 
   &__title {
-    font-size: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.2rem;
     font-weight: 600;
+    max-width: 100%;
     margin: 0;
     color: rgb(var(--v-theme-main-blue));
-    flex: 1;
     margin-right: 16px;
-    word-break: break-word;
   }
 
   &__close-btn {
