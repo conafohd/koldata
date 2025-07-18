@@ -157,7 +157,6 @@ function editAssociation() {
     position: absolute;
     top: 5rem;
     left: 1rem;
-    z-index: 2000;
   }
   .Association__header--date {
     font-size: 0.8rem;
