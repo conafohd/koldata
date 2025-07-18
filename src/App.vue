@@ -6,6 +6,7 @@
     <NotificationBox />
     <AssociationForm v-if="associationsStore.associationToEdit" />
     <ProjectForm v-if="projectsStore.projectToEdit || projectsStore.projectToCreate" />
+    <ProjectCard v-if="projectsStore.selectedProject" />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import Header from './views/_layout/header/Header.vue'
 import Loader from './views/_layout/loader/Loader.vue'
 import NotificationBox from './views/_layout/notification/NotificationBox.vue'
 import AssociationForm from './views/associations/components/AssociationForm.vue'
+import ProjectCard from './views/projects/components/ProjectCard.vue'
 import ProjectForm from './views/projects/components/ProjectForm.vue'
 const authStore = useAuthenticationStore()
 const appStore = useApplicationStore()

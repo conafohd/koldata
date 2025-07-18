@@ -15,6 +15,9 @@ export default defineConfig({
       styles: 'sass'
     }),
   ],
+  optimizeDeps: {
+    include: ['vue-router']
+  },
   base: '/plateforme-conafohd/',
   resolve: {
     alias: {

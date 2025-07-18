@@ -14,10 +14,16 @@
       >
     </div>
     <div class="Projects__table">
-      <v-data-table :headers="headers" :items="projects" item-key="name" hide-default-footer>
+      <v-data-table
+        :headers="appStore.mobile ? headersMobile : headers"
+        :items="projects"
+        item-key="name"
+        hide-default-footer
+        @click:row="handleRowClick"
+      >
         <template #item.intitule_projet="{ value }">
           {{ value }}
-          <v-tooltip :text="$t('admin.disclaimer')">
+          <v-tooltip :text="$t('admin.disclaimer')" v-if="hasEditPermission">
             <template v-slot:activator="{ props }">
               <v-icon
                 v-bind="props"
@@ -60,7 +66,7 @@
                     icon="$fileCheckOutline"
                     class="cursor-pointer"
                     color="main-purple"
-                    @click="validateProject(value)"
+                    @click.stop="validateProject(value)"
                   ></v-icon>
                 </template>
               </v-tooltip>
@@ -75,7 +81,7 @@
                 icon="$squareEditOutline"
                 class="mr-1 cursor-pointer"
                 color="light-blue"
-                @click="editProject(value)"
+                @click.stop="editProject(value)"
                 v-if="hasEditPermission"
               ></v-icon>
               <v-icon
@@ -83,7 +89,7 @@
                 class="cursor-pointer"
                 color="main-purple"
                 v-if="authStore.isAdmin"
-                @click="deleteProject(value)"
+                @click.stop="deleteProject(value)"
               ></v-icon>
             </template>
           </div>
@@ -108,6 +114,7 @@
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
+import { useApplicationStore } from '@/stores/applicationStore'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { onBeforeMount, ref } from 'vue'
@@ -119,9 +126,14 @@ const props = defineProps<{
 
 const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
+const appStore = useApplicationStore()
 
 const hasEditPermission =
   authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId
+
+function handleRowClick(e: MouseEvent, item: any) {
+  projectsStore.selectedProject = item.item
+}
 
 function editProject(projectId: string) {
   projectsStore.activeProjectEdition(projectId)
@@ -171,6 +183,11 @@ const headers = [
     key: 'budget_projet',
     value: (item: Project) => `${item.budget_projet} $`,
   },
+]
+
+const headersMobile = [
+  { title: i18n.t('projects.associationTable.intitule_projet'), key: 'intitule_projet' },
+  { title: i18n.t('projects.associationTable.statut_projet'), key: 'statut_projet' },
 ]
 
 onBeforeMount(() => {
