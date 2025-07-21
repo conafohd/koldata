@@ -40,6 +40,9 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       if (urlParams.has('reset-password')) {
         showResetPasswordModal.value = true
       }
+      if (urlParams.has('signup-success')) {
+        addNotification(i18n.t('auth.accountConfirmed'), NotificationType.SUCCESS)
+      }
     })
   }
 
@@ -59,7 +62,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   async function signUp(signupData: { email: string; first_name: string; last_name: string; password: string }) {
-    console.log('Signup data:', signupData)
     await supabase.auth.signUp({
       email: signupData.email,
       password: signupData.password,
@@ -67,7 +69,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         data: {
           first_name: signupData.first_name,
           last_name: signupData.last_name
-        }
+        },
+        emailRedirectTo: window.location.origin + '?signup-success'
       }
     }).then(async ({ error }) => {
       if (error) {
@@ -117,7 +120,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   async function recoverPassword(email: string) {
-    console.log('Recovering password for:', email)
     const { error } = await supabase.auth.resetPasswordForEmail(
       email,
       {
