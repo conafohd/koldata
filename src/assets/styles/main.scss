@@ -45,6 +45,23 @@ body {
   font-size: 1.2rem;
   flex-shrink: 0;
   font-weight: bold;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(var(--v-theme-light-blue));
+}
+
+.ContentCard__content {
+  display: flex;
+  flex-direction: column;
+  padding: 0.25rem 1rem;
+  color: rgb(var(--v-theme-dark-grey));
+}
+.ContentCard__contentTitle {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.ContentCard__contentText {
+  font-size: 0.9rem;
 }
 
 .Form {

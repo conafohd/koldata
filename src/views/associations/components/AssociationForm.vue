@@ -53,6 +53,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <div class="Form">
+        <!-- Organisation Information -->
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$informationSlabBoxOutline" class="mr-1" color="light-blue"></v-icon>
@@ -164,6 +165,7 @@
           </div>
         </div>
 
+        <!-- Location Information -->
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$selectMarker" class="mr-1" color="light-blue"></v-icon>
@@ -238,6 +240,7 @@
           </div>
         </div>
 
+        <!-- Contact Information -->
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$cardAccountMailOutline" class="mr-1" color="light-blue"></v-icon>
@@ -372,6 +375,8 @@
             />
           </div>
         </div>
+
+        <!-- Finances Information -->
         <div class="Form__categoryCtn ContentCard">
           <span class="ContentCard__title">
             <v-icon icon="$chartBoxMultipleOutline" class="mr-1" color="light-blue"></v-icon>

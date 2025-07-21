@@ -461,9 +461,9 @@ const getStatusColor = (status: ProjectStatus | null): string => {
   if (!status) return 'grey'
 
   switch (status) {
-    case 'En cours':
+    case ProjectStatus.ON_GOING:
       return 'main-blue'
-    case 'Termine':
+    case ProjectStatus.FINISHED:
       return 'main-grey'
     default:
       return 'light-grey'

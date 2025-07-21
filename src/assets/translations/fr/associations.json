@@ -14,6 +14,19 @@
     "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
     "updateDeletionError": "Une erreur est survenue lors de la suppression de la modification",
     "updateDeletionSuccess": "La modification a bien été supprimée",
+    "infosCard": {
+      "nb_salaries": "Salariés",
+      "nb_benevoles": "Bénévoles",
+      "projects": "Projets (2022-2024)",
+      "total": "Total",
+      "consortium": "Consortium | Consortiums",
+      "coord_gps": "Coordonnées GPS",
+      "contact": "Contact principal",
+      "ongMail": "Email de l'ONG",
+      "website": "Site web",
+      "socialMedia": "Réseaux sociaux",
+      "interventionSectors": "Secteurs d'intervention et budget"
+    },
     "form": {
       "title": "Modifier les informations de l'ONG",
       "categories": {
@@ -109,7 +122,7 @@
       "lists": {
         "type_org": {
           "ONG Nationale": "ONG Nationale",
-          "ONG Locale": "ONG Locale",
+          "ONG locale": "ONG Locale",
           "Autre": "Autre"
         },
         "intervention_sector": {

@@ -1,10 +1,12 @@
 import {
   mdiAccountCircle,
+  mdiAccountCircleOutline,
   mdiAccountGroup,
   mdiApplicationArrayOutline,
   mdiArrowLeft,
   mdiCalendar,
   mdiCardAccountMailOutline,
+  mdiCardAccountPhoneOutline,
   mdiChartBoxMultipleOutline,
   mdiClose,
   mdiFileCheckOutline,
@@ -21,7 +23,7 @@ import {
   mdiSelectMarker,
   mdiSquareEditOutline,
   mdiTimerEditOutline,
-  mdiTrashCanOutline,
+  mdiTrashCanOutline
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
@@ -64,7 +66,9 @@ export default createVuetify({
       receiptClock: mdiReceiptClock,
       applicationArrayOutline: mdiApplicationArrayOutline,
       magnify: mdiMagnify,
-      imagePlus: mdiImagePlus
+      imagePlus: mdiImagePlus,
+      accountCircleOutline: mdiAccountCircleOutline,
+      cardAccountPhoneOutline: mdiCardAccountPhoneOutline,
     },
     sets: {
       mdi
