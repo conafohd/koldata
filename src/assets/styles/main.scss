@@ -33,6 +33,12 @@ body {
   border: 1px solid rgb(255, 255, 255) !important;
 }
 
+.PageTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
 .ContentCard {
   border-radius: 5px;
   border: 1px solid rgb(var(--v-theme-light-blue));

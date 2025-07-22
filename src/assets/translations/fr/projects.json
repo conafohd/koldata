@@ -1,6 +1,12 @@
 {
   "projects": {
+    "title": "Carte interactive des projets",
     "fetchError": "Erreur lors de la récupération des projets",
+    "filters": {
+      "search": "Rechercher un projet par son intitulé",
+      "association": "Filtrer par association",
+      "status": "Filtrer par statut"
+    },
     "associationTable": {
       "intitule_projet": "Intitulé du projet",
       "statut_projet": "Statut du projet",

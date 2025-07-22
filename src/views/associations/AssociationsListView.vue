@@ -2,7 +2,7 @@
   <div class="Associations">
     <header class="Associations__header">
       <div class="d-flex align-center">
-        <h1 class="Associations__title">{{ $t('associations.title') }}</h1>
+        <h1 class="PageTitle">{{ $t('associations.title') }}</h1>
         <v-chip color="main-blue" class="ml-2" size="small">{{ associations.length }}</v-chip>
       </div>
       <div class="d-flex align-center">
@@ -200,18 +200,20 @@ const filteredAssociations = computed(() => {
     ? filteredByHealthZone.filter((association) => association.type_org === selectedTypeOrg.value)
     : filteredByHealthZone
 
-  return filteredByTypeOrg.filter(
-    (association) =>
-      association.nom.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.acronyme?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.province.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.territoire.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.zone_sante.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.nom_contact.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      association.secteurs_interv.some((secteur) =>
-        secteur.toLowerCase().includes(searchQuery.value.toLowerCase()),
-      ),
-  )
+  return searchQuery.value
+    ? filteredByTypeOrg.filter(
+        (association) =>
+          association.nom.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.acronyme?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.province.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.territoire.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.zone_sante.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.nom_contact.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          association.secteurs_interv.some((secteur) =>
+            secteur.toLowerCase().includes(searchQuery.value.toLowerCase()),
+          ),
+      )
+    : filteredByTypeOrg
 })
 function resetFilters() {
   searchQuery.value = ''
@@ -234,13 +236,6 @@ function resetFilters() {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
-  }
-
-  &__title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin: 0;
   }
 
   &__reset-btn {
@@ -268,10 +263,6 @@ function resetFilters() {
 
   &__search-field {
     min-width: 15rem;
-  }
-
-  &__select {
-    min-width: 12rem;
   }
 
   &__content {
