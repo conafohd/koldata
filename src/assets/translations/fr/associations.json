@@ -14,6 +14,14 @@
     "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
     "updateDeletionError": "Une erreur est survenue lors de la suppression de la modification",
     "updateDeletionSuccess": "La modification a bien été supprimée",
+    "filters": {
+      "search": "Rechercher",
+      "province": "Filtrer par province",
+      "territory": "Filtrer par territoire",
+      "healthZone": "Filtrer par zone de santé",
+      "typeOrg": "Filtrer par type d'organisation",
+      "interventionSector": "Filtrer par secteur d'intervention"
+    },
     "infosCard": {
       "nb_salaries": "Salariés",
       "nb_benevoles": "Bénévoles",

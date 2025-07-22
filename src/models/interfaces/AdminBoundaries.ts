@@ -9,7 +9,7 @@ export interface Territory {
     territoire: string
 }
 
-export interface HealthArea {
+export interface HealthZone {
     id: number
     territoire: string
     zone_sante: string

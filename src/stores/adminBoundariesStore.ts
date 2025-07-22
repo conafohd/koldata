@@ -1,5 +1,5 @@
 import { NotificationType } from "@/models/enums/NotificationType"
-import type { HealthArea, Province, Territory } from "@/models/interfaces/AdminBoundaries"
+import type { HealthZone, Province, Territory } from "@/models/interfaces/AdminBoundaries"
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
 import { addNotification } from "@/services/NotificationsService"
@@ -9,10 +9,10 @@ import { ref, type Ref } from "vue"
 export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
     const provincesList: Ref<Province[]> = ref([])
     const territoriesList: Ref<Territory[]> = ref([])
-    const healthAreasList: Ref<HealthArea[]> = ref([])
+    const healthZonesList: Ref<HealthZone[]> = ref([])
 
     const fetchBoundaries = async () => {
-        if (provincesList.value.length > 0 && territoriesList.value.length > 0 && healthAreasList.value.length > 0) {
+        if (provincesList.value.length > 0 && territoriesList.value.length > 0 && healthZonesList.value.length > 0) {
             return
         }
         try {
@@ -44,7 +44,7 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
                 console.error('Error fetching health areas:', healthAreasError);
                 addNotification(i18n.t('error.errorFetchingHealthAreas'), NotificationType.ERROR)
             } else {
-                healthAreasList.value = health_areas;
+                healthZonesList.value = health_areas;
             }
 
         } catch (error) {
@@ -53,5 +53,5 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
         }
     };
 
-    return { provincesList, territoriesList, healthAreasList, fetchBoundaries }
+    return { provincesList, territoriesList, healthZonesList, fetchBoundaries }
 })
