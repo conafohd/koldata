@@ -18,7 +18,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['vue-router']
   },
-  base: process.env.VITE_BASE_URL || '/',
+  base: '/plateforme-conafohd/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
