@@ -205,7 +205,7 @@
               v-model="associationForm.form.zone_sante.value.value"
               :error-messages="associationForm.form.zone_sante.errorMessage.value"
               @blur="associationForm.form.zone_sante.handleBlur"
-              :items="healthAreasList"
+              :items="healthZonesList"
               @update:model-value="associationForm.form.aire_sante.value.value = ''"
               required
             />
@@ -456,11 +456,11 @@ const territoriesList = computed(() => {
       .map((t) => t.territoire)
   }
 })
-const healthAreasList = computed(() => {
+const healthZonesList = computed(() => {
   if (!associationForm.form.territoire.value.value) {
-    return adminBoundariesStore.healthAreasList.map((h) => h.zone_sante)
+    return adminBoundariesStore.healthZonesList.map((h) => h.zone_sante)
   } else {
-    return adminBoundariesStore.healthAreasList
+    return adminBoundariesStore.healthZonesList
       .filter((h) => h.territoire === associationForm.form.territoire.value.value)
       .map((h) => h.zone_sante)
   }
