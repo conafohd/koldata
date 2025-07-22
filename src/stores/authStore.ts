@@ -70,7 +70,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
           first_name: signupData.first_name,
           last_name: signupData.last_name
         },
-        emailRedirectTo: window.location.origin + '?signup-success'
+        emailRedirectTo: window.location.origin + import.meta.env.VITE_BASE_URL + '?signup-success'
       }
     }).then(async ({ error }) => {
       if (error) {

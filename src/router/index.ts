@@ -4,7 +4,7 @@ import HomeView from '@/views/homepage/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
-  history: createWebHistory('/plateforme-conafohd/'),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes: [
     {
       path: '/',
