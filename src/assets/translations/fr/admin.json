@@ -1,5 +1,9 @@
 {
   "admin": {
+    "title": "Panneau d'administration",
+    "members": "Droits d'accès",
+    "assos": "Associations",
+    "projects": "Projets",
     "disclaimer": "Une modification de ce contenu est en attente de validation par un administrateur de la plateforme.",
     "refuseUpdate": "Refuser la modification",
     "refuseSubmission": "Refuser ce contenu",
