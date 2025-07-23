@@ -1,4 +1,4 @@
-import type { AssociationInterventionSector } from "../enums/associations/AssociationInterventionSector";
+import type { InterventionSector } from "../enums/InterventionSector";
 import type { AssociationType } from "../enums/associations/AssociationType";
 
 export interface Association {
@@ -11,7 +11,7 @@ export interface Association {
   type_org: AssociationType;
   type_org_autre: string | null;
   annee_creation: number;
-  secteurs_interv: AssociationInterventionSector[];
+  secteurs_interv: InterventionSector[];
   secteurs_interv_autre: string | null;
   province: string;
   territoire: string;

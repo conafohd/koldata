@@ -90,6 +90,21 @@
               required
             />
             <div class="d-flex ga-2">
+              <v-checkbox
+                :label="$t('projects.form.fields.consortium')"
+                v-model="projectForm.form.consortium.value.value"
+              ></v-checkbox>
+              <v-text-field
+                variant="outlined"
+                :label="$t('projects.form.fields.partenaires_consortium')"
+                :placeholder="$t('projects.form.placeholders.partenaires_consortium')"
+                v-model="projectForm.form.partenaires_consortium.value.value"
+                :error-messages="projectForm.form.partenaires_consortium.errorMessage.value"
+                @blur="projectForm.form.partenaires_consortium.handleBlur"
+                v-if="projectForm.form.consortium.value.value"
+              />
+            </div>
+            <div class="d-flex ga-2">
               <v-text-field
                 variant="outlined"
                 :label="$t('projects.form.fields.partenaire_financier_technique')"
@@ -142,16 +157,15 @@
               <v-select
                 variant="outlined"
                 :label="$t('projects.form.fields.secteurs_intervention')"
-                v-model="
-                  projectForm.form.secteurs_intervention.value.value as ProjectInterventionSector[]
-                "
+                v-model="projectForm.form.secteurs_intervention.value.value as InterventionSector[]"
                 :error-messages="projectForm.form.secteurs_intervention.errorMessage.value"
                 @blur="projectForm.form.secteurs_intervention.handleBlur"
-                :items="Object.values(ProjectInterventionSector)"
-                :item-title="(key) => $t(`projects.form.lists.interventionSectors.${key}`)"
+                :items="Object.values(InterventionSector)"
+                :item-title="(key) => $t(`intervention_sector.${key}`)"
                 :item-value="(item) => item"
                 multiple
                 required
+                chips
               />
               <v-text-field
                 variant="outlined"
@@ -162,7 +176,7 @@
                 @blur="projectForm.form.autre_secteur_intervention.handleBlur"
                 v-if="
                   projectForm.form.secteurs_intervention.value.value?.includes(
-                    ProjectInterventionSector.OTHER,
+                    InterventionSector.OTHER,
                   )
                 "
                 clearable
@@ -216,8 +230,9 @@
                 :error-messages="projectForm.form.province.errorMessage.value"
                 @blur="projectForm.form.province.handleBlur"
                 :items="adminBoundariesStore.provincesList.map((p) => p.province)"
-                @update:model-value="projectForm.form.territoire.value.value = ''"
+                @update:model-value="updateTerritories()"
                 required
+                multiple
               />
               <v-select
                 variant="outlined"
@@ -226,7 +241,19 @@
                 :error-messages="projectForm.form.territoire.errorMessage.value"
                 @blur="projectForm.form.territoire.handleBlur"
                 :items="territoriesList"
+                @update:model-value="updateHealthZones()"
                 required
+                multiple
+              />
+              <v-select
+                variant="outlined"
+                :label="$t('projects.form.fields.zone_sante')"
+                v-model="projectForm.form.zone_sante.value.value"
+                :error-messages="projectForm.form.zone_sante.errorMessage.value"
+                @blur="projectForm.form.zone_sante.handleBlur"
+                :items="healthZonesList"
+                required
+                multiple
               />
             </div>
             <div class="d-flex ga-2">
@@ -268,7 +295,7 @@
                 :error-messages="projectForm.form.types_services_fournis.errorMessage.value"
                 @blur="projectForm.form.types_services_fournis.handleBlur"
                 :items="Object.values(ProjectServiceType)"
-                :item-title="(key) => $t(`projects.form.lists.interventionSectors.${key}`)"
+                :item-title="(key) => $t(`projects.form.lists.serviceTypes.${key}`)"
                 :item-value="(item) => item"
                 multiple
                 required
@@ -453,10 +480,10 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import { NotificationType } from '@/models/enums/NotificationType'
 import { ProjectBeneficiaryType } from '@/models/enums/projects/ProjectBeneficiaryType'
 import { ProjectFunder } from '@/models/enums/projects/ProjectFunder'
-import { ProjectInterventionSector } from '@/models/enums/projects/ProjectInterventionSector'
 import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project, ProjectUpdate } from '@/models/interfaces/Project'
@@ -489,10 +516,44 @@ const territoriesList = computed(() => {
     return adminBoundariesStore.territoriesList.map((t) => t.territoire)
   } else {
     return adminBoundariesStore.territoriesList
-      .filter((t) => t.province === projectForm.form.province.value.value)
+      .filter((t) => projectForm.form.province.value.value.includes(t.province))
       .map((t) => t.territoire)
   }
 })
+
+const healthZonesList = computed(() => {
+  if (!projectForm.form.territoire.value.value) {
+    return adminBoundariesStore.healthZonesList.map((h) => h.zone_sante)
+  } else {
+    return adminBoundariesStore.healthZonesList
+      .filter((h) => projectForm.form.territoire.value.value.includes(h.territoire))
+      .map((h) => h.zone_sante)
+  }
+})
+
+function updateTerritories() {
+  projectForm.form.territoire.value.value = projectForm.form.territoire.value.value.filter((t) => {
+    const territory = adminBoundariesStore.territoriesList.find(
+      (territory) => territory.territoire === t,
+    )
+    if (!territory) {
+      return false
+    }
+    return projectForm.form.province.value.value.includes(territory.province)
+  })
+}
+
+function updateHealthZones() {
+  projectForm.form.zone_sante.value.value = projectForm.form.zone_sante.value.value.filter((h) => {
+    const healthZone = adminBoundariesStore.healthZonesList.find(
+      (healthZone) => healthZone.zone_sante === h,
+    )
+    if (!healthZone) {
+      return false
+    }
+    return projectForm.form.territoire.value.value.includes(healthZone.territoire)
+  })
+}
 
 function openDatePicker(type: 'start' | 'end') {
   if (type === 'start') {

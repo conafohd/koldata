@@ -1,4 +1,4 @@
-import { AssociationInterventionSector } from "@/models/enums/associations/AssociationInterventionSector";
+import { InterventionSector } from "@/models/enums/InterventionSector";
 import { AssociationType } from "@/models/enums/associations/AssociationType";
 import type { Association } from "@/models/interfaces/Association";
 import { i18n } from "@/plugins/i18n";
@@ -44,7 +44,7 @@ export class AssociationFormService {
             message: i18n.t('forms.errors.maxValue', { max: new Date().getFullYear() }) 
         }),
 
-        secteurs_interv: z.array(z.nativeEnum(AssociationInterventionSector), { message: i18n.t('forms.errors.required') })
+        secteurs_interv: z.array(z.nativeEnum(InterventionSector), { message: i18n.t('forms.errors.required') })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         secteurs_interv_autre: z.string()
@@ -222,7 +222,7 @@ export class AssociationFormService {
                 )
                 .refine(
                     (data) => {
-                        if (data.secteurs_interv.includes( AssociationInterventionSector.OTHER)) {
+                        if (data.secteurs_interv.includes( InterventionSector.OTHER)) {
                             return data.secteurs_interv_autre && data.secteurs_interv_autre.trim() !== ''
                         }
                         return true

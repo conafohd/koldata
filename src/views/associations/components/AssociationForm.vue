@@ -115,13 +115,11 @@
             <v-select
               variant="outlined"
               :label="$t('associations.form.fields.secteurs_interv')"
-              v-model="
-                associationForm.form.secteurs_interv.value.value as AssociationInterventionSector[]
-              "
+              v-model="associationForm.form.secteurs_interv.value.value as InterventionSector[]"
               :error-messages="associationForm.form.secteurs_interv.errorMessage.value"
               @blur="associationForm.form.secteurs_interv.handleBlur"
-              :items="Object.values(AssociationInterventionSector)"
-              :item-title="(key) => $t(`associations.form.lists.intervention_sector.${key}`)"
+              :items="Object.values(InterventionSector)"
+              :item-title="(key) => $t(`intervention_sector.${key}`)"
               :item-value="(item) => item"
               multiple
               chips
@@ -135,9 +133,7 @@
               :error-messages="associationForm.form.secteurs_interv_autre.errorMessage.value"
               @blur="associationForm.form.secteurs_interv_autre.handleBlur"
               v-if="
-                associationForm.form.secteurs_interv.value.value.includes(
-                  AssociationInterventionSector.OTHER,
-                )
+                associationForm.form.secteurs_interv.value.value.includes(InterventionSector.OTHER)
               "
             />
             <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
@@ -423,8 +419,8 @@
 <script setup lang="ts">
 import Geocoder from '@/components/forms/Geocoder.vue'
 import LogoUpload from '@/components/forms/LogoUpload.vue'
-import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import { NotificationType } from '@/models/enums/NotificationType'
 import type { Association, AssociationUpdate } from '@/models/interfaces/Association'
 import { i18n } from '@/plugins/i18n'

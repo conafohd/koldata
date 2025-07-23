@@ -132,7 +132,7 @@
                         color="main-blue"
                         variant="outlined"
                         class="ProjectDetails__chip"
-                        v-if="sector !== ProjectInterventionSector.OTHER"
+                        v-if="sector !== InterventionSector.OTHER"
                       >
                         {{ $t(`projects.form.lists.interventionSectors.${sector}`) }}
                       </v-chip>
@@ -405,9 +405,9 @@
 </template>
 
 <script setup lang="ts">
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import { ProjectBeneficiaryType } from '@/models/enums/projects/ProjectBeneficiaryType'
 import { ProjectFunder } from '@/models/enums/projects/ProjectFunder'
-import { ProjectInterventionSector } from '@/models/enums/projects/ProjectInterventionSector'
 import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'

@@ -52,5 +52,17 @@
     "invalidType": "Type de fichier non autorisé. Seuls les fichiers JPEG, PNG et WebP sont autorisés.",
     "permissionDenied": "Vous n'avez pas les permissions nécessaires pour effectuer cette action",
     "deleteFailed": "Échec de la suppression du logo"
+  },
+  "intervention_sector": {
+    "Protection": "Protection",
+    "Nutrition": "Nutrition",
+    "Logistique": "Logistique",
+    "Eau, Hygiène et Assainissement (WASH)": "Eau, Hygiène et Assainissement (WASH)",
+    "Santé": "Santé",
+    "Sécurité alimentaire": "Sécurité alimentaire",
+    "Abris": "Abris",
+    "Éducation": "Éducation",
+    "Coordination inter-agence": "Coordination inter-agence",
+    "Autre": "Autre"
   }
 }

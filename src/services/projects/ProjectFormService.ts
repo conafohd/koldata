@@ -1,6 +1,6 @@
+import { InterventionSector } from "@/models/enums/InterventionSector";
 import { ProjectBeneficiaryType } from "@/models/enums/projects/ProjectBeneficiaryType";
 import { ProjectFunder } from "@/models/enums/projects/ProjectFunder";
-import { ProjectInterventionSector } from "@/models/enums/projects/ProjectInterventionSector";
 import { ProjectServiceType } from "@/models/enums/projects/ProjectServiceType";
 import { ProjectStatus } from "@/models/enums/projects/ProjectStatus";
 import type { Project } from "@/models/interfaces/Project";
@@ -33,7 +33,7 @@ export class ProjectFormService {
         .nullable()
         .or(z.literal('')),
 
-        secteurs_intervention: z.array(z.nativeEnum(ProjectInterventionSector), {
+        secteurs_intervention: z.array(z.nativeEnum(InterventionSector), {
             message: i18n.t('forms.errors.required')
         })
         .min(1, { message: i18n.t('forms.errors.required') }),
@@ -59,12 +59,19 @@ export class ProjectFormService {
         .optional()
         .nullable(),
 
-        province: z
-        .string({ message: i18n.t('forms.errors.required') })
+        province: z.array(z.string(), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
-        territoire: z
-        .string({ message: i18n.t('forms.errors.required') })
+        territoire: z.array(z.string(), {
+            message: i18n.t('forms.errors.required')
+        })
+        .min(1, { message: i18n.t('forms.errors.required') }),
+
+        zone_sante: z.array(z.string(), {
+            message: i18n.t('forms.errors.required')
+        })
         .min(1, { message: i18n.t('forms.errors.required') }),
 
         aire_sante: z
@@ -153,7 +160,16 @@ export class ProjectFormService {
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
         .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
         .optional()
+        .nullable(),
+
+        consortium: z
+        .boolean(),
+
+        partenaires_consortium: z
+        .string({ message: i18n.t('forms.errors.required') })
+        .optional()
         .nullable()
+        .or(z.literal(''))
     }
 
     static getProjectForm(projectToEdit: Project | null) {
@@ -173,7 +189,7 @@ export class ProjectFormService {
                 )
                 .refine(
                     (data) => {
-                        if (data.secteurs_intervention.includes(ProjectInterventionSector.OTHER)) {
+                        if (data.secteurs_intervention.includes(InterventionSector.OTHER)) {
                             return data.autre_secteur_intervention && data.autre_secteur_intervention.trim() !== ''
                         }
                         return true
@@ -219,6 +235,18 @@ export class ProjectFormService {
                         path: ['date_fin_projet']
                     }
                 )
+                .refine(
+                    (data) => {
+                        if (data.consortium) {
+                            return data.partenaires_consortium && data.partenaires_consortium.trim() !== ''
+                        }
+                        return true
+                    },
+                    {
+                        message: i18n.t('forms.errors.required'),
+                        path: ['partenaires_consortium']
+                    }
+                )
         )
 
         const { errors, handleSubmit, isSubmitting, meta } = useForm<Project>({
@@ -236,8 +264,9 @@ export class ProjectFormService {
             date_debut_projet: useField<string | null>('date_debut_projet', '', { validateOnValueUpdate: true }),
             date_fin_projet: useField<string | null>('date_fin_projet', '', { validateOnValueUpdate: true }),
             statut_projet: useField<string | null>('statut_projet', '', { validateOnValueUpdate: true }),
-            province: useField<string>('province', '', { validateOnValueUpdate: true }),
-            territoire: useField<string>('territoire', '', { validateOnValueUpdate: true }),
+            province: useField<string[]>('province', [], { validateOnValueUpdate: true }),
+            territoire: useField<string[]>('territoire', [], { validateOnValueUpdate: true }),
+            zone_sante: useField<string[]>('zone_sante', [], { validateOnValueUpdate: true }),
             aire_sante: useField<string>('aire_sante', '', { validateOnValueUpdate: true }),
             localite_village_quartier: useField<string>('localite_village_quartier', '', { validateOnValueUpdate: true }),
             budget_projet: useField<number>('budget_projet', '', { validateOnValueUpdate: true }),
@@ -252,7 +281,9 @@ export class ProjectFormService {
             nombre_garcons: useField<number | null>('nombre_garcons', '', { validateOnValueUpdate: true }),
             nombre_personnes_atteintes: useField<number | null>('nombre_personnes_atteintes', '', { validateOnValueUpdate: true }),
             nombre_personnes_handicapees: useField<number | null>('nombre_personnes_handicapees', '', { validateOnValueUpdate: true }),
-            nombre_personnes_agees: useField<number | null>('nombre_personnes_agees', '', { validateOnValueUpdate: true })
+            nombre_personnes_agees: useField<number | null>('nombre_personnes_agees', '', { validateOnValueUpdate: true }),
+            consortium: useField<boolean>('consortium', '', { validateOnValueUpdate: true }),
+            partenaires_consortium: useField<string | null>('partenaires_consortium', '', { validateOnValueUpdate: true })
         }
 
         const isValid = computed(() => meta.value.valid)

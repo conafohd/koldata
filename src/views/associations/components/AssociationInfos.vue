@@ -231,7 +231,7 @@
         }}</span>
         <div class="d-flex flex-wrap ga-2 mt-2">
           <template v-for="sector in association.secteurs_interv" :key="sector">
-            <v-chip color="main-blue" v-if="sector !== AssociationInterventionSector.OTHER">{{
+            <v-chip color="main-blue" v-if="sector !== InterventionSector.OTHER">{{
               sector
             }}</v-chip>
           </template>
@@ -261,7 +261,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { AssociationInterventionSector } from '@/models/enums/associations/AssociationInterventionSector'
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import type { Association } from '@/models/interfaces/Association'
 import { useProjectsStore } from '@/stores/projectsStore'

@@ -132,18 +132,6 @@
           "ONG Nationale": "ONG Nationale",
           "ONG locale": "ONG Locale",
           "Autre": "Autre"
-        },
-        "intervention_sector": {
-          "Protection": "Protection",
-          "Nutrition": "Nutrition",
-          "Logistique": "Logistique",
-          "Eau, Hygiène et Assainissement (WASH)": "Eau, Hygiène et Assainissement (WASH)",
-          "Santé": "Santé",
-          "Sécurité alimentaire": "Sécurité alimentaire",
-          "Abris": "Abris",
-          "Éducation": "Éducation",
-          "Coordination inter-agence": "Coordination inter-agence",
-          "Autre": "Autre"
         }
       }
     }

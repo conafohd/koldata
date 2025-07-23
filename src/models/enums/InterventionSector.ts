@@ -1,4 +1,4 @@
-export enum AssociationInterventionSector {
+export enum InterventionSector {
     PROTECTION = "Protection",
     NUTRITION = "Nutrition",
     LOGISTICS = "Logistique",

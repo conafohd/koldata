@@ -47,6 +47,8 @@
       },
       "fields": {
         "intitule_projet": "Intitulé du projet",
+        "consortium": "Ce projet est il en consortium?",
+        "partenaires_consortium": "Partenaires du consortium",
         "partenaire_financier_technique": "Partenaire financier et technique",
         "noms_bailleurs_fonds": "Bailleurs de fonds",
         "autre_bailleur_fonds": "Autre bailleur de fonds",
@@ -57,6 +59,7 @@
         "statut_projet": "Statut du projet",
         "province": "Province",
         "territoire": "Territoire",
+        "zone_sante": "Zone de santé",
         "aire_sante": "Aire de santé",
         "localite_village_quartier": "Localité/Village/Quartier",
         "budget_projet": "Budget du projet",
@@ -82,6 +85,7 @@
         "date_fin_projet": "Sélectionnez la date de fin",
         "province": "Sélectionnez une province",
         "territoire": "Sélectionnez un territoire",
+        "zone_sante": "Sélectionnez une zone de santé",
         "aire_sante": "Sélectionnez une aire de santé",
         "localite_village_quartier": "Nom de la localité, village ou quartier",
         "budget_projet": "Montant en USD",
@@ -109,15 +113,6 @@
           "Termine": "Terminé"
         },
         "serviceTypes": {
-          "Soins_medicaux": "Soins médicaux",
-          "Vaccination": "Vaccination",
-          "Formation": "Formation",
-          "Distribution de kits": "Distribution de kits",
-          "Sensibilisation": "Sensibilisation",
-          "Rehabilitation_infrastructures": "Réhabilitation d'infrastructures",
-          "Autre": "Autre"
-        },
-        "interventionSectors": {
           "Soins_medicaux": "Soins médicaux",
           "Vaccination": "Vaccination",
           "Formation": "Formation",
