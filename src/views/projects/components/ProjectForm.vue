@@ -544,7 +544,7 @@ function updateTerritories() {
 }
 
 function updateHealthZones() {
-  projectForm.form.zone_sante.value.value = projectForm.form.zone_sante.value.value.filter((h) => {
+  projectForm.form.zone_sante.value.value = projectForm.form.zone_sante?.value.value.filter((h) => {
     const healthZone = adminBoundariesStore.healthZonesList.find(
       (healthZone) => healthZone.zone_sante === h,
     )

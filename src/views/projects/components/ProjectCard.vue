@@ -196,7 +196,7 @@
                     {{ $t('projects.form.fields.province') }}
                   </span>
                   <p class="ProjectDetails__field-value">
-                    {{ project.province || '-' }}
+                    {{ project.province.join(', ') || '-' }}
                   </p>
                 </div>
               </v-col>
@@ -207,13 +207,21 @@
                     {{ $t('projects.form.fields.territoire') }}
                   </span>
                   <p class="ProjectDetails__field-value">
-                    {{ project.territoire || '-' }}
+                    {{ project.territoire.join(', ') || '-' }}
                   </p>
                 </div>
               </v-col>
-            </v-row>
 
-            <v-row class="ProjectDetails__row">
+              <v-col cols="12" md="6" v-if="project.zone_sante">
+                <div class="ProjectDetails__field">
+                  <span class="ProjectDetails__field-label">
+                    {{ $t('projects.form.fields.zone_sante') }}
+                  </span>
+                  <p class="ProjectDetails__field-value">
+                    {{ project.zone_sante.join(', ') || '-' }}
+                  </p>
+                </div>
+              </v-col>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -224,7 +232,6 @@
                   </p>
                 </div>
               </v-col>
-
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
