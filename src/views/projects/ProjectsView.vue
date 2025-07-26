@@ -55,12 +55,13 @@ import circleYellowImg from '@/assets/img/circle-yellow.png'
 import projectPin from '@/assets/img/project-pin.png'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import { ProjectsMapService } from '@/services/projects/ProjectsMapService'
+import { debounce } from '@/services/utils/Debounce'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import Spiderfy from '@nazka/map-gl-js-spiderfy'
-import { Map } from 'maplibre-gl'
+import { Map, type Feature } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { storeToRefs } from 'pinia'
 import {
@@ -97,25 +98,33 @@ onUnmounted(() => {
 })
 
 const searchQuery = ref('')
+const debouncedSearchQuery = ref('')
 const selectedAssociation = ref<string | null>(null)
 const selectedProjectStatus = ref<ProjectStatus | null>(null)
+const updateSearchQuery = debounce((value: string) => {
+  debouncedSearchQuery.value = value
+}, 300)
+
+watch(searchQuery, (newValue) => {
+  updateSearchQuery(newValue)
+})
 const filteredProjects = computed(() => {
-  if (!searchQuery.value && !selectedProjectStatus.value && !selectedAssociation.value) {
-    return projects.value
+  let result = projects.value
+
+  if (selectedAssociation.value) {
+    result = result.filter((project) => project.association_id === selectedAssociation.value)
   }
-  const projectsFilteredByAssociation = selectedAssociation.value
-    ? projects.value.filter((project) => project.association_id === selectedAssociation.value)
-    : projects.value
-  const projectsFilteredByStatus = selectedProjectStatus.value
-    ? projectsFilteredByAssociation.filter(
-        (project) => project.statut_projet === selectedProjectStatus.value,
-      )
-    : projectsFilteredByAssociation
-  return searchQuery.value
-    ? projectsFilteredByStatus.filter((project) =>
-        project.intitule_projet.toLowerCase().includes(searchQuery.value.toLowerCase()),
-      )
-    : projectsFilteredByStatus
+
+  if (selectedProjectStatus.value) {
+    result = result.filter((project) => project.statut_projet === selectedProjectStatus.value)
+  }
+
+  if (debouncedSearchQuery.value) {
+    const query = debouncedSearchQuery.value.toLowerCase()
+    result = result.filter((project) => project.intitule_projet.toLowerCase().includes(query))
+  }
+
+  return result
 })
 function resetFilters() {
   searchQuery.value = ''
@@ -199,7 +208,7 @@ function initMap() {
     const spiderfy = new Spiderfy(
       map.value as any,
       {
-        onLeafClick: (f) => setSelectedProject(f.properties.id),
+        onLeafClick: (f: Feature) => setSelectedProject(f.properties.id),
         minZoomLevel: 8,
         zoomIncrement: 2,
         spiderLeavesLayout: {
@@ -218,7 +227,7 @@ watch(
   () => {
     projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(filteredProjects.value) as any
     if (map.value) {
-      const source = map.value.getSource('markers')
+      const source = map.value.getSource('projectsSource')
       if (source) {
         ;(source as any).setData(ProjectsMapService.getProjectsGeoJson(filteredProjects.value))
       }
