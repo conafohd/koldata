@@ -7,6 +7,7 @@
     <AssociationForm v-if="associationsStore.associationToEdit" />
     <ProjectForm v-if="projectsStore.projectToEdit || projectsStore.projectToCreate" />
     <ProjectCard v-if="projectsStore.selectedProject" />
+    <Footer />
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import { RouterView } from 'vue-router'
 import { useApplicationStore } from './stores/applicationStore'
 import { useAssociationsStore } from './stores/associationsStore'
 import { useProjectsStore } from './stores/projectsStore'
+import Footer from './views/_layout/footer/Footer.vue'
 import Header from './views/_layout/header/Header.vue'
 import Loader from './views/_layout/loader/Loader.vue'
 import NotificationBox from './views/_layout/notification/NotificationBox.vue'
