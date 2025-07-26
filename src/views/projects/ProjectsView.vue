@@ -51,28 +51,49 @@
   </div>
 </template>
 <script setup lang="ts">
+import circleYellowImg from '@/assets/img/circle-yellow.png'
+import projectPin from '@/assets/img/project-pin.png'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
+import { ProjectsMapService } from '@/services/projects/ProjectsMapService'
+import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
+import Spiderfy from '@nazka/map-gl-js-spiderfy'
 import { Map } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { storeToRefs } from 'pinia'
-import { computed, nextTick, onBeforeMount, onMounted, ref } from 'vue'
+import {
+  computed,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+  type Ref,
+} from 'vue'
 
 const applicationStore = useApplicationStore()
 const projectsStore = useProjectsStore()
 const associationsStore = useAssociationsStore()
+const adminBoundStore = useAdminBoundariesStore()
 const { projectsList: projects } = storeToRefs(projectsStore)
 const { associationsList: associations } = storeToRefs(associationsStore)
-onBeforeMount(() => {
-  projectsStore.getProjectsList()
-  associationsStore.getAssociationsList()
+onBeforeMount(async () => {
+  await projectsStore.getProjectsList()
+  await associationsStore.getAssociationsList()
+  await adminBoundStore.fetchBoundaries()
 })
 onMounted(async () => {
   applicationStore.isLoading = false
   await nextTick()
+  projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(projects.value)
   initMap()
+})
+
+onUnmounted(() => {
+  map.value?.remove()
 })
 
 const searchQuery = ref('')
@@ -104,15 +125,100 @@ function resetFilters() {
 
 const projectsMapContainer = ref<HTMLElement>()
 const map = ref<Map>()
+const projectsGeojson: Ref<any> = ref(null)
 function initMap() {
   if (!projectsMapContainer.value) return
+  if (!projectsGeojson.value || projectsGeojson.value.features.length === 0) return
+
+  const apiKey = import.meta.env.VITE_MAPTILER_API_KEY
   map.value = new Map({
     container: projectsMapContainer.value,
-    style: 'https://tiles.openfreemap.org/styles/liberty',
+    style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
     center: [21.7587, -4.0383],
     zoom: 4,
   })
+
+  map.value.on('load', async () => {
+    map.value?.addSource('projectsSource', {
+      type: 'geojson',
+      data: projectsGeojson.value,
+      cluster: true,
+    })
+
+    const yellowImage = await map.value?.loadImage(circleYellowImg)
+    if (yellowImage && yellowImage.data) {
+      map.value?.addImage('cluster', yellowImage.data)
+    }
+    const projectPinImage = await map.value?.loadImage(projectPin)
+    if (projectPinImage && projectPinImage.data) {
+      map.value?.addImage('projectPin', projectPinImage.data)
+    }
+
+    map.value?.addLayer({
+      id: 'projectsCluster',
+      type: 'symbol',
+      source: 'projectsSource',
+      filter: ['has', 'point_count'],
+      layout: {
+        'icon-image': 'cluster',
+        'icon-size': 0.8,
+        'icon-allow-overlap': true,
+      },
+    })
+
+    map.value?.addLayer({
+      id: 'projectsClusterCount',
+      type: 'symbol',
+      source: 'projectsSource',
+      filter: ['!', ['has', 'point_count']],
+      layout: {
+        'icon-image': 'projectPin',
+        'icon-size': 0.8,
+        'icon-allow-overlap': true,
+      },
+    })
+
+    map.value?.addLayer({
+      id: 'cluster-count',
+      type: 'symbol',
+      source: 'projectsSource',
+      filter: ['has', 'point_count'],
+      layout: {
+        'text-field': '{point_count_abbreviated}',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-size': 12,
+      },
+    })
+
+    const spiderfy = new Spiderfy(map.value as any, {
+      onLeafClick: (f) => console.log(f),
+      minZoomLevel: 8,
+      zoomIncrement: 2,
+      spiderLeavesLayout: {
+        'icon-image': 'projectPin',
+        'icon-size': 0.8,
+        'icon-allow-overlap': true,
+      },
+    })
+    spiderfy.applyTo('projectsCluster')
+  })
 }
+
+watch(
+  [() => filteredProjects.value, () => adminBoundStore.provincesList],
+  () => {
+    projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(filteredProjects.value) as any
+    if (map.value) {
+      const source = map.value.getSource('markers')
+      if (source) {
+        ;(source as any).setData(ProjectsMapService.getProjectsGeoJson(filteredProjects.value))
+      }
+    } else {
+      initMap()
+    }
+  },
+  { deep: true },
+)
 </script>
 
 <style scoped lang="scss">
