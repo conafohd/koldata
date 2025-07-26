@@ -190,16 +190,19 @@ function initMap() {
       },
     })
 
-    const spiderfy = new Spiderfy(map.value as any, {
-      onLeafClick: (f) => console.log(f),
-      minZoomLevel: 8,
-      zoomIncrement: 2,
-      spiderLeavesLayout: {
-        'icon-image': 'projectPin',
-        'icon-size': 0.8,
-        'icon-allow-overlap': true,
-      },
-    })
+    const spiderfy = new Spiderfy(
+      map.value as any,
+      {
+        onLeafClick: (f) => console.log(f),
+        minZoomLevel: 8,
+        zoomIncrement: 2,
+        spiderLeavesLayout: {
+          'icon-image': 'projectPin',
+          'icon-size': 0.8,
+          'icon-allow-overlap': true,
+        },
+      } as any,
+    )
     spiderfy.applyTo('projectsCluster')
   })
 }
