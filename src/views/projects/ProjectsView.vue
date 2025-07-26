@@ -167,7 +167,7 @@ function initMap() {
     })
 
     map.value?.addLayer({
-      id: 'projectsClusterCount',
+      id: 'projects',
       type: 'symbol',
       source: 'projectsSource',
       filter: ['!', ['has', 'point_count']],
@@ -178,8 +178,14 @@ function initMap() {
       },
     })
 
+    map.value?.on('click', 'projects', (e) => {
+      const features = map.value?.queryRenderedFeatures(e.point, { layers: ['projects'] })
+      if (!features || features.length === 0) return
+      setSelectedProject(features[0].properties.id)
+    })
+
     map.value?.addLayer({
-      id: 'cluster-count',
+      id: 'clusterCount',
       type: 'symbol',
       source: 'projectsSource',
       filter: ['has', 'point_count'],
@@ -193,7 +199,7 @@ function initMap() {
     const spiderfy = new Spiderfy(
       map.value as any,
       {
-        onLeafClick: (f) => console.log(f),
+        onLeafClick: (f) => setSelectedProject(f.properties.id),
         minZoomLevel: 8,
         zoomIncrement: 2,
         spiderLeavesLayout: {
@@ -222,6 +228,13 @@ watch(
   },
   { deep: true },
 )
+
+function setSelectedProject(id: string) {
+  const project = projectsStore.projectsList.find((project) => project.id === id)
+  if (project) {
+    projectsStore.selectedProject = project
+  }
+}
 </script>
 
 <style scoped lang="scss">
