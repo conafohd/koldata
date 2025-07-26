@@ -12,5 +12,19 @@
     "acceptSubmission": "Valider ce contenu",
     "acceptUpdateDisclaimer": "Cette action entraine une mise à jour des informations qui seront visibles par tous les utilisateurs du site.",
     "validationSuccess": "La validation a bien été enregistrée"
+  },
+  "adminMembers": {
+    "title": "Gérer les droits d'édition",
+    "add": "Ajouter un droit d'édition",
+    "fetchError": "Une erreur est survenue lors de la récupération des utilisateurs",
+    "membersTable": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "email": "Email",
+      "association": "Association",
+      "actions": "Actions",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    }
   }
 }

@@ -44,16 +44,6 @@
               >
             </RouterLink>
           </v-list-item>
-          <v-list-item v-if="authStore.authSession && authStore.userInfos?.role === 'admin'">
-            <RouterLink :to="{ name: 'admin' }" class="Header__tabsText">
-              <span
-                :class="{ 'Header__tabsText--active': appStore.activeTab === 3 }"
-                class="Header__tabsText--admin"
-                @click="((appStore.activeTab = 3), (showMobileMenu = !showMobileMenu))"
-                >{{ $t('header.tabs.admin') }}</span
-              >
-            </RouterLink>
-          </v-list-item>
           <v-list-item>
             <AuthButton />
           </v-list-item>
@@ -78,7 +68,6 @@ const showMobileMenu = ref(false)
 .Header {
   &--mobile {
     height: $header-mobile-height;
-    // margin-top: $header-mobile-height;
 
     &::after {
       width: 100%;

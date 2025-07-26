@@ -36,7 +36,13 @@ body {
 .PageTitle {
   font-size: 2rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: rgb(var(--v-theme-main-grey));
+}
+
+.PageSubtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(var(--v-theme-main-grey));
 }
 
 .ContentCard {
