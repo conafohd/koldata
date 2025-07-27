@@ -33,6 +33,16 @@
       "confirm": "Confirmer"
     },
     "deletePermissionSuccess": "Droit d'édition supprimé avec succès",
-    "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition"
+    "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition",
+    "addDialog": {
+      "title": "Ajouter un droit d'édition",
+      "titleEdit": "Modifier le droit d'édition",
+      "selectMember": "Choisir un utilisateur",
+      "selectAssociation": "Choisir une ONG",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
+    "addPermissionSuccess": "Droit d'édition ajouté avec succès",
+    "addPermissionError": "Une erreur est survenue lors de l'ajout du droit d'édition"
   }
 }
