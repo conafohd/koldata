@@ -298,6 +298,16 @@
                   </p>
                 </div>
               </v-col>
+              <v-col cols="12" md="6">
+                <div class="ProjectDetails__field">
+                  <span class="ProjectDetails__field-label">
+                    {{ $t('projects.form.fields.nombre_personnes_atteintes') }}
+                  </span>
+                  <p class="ProjectDetails__field-value ProjectDetails__field-value--number">
+                    {{ formatNumber(project.nombre_personnes_atteintes) }}
+                  </p>
+                </div>
+              </v-col>
             </v-row>
 
             <!-- Répartition démographique -->
@@ -305,7 +315,7 @@
               <h4 class="ProjectDetails__demographics-title">Répartition démographique</h4>
 
               <v-row class="ProjectDetails__row">
-                <v-col cols="6" md="3">
+                <v-col cols="6" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
                       {{ $t('projects.form.fields.nombre_hommes') }}
@@ -316,7 +326,7 @@
                   </div>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
                       {{ $t('projects.form.fields.nombre_femmes') }}
@@ -327,7 +337,7 @@
                   </div>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
                       {{ $t('projects.form.fields.nombre_filles') }}
@@ -338,7 +348,7 @@
                   </div>
                 </v-col>
 
-                <v-col cols="6" md="3">
+                <v-col cols="6" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
                       {{ $t('projects.form.fields.nombre_garcons') }}
@@ -348,20 +358,6 @@
                     </p>
                   </div>
                 </v-col>
-              </v-row>
-
-              <v-row class="ProjectDetails__row">
-                <v-col cols="12" md="4">
-                  <div class="ProjectDetails__field ProjectDetails__field--compact">
-                    <span class="ProjectDetails__field-label">
-                      {{ $t('projects.form.fields.nombre_personnes_atteintes') }}
-                    </span>
-                    <p class="ProjectDetails__field-value">
-                      {{ formatNumber(project.nombre_personnes_atteintes) }}
-                    </p>
-                  </div>
-                </v-col>
-
                 <v-col cols="12" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
@@ -372,7 +368,6 @@
                     </p>
                   </div>
                 </v-col>
-
                 <v-col cols="12" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
