@@ -1,4 +1,6 @@
 import { NotificationType } from '@/models/enums/NotificationType';
+import { TablesList } from '@/models/enums/TablesList';
+import { UserRole } from '@/models/enums/UserRole';
 import type { UserInfos } from '@/models/interfaces/UserInfos';
 import { i18n } from '@/plugins/i18n';
 import { supabase } from '@/plugins/supabase';
@@ -14,7 +16,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   const authSession: Ref<Session | null> = ref(null)
   const userInfos: Ref<UserInfos | null> = ref(null)
   const isAdmin = computed(() => {
-    return userInfos.value?.role === 'admin'
+    return userInfos.value?.role === UserRole.ADMIN
   })
 
   async function initAuth() {
@@ -99,7 +101,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   async function getUserInfos() {
-    const { data: profile, error } = await supabase.from('user_profiles').select('*').eq('id', authSession.value?.user.id).single()
+    const { data: profile, error } = await supabase.from(TablesList.USER_PROFILES).select('*').eq('id', authSession.value?.user.id).single()
       if (error) {
         console.error('Error fetching user profile:', error)
         addNotification(i18n.t('auth.errorFetchingProfile'), NotificationType.ERROR)

@@ -15,7 +15,7 @@
             {{ tab.name }}
           </v-tab>
           <v-tab
-            v-if="authStore.authSession && authStore.userInfos?.role === 'admin'"
+            v-if="authStore.authSession && authStore.userInfos?.role === UserRole.ADMIN"
             :value="3"
             :to="{ name: 'admin' }"
             class="AdminTab"
@@ -31,6 +31,7 @@
 </template>
 <script setup lang="ts">
 import AuthButton from '@/components/auth/AuthButton.vue'
+import { UserRole } from '@/models/enums/UserRole'
 import { NavigationTabsService } from '@/services/NavigationService'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAuthenticationStore } from '@/stores/authStore'

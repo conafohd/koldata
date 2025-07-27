@@ -25,6 +25,14 @@
       "actions": "Actions",
       "edit": "Modifier",
       "delete": "Supprimer"
-    }
+    },
+    "deleteDialog": {
+      "title": "Suppression de droit d'édition",
+      "message": "Voulez-vous vraiment supprimer le droit d'édition de l'utilisateur ?",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
+    "deletePermissionSuccess": "Droit d'édition supprimé avec succès",
+    "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition"
   }
 }

@@ -1,5 +1,8 @@
+import { NotificationType } from "@/models/enums/NotificationType"
 import type { UserInfos } from "@/models/interfaces/UserInfos"
+import { i18n } from "@/plugins/i18n"
 import { AdminMembersDbService } from "@/services/admin/AdminMembersDbService"
+import { addNotification } from "@/services/NotificationsService"
 import { defineStore } from "pinia"
 import { ref, type Ref } from "vue"
 
@@ -13,5 +16,15 @@ export const useAdminStore = defineStore('admin', () => {
             console.log('Error fetching users:', error)
         }
     }
-    return { membersList, getAdminMembers }
+
+    async function removeMemberPermission(id: string) {
+        try {
+            await AdminMembersDbService.deleteMemberPermission(id)
+            addNotification(i18n.t('adminMembers.deletePermissionSuccess'), NotificationType.SUCCESS)
+            await getAdminMembers()
+        } catch (error) {
+            console.log('Error removing member permission:', error)
+        }
+    }
+    return { membersList, getAdminMembers, removeMemberPermission }
 })

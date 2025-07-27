@@ -1,4 +1,6 @@
+import { DBFunction } from "@/models/enums/DBFunction"
 import { NotificationType } from "@/models/enums/NotificationType"
+import { TablesList } from "@/models/enums/TablesList"
 import type { Association, AssociationUpdate } from "@/models/interfaces/Association"
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
@@ -6,7 +8,7 @@ import { addNotification } from "@/services/NotificationsService"
 
 export class AssociationDbService {
     public static async getAssociations() {
-        const { data: associations, error } = await supabase.from('associations').select('*')
+        const { data: associations, error } = await supabase.from(TablesList.ASSOCIATIONS).select('*')
         if (error) {
             addNotification(i18n.t('associations.fetchError'), NotificationType.ERROR)
             throw error
@@ -32,7 +34,7 @@ export class AssociationDbService {
     }
 
     public static async submitAssociationUpdate(association: AssociationUpdate) {
-        const { error } = await supabase.rpc('submit_association_update', association)
+        const { error } = await supabase.rpc(DBFunction.ASSOCIATION_UPDATE, association)
         if (error) {
             addNotification(i18n.t('associations.updateError'), NotificationType.ERROR)
         throw error
@@ -42,7 +44,7 @@ export class AssociationDbService {
     }
 
     public static async removeAssociationUpdate(id: number, raiseResult: boolean) {
-        const { error } = await supabase.from('associations_maj').delete().eq('id', id)
+        const { error } = await supabase.from(TablesList.ASSOCIATIONS_UPDATE).delete().eq('id', id)
         if (error && raiseResult) {
             addNotification(i18n.t('associations.updateDeletionError'), NotificationType.ERROR)
         throw error
@@ -55,7 +57,7 @@ export class AssociationDbService {
 
     public static async validateAssociationUpdate(association: Association) {
         association.updated_at = new Date().toISOString()
-        const { error } = await supabase.from('associations').update(association).eq('id', association.id)
+        const { error } = await supabase.from(TablesList.ASSOCIATIONS).update(association).eq('id', association.id)
         if (error) {
             addNotification(i18n.t('associations.updateError'), NotificationType.ERROR)
             throw error

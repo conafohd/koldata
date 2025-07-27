@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { useApplicationStore } from '@/stores/applicationStore'
 import { onMounted, ref } from 'vue'
-import AdminMembers from './panels/AdminMembers.vue'
+import AdminMembers from './panels/members/AdminMembers.vue'
 
 const applicationStore = useApplicationStore()
 onMounted(() => {

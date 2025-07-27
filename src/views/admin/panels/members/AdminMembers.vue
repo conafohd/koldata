@@ -23,20 +23,26 @@
       </v-data-table>
     </div>
   </div>
+  <DeletePermissionDialog
+    v-model:showDeleteDialog="showDeleteDialog"
+    v-model:permissionId="permissionToDelete"
+  />
 </template>
 <script setup lang="ts">
+import { UserRole } from '@/models/enums/UserRole'
 import type { UserInfos } from '@/models/interfaces/UserInfos'
 import { i18n } from '@/plugins/i18n'
 import { useAdminStore } from '@/stores/adminStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
+import DeletePermissionDialog from './DeletePermissionDialog.vue'
 
 const adminStore = useAdminStore()
 const associationsStore = useAssociationsStore()
 const { membersList } = storeToRefs(adminStore)
 const editorsList = computed(() => {
-  return membersList.value.filter((member: UserInfos) => member.role === 'editor')
+  return membersList.value.filter((member: UserInfos) => member.role === UserRole.EDITOR)
 })
 
 onMounted(async () => {
@@ -53,7 +59,7 @@ const headers = [
     key: 'edit_association_id',
     value: (item: UserInfos) =>
       associationsStore.associationsList.find(
-        (association) => association.id === item.edit_association_id.toString(),
+        (association) => association.id === item.edit_association_id,
       )?.nom,
   },
   {
@@ -67,8 +73,11 @@ function editMemberPermission(id: string) {
   console.log(id)
 }
 
+const permissionToDelete = ref('')
+const showDeleteDialog = ref(false)
 function deleteMemberPermission(id: string) {
-  console.log(id)
+  permissionToDelete.value = id
+  showDeleteDialog.value = true
 }
 </script>
 

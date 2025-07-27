@@ -1,5 +1,6 @@
 // services/storage/FileUploadService.ts
 import { NotificationType } from '@/models/enums/NotificationType'
+import { UserRole } from '@/models/enums/UserRole'
 import { i18n } from '@/plugins/i18n'
 import { supabase } from '@/plugins/supabase'
 import { useAuthenticationStore } from '@/stores/authStore'
@@ -68,7 +69,7 @@ export class LogoUploadService {
       throw new Error(i18n.t('logoStorage.permissionDenied', NotificationType.ERROR))
     }
 
-    if (authStore.userInfos?.role !== 'editor' && !authStore.isAdmin) {
+    if (authStore.userInfos?.role !== UserRole.EDITOR && !authStore.isAdmin) {
       console.log('User does not have permission to upload logos')
       console.log(authStore.isAdmin)
       addNotification(i18n.t('logoStorage.permissionDenied'), NotificationType.ERROR)
