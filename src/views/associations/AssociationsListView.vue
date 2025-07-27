@@ -130,10 +130,12 @@
                 ></v-icon>
               </div>
             </div>
-            <p class="Associations__card-description">{{ association.desc }}</p>
+            <div class="Associations__card-description">{{ association.desc }}</div>
             <div class="Associations__card-footer">
               <v-icon size="small" class="Associations__card-icon" icon="$calendar"></v-icon>
-              <span class="Associations__card-date">{{ association.updated_at }}</span>
+              <span class="Associations__card-date">{{
+                new Date(association.updated_at).toLocaleDateString()
+              }}</span>
             </div>
           </div>
         </article>
@@ -305,6 +307,9 @@ function resetFilters() {
   }
 
   &__card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1;
     min-width: 0;
   }
@@ -321,6 +326,7 @@ function resetFilters() {
     font-size: 0.875rem;
     color: #666;
     line-height: 1.5;
+    flex: 1;
     margin: 0 0 1rem 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -331,6 +337,7 @@ function resetFilters() {
   &__card-footer {
     display: flex;
     align-items: center;
+    justify-content: start;
     gap: 0.5rem;
   }
 
