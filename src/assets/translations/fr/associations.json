@@ -14,6 +14,8 @@
     "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
     "updateDeletionError": "Une erreur est survenue lors de la suppression de la modification",
     "updateDeletionSuccess": "La modification a bien été supprimée",
+    "deleteAssociationError": "Une erreur est survenue lors de la suppression de l'ONG",
+    "deleteAssociationSuccess": "ONG supprimée avec succès",
     "filters": {
       "search": "Rechercher",
       "province": "Filtrer par province",

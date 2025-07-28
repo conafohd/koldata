@@ -1,11 +1,17 @@
 <template>
-  <div class="AdminMembers">
+  <div class="AdminMembers mt-4">
     <div class="AdminMembers__header">
       <h1 class="PageSubtitle">{{ $t('adminMembers.title') }}</h1>
       <v-btn color="main-purple" @click="addNewPermission()"> {{ $t('adminMembers.add') }} </v-btn>
     </div>
-    <div class="AdminMembers__list">
-      <v-data-table :headers="headers" :items="editorsList" item-key="name" hide-default-footer>
+    <div>
+      <v-data-table
+        :headers="headers"
+        :items="editorsList"
+        item-key="name"
+        :items-per-page="-1"
+        hide-default-footer
+      >
         <template #item.actions="{ item }">
           <v-icon
             icon="$squareEditOutline"

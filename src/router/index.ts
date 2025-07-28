@@ -1,5 +1,6 @@
 import { pinia } from '@/main'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useAuthenticationStore } from '@/stores/authStore'
 import HomeView from '@/views/homepage/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -42,9 +43,16 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/AdminView.vue'),
-      beforeEnter: () => {
+      beforeEnter: async () => {
         const applicationStore = useApplicationStore(pinia)
         applicationStore.isLoading = true
+        const authStore = useAuthenticationStore(pinia)
+        if (!authStore.authSession) {
+          await authStore.initAuth()
+        }
+        if (!authStore.isAdmin) {
+            router.push({ name: 'home' })
+          }
       },
       meta: { requiresAuth: true },
     }

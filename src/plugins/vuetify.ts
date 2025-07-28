@@ -8,6 +8,7 @@ import {
   mdiCardAccountMailOutline,
   mdiCardAccountPhoneOutline,
   mdiChartBoxMultipleOutline,
+  mdiCheckCircle,
   mdiClose,
   mdiFileCheckOutline,
   mdiImagePlus,
@@ -69,6 +70,7 @@ export default createVuetify({
       imagePlus: mdiImagePlus,
       accountCircleOutline: mdiAccountCircleOutline,
       cardAccountPhoneOutline: mdiCardAccountPhoneOutline,
+      checkCircle: mdiCheckCircle
     },
     sets: {
       mdi

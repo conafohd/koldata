@@ -11,11 +11,13 @@
       </v-btn-toggle>
     </div>
     <AdminMembers v-if="selectedTab === 'members'" class="mt-4" />
+    <AdminAssociations v-if="selectedTab === 'assos'" class="mt-4" />
   </div>
 </template>
 <script setup lang="ts">
 import { useApplicationStore } from '@/stores/applicationStore'
 import { onMounted, ref } from 'vue'
+import AdminAssociations from './panels/associations/AdminAssociations.vue'
 import AdminMembers from './panels/members/AdminMembers.vue'
 
 const applicationStore = useApplicationStore()

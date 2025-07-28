@@ -1,13 +1,13 @@
 <template>
   <v-btn
     v-if="!authStore.authSession"
-    color="main-purple"
+    color="main-blue"
     @click="authStore.showAuthModal = true"
     prepend-icon="$login"
   >
     {{ $t('auth.signIn') }}
   </v-btn>
-  <v-btn v-else color="main-purple" @click="authStore.signOut" prepend-icon="$logout">
+  <v-btn v-else color="main-blue" @click="authStore.signOut" prepend-icon="$logout">
     {{ $t('auth.signOut') }}</v-btn
   >
 </template>

@@ -20,6 +20,9 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   })
 
   async function initAuth() {
+    if (authSession.value) {
+      return
+    }
     try {
       const { data: { session }, error } = await supabase.auth.getSession()
       if (error) {
@@ -28,7 +31,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       } else {
         if (session) {
           authSession.value = session
-          getUserInfos()
+          await getUserInfos()
         }
       }
     } catch (error) {

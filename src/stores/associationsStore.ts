@@ -74,5 +74,14 @@ export const useAssociationsStore = defineStore('associations', () => {
     }
   }
 
-  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate, refuseUpdate, validateUpdate }
+  async function removeAssociation(id: string) {
+    try {
+      AssociationDbService.removeAssociation(id)
+      await getAssociationsList()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate, refuseUpdate, validateUpdate, removeAssociation }
 })

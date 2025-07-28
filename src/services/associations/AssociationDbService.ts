@@ -65,4 +65,14 @@ export class AssociationDbService {
             addNotification(i18n.t('admin.validationSuccess'), NotificationType.SUCCESS)
         }
     }
+
+    public static async removeAssociation(id: string) {
+        const { error } = await supabase.from(TablesList.ASSOCIATIONS).delete().eq('id', id)
+        if (error) {
+            addNotification(i18n.t('associations.deleteAssociationError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('associations.deleteAssociationSuccess'), NotificationType.SUCCESS)
+        }
+    }
 }

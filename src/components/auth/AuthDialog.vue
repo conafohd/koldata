@@ -3,7 +3,7 @@
     <template #default>
       <v-card>
         <div class="AuthDialog__welcome">{{ $t('auth.welcome') }}</div>
-        <v-tabs v-model="activeTab" align-tabs="center" color="main-purple">
+        <v-tabs v-model="activeTab" align-tabs="center" color="main-blue">
           <v-tab :value="1">
             <span class="Tabs--text">{{ $t('auth.signIn') }}</span>
           </v-tab>
@@ -45,7 +45,7 @@
               @click="onSignIn"
               :loading="signInForm.isSubmitting.value"
               :disabled="!signInForm.isValid.value"
-              color="main-purple"
+              color="main-blue"
             >
               {{ $t('auth.signIn') }}
             </v-btn>
@@ -104,7 +104,7 @@
               @click="onSignUp"
               :loading="signUpForm.isSubmitting.value"
               :disabled="!signUpForm.isValid.value"
-              color="main-purple"
+              color="main-blue"
             >
               {{ $t('auth.signUp') }}
             </v-btn>
@@ -157,8 +157,8 @@ function showForgotPassword() {
   padding: 1rem;
   display: flex;
   justify-content: center;
-  color: rgb(var(--v-theme-main-purple));
+  color: rgb(var(--v-theme-main-blue));
   font-weight: bold;
-  border-bottom: 1.5px solid rgb(var(--v-theme-main-purple));
+  border-bottom: 1.5px solid rgb(var(--v-theme-main-blue));
 }
 </style>

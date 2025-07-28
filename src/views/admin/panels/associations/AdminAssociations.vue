@@ -1,0 +1,124 @@
+<template>
+  <div class="AdminAssociations mt-4">
+    <div class="AdminAssociations__header">
+      <h1 class="PageSubtitle">{{ $t('adminAssociations.title') }}</h1>
+      <v-btn color="main-purple" @click="addNewAssociation()">
+        {{ $t('adminAssociations.add') }}
+      </v-btn>
+    </div>
+    <div class="AdminAssociations__table">
+      <v-data-table
+        :headers="headers"
+        :items="sortedAssociations"
+        item-key="name"
+        :items-per-page-text="$t('adminAssociations.associationsTable.itemsPerPage')"
+      >
+        <template #item.waiting_for_validation="{ item }">
+          <v-icon
+            icon="$checkCircle "
+            class="mr-1"
+            color="success"
+            v-if="item.waiting_for_validation"
+          ></v-icon>
+        </template>
+        <template #item.actions="{ item }">
+          <v-icon
+            icon="$squareEditOutline"
+            class="mr-1 cursor-pointer"
+            color="light-blue"
+            @click.stop="editAssociation(item.id)"
+          ></v-icon>
+          <v-icon
+            icon="$trashCanOutline"
+            class="cursor-pointer"
+            color="main-purple"
+            @click.stop="deleteAssociation(item.id)"
+          ></v-icon>
+        </template>
+      </v-data-table>
+    </div>
+  </div>
+  <v-dialog v-model="showDeleteDialog" max-width="400px">
+    <v-card>
+      <v-card-title>{{ $t('adminAssociations.delete') }}</v-card-title>
+      <v-card-text>
+        {{ $t('adminAssociations.deleteMessage') }}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="confirmDeleteAssociation">{{ $t('adminAssociations.confirm') }}</v-btn>
+        <v-btn @click="showDeleteDialog = false">{{ $t('adminAssociations.cancel') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script setup lang="ts">
+import type { Association } from '@/models/interfaces/Association'
+import { i18n } from '@/plugins/i18n'
+import { useAssociationsStore } from '@/stores/associationsStore'
+import { computed, onMounted, ref } from 'vue'
+const associationsStore = useAssociationsStore()
+
+onMounted(async () => {
+  await associationsStore.getAssociationsList()
+})
+
+const sortedAssociations = computed(() => {
+  return [...associationsStore.associationsList].sort(
+    (a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation),
+  )
+})
+const headers = [
+  { title: i18n.t('adminAssociations.associationsTable.name'), key: 'nom' },
+  { title: i18n.t('adminAssociations.associationsTable.type'), key: 'type_org' },
+  { title: i18n.t('adminAssociations.associationsTable.update'), key: 'waiting_for_validation' },
+  {
+    title: i18n.t('adminAssociations.associationsTable.actions'),
+    key: 'actions',
+    value: (item: Association) => item.id,
+  },
+]
+
+function addNewAssociation() {
+  console.log(associationsList)
+}
+
+function editAssociation(id: string) {
+  associationsStore.activeAssociationEdition(id as string)
+}
+
+const showDeleteDialog = ref(false)
+const associationToDelete = ref<string | null>(null)
+
+function deleteAssociation(id: string) {
+  associationToDelete.value = id
+  showDeleteDialog.value = true
+}
+
+function confirmDeleteAssociation() {
+  if (associationToDelete.value) {
+    associationsStore.removeAssociation(associationToDelete.value)
+    associationToDelete.value = null
+  }
+  showDeleteDialog.value = false
+}
+</script>
+
+<style scoped lang="scss">
+.AdminAssociations {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+.AdminAssociations__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.AdminAssociations__table {
+  overflow: auto;
+  flex: 1;
+}
+</style>
