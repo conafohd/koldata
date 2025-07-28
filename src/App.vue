@@ -4,7 +4,9 @@
     <div v-show="!appStore.isLoading" class="App__content"><RouterView /></div>
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
-    <AssociationForm v-if="associationsStore.associationToEdit" />
+    <AssociationForm
+      v-if="associationsStore.associationToEdit || associationsStore.associationToCreate"
+    />
     <ProjectForm v-if="projectsStore.projectToEdit || projectsStore.projectToCreate" />
     <ProjectCard v-if="projectsStore.selectedProject" />
     <Footer />

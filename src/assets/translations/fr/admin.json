@@ -2,7 +2,7 @@
   "admin": {
     "title": "Panneau d'administration",
     "members": "Droits d'accès",
-    "assos": "ONGs",
+    "assos": "ONG",
     "projects": "Projets",
     "disclaimer": "Une modification de ce contenu est en attente de validation par un administrateur de la plateforme.",
     "refuseUpdate": "Refuser la modification",
@@ -46,7 +46,7 @@
     "addPermissionError": "Une erreur est survenue lors de l'ajout du droit d'édition"
   },
   "adminAssociations": {
-    "title": "Gérer les ONGs",
+    "title": "Gérer les ONG",
     "add": "Créer une ONG",
     "delete": "Supprimer une ONG",
     "deleteMessage": "Cette action est irréversible, voulez-vous vraiment supprimer l'ONG ?",

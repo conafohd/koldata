@@ -33,6 +33,16 @@ export class AssociationDbService {
         }
     }
 
+    public static async createAssociation(association: Association) {
+        const { error } = await supabase.from(TablesList.ASSOCIATIONS).insert(association)
+        if (error) {
+            addNotification(i18n.t('associations.creationError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('associations.creationSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
     public static async submitAssociationUpdate(association: AssociationUpdate) {
         const { error } = await supabase.rpc(DBFunction.ASSOCIATION_UPDATE, association)
         if (error) {

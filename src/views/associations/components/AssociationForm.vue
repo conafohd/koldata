@@ -83,6 +83,15 @@
               @blur="associationForm.form.acronyme.handleBlur"
               required
             />
+            <v-number-input
+              controlVariant="stacked"
+              :label="$t('associations.form.fields.annee_creation')"
+              :placeholder="$t('associations.form.placeholders.annee_creation')"
+              v-model="associationForm.form.annee_creation.value.value"
+              :error-messages="associationForm.form.annee_creation.errorMessage.value"
+              @blur="associationForm.form.annee_creation.handleBlur"
+              variant="outlined"
+            />
             <v-select
               variant="outlined"
               :label="$t('associations.form.fields.type_org')"
@@ -101,7 +110,7 @@
               v-model="associationForm.form.type_org_autre.value.value"
               :error-messages="associationForm.form.type_org_autre.errorMessage.value"
               @blur="associationForm.form.type_org_autre.handleBlur"
-              v-if="associationForm.form.type_org.value.value.includes(AssociationType.OTHER)"
+              v-if="associationForm.form.type_org.value.value?.includes(AssociationType.OTHER)"
             />
             <v-textarea
               variant="outlined"
@@ -133,7 +142,7 @@
               :error-messages="associationForm.form.secteurs_interv_autre.errorMessage.value"
               @blur="associationForm.form.secteurs_interv_autre.handleBlur"
               v-if="
-                associationForm.form.secteurs_interv.value.value.includes(InterventionSector.OTHER)
+                associationForm.form.secteurs_interv.value.value?.includes(InterventionSector.OTHER)
               "
             />
             <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>
@@ -434,7 +443,10 @@ import { computed, onMounted } from 'vue'
 const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
 const adminBoundariesStore = useAdminBoundariesStore()
-const showDialog = computed(() => associationsStore.associationToEdit !== null)
+const showDialog = computed(
+  () =>
+    associationsStore.associationToEdit !== null || associationsStore.associationToCreate !== null,
+)
 
 const associationForm = AssociationFormService.getAssociationForm(
   associationsStore.associationToEdit,
@@ -493,15 +505,20 @@ function refuseUpdate() {
 const validateUpdate = associationForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
-    // If this association already have an update submitted, use the update id
-    const associationId = (associationsStore.associationToEdit as AssociationUpdate).association_id
-      ? (associationsStore.associationToEdit as AssociationUpdate).association_id
-      : associationsStore.associationToEdit!.id
-    const updatedAssociation: Association = {
-      ...sanitizedData,
-      id: associationId,
+    if (associationsStore.associationToEdit) {
+      // If this association already have an update submitted, use the update id
+      const associationId = (associationsStore.associationToEdit as AssociationUpdate)
+        .association_id
+        ? (associationsStore.associationToEdit as AssociationUpdate).association_id
+        : associationsStore.associationToEdit!.id
+      const updatedAssociation: Association = {
+        ...sanitizedData,
+        id: associationId,
+      }
+      await associationsStore.validateUpdate(updatedAssociation)
+    } else if (associationsStore.associationToCreate) {
+      await associationsStore.createAssociation(sanitizedData)
     }
-    await associationsStore.validateUpdate(updatedAssociation)
   },
   ({ errors }) => {
     console.error(errors)

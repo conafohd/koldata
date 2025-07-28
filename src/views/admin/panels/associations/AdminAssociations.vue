@@ -80,7 +80,7 @@ const headers = [
 ]
 
 function addNewAssociation() {
-  console.log(associationsList)
+  associationsStore.associationToCreate = true
 }
 
 function editAssociation(id: string) {

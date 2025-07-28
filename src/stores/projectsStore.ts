@@ -28,7 +28,6 @@ export const useProjectsStore = defineStore('projects', () => {
     }
 
     async function activeProjectCreation(associationId: string) {
-        console.log('activeProjectCreation', associationId)
         projectToCreate.value = associationId
     }
 

@@ -12,6 +12,7 @@ export const useAssociationsStore = defineStore('associations', () => {
   const updateslist: Ref<AssociationUpdate[]> = ref([])
   const router = useRouter()
   const associationToEdit: Ref<Association | null> = ref(null)
+  const associationToCreate = ref(false)
 
   async function getAssociationsList() {
     try {
@@ -25,6 +26,16 @@ export const useAssociationsStore = defineStore('associations', () => {
 
   function navigateToAssociation(associationId: string) {
     router.push({ name: 'association', params: { id: associationId } })
+  }
+
+  async function createAssociation(association: Association) {
+    try {
+      await AssociationDbService.createAssociation(association)
+      associationToCreate.value = false
+      await getAssociationsList()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function activeAssociationEdition(id: string) {
@@ -83,5 +94,5 @@ export const useAssociationsStore = defineStore('associations', () => {
     }
   }
 
-  return { associationsList, associationToEdit, getAssociationsList, navigateToAssociation, activeAssociationEdition, submitUpdate, refuseUpdate, validateUpdate, removeAssociation }
+  return { associationsList, associationToEdit, associationToCreate, getAssociationsList, createAssociation, navigateToAssociation, activeAssociationEdition, submitUpdate, refuseUpdate, validateUpdate, removeAssociation }
 })
