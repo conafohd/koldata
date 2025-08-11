@@ -5,7 +5,10 @@
     "filters": {
       "search": "Rechercher un projet par son intitulé",
       "association": "Filtrer par association",
-      "status": "Filtrer par statut"
+      "status": "Filtrer par statut",
+      "province": "Filtrer par province",
+      "territory": "Filtrer par territoire",
+      "healthZone": "Filtrer par zone de santé"
     },
     "associationTable": {
       "intitule_projet": "Intitulé du projet",

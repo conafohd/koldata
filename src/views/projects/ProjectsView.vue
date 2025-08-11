@@ -1,11 +1,11 @@
 <template>
   <div class="Projects">
     <header class="Projects__header">
-      <div class="d-flex align-center">
+      <div class="Projects__title">
         <h1 class="PageTitle">{{ $t('projects.title') }}</h1>
         <v-chip color="main-blue" class="ml-2" size="small">{{ projects.length }}</v-chip>
       </div>
-      <div class="d-flex align-center">
+      <div class="Projects__filtersCounter">
         <v-chip color="light-blue" class="mr-2" size="small">{{ filteredProjects.length }}</v-chip>
         <v-btn variant="text" size="small" class="Projects__reset-btn" @click="resetFilters">
           {{ $t('associations.resetFilters') }}
@@ -31,7 +31,6 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="Projects__select"
         clearable
       />
       <v-select
@@ -43,7 +42,32 @@
         variant="outlined"
         density="compact"
         hide-details
-        class="Projects__select"
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.province')"
+        :items="adminBoundStore.provincesList?.sort((a, b) => a.province.localeCompare(b.province))"
+        :item-title="'province'"
+        :item-value="'province'"
+        v-model="selectedProvince"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.territory')"
+        :items="
+          adminBoundStore.territoriesList?.sort((a, b) => a.territoire.localeCompare(b.territoire))
+        "
+        :item-title="'territoire'"
+        :item-value="'territoire'"
+        v-model="selectedTerritory"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
         clearable
       />
     </section>
@@ -101,6 +125,8 @@ const searchQuery = ref('')
 const debouncedSearchQuery = ref('')
 const selectedAssociation = ref<string | null>(null)
 const selectedProjectStatus = ref<ProjectStatus | null>(null)
+const selectedProvince = ref<string[] | null>(null)
+const selectedTerritory = ref<string[] | null>(null)
 const updateSearchQuery = debounce((value: string) => {
   debouncedSearchQuery.value = value
 }, 300)
@@ -119,6 +145,18 @@ const filteredProjects = computed(() => {
     result = result.filter((project) => project.statut_projet === selectedProjectStatus.value)
   }
 
+  if (selectedProvince.value && selectedProvince.value.length > 0) {
+    result = result.filter((project) =>
+      project.province.some((province) => selectedProvince.value?.includes(province)),
+    )
+  }
+
+  if (selectedTerritory.value && selectedTerritory.value.length > 0) {
+    result = result.filter((project) =>
+      project.territoire.some((territoire) => selectedTerritory.value?.includes(territoire)),
+    )
+  }
+
   if (debouncedSearchQuery.value) {
     const query = debouncedSearchQuery.value.toLowerCase()
     result = result.filter((project) => project.intitule_projet.toLowerCase().includes(query))
@@ -130,6 +168,7 @@ function resetFilters() {
   searchQuery.value = ''
   selectedAssociation.value = null
   selectedProjectStatus.value = null
+  selectedProvince.value = null
 }
 
 const projectsMapContainer = ref<HTMLElement>()
@@ -258,6 +297,39 @@ function setSelectedProject(id: string) {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-sm) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    @media (max-width: $bp-sm) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (min-width: $bp-sm) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__filtersCounter {
+    @media (max-width: $bp-sm) {
+      display: flex;
+      justify-content: end;
+      flex-grow: 1;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: $bp-sm) {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &__reset-btn {
