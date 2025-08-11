@@ -47,7 +47,6 @@ export const useProjectsStore = defineStore('projects', () => {
 
     function activeNewProjectEdition(id: string) {
         const project = newProjectsList.value.find(project => project.id === id)
-        console.log('activeNewProjectEdition', project)
         if (project) {
             projectToEdit.value = project
         } else {

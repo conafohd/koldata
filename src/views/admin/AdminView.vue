@@ -4,7 +4,7 @@
       <h1 class="PageTitle">{{ $t('admin.title') }}</h1>
     </div>
     <div class="Admin--switch">
-      <v-btn-toggle v-model="selectedTab" color="light-blue" rounded="0" group>
+      <v-btn-toggle v-model="selectedTab" color="main-purple" rounded="0" mandatory>
         <v-btn value="members"> {{ $t('admin.members') }} </v-btn>
         <v-btn value="assos"> {{ $t('admin.assos') }} </v-btn>
         <v-btn value="projects"> {{ $t('admin.projects') }} </v-btn>
@@ -12,6 +12,7 @@
     </div>
     <AdminMembers v-if="selectedTab === 'members'" class="mt-4" />
     <AdminAssociations v-if="selectedTab === 'assos'" class="mt-4" />
+    <AdminProjects v-if="selectedTab === 'projects'" class="mt-4" />
   </div>
 </template>
 <script setup lang="ts">
@@ -19,6 +20,7 @@ import { useApplicationStore } from '@/stores/applicationStore'
 import { onMounted, ref } from 'vue'
 import AdminAssociations from './panels/associations/AdminAssociations.vue'
 import AdminMembers from './panels/members/AdminMembers.vue'
+import AdminProjects from './panels/projects/AdminProjects.vue'
 
 const applicationStore = useApplicationStore()
 onMounted(() => {

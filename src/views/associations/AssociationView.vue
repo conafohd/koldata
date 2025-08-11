@@ -57,7 +57,7 @@
     <div class="Association__content">
       <div class="Association__content--description">{{ selectedAssociation.desc }}</div>
       <div class="Association__content--switch">
-        <v-btn-toggle v-model="selectedTab" color="light-blue" rounded="0" group>
+        <v-btn-toggle v-model="selectedTab" color="light-blue" rounded="0" mandatory>
           <v-btn value="infos"> {{ $t('associations.infos') }} </v-btn>
           <v-btn value="projects"> {{ $t('associations.projects') }} </v-btn>
         </v-btn-toggle>

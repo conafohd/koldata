@@ -20,6 +20,7 @@
             color="success"
             v-if="item.waiting_for_validation"
           ></v-icon>
+          <v-icon icon="$circleOffOutline" class="mr-1" color="error" v-else></v-icon>
         </template>
         <template #item.actions="{ item }">
           <v-icon

@@ -59,5 +59,21 @@
       "actions": "Actions",
       "itemsPerPage": "Associations par page"
     }
+  },
+  "adminProjects": {
+    "title": "Gérer les projets",
+    "add": "Créer un projet",
+    "addMessage": "Sélectionnez une ONG pour ajouter un projet",
+    "delete": "Supprimer un projet",
+    "deleteMessage": "Cette action est irréversible, voulez-vous vraiment supprimer le projet ?",
+    "confirm": "Confirmer",
+    "selectAssociation": "Choisir une ONG",
+    "projectsTable": {
+      "name": "Nom",
+      "status": "Statut",
+      "update": "En attente de validation",
+      "actions": "Actions",
+      "itemsPerPage": "Projets par page"
+    }
   }
 }
