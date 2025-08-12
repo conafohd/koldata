@@ -491,6 +491,7 @@ import { i18n } from '@/plugins/i18n'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { addNotification } from '@/services/NotificationsService'
 import { ProjectFormService } from '@/services/projects/ProjectFormService'
+import { formatDateToString } from '@/services/utils/FormatDate'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useProjectsStore } from '@/stores/projectsStore'
@@ -589,10 +590,6 @@ function confirmEndDate() {
     projectForm.form.date_fin_projet.value.value = formatDateToString(tempEndDate.value)
   }
   showEndDatePicker.value = false
-}
-
-function formatDateToString(date: Date): string {
-  return new Intl.DateTimeFormat('fr-CA').format(date)
 }
 
 const createProject = projectForm.handleSubmit(

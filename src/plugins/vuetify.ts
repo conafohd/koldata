@@ -29,6 +29,7 @@ import {
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
+import { fr } from 'vuetify/locale'
 import 'vuetify/styles'
 
 const customTheme: ThemeDefinition = {
@@ -42,6 +43,18 @@ const customTheme: ThemeDefinition = {
 }
 
 export default createVuetify({
+  locale: {
+    locale: 'fr',
+    messages: {
+      fr: {
+        ...fr,
+        datePicker: {
+          title: 'Sélectionner une date',
+          header: 'Entrer une date'
+        }
+      }
+    }
+  },
   icons: {
     defaultSet: 'mdi',
     aliases: {

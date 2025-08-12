@@ -70,9 +70,66 @@
         multiple
         clearable
       />
+      <v-text-field
+        variant="outlined"
+        :label="$t('projects.form.fields.date_debut_projet')"
+        v-model="selectedStartDate"
+        readonly
+        @click="openDatePicker('start')"
+        append-inner-icon="$calendar"
+        @click:append-inner="openDatePicker('start')"
+        clearable
+        hide-details
+      />
+      <v-text-field
+        variant="outlined"
+        :label="$t('projects.form.fields.date_fin_projet')"
+        v-model="selectedEndDate"
+        readonly
+        @click="openDatePicker('end')"
+        append-inner-icon="$calendar"
+        @click:append-inner="openDatePicker('end')"
+        clearable
+        hide-details
+      />
     </section>
     <div class="Projects__map" ref="projectsMapContainer"></div>
   </div>
+  <v-dialog v-model="showStartDatePicker" max-width="400px">
+    <v-card>
+      <v-card-title>{{ $t('projects.form.fields.date_debut_projet') }}</v-card-title>
+      <v-card-text>
+        <v-date-picker
+          v-model="tempStartDate"
+          color="light-blue"
+          @update:model-value="onStartDateSelected"
+        />
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="showStartDatePicker = false">{{ $t('forms.cancel') }}</v-btn>
+        <v-btn @click="confirmStartDate" color="primary">{{ $t('forms.confirm') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="showEndDatePicker" max-width="400px">
+    <v-card>
+      <v-card-title>{{ $t('projects.form.fields.date_fin_projet') }}</v-card-title>
+      <v-card-text>
+        <v-date-picker
+          color="light-blue"
+          v-model="tempEndDate"
+          @update:model-value="onEndDateSelected"
+        />
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn @click="showEndDatePicker = false">{{ $t('forms.cancel') }}</v-btn>
+        <v-btn @click="confirmEndDate" color="primary">{{ $t('forms.confirm') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <script setup lang="ts">
 import circleYellowImg from '@/assets/img/circle-yellow.png'
@@ -80,6 +137,7 @@ import projectPin from '@/assets/img/project-pin.png'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import { ProjectsMapService } from '@/services/projects/ProjectsMapService'
 import { debounce } from '@/services/utils/Debounce'
+import { formatDateToString } from '@/services/utils/FormatDate'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -121,12 +179,16 @@ onUnmounted(() => {
   map.value?.remove()
 })
 
+//-------------------- Filters --------------------------\\
+
 const searchQuery = ref('')
 const debouncedSearchQuery = ref('')
 const selectedAssociation = ref<string | null>(null)
 const selectedProjectStatus = ref<ProjectStatus | null>(null)
 const selectedProvince = ref<string[] | null>(null)
 const selectedTerritory = ref<string[] | null>(null)
+const selectedStartDate = ref<string | null>(null)
+const selectedEndDate = ref<string | null>(null)
 const updateSearchQuery = debounce((value: string) => {
   debouncedSearchQuery.value = value
 }, 300)
@@ -157,6 +219,24 @@ const filteredProjects = computed(() => {
     )
   }
 
+  if (selectedStartDate.value) {
+    result = result.filter((project) => {
+      if (project.date_debut_projet) {
+        return new Date(project.date_debut_projet) >= new Date(selectedStartDate.value as string)
+      }
+      return false
+    })
+  }
+
+  if (selectedEndDate.value) {
+    result = result.filter((project) => {
+      if (project.date_fin_projet) {
+        return new Date(project.date_fin_projet) <= new Date(selectedEndDate.value as string)
+      }
+      return false
+    })
+  }
+
   if (debouncedSearchQuery.value) {
     const query = debouncedSearchQuery.value.toLowerCase()
     result = result.filter((project) => project.intitule_projet.toLowerCase().includes(query))
@@ -170,6 +250,43 @@ function resetFilters() {
   selectedProjectStatus.value = null
   selectedProvince.value = null
 }
+
+const showStartDatePicker = ref(false)
+const showEndDatePicker = ref(false)
+const tempStartDate = ref<Date | null>(null)
+const tempEndDate = ref<Date | null>(null)
+function openDatePicker(type: 'start' | 'end') {
+  if (type === 'start') {
+    tempStartDate.value = selectedStartDate.value ? new Date(selectedStartDate.value) : null
+    showStartDatePicker.value = true
+  } else {
+    tempEndDate.value = selectedEndDate.value ? new Date(selectedEndDate.value) : null
+    showEndDatePicker.value = true
+  }
+}
+function onStartDateSelected(date: Date | null) {
+  tempStartDate.value = date
+}
+
+function onEndDateSelected(date: Date | null) {
+  tempEndDate.value = date
+}
+
+function confirmStartDate() {
+  if (tempStartDate.value) {
+    selectedStartDate.value = formatDateToString(tempStartDate.value)
+  }
+  showStartDatePicker.value = false
+}
+
+function confirmEndDate() {
+  if (tempEndDate.value) {
+    selectedEndDate.value = formatDateToString(tempEndDate.value)
+  }
+  showEndDatePicker.value = false
+}
+
+//-------------------- Map --------------------------\\
 
 const projectsMapContainer = ref<HTMLElement>()
 const map = ref<Map>()
@@ -261,21 +378,17 @@ function initMap() {
   })
 }
 
-watch(
-  [() => filteredProjects.value, () => adminBoundStore.provincesList],
-  () => {
-    projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(filteredProjects.value) as any
-    if (map.value) {
-      const source = map.value.getSource('projectsSource')
-      if (source) {
-        ;(source as any).setData(ProjectsMapService.getProjectsGeoJson(filteredProjects.value))
-      }
-    } else {
-      initMap()
+watch([() => filteredProjects.value, () => adminBoundStore.provincesList], () => {
+  projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(filteredProjects.value) as any
+  if (map.value) {
+    const source = map.value.getSource('projectsSource')
+    if (source) {
+      ;(source as any).setData(ProjectsMapService.getProjectsGeoJson(filteredProjects.value))
     }
-  },
-  { deep: true },
-)
+  } else {
+    initMap()
+  }
+})
 
 function setSelectedProject(id: string) {
   const project = projectsStore.projectsList.find((project) => project.id === id)
