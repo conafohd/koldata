@@ -4,6 +4,7 @@ import {
   mdiAccountGroup,
   mdiApplicationArrayOutline,
   mdiArrowLeft,
+  mdiArrowRightThinCircleOutline,
   mdiCalendar,
   mdiCardAccountMailOutline,
   mdiCardAccountPhoneOutline,
@@ -85,7 +86,8 @@ export default createVuetify({
       accountCircleOutline: mdiAccountCircleOutline,
       cardAccountPhoneOutline: mdiCardAccountPhoneOutline,
       checkCircle: mdiCheckCircle,
-      circleOffOutline: mdiCircleOffOutline
+      circleOffOutline: mdiCircleOffOutline,
+      arrowRightThinCircleOutline: mdiArrowRightThinCircleOutline
     },
     sets: {
       mdi

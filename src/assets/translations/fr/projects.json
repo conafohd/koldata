@@ -2,6 +2,7 @@
   "projects": {
     "title": "Carte interactive des projets",
     "fetchError": "Erreur lors de la récupération des projets",
+    "seeAssociation": "Voir le profil de l'ONG",
     "filters": {
       "search": "Rechercher un projet par son intitulé",
       "association": "Filtrer par association",

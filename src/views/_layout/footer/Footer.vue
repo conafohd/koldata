@@ -1,5 +1,5 @@
 <template>
-  <div class="Footer">2025 - <a href="https://www.cartong.org" target="_blank"> CartONG</a></div>
+  <div class="Footer"><a href="https://www.cartong.org" target="_blank">2025 - CartONG</a></div>
 </template>
 
 <script setup lang="ts"></script>
@@ -15,6 +15,7 @@
 
   a {
     text-decoration: none;
+    color: rgb(var(--v-theme-main-grey));
   }
 }
 </style>

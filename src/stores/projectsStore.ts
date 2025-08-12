@@ -12,6 +12,7 @@ export const useProjectsStore = defineStore('projects', () => {
     const updateslist: Ref<ProjectUpdate[]> = ref([])
     const newProjectsList: Ref<Project[]> = ref([])
     const selectedProject: Ref<Project | null> = ref(null)
+    const showAssociationInProjectCard = ref(false)
     const projectToEdit: Ref<Project | null> = ref(null)
     const projectToCreate: Ref<string | null> = ref(null)
 
@@ -131,5 +132,5 @@ export const useProjectsStore = defineStore('projects', () => {
         }
     }
 
-    return { projectsList, selectedProject, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeNewProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, refuseNewProject, validateUpdate, validateNewProject, createProject, deleteProject }
+    return { projectsList, selectedProject, showAssociationInProjectCard, newProjectsList, projectToEdit, projectToCreate, getProjectsList, activeProjectEdition, activeNewProjectEdition, activeProjectCreation, submitUpdate, refuseUpdate, refuseNewProject, validateUpdate, validateNewProject, createProject, deleteProject }
 })

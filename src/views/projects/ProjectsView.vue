@@ -78,6 +78,7 @@
         @click="openDatePicker('start')"
         append-inner-icon="$calendar"
         @click:append-inner="openDatePicker('start')"
+        density="compact"
         clearable
         hide-details
       />
@@ -89,6 +90,7 @@
         @click="openDatePicker('end')"
         append-inner-icon="$calendar"
         @click:append-inner="openDatePicker('end')"
+        density="compact"
         clearable
         hide-details
       />
@@ -393,6 +395,7 @@ watch([() => filteredProjects.value, () => adminBoundStore.provincesList], () =>
 function setSelectedProject(id: string) {
   const project = projectsStore.projectsList.find((project) => project.id === id)
   if (project) {
+    projectsStore.showAssociationInProjectCard = true
     projectsStore.selectedProject = project
   }
 }

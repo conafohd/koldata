@@ -17,6 +17,20 @@
       </div>
 
       <v-card-text class="ProjectDetails__content">
+        <div class="ProjectDetails__association" v-if="projectAssociation">
+          <v-tooltip :text="$t('projects.seeAssociation')" location="top">
+            <template v-slot:activator="{ props }">
+              <a
+                v-bind="props"
+                :href="`/plateforme-conafohd/associations/${projectAssociation.id}`"
+                target="_blank"
+              >
+                <v-icon icon="$arrowRightThinCircleOutline" color="main-grey" class="mr-1"></v-icon>
+                <span>{{ projectAssociation.nom }}</span>
+              </a>
+            </template>
+          </v-tooltip>
+        </div>
         <v-container fluid class="pa-0">
           <!-- Informations générales -->
           <section class="ProjectDetails__section">
@@ -414,18 +428,29 @@ import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const appStore = useApplicationStore()
 const projectsStore = useProjectsStore()
+const associationsStore = useAssociationsStore()
 const { t } = useI18n()
 
 const showDialog = computed(() => projectsStore.selectedProject !== null)
 const project = computed(() => projectsStore.selectedProject as Project)
+const projectAssociation = computed(() => {
+  if (projectsStore.showAssociationInProjectCard) {
+    return associationsStore.associationsList.find(
+      (association) => association.id === project.value.association_id,
+    )
+  }
+  return null
+})
 
 const closeDialog = (): void => {
+  projectsStore.showAssociationInProjectCard = false
   projectsStore.selectedProject = null
 }
 
@@ -650,9 +675,21 @@ const getStatusLabel = (status: ProjectStatus | null): string => {
   }
 }
 
-// Scrollbar styling
 .ProjectDetails__content {
   scrollbar-width: thin;
   scrollbar-color: rgb(var(--v-theme-light-grey)) transparent;
+}
+
+.ProjectDetails__association {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  // font-size: 1.2rem;
+  text-align: center;
+  a {
+    text-decoration: underline;
+    color: rgb(var(--v-theme-main-grey));
+  }
 }
 </style>
