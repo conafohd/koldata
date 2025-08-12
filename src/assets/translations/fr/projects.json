@@ -26,7 +26,9 @@
       "unknownDates": "Dates non précisées",
       "newProject": "Nouveau projet en attente de validation",
       "validationPending": "En attente de validation",
-      "validateNewProject": "Valider le nouveau projet"
+      "validateNewProject": "Valider le nouveau projet",
+      "from": "Du",
+      "to": "au"
     },
     "createSuccess": "Projet créé avec succès",
     "createError": "Erreur lors de la création du projet",
@@ -78,7 +80,7 @@
         "nombre_garcons": "Nombre de garçons",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
         "nombre_personnes_handicapees": "Nombre de personnes handicapées",
-        "nombre_personnes_agees": "Nombre de personnes âgées"
+        "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)"
       },
       "placeholders": {
         "intitule_projet": "Entrez l'intitulé du projet",
@@ -102,7 +104,7 @@
         "nombre_garcons": "Nombre de garçons bénéficiaires",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
         "nombre_personnes_handicapees": "Nombre de personnes handicapées",
-        "nombre_personnes_agees": "Nombre de personnes âgées"
+        "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)"
       },
       "hints": {
         "dates_projet": "Période d'exécution du projet",

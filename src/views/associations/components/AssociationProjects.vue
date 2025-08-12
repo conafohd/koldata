@@ -111,6 +111,7 @@
   </v-dialog>
 </template>
 <script setup lang="ts">
+import { ProjectFunder } from '@/models/enums/projects/ProjectFunder'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
@@ -167,7 +168,15 @@ const headers = [
   {
     title: i18n.t('projects.associationTable.noms_bailleurs_fonds'),
     key: 'noms_bailleurs_fonds',
-    value: (item: Project) => item.noms_bailleurs_fonds.join(', '),
+    value: (item: Project) => {
+      if (!item.autre_bailleur_fonds) {
+        return item.noms_bailleurs_fonds.filter((p) => p !== ProjectFunder.OTHER).join(', ')
+      }
+      return (
+        item.noms_bailleurs_fonds.filter((p) => p !== ProjectFunder.OTHER).join(', ') +
+        item.autre_bailleur_fonds
+      )
+    },
   },
   {
     title: i18n.t('projects.associationTable.nombre_total_personnes_cibles'),
@@ -202,7 +211,15 @@ onBeforeMount(() => {
 
 function getTimeline(item: Project) {
   if (item.date_debut_projet && item.date_fin_projet) {
-    return item.date_debut_projet + ' - ' + item.date_fin_projet
+    return (
+      i18n.t('projects.associationTable.from') +
+      ' ' +
+      new Date(item.date_debut_projet).toLocaleDateString() +
+      ' ' +
+      i18n.t('projects.associationTable.to') +
+      ' ' +
+      new Date(item.date_fin_projet).toLocaleDateString()
+    )
   } else if (item.date_debut_projet) {
     return item.date_debut_projet + ' - ' + i18n.t('projects.associationTable.unknownEndDate')
   }
