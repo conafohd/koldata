@@ -148,7 +148,7 @@
                         class="ProjectDetails__chip"
                         v-if="sector !== InterventionSector.OTHER"
                       >
-                        {{ $t(`projects.form.lists.interventionSectors.${sector}`) }}
+                        {{ $t(`intervention_sector.${sector}`) }}
                       </v-chip>
                     </template>
 
@@ -427,6 +427,7 @@ import { ProjectFunder } from '@/models/enums/projects/ProjectFunder'
 import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
+import { formatNumber } from '@/services/utils/FormatNumber'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
@@ -476,12 +477,6 @@ const formatCurrency = (amount: number | undefined): string => {
     currency: 'USD',
     minimumFractionDigits: 0,
   }).format(amount)
-}
-
-const formatNumber = (value: number | null | undefined): string => {
-  if (value === null || value === undefined) return '-'
-
-  return new Intl.NumberFormat('fr-FR').format(value)
 }
 
 const getStatusColor = (status: ProjectStatus | null): string => {

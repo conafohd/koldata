@@ -1,0 +1,13 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "fetchError": "Erreur lors de la récupération des statistiques du tableau de bord",
+    "mainStats": {
+      "ngos_count": "Nombre d'ONG",
+      "projects_count": "Nombre de projets",
+      "beneficiaries_count": "Nombre de bénéficiaires",
+      "territories_count": "Nombre de territoires",
+      "interventions_fields_count": "Nombre de domaines d'intervention"
+    }
+  }
+}

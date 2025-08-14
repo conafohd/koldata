@@ -67,6 +67,7 @@
     "delete": "Supprimer un projet",
     "deleteMessage": "Cette action est irréversible, voulez-vous vraiment supprimer le projet ?",
     "confirm": "Confirmer",
+    "cancel": "Annuler",
     "selectAssociation": "Choisir une ONG",
     "projectsTable": {
       "name": "Nom",

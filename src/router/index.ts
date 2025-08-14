@@ -1,7 +1,6 @@
 import { pinia } from '@/main'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import HomeView from '@/views/homepage/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -10,7 +9,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('@/views/homepage/HomeView.vue'),
+      beforeEnter: () => {
+        const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = true
+      }
     },
     {
       path: '/projectsMap',
