@@ -44,6 +44,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-top: 1rem;
 }
 .App__content {
   display: flex;

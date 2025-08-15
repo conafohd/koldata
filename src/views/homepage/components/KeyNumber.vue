@@ -25,7 +25,7 @@ defineProps<{
   &__value {
     font-size: 2.5em;
     font-weight: bolder;
-    color: rgb(var(--v-theme-main-purple));
+    color: rgb(var(--v-theme-main-blue));
   }
 }
 </style>

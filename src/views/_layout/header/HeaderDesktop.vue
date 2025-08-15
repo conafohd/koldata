@@ -44,7 +44,7 @@ const authStore = useAuthenticationStore()
   align-items: center;
 
   &__logo {
-    width: 7.5rem;
+    width: 10rem;
   }
 }
 

@@ -82,10 +82,8 @@ const showMobileMenu = ref(false)
     }
 
     .Header__appLogo {
-      border: 1px solid rgb(var(--v-theme-main-grey));
-      border-radius: 50%;
       padding: 5px;
-      height: 40px;
+      height: 50px;
     }
 
     .Header__tabsText {
