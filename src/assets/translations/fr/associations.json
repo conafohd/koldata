@@ -26,6 +26,10 @@
       "typeOrg": "Filtrer par type d'organisation",
       "interventionSector": "Filtrer par secteur d'intervention"
     },
+    "switch": {
+      "grid": "Vue en grille",
+      "map": "Vue sur la carte"
+    },
     "infosCard": {
       "nb_salaries": "Salariés",
       "nb_benevoles": "Bénévoles",

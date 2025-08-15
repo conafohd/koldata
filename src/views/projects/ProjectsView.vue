@@ -148,16 +148,7 @@ import Spiderfy from '@nazka/map-gl-js-spiderfy'
 import { Map, type Feature } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { storeToRefs } from 'pinia'
-import {
-  computed,
-  nextTick,
-  onBeforeMount,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-  type Ref,
-} from 'vue'
+import { computed, onBeforeMount, onMounted, onUnmounted, ref, watch, type Ref } from 'vue'
 
 const applicationStore = useApplicationStore()
 const projectsStore = useProjectsStore()
@@ -172,7 +163,6 @@ onBeforeMount(async () => {
 })
 onMounted(async () => {
   applicationStore.isLoading = false
-  await nextTick()
   projectsGeojson.value = ProjectsMapService.getProjectsGeoJson(projects.value)
   initMap()
 })
@@ -478,6 +468,6 @@ function setSelectedProject(id: string) {
 .Projects__map {
   width: 100%;
   min-width: 100%;
-  min-height: 32rem;
+  min-height: 500px;
 }
 </style>

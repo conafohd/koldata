@@ -84,7 +84,21 @@
     </section>
 
     <main class="Associations__content">
-      <div class="Associations__grid">
+      <div class="Associations__viewSwitcher">
+        <v-tooltip :text="$t('associations.switch.grid')">
+          <template v-slot:activator="{ props }">
+            <v-icon v-bind="props" icon="$grid" size="small"></v-icon>
+          </template>
+        </v-tooltip>
+        <v-switch v-model="mapVisualisationActive" color="main-blue" hide-details></v-switch>
+        <v-tooltip :text="$t('associations.switch.map')">
+          <template v-slot:activator="{ props }">
+            <v-icon v-bind="props" icon="$map" size="small"></v-icon>
+          </template>
+        </v-tooltip>
+      </div>
+      <AssociationsMap v-if="mapVisualisationActive" :associations="filteredAssociations" />
+      <div class="Associations__grid" v-if="!mapVisualisationActive">
         <article
           v-for="association in filteredAssociations"
           :key="association.id"
@@ -152,6 +166,7 @@ import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref, type Ref } from 'vue'
+import AssociationsMap from './components/AssociationsMap.vue'
 
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
@@ -171,6 +186,8 @@ const hasPermissionToEdit = (id: string) =>
 function editAssociation(association: Association) {
   associationsStore.activeAssociationEdition(association.id)
 }
+
+const mapVisualisationActive = ref(false)
 
 const searchQuery: Ref<string> = ref('')
 const selectedProvince: Ref<string | null> = ref(null)
@@ -269,6 +286,14 @@ function resetFilters() {
 
   &__content {
     margin-bottom: 3rem;
+  }
+
+  &__viewSwitcher {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: -2rem;
+    gap: 0.5rem;
   }
 
   &__grid {
