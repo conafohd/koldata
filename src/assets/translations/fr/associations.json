@@ -18,6 +18,7 @@
     "updateDeletionSuccess": "La modification a bien été supprimée",
     "deleteAssociationError": "Une erreur est survenue lors de la suppression de l'ONG",
     "deleteAssociationSuccess": "ONG supprimée avec succès",
+    "accessToAssociation": "Fiche complète",
     "filters": {
       "search": "Rechercher",
       "province": "Filtrer par province",

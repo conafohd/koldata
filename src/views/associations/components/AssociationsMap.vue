@@ -1,6 +1,36 @@
 <template>
   <div class="AssociationsMapContainer">
-    <div ref="associationsMapContainer" class="AssociationsMap"></div>
+    <div ref="associationsMapContainer" class="AssociationsMap">
+      <div class="AssociationDescription" v-if="selectedAssociation">
+        <div class="d-flex align-center">
+          <div class="d-flex flex-column align-center">
+            <img
+              :src="selectedAssociation.logo_url"
+              alt="logo"
+              v-if="selectedAssociation.logo_url"
+              class="AssociationDescription__logo"
+            />
+            <span class="AssociationDescription__title">{{ selectedAssociation.nom }}</span>
+          </div>
+          <v-icon
+            icon="$close"
+            class="ml-3 cursor-pointer"
+            @click="selectedAssociation = null"
+          ></v-icon>
+        </div>
+        <div class="mt-2 text-justify" v-if="selectedAssociation.desc">
+          {{ selectedAssociation.desc }}
+        </div>
+        <v-btn
+          variant="outlined"
+          size="small"
+          color="light-blue"
+          class="mt-2"
+          @click="associationsStore.navigateToAssociation(selectedAssociation.id)"
+          >{{ $t('associations.accessToAssociation') }}</v-btn
+        >
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -9,9 +39,10 @@ import circleYellowImg from '@/assets/img/circle-yellow.png'
 import type { Association } from '@/models/interfaces/Association'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import Spiderfy from '@nazka/map-gl-js-spiderfy'
-import { Map, type Feature } from 'maplibre-gl'
+import type { FeatureCollection, GeoJsonProperties, Point } from 'geojson'
+import { GeoJSONSource, Map, type Feature } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 const props = defineProps<{
   associations: Association[]
 }>()
@@ -25,7 +56,8 @@ onUnmounted(() => {
 })
 const associationsMapContainer = ref<HTMLElement>()
 const map = ref<Map>()
-const mapData = computed(() => {
+
+const mapData = computed<FeatureCollection<Point, GeoJsonProperties>>(() => {
   return {
     type: 'FeatureCollection',
     features: props.associations.map((association: Association) => ({
@@ -121,9 +153,17 @@ function initMap() {
   })
 }
 
+watch(
+  () => props.associations,
+  () => {
+    if (map.value?.getSource('associationsSource')) {
+      ;(map.value.getSource('associationsSource') as GeoJSONSource).setData(mapData.value)
+    }
+  },
+)
+
 const selectedAssociation = ref<Association | null>(null)
 function showAssociationPopUp(id: string) {
-  // Implement the logic to handle the selected association
   selectedAssociation.value = associationsStore.associationsList.find((a) => a.id === id) || null
 }
 </script>
@@ -136,5 +176,31 @@ function showAssociationPopUp(id: string) {
 .AssociationsMap {
   height: 100%;
   width: 100%;
+}
+.AssociationDescription {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 15rem;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  z-index: 3000;
+  border: 1px solid rgb(var(--v-theme-main-grey));
+  align-items: center;
+  padding: 1rem;
+}
+.AssociationDescription__title {
+  font-weight: 600;
+  color: rgb(var(--v-theme-main-grey));
+  text-align: center;
+}
+.AssociationDescription__logo {
+  max-width: 5rem;
+  height: auto;
+  margin-bottom: 0.5rem;
 }
 </style>
