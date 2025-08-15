@@ -2,7 +2,13 @@
   <v-dialog v-model="showDialog" fullscreen>
     <v-card class="fullScreenCard">
       <v-toolbar :color="authStore.isAdmin ? 'main-purple' : 'main-blue'">
-        <v-btn icon="$close" @click="associationsStore.associationToEdit = null"></v-btn>
+        <v-btn
+          icon="$close"
+          @click="
+            ((associationsStore.associationToEdit = null),
+            (associationsStore.associationToCreate = false))
+          "
+        ></v-btn>
         <v-toolbar-title>{{ $t('associations.form.title') }}</v-toolbar-title>
         <v-toolbar-items class="bg-white">
           <template v-if="authStore.isAdmin">
