@@ -1,7 +1,4 @@
 {
-  "homepage": {
-    "chart1Title": "Répartition des projets par secteur d'intervention"
-  },
   "forms": {
     "errors": {
       "formNotValid": "Veuillez corriger les erreurs du formulaire.",

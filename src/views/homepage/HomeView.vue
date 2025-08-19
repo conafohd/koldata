@@ -11,6 +11,12 @@
         <div class="ContentCard">
           <InterventionSectorChart />
         </div>
+        <div class="ContentCard">
+          <BeneficiaryTypeChart />
+        </div>
+        <div class="ContentCard">
+          <BeneficiariesNumbers />
+        </div>
       </div>
     </div>
   </div>
@@ -19,6 +25,8 @@
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import { onMounted } from 'vue'
+import BeneficiariesNumbers from './components/BeneficiariesNumbers.vue'
+import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
 import InterventionSectorChart from './components/InterventionSectorChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
 const appStore = useApplicationStore()

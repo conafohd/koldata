@@ -1,7 +1,7 @@
 <template>
   <div class="keyNumber">
     <span class="keyNumber__label">{{ label }}</span>
-    <span class="keyNumber__value">{{ formatNumber(keyNumber) }}</span>
+    <span class="keyNumber__value">{{ formatNumber(keyNumber) }}{{ isMillion ? ' M$' : '' }}</span>
   </div>
 </template>
 <script lang="ts" setup>
@@ -10,6 +10,7 @@ import { formatNumber } from '@/services/utils/FormatNumber'
 defineProps<{
   label: string
   keyNumber: number
+  isMillion?: boolean
 }>()
 </script>
 
@@ -28,7 +29,7 @@ defineProps<{
   &__value {
     font-size: 3rem;
     font-weight: bolder;
-    color: rgb(var(--v-theme-main-purple));
+    color: rgb(var(--v-theme-light-blue));
   }
 }
 </style>

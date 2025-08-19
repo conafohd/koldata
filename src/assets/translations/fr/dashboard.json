@@ -5,9 +5,15 @@
     "mainStats": {
       "ngos_count": "Nombre d'ONG",
       "projects_count": "Nombre de projets",
-      "beneficiaries_count": "Nombre de bénéficiaires",
+      "budget_count": "Budget total",
       "territories_count": "Nombre de territoires",
       "interventions_fields_count": "Nombre de domaines d'intervention"
+    },
+    "chart1Title": "Répartition des projets par secteur d'intervention",
+    "chart2Title": "Répartition des projets par type de bénéficiaires",
+    "beneficiariesCount": {
+      "target": "Nombre de bénéficiaires ciblés",
+      "beneficiaries": "Nombre de bénéficiaires atteints"
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="BeneficiaryTypeChart">
     <canvas ref="canvasEl"></canvas>
   </div>
 </template>
@@ -7,29 +7,23 @@
 <script setup lang="ts">
 import { i18n } from '@/plugins/i18n'
 import { useDashboardStore } from '@/stores/dashboardStore'
-import {
-  BarController,
-  BarElement,
-  CategoryScale,
-  Chart,
-  Legend,
-  LinearScale,
-  Title,
-  Tooltip,
-} from 'chart.js'
+import { ArcElement, Chart, DoughnutController, Legend, Title, Tooltip } from 'chart.js'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
+
+// Enregistrement des éléments nécessaires à Chart.js
+Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title)
 
 const dashboardStore = useDashboardStore()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
-let chartInstance: Chart<'bar'> | null = null
+let chartInstance: Chart<'doughnut'> | null = null
 
 onMounted(async () => {
   if (!canvasEl.value) return
   await dashboardStore.fetchStats()
-  const data = dashboardStore.stats!.interventions_fields_details
-  const labels = data.map((d: any) => d.secteur)
+  const data = dashboardStore.stats!.beneficiaries_types_details
+
+  const labels = data.map((d: any) => d.type)
   const values = data.map((d: any) => d.occurrences)
 
   const colors = [
@@ -45,27 +39,30 @@ onMounted(async () => {
   ]
 
   chartInstance = new Chart(canvasEl.value, {
-    type: 'bar',
+    type: 'doughnut',
     data: {
       labels,
       datasets: [
         {
           data: values,
           backgroundColor: colors,
-          borderRadius: 6,
+          borderWidth: 1,
         },
       ],
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
-        title: { display: true, text: i18n.t('dashboard.chart1Title') },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { precision: 0 },
+        legend: { position: 'bottom' },
+        title: { display: true, text: i18n.t('dashboard.chart2Title') },
+        tooltip: {
+          callbacks: {
+            label: (context) => {
+              const item = data[context.dataIndex]
+              return `${item.type}: ${item.occurrences} (${item.percentage}%)`
+            },
+          },
         },
       },
     },
@@ -79,3 +76,11 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+
+<style scoped>
+.BeneficiaryTypeChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+</style>

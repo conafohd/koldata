@@ -10,8 +10,9 @@
     class="Dashboard__keyNumber"
   />
   <KeyNumber
-    :label="$t(`dashboard.mainStats.beneficiaries_count`)"
-    :keyNumber="dashboardStore.stats?.beneficiaries_count as number"
+    :label="$t(`dashboard.mainStats.budget_count`)"
+    :keyNumber="(dashboardStore.stats?.budget_count! / 1000000) as number"
+    isMillion
     class="Dashboard__keyNumber"
   />
   <KeyNumber
