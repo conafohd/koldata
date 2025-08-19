@@ -4,4 +4,6 @@ export interface DashboardStats {
     beneficiaries_count: number
     territories_count: number
     interventions_fields_count: number
+    interventions_fields_details: Record<string, number>[]
+    beneficiaries_types_details: Record<string, number>[]
 }

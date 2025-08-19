@@ -18,14 +18,17 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  justify-content: space-around;
+  line-height: 1.2;
   &__label {
     font-weight: 600;
   }
 
   &__value {
-    font-size: 2.5em;
+    font-size: 3rem;
     font-weight: bolder;
-    color: rgb(var(--v-theme-main-blue));
+    color: rgb(var(--v-theme-main-purple));
   }
 }
 </style>
