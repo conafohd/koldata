@@ -7,6 +7,11 @@
       <div class="Dashboard__mainStats ContentCard">
         <KeyNumbers />
       </div>
+      <div class="Dashboard__charts">
+        <div class="ContentCard">
+          <InterventionSectorChart />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +19,7 @@
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import { onMounted } from 'vue'
+import InterventionSectorChart from './components/InterventionSectorChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
 const appStore = useApplicationStore()
 const dashboardStore = useDashboardStore()
@@ -63,6 +69,22 @@ onMounted(async () => {
 .Dashboard__keyNumber {
   @media (min-width: $bp-sm) {
     width: 20%;
+  }
+}
+.Dashboard__charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 15rem);
+  gap: 1rem;
+  width: 100%;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 15rem);
+  }
+
+  > * {
+    padding: 1rem;
   }
 }
 </style>
