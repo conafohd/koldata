@@ -9,12 +9,12 @@
       </div>
       <div class="Dashboard__charts">
         <div class="ContentCard">
-          <InterventionSectorChart />
+          <InterventionSectorChart :data="InterventionSectorChartData" />
         </div>
         <div class="ContentCard">
-          <BeneficiaryTypeChart />
+          <BeneficiaryTypeChart :data="BeneficiaryTypeChartData" />
         </div>
-        <div class="ContentCard">
+        <div class="d-flex ContentCard">
           <BeneficiariesNumbers />
         </div>
       </div>
@@ -24,7 +24,7 @@
 <script setup lang="ts">
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import BeneficiariesNumbers from './components/BeneficiariesNumbers.vue'
 import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
 import InterventionSectorChart from './components/InterventionSectorChart.vue'
@@ -36,6 +36,17 @@ onMounted(async () => {
   await dashboardStore.fetchStats()
   console.log(dashboardStore.stats)
   appStore.isLoading = false
+})
+
+const InterventionSectorChartData = computed(() => {
+  const data = dashboardStore.stats?.interventions_fields_details || []
+  return {
+    labels: data.map((d) => d.secteur),
+    values: data.map((d) => d.occurrences),
+  }
+})
+const BeneficiaryTypeChartData = computed(() => {
+  return dashboardStore.stats?.beneficiaries_types_details || []
 })
 </script>
 
@@ -82,7 +93,7 @@ onMounted(async () => {
 .Dashboard__charts {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 15rem);
+  grid-template-rows: repeat(2, 18rem);
   gap: 1rem;
   width: 100%;
 

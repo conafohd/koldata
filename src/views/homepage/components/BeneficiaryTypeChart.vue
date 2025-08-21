@@ -5,48 +5,35 @@
 </template>
 
 <script setup lang="ts">
+import type { DashboardStats } from '@/models/interfaces/DashboardStats'
 import { i18n } from '@/plugins/i18n'
-import { useDashboardStore } from '@/stores/dashboardStore'
+import { getChartsColorsPalette } from '@/services/utils/ChartsColors'
 import { ArcElement, Chart, DoughnutController, Legend, Title, Tooltip } from 'chart.js'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
-
-// Enregistrement des éléments nécessaires à Chart.js
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend, Title)
 
-const dashboardStore = useDashboardStore()
+const props = defineProps<{
+  data: DashboardStats['beneficiaries_types_details']
+}>()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 let chartInstance: Chart<'doughnut'> | null = null
+const colors = getChartsColorsPalette()
 
-onMounted(async () => {
+onMounted(() => {
   if (!canvasEl.value) return
-  await dashboardStore.fetchStats()
-  const data = dashboardStore.stats!.beneficiaries_types_details
-
-  const labels = data.map((d: any) => d.type)
-  const values = data.map((d: any) => d.occurrences)
-
-  const colors = [
-    '#60a5fa',
-    '#34d399',
-    '#fbbf24',
-    '#f472b6',
-    '#a78bfa',
-    '#f87171',
-    '#22d3ee',
-    '#c084fc',
-    '#fb7185',
-  ]
+  if (chartInstance) {
+    chartInstance.destroy()
+  }
 
   chartInstance = new Chart(canvasEl.value, {
     type: 'doughnut',
     data: {
-      labels,
+      labels: props.data.map((item) => item.type),
       datasets: [
         {
-          data: values,
+          data: props.data.map((item) => item.occurrences),
           backgroundColor: colors,
-          borderWidth: 1,
         },
       ],
     },
@@ -59,7 +46,7 @@ onMounted(async () => {
         tooltip: {
           callbacks: {
             label: (context) => {
-              const item = data[context.dataIndex]
+              const item = props.data[context.dataIndex]
               return `${item.type}: ${item.occurrences} (${item.percentage}%)`
             },
           },
@@ -68,6 +55,18 @@ onMounted(async () => {
     },
   })
 })
+
+watch(
+  () => props.data,
+  (newData) => {
+    if (chartInstance) {
+      chartInstance.data.labels = newData.map((item) => item.type)
+      chartInstance.data.datasets[0].data = newData.map((item) => item.occurrences)
+      chartInstance.update()
+    }
+  },
+  { immediate: true },
+)
 
 onBeforeUnmount(() => {
   if (chartInstance) {

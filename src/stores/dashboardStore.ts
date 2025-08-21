@@ -1,3 +1,4 @@
+import { DBFunction } from "@/models/enums/DBFunction";
 import type { DashboardStats } from "@/models/interfaces/DashboardStats";
 import { i18n } from "@/plugins/i18n";
 import { supabase } from "@/plugins/supabase";
@@ -10,7 +11,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
     const fetchStats = async (force = false) => {
         if (stats.value && !force) return;
-        const { data, error } = await supabase.rpc('get_db_stats')
+        const { data, error } = await supabase.rpc(DBFunction.DASHBOARD_STATS)
         if (error) {
             addNotification(i18n.t('dashboard.fetchError'))
             console.error('Error fetching dashboard stats:', error)

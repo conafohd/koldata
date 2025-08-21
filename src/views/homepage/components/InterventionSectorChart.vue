@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="InterventionSectorChart">
     <canvas ref="canvasEl"></canvas>
   </div>
 </template>
 
 <script setup lang="ts">
 import { i18n } from '@/plugins/i18n'
-import { useDashboardStore } from '@/stores/dashboardStore'
+import { getChartsColorsPalette } from '@/services/utils/ChartsColors'
 import {
   BarController,
   BarElement,
@@ -17,60 +17,67 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title, Tooltip, Legend)
 
-const dashboardStore = useDashboardStore()
+const props = defineProps<{
+  data: {
+    labels: string[]
+    values: number[]
+  }
+}>()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
 let chartInstance: Chart<'bar'> | null = null
+const colors = getChartsColorsPalette()
 
-onMounted(async () => {
+onMounted(() => {
   if (!canvasEl.value) return
-  await dashboardStore.fetchStats()
-  const data = dashboardStore.stats!.interventions_fields_details
-  const labels = data.map((d: any) => d.secteur)
-  const values = data.map((d: any) => d.occurrences)
-
-  const colors = [
-    '#60a5fa',
-    '#34d399',
-    '#fbbf24',
-    '#f472b6',
-    '#a78bfa',
-    '#f87171',
-    '#22d3ee',
-    '#c084fc',
-    '#fb7185',
-  ]
+  if (chartInstance) {
+    chartInstance.destroy()
+  }
 
   chartInstance = new Chart(canvasEl.value, {
     type: 'bar',
     data: {
-      labels,
-      datasets: [
-        {
-          data: values,
-          backgroundColor: colors,
-          borderRadius: 6,
-        },
-      ],
+      labels: [''],
+      datasets: props.data.labels.map((label: string, i: number) => ({
+        label,
+        data: [props.data.values[i]],
+        backgroundColor: colors[i],
+        borderRadius: 2,
+      })),
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
+        legend: { position: 'bottom' },
         title: { display: true, text: i18n.t('dashboard.chart1Title') },
       },
       scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { precision: 0 },
-        },
+        x: { display: false },
       },
     },
   })
 })
+
+watch(
+  () => props.data,
+  (newData) => {
+    if (chartInstance) {
+      chartInstance.data.labels = ['']
+      chartInstance.data.datasets = newData.values.map((value, i) => ({
+        label: newData.labels[i],
+        data: [value],
+        backgroundColor: colors[i],
+        borderRadius: 2,
+      }))
+      chartInstance.update()
+    }
+  },
+  { immediate: true },
+)
 
 onBeforeUnmount(() => {
   if (chartInstance) {
@@ -79,3 +86,11 @@ onBeforeUnmount(() => {
   }
 })
 </script>
+
+<style scoped>
+.InterventionSectorChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+</style>

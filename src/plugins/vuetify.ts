@@ -37,10 +37,12 @@ import 'vuetify/styles'
 const customTheme: ThemeDefinition = {
   colors: {
     'main-blue': '#325c8e',
+    'dark-blue': '#1e3a8a',
     'light-blue': '#8ED1FC',
     'main-purple': '#6431F6',
     'main-grey': '#575757',
-    'light-grey': '#D9D9D9'
+    'light-grey': '#D9D9D9',
+    'main-yellow': '#FFCD00'
   }
 }
 
