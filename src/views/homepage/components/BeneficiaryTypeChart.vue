@@ -29,7 +29,9 @@ onMounted(() => {
   chartInstance = new Chart(canvasEl.value, {
     type: 'doughnut',
     data: {
-      labels: props.data.map((item) => item.type),
+      labels: props.data.map((item) =>
+        i18n.t('projects.form.lists.beneficiariesTypes.' + item.type),
+      ),
       datasets: [
         {
           data: props.data.map((item) => item.occurrences),
@@ -42,7 +44,7 @@ onMounted(() => {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: 'bottom' },
-        title: { display: true, text: i18n.t('dashboard.chart2Title') },
+        title: { display: true, text: i18n.t('dashboard.chart2.title') },
         tooltip: {
           callbacks: {
             label: (context) => {
@@ -60,7 +62,9 @@ watch(
   () => props.data,
   (newData) => {
     if (chartInstance) {
-      chartInstance.data.labels = newData.map((item) => item.type)
+      chartInstance.data.labels = newData.map((item) =>
+        i18n.t('projects.form.lists.beneficiariesTypes.' + item.type),
+      )
       chartInstance.data.datasets[0].data = newData.map((item) => item.occurrences)
       chartInstance.update()
     }

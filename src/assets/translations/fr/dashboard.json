@@ -9,11 +9,24 @@
       "territories_count": "Nombre de territoires",
       "interventions_fields_count": "Nombre de domaines d'intervention"
     },
-    "chart1Title": "Répartition des projets par secteur d'intervention",
-    "chart2Title": "Répartition des projets par type de bénéficiaires",
+    "chart1": {
+      "title": "Répartition des projets par secteur d'intervention"
+    },
+    "chart2": {
+      "title": "Répartition des projets par type de bénéficiaires"
+    },
     "beneficiariesCount": {
       "target": "Nombre de bénéficiaires ciblés",
       "beneficiaries": "Nombre de bénéficiaires atteints"
+    },
+    "chart3": {
+      "title": "Répartition des bénéficiaires par profil",
+      "nb_women": "Femmes",
+      "nb_men": "Hommes",
+      "nb_boys": "Garçons",
+      "nb_girls": "Filles",
+      "nb_disabled": "Personnes handicapées",
+      "nb_elderly": "Personnes âgées"
     }
   }
 }

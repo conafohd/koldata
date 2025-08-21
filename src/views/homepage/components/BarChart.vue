@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { i18n } from '@/plugins/i18n'
 import { getChartsColorsPalette } from '@/services/utils/ChartsColors'
 import {
   BarController,
@@ -25,6 +24,7 @@ const props = defineProps<{
     labels: string[]
     values: number[]
   }
+  title: string
 }>()
 
 const canvasEl = ref<HTMLCanvasElement | null>(null)
@@ -53,7 +53,7 @@ onMounted(() => {
       maintainAspectRatio: false,
       plugins: {
         legend: { position: 'bottom' },
-        title: { display: true, text: i18n.t('dashboard.chart1Title') },
+        title: { display: true, text: props.title },
       },
       scales: {
         x: { display: false },

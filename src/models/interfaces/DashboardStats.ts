@@ -17,4 +17,12 @@ export interface DashboardStats {
         target: number
         beneficiaries: number
     }
+    beneficiaries_profile_details: {
+        nb_women: number
+        nb_men: number
+        nb_boys: number
+        nb_girls: number
+        nb_disabled: number
+        nb_elderly: number
+    }
 }
