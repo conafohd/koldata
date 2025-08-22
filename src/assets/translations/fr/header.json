@@ -2,7 +2,8 @@
   "header": {
     "title": "Kongo Local Data",
     "tabs": {
-      "home": "Dashboard",
+      "home": "Accueil",
+      "dashboard": "Statistiques",
       "projectsMap": "Carte des projets",
       "associations": "Profils des ONG",
       "admin": "Administration"

@@ -7,11 +7,19 @@ export class NavigationTabsService {
         name: i18n.t('header.tabs.home'),
         value: 0,
         route: '/',
+        icon: '$homeCircleOutline'
+      },
+      {
+        name: i18n.t('header.tabs.dashboard'),
+        value: 1,
+        route: {
+          name: 'dashboard'
+        },
         icon: '$monitorDashboard'
       },
       {
         name: i18n.t('header.tabs.projectsMap'),
-        value: 1,
+        value: 2,
         route: {
           name: 'projectsMap'
         },
@@ -19,7 +27,7 @@ export class NavigationTabsService {
       },
       {
         name: i18n.t('header.tabs.associations'),
-        value: 2,
+        value: 3,
         route: {
           name: 'associations'
         },

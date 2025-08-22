@@ -14,6 +14,7 @@ import {
   mdiClose,
   mdiFileCheckOutline,
   mdiGrid,
+  mdiHomeCircleOutline,
   mdiImagePlus,
   mdiInformationSlabBoxOutline,
   mdiLogin,
@@ -91,7 +92,8 @@ export default createVuetify({
       checkCircle: mdiCheckCircle,
       circleOffOutline: mdiCircleOffOutline,
       arrowRightThinCircleOutline: mdiArrowRightThinCircleOutline,
-      grid: mdiGrid
+      grid: mdiGrid,
+      homeCircleOutline: mdiHomeCircleOutline
     },
     sets: {
       mdi

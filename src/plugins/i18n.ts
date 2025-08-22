@@ -4,6 +4,7 @@ import authFR from '@/assets/translations/fr/auth.json'
 import commonFR from '@/assets/translations/fr/common.json'
 import dashboardFr from '@/assets/translations/fr/dashboard.json'
 import headerFR from '@/assets/translations/fr/header.json'
+import homeFR from '@/assets/translations/fr/home.json'
 import projectFR from '@/assets/translations/fr/projects.json'
 import { createI18n } from 'vue-i18n'
 
@@ -19,7 +20,8 @@ export const i18nInstance = createI18n({
       ...associationsFR,
       ...adminFR,
       ...projectFR,
-      ...dashboardFr
+      ...dashboardFr,
+      ...homeFR
     }
   }
 })
