@@ -22,7 +22,7 @@
         v-model="searchQuery"
         clearable
       />
-      <v-select
+      <v-autocomplete
         :label="$t('projects.filters.association')"
         :items="associations.sort((a, b) => a.nom.localeCompare(b.nom))"
         :item-title="(item) => item.nom"
@@ -64,6 +64,20 @@
         :item-title="'territoire'"
         :item-value="'territoire'"
         v-model="selectedTerritory"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.healthZone')"
+        :items="
+          adminBoundStore.healthZonesList?.sort((a, b) => a.zone_sante.localeCompare(b.zone_sante))
+        "
+        item-title="zone_sante"
+        item-value="zone_sante"
+        v-model="selectedHealthZone"
         variant="outlined"
         density="compact"
         hide-details
@@ -189,6 +203,7 @@ const selectedAssociation = ref<string | null>(null)
 const selectedProjectStatus = ref<ProjectStatus | null>(null)
 const selectedProvince = ref<string[] | null>(null)
 const selectedTerritory = ref<string[] | null>(null)
+const selectedHealthZone = ref<string[] | null>(null)
 const selectedStartDate = ref<string | null>(null)
 const selectedEndDate = ref<string | null>(null)
 const updateSearchQuery = debounce((value: string) => {
@@ -220,6 +235,12 @@ const filteredProjects = computed(() => {
       project.territoire.some((territoire) => selectedTerritory.value?.includes(territoire)),
     )
   }
+
+  // if (selectedHealthZone.value && selectedHealthZone.value.length > 0) {
+  //   result = result.filter((project) =>
+  //     project.zone_sante.some((zone) => selectedHealthZone.value?.includes(zone)),
+  //   )
+  // }
 
   if (selectedStartDate.value) {
     result = result.filter((project) => {
@@ -457,16 +478,16 @@ function setSelectedProject(id: string) {
 
   &__filters {
     display: grid;
-    grid-template-columns: 1fr repeat(4, minmax(12rem, 1fr));
+    grid-template-columns: repeat(4, minmax(12rem, 1fr));
     gap: 1rem;
     margin-bottom: 2rem;
     align-items: end;
 
-    @media (max-width: 768px) {
+    @media (max-width: $bp-sm) {
       grid-template-columns: 1fr;
     }
 
-    @media (max-width: 1024px) and (min-width: 769px) {
+    @media (max-width: $bp-lg) and (min-width: $bp-sm) {
       grid-template-columns: 1fr 1fr;
     }
   }
@@ -475,6 +496,12 @@ function setSelectedProject(id: string) {
     min-width: 15rem;
   }
 }
+// @media (min-width: $bp-lg) {
+//   .Projects__filters > :nth-child(1),
+//   .Projects__filters > :nth-child(2) {
+//     grid-column: span 2;
+//   }
+// }
 .Projects__map {
   width: 100%;
   min-width: 100%;

@@ -3,6 +3,69 @@
     <div class="Dashboard__header">
       <span class="PageTitle">{{ $t('dashboard.title') }}</span>
     </div>
+    <div class="Dashboard__filters">
+      <v-autocomplete
+        :label="$t('projects.filters.association')"
+        :items="associations.sort((a, b) => a.nom.localeCompare(b.nom))"
+        :item-title="(item) => item.nom"
+        :item-value="(item) => item.id"
+        v-model="selectedAssociation"
+        variant="outlined"
+        density="compact"
+        hide-details
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.province')"
+        :items="adminBoundStore.provincesList?.sort((a, b) => a.province.localeCompare(b.province))"
+        :item-title="'province'"
+        :item-value="'province'"
+        v-model="selectedProvince"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.territory')"
+        :items="
+          adminBoundStore.territoriesList?.sort((a, b) => a.territoire.localeCompare(b.territoire))
+        "
+        :item-title="'territoire'"
+        :item-value="'territoire'"
+        v-model="selectedTerritory"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+      <v-autocomplete
+        :label="$t('projects.filters.healthZone')"
+        :items="
+          adminBoundStore.healthZonesList?.sort((a, b) => a.zone_sante.localeCompare(b.zone_sante))
+        "
+        item-title="zone_sante"
+        item-value="zone_sante"
+        v-model="selectedHealthZone"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+      <v-select
+        :label="$t('projects.filters.year')"
+        :items="[2024, 2023, 2022, 2021, 2020]"
+        v-model="selectedYear"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        clearable
+      />
+    </div>
     <div class="Dashboard__content">
       <div class="Dashboard__mainStats ContentCard">
         <KeyNumbers />
@@ -26,21 +89,44 @@
 </template>
 <script setup lang="ts">
 import { i18n } from '@/plugins/i18n'
+import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
+import { useAssociationsStore } from '@/stores/associationsStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
-import { computed, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, onBeforeMount, ref } from 'vue'
 import BarChart from './components/BarChart.vue'
 import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
 import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
 const appStore = useApplicationStore()
 const dashboardStore = useDashboardStore()
+const associationsStore = useAssociationsStore()
+const adminBoundStore = useAdminBoundariesStore()
+const { associationsList: associations } = storeToRefs(associationsStore)
 
-onMounted(async () => {
+onBeforeMount(async () => {
   await dashboardStore.fetchStats()
+  await associationsStore.getAssociationsList()
+  await adminBoundStore.fetchBoundaries()
   console.log(dashboardStore.stats)
   appStore.isLoading = false
 })
+
+//-------------------- Filters --------------------------\\
+const selectedAssociation = ref<string | null>(null)
+const selectedProvince = ref<string[] | null>(null)
+const selectedTerritory = ref<string[] | null>(null)
+const selectedHealthZone = ref<string[] | null>(null)
+const selectedYear = ref<number[] | null>(null)
+
+// watch(
+//   [selectedAssociation, selectedProvince],
+//   async ([association, provinces]) => {
+//     await dashboardStore.fetchStats(association, provinces)
+//   },
+//   { immediate: true }
+// )
 
 const interventionSectorChartData = computed(() => {
   const data = dashboardStore.stats?.interventions_fields_details || []
@@ -90,6 +176,23 @@ const beneficiaryProfileChartData = computed(() => {
     justify-content: center;
   }
 }
+.Dashboard__filters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: end;
+
+  @media (max-width: $bp-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: $bp-sm) {
+  .Dashboard__filters > :first-child {
+    grid-column: span 2; /* il s'étend sur 2 colonnes */
+  }
+}
+
 .Dashboard__content {
   display: flex;
   flex-direction: column;
