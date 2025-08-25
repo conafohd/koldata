@@ -7,6 +7,7 @@ import { i18nInstance } from './plugins/i18n'
 import router from './router'
 
 const app = createApp(App)
+app.config.globalProperties.$base = import.meta.env.BASE_URL
 
 export const pinia = createPinia()
 app.use(pinia)

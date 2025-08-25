@@ -18,18 +18,11 @@
 
       <v-card-text class="ProjectDetails__content">
         <div class="ProjectDetails__association" v-if="projectAssociation">
-          <v-tooltip :text="$t('projects.seeAssociation')" location="top">
-            <template v-slot:activator="{ props }">
-              <a
-                v-bind="props"
-                :href="`/plateforme-conafohd/associations/${projectAssociation.id}`"
-                target="_blank"
-              >
-                <v-icon icon="$arrowRightThinCircleOutline" color="main-grey" class="mr-1"></v-icon>
-                <span>{{ projectAssociation.nom }}</span>
-              </a>
-            </template>
-          </v-tooltip>
+          <a :href="associationUrl" target="_blank">
+            <v-btn variant="outlined" color="light-blue" class="mt-2">{{
+              $t('projects.seeAssociation')
+            }}</v-btn>
+          </a>
         </div>
         <v-container fluid class="pa-0">
           <!-- Informations générales -->
@@ -464,6 +457,9 @@ const appStore = useApplicationStore()
 const projectsStore = useProjectsStore()
 const associationsStore = useAssociationsStore()
 const { t } = useI18n()
+const associationUrl = computed(
+  () => `${import.meta.env.BASE_URL}associations/${projectAssociation.value?.id}`,
+)
 
 const showDialog = computed(() => projectsStore.selectedProject !== null)
 const project = computed(() => projectsStore.selectedProject as Project)

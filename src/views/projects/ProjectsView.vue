@@ -109,7 +109,7 @@
         hide-details
       />
     </section>
-    <div class="Projects__map" ref="projectsMapContainer"></div>
+    <div class="Projects__map" ref="projectsMapContainer">{{ $t('projects.loadingMap') }}</div>
   </div>
   <v-dialog v-model="showStartDatePicker" max-width="400px">
     <v-card>
@@ -314,7 +314,9 @@ function confirmEndDate() {
 const projectsMapContainer = ref<HTMLElement>()
 const map = ref<Map>()
 const projectsGeojson: Ref<any> = ref(null)
+const showMap = ref(false)
 function initMap() {
+  showMap.value = true
   if (!projectsMapContainer.value) return
   if (!projectsGeojson.value || projectsGeojson.value.features.length === 0) return
 
@@ -496,15 +498,10 @@ function setSelectedProject(id: string) {
     min-width: 15rem;
   }
 }
-// @media (min-width: $bp-lg) {
-//   .Projects__filters > :nth-child(1),
-//   .Projects__filters > :nth-child(2) {
-//     grid-column: span 2;
-//   }
-// }
 .Projects__map {
   width: 100%;
   min-width: 100%;
   min-height: 32rem;
+  text-align: center;
 }
 </style>

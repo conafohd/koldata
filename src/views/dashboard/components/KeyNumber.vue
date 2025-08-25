@@ -1,7 +1,9 @@
 <template>
   <div class="keyNumber">
     <span class="keyNumber__label">{{ label }}</span>
-    <span class="keyNumber__value">{{ formatNumber(keyNumber) }}{{ isMillion ? ' M$' : '' }}</span>
+    <span class="keyNumber__value"
+      >{{ formatNumber(parseFloat(keyNumber.toFixed(2))) }}{{ isMillion ? ' M$' : '' }}</span
+    >
   </div>
 </template>
 <script lang="ts" setup>

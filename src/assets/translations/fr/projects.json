@@ -43,6 +43,7 @@
     "confirmDeleteProject": "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.",
     "confirm": "Confirmer",
     "cancel": "Annuler",
+    "loadingMap": "Chargement de la carte en cours. Récupération des données...",
     "card": {
       "consortium_question": "Ce projet est-il en consortium?",
       "consortium_yes": "Oui",
