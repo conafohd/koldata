@@ -255,6 +255,10 @@
             <span class="ContentCard__contentTitle">2024:</span>
             <span class="ContentCard__contentText ml-2">{{ association.budget_2024 }} $US</span>
           </div>
+          <div class="d-flex align-center">
+            <span class="ContentCard__contentTitle">2025:</span>
+            <span class="ContentCard__contentText ml-2">{{ association.budget_2025 }} $US</span>
+          </div>
         </div>
       </div>
     </div>
@@ -280,7 +284,11 @@ function getProjectsCount(): number {
   )
 }
 function getConsortiumCount(): number {
-  return 0
+  return (
+    projectsStore.projectsList
+      .filter((project) => project.association_id === props.association.id)
+      .filter((p) => p.consortium).length || 0
+  )
 }
 
 const assoMap = ref<HTMLElement>()

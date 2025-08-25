@@ -25,6 +25,9 @@ export interface Association {
   budget_2022: number | null;
   budget_2023: number | null;
   budget_2024: number | null;
+  budget_2025: number | null;
+  budget_2026: number | null;
+  budget_2027: number | null;
   nb_salaries: number;
   nb_benevoles: number;
   nom_resp_edition: string;

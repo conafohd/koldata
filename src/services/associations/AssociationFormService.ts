@@ -110,6 +110,24 @@ export class AssociationFormService {
         .optional()
         .nullable(),
 
+        budget_2025: z
+        .number()
+        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
+        .optional()
+        .nullable(),
+
+        budget_2026: z
+        .number()
+        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
+        .optional()
+        .nullable(),
+
+        budget_2027: z
+        .number()
+        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
+        .optional()
+        .nullable(),
+
         nb_salaries: z
         .number({ message: i18n.t('forms.errors.required') })
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
@@ -254,6 +272,9 @@ export class AssociationFormService {
             budget_2022: useField<number | null>('budget_2022', '', { validateOnValueUpdate: true }),
             budget_2023: useField<number | null>('budget_2023', '', { validateOnValueUpdate: true }),
             budget_2024: useField<number | null>('budget_2024', '', { validateOnValueUpdate: true }),
+            budget_2025: useField<number | null>('budget_2025', '', { validateOnValueUpdate: true }),
+            budget_2026: useField<number | null>('budget_2026', '', { validateOnValueUpdate: true }),
+            budget_2027: useField<number | null>('budget_2027', '', { validateOnValueUpdate: true }),
             nb_salaries: useField<number>('nb_salaries', '', { validateOnValueUpdate: true }),
             nb_benevoles: useField<number>('nb_benevoles', '', { validateOnValueUpdate: true }),
             nom_resp_edition: useField<string>('nom_resp_edition', '', { validateOnValueUpdate: true }),

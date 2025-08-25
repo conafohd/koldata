@@ -54,6 +54,32 @@
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
+                    {{ $t('projects.card.consortium_question') }}
+                  </span>
+                  <p class="ProjectDetails__field-value">
+                    {{
+                      project.consortium
+                        ? $t('projects.card.consortium_yes')
+                        : $t('projects.card.consortium_no')
+                    }}
+                  </p>
+                </div>
+              </v-col>
+
+              <v-col cols="12" md="6" v-if="project.consortium">
+                <div class="ProjectDetails__field">
+                  <span class="ProjectDetails__field-label">
+                    {{ $t('projects.card.consortium_text') }}
+                  </span>
+                  <p class="ProjectDetails__field-value">
+                    {{ project.partenaires_consortium }}
+                  </p>
+                </div>
+              </v-col>
+
+              <v-col cols="12" md="6">
+                <div class="ProjectDetails__field">
+                  <span class="ProjectDetails__field-label">
                     {{ $t('projects.associationTable.statut_projet') }}
                   </span>
                   <v-chip

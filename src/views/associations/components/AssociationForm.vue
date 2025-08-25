@@ -399,6 +399,15 @@
             }}</span>
             <v-number-input
               controlVariant="stacked"
+              :label="$t('associations.form.fields.budget_2025')"
+              :placeholder="$t('associations.form.placeholders.budget_2025')"
+              v-model="associationForm.form.budget_2025.value.value"
+              :error-messages="associationForm.form.budget_2025.errorMessage.value"
+              @blur="associationForm.form.budget_2025.handleBlur"
+              variant="outlined"
+            />
+            <v-number-input
+              controlVariant="stacked"
               :label="$t('associations.form.fields.budget_2024')"
               :placeholder="$t('associations.form.placeholders.budget_2024')"
               v-model="associationForm.form.budget_2024.value.value"
