@@ -163,7 +163,8 @@ export class ProjectFormService {
         .nullable(),
 
         consortium: z
-        .boolean(),
+        .boolean()
+        .nullable(),
 
         partenaires_consortium: z
         .string({ message: i18n.t('forms.errors.required') })

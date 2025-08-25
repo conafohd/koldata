@@ -50,7 +50,7 @@ export class NavigationTabsService {
       .filter(Boolean)
       .pop()?.value
     if (segments.length === 1 && segments[0] === 'admin') {
-      return 3 // Admin tab
+      return 4 // Admin tab
     }
     if (newTabsNumber && newTabsNumber !== actualNumber) {
       return newTabsNumber

@@ -88,6 +88,7 @@
               :error-messages="projectForm.form.intitule_projet.errorMessage.value"
               @blur="projectForm.form.intitule_projet.handleBlur"
               required
+              clearable
             />
             <div class="d-flex ga-2">
               <v-checkbox
@@ -102,6 +103,7 @@
                 :error-messages="projectForm.form.partenaires_consortium.errorMessage.value"
                 @blur="projectForm.form.partenaires_consortium.handleBlur"
                 v-if="projectForm.form.consortium.value.value"
+                clearable
               />
             </div>
             <div class="d-flex ga-2">
@@ -113,6 +115,7 @@
                 :error-messages="projectForm.form.partenaire_financier_technique.errorMessage.value"
                 @blur="projectForm.form.partenaire_financier_technique.handleBlur"
                 required
+                clearable
               />
               <v-number-input
                 variant="outlined"
@@ -123,6 +126,7 @@
                 @blur="projectForm.form.budget_projet.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
             </div>
 
@@ -138,6 +142,7 @@
                 :item-value="(item) => item"
                 multiple
                 required
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -166,6 +171,7 @@
                 multiple
                 required
                 chips
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -194,6 +200,7 @@
                 :item-title="(key) => $t(`projects.form.lists.projectStatus.${key}`)"
                 :item-value="(item) => item"
                 required
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -233,6 +240,7 @@
                 @update:model-value="updateTerritories()"
                 required
                 multiple
+                clearable
               />
               <v-select
                 variant="outlined"
@@ -244,6 +252,7 @@
                 @update:model-value="updateHealthZones()"
                 required
                 multiple
+                clearable
               />
               <v-select
                 variant="outlined"
@@ -254,6 +263,7 @@
                 :items="healthZonesList"
                 required
                 multiple
+                clearable
               />
             </div>
             <div class="d-flex ga-2">
@@ -265,6 +275,7 @@
                 :error-messages="projectForm.form.aire_sante.errorMessage.value"
                 @blur="projectForm.form.aire_sante.handleBlur"
                 required
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -274,6 +285,7 @@
                 :error-messages="projectForm.form.localite_village_quartier.errorMessage.value"
                 @blur="projectForm.form.localite_village_quartier.handleBlur"
                 required
+                clearable
               />
             </div>
           </div>
@@ -299,6 +311,7 @@
                 :item-value="(item) => item"
                 multiple
                 required
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -332,6 +345,7 @@
                 :item-value="(item) => item"
                 multiple
                 required
+                clearable
               />
               <v-text-field
                 variant="outlined"
@@ -363,6 +377,7 @@
                 @blur="projectForm.form.nombre_total_personnes_cibles.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
               <v-number-input
                 variant="outlined"
@@ -373,6 +388,7 @@
                 @blur="projectForm.form.nombre_hommes.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
             </div>
             <div class="d-flex ga-2">
@@ -385,6 +401,7 @@
                 @blur="projectForm.form.nombre_femmes.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
               <v-number-input
                 variant="outlined"
@@ -395,6 +412,7 @@
                 @blur="projectForm.form.nombre_filles.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
             </div>
             <div class="d-flex ga-2">
@@ -407,6 +425,7 @@
                 @blur="projectForm.form.nombre_garcons.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
               <v-number-input
                 variant="outlined"
@@ -417,6 +436,7 @@
                 @blur="projectForm.form.nombre_personnes_atteintes.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
             </div>
             <div class="d-flex ga-2">
@@ -429,6 +449,7 @@
                 @blur="projectForm.form.nombre_personnes_handicapees.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
               <v-number-input
                 variant="outlined"
@@ -439,6 +460,7 @@
                 @blur="projectForm.form.nombre_personnes_agees.handleBlur"
                 required
                 controlVariant="stacked"
+                clearable
               />
             </div>
           </div>
@@ -511,6 +533,9 @@ const tempEndDate = ref<Date | null>(null)
 
 onMounted(async () => {
   await adminBoundariesStore.fetchBoundaries()
+  if (!projectsStore.projectToEdit) {
+    projectForm.form.consortium.value.value = false
+  }
 })
 const territoriesList = computed(() => {
   if (!projectForm.form.province.value.value) {

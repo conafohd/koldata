@@ -16,7 +16,7 @@
           </v-tab>
           <v-tab
             v-if="authStore.authSession && authStore.userInfos?.role === UserRole.ADMIN"
-            :value="3"
+            :value="4"
             :to="{ name: 'admin' }"
             class="AdminTab"
           >
