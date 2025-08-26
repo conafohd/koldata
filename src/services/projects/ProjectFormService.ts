@@ -299,6 +299,6 @@ export class ProjectFormService {
         }
         return [...new Set(
             sectors.flatMap(sector => PROJECT_SERVICES_BY_SECTOR[sector] || [])
-        )];
+        ), ProjectServiceType.OTHER as ProjectServiceType];
     }
 }

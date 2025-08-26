@@ -675,7 +675,6 @@ const getServiceName = (service: ProjectServiceType): string => {
     min-width: 80px;
   }
 
-  // Responsive adjustments
   @media (max-width: 768px) {
     &__header {
       padding: 12px 16px;

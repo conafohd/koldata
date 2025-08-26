@@ -325,6 +325,7 @@
                     ProjectServiceType.OTHER,
                   )
                 "
+                class="ProjectForm__serviceType"
                 clearable
               />
             </div>
@@ -623,12 +624,6 @@ const projectServicesList = computed(() => {
     projectForm.form.secteurs_intervention.value.value as InterventionSector[],
   )
 })
-// const translatedProjectServicesList = computed(() => {
-//   return projectServicesList.value.map((service) => ({
-//     value: service,
-//     title: i18n.t('projects.form.lists.serviceTypes', {})[service as unknown as number] || service,
-//   }))
-// })
 
 const translatedProjectServicesList = computed(() => {
   return projectServicesList.value.map((service) => {
@@ -733,4 +728,8 @@ const validateUpdate = projectForm.handleSubmit(
   },
 )
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.ProjectForm__serviceType {
+  width: 100%;
+}
+</style>
