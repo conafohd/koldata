@@ -21,7 +21,7 @@ export class ProjectsMapService {
         };
 
         projects.forEach(project => {
-            if (project.zone_sante) {
+            if (project.zone_sante && project.zone_sante.length > 0) {
                 geojson.features.push(...this.getHealthZonesFeatures(project));
                 return;
             }
@@ -34,56 +34,48 @@ export class ProjectsMapService {
                 return;
             }
         });
+        console.log(geojson)
         return geojson;
     }
 
     private static getHealthZonesFeatures(project: Project) {
         const healthZones = project.zone_sante.map(zone => {
-            return this.adminBoundariesStore.healthZonesList.find(hz => hz.zone_sante === zone && project.territoire.includes(hz.territoire));
+            return this.adminBoundariesStore.healthZonesList.find(hz => hz.zone_sante_c === zone );
         }).filter(hz => hz !== undefined);
 
         return healthZones.map((hz: HealthZone) => {
             return {
                 type: 'Feature',
                 properties: {...project},
-                geometry: {
-                    type: 'Point',
-                    coordinates: ([hz.centroid.coordinates[0], hz.centroid.coordinates[1]] as [number, number])
-                }
+                geometry: hz.centroid
             }
         })
     }
 
     private static getTerritoriesFeatures(project: Project) {
         const territories = project.territoire.map(territoire => {
-            return this.adminBoundariesStore.territoriesList.find(t => t.territoire === territoire && project.province.includes(t.province));
+            return this.adminBoundariesStore.territoriesList.find(t => t.territoire_c === territoire);
         }).filter(hz => hz !== undefined);
 
         return territories.map((t: Territory) => {
             return {
                 type: 'Feature',
                 properties: {...project},
-                geometry: {
-                    type: 'Point',
-                    coordinates: ([t.centroid.coordinates[0], t.centroid.coordinates[1]] as [number, number])
-                }
+                geometry: t.centroid
             }
         })
     }
 
     private static getProvincesFeatures(project: Project) {
         const provinces = project.province.map(province => {
-            return this.adminBoundariesStore.provincesList.find(p => p.province === province);
+            return this.adminBoundariesStore.provincesList.find(p => p.province_c === province);
         }).filter(hz => hz !== undefined);
 
         return provinces.map((p: Province) => {
             return {
                 type: 'Feature',
                 properties: {...project},
-                geometry: {
-                    type: 'Point',
-                    coordinates: ([p.centroid.coordinates[0], p.centroid.coordinates[1]] as [number, number])
-                }
+                geometry: p.centroid
             }
         })
     }
