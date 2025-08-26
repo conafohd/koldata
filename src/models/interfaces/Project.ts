@@ -48,3 +48,8 @@ export type CreateProject = Omit<Project, 'id' | 'created_at' | 'updated_at' | '
 export interface ProjectUpdate extends Project {
   projet_id: string;
 }
+
+export interface ProjectService {
+    sector: InterventionSector
+    type: ProjectServiceType
+}

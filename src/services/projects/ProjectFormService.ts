@@ -9,6 +9,7 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useField, useForm } from "vee-validate";
 import { computed } from "vue";
 import z from "zod";
+import { PROJECT_SERVICES_BY_SECTOR } from "../utils/ProjectServiceList";
 
 export class ProjectFormService {
     private static readonly validations = {
@@ -290,5 +291,14 @@ export class ProjectFormService {
         const isValid = computed(() => meta.value.valid)
 
         return { form, errors, handleSubmit, isSubmitting, isValid }
+    }
+
+    public static getProjectServiceTypesForSector(sectors: InterventionSector[]): ProjectServiceType[] {
+        if (!sectors || sectors.length === 0) {
+            return [];
+        }
+        return [...new Set(
+            sectors.flatMap(sector => PROJECT_SERVICES_BY_SECTOR[sector] || [])
+        )];
     }
 }

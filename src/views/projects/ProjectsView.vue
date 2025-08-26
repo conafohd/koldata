@@ -236,11 +236,11 @@ const filteredProjects = computed(() => {
     )
   }
 
-  // if (selectedHealthZone.value && selectedHealthZone.value.length > 0) {
-  //   result = result.filter((project) =>
-  //     project.zone_sante.some((zone) => selectedHealthZone.value?.includes(zone)),
-  //   )
-  // }
+  if (selectedHealthZone.value && selectedHealthZone.value.length > 0) {
+    result = result.filter((project) =>
+      project.zone_sante.some((zone) => selectedHealthZone.value?.includes(zone)),
+    )
+  }
 
   if (selectedStartDate.value) {
     result = result.filter((project) => {

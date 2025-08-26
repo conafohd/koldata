@@ -128,25 +128,16 @@
                   </span>
                   <div class="ProjectDetails__chips">
                     <template v-for="funder in project.noms_bailleurs_fonds" :key="funder">
-                      <v-chip
-                        size="small"
-                        color="primary"
-                        variant="outlined"
-                        class="ProjectDetails__chip"
+                      <span
                         v-if="funder !== ProjectFunder.OTHER"
+                        class="ProjectDetails__field-value"
                       >
                         {{ $t(`projects.form.lists.projectFunders.${funder}`) }}
-                      </v-chip>
+                      </span>
                     </template>
-                    <v-chip
-                      v-if="project.autre_bailleur_fonds"
-                      size="small"
-                      color="primary"
-                      variant="outlined"
-                      class="ProjectDetails__chip"
-                    >
+                    <span class="ProjectDetails__field-value">
                       {{ project.autre_bailleur_fonds }}
-                    </v-chip>
+                    </span>
                   </div>
                 </div>
               </v-col>
@@ -190,25 +181,16 @@
                   </span>
                   <div class="ProjectDetails__chips">
                     <template v-for="service in project.types_services_fournis" :key="service">
-                      <v-chip
-                        size="small"
-                        color="main-blue"
-                        variant="outlined"
-                        class="ProjectDetails__chip"
+                      <span
+                        class="ProjectDetails__field-value"
                         v-if="ProjectServiceType.OTHER !== service"
                       >
-                        {{ $t(`projects.form.lists.serviceTypes.${service}`) }}
-                      </v-chip>
+                        {{ getServiceName(service) }}
+                      </span>
                     </template>
-                    <v-chip
-                      v-if="project.autre_type_services_fournis"
-                      size="small"
-                      color="main-blue"
-                      variant="outlined"
-                      class="ProjectDetails__chip"
-                    >
+                    <span class="ProjectDetails__field-value">
                       {{ project.autre_type_services_fournis }}
-                    </v-chip>
+                    </span>
                   </div>
                 </div>
               </v-col>
@@ -446,7 +428,9 @@ import { ProjectFunder } from '@/models/enums/projects/ProjectFunder'
 import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
+import { i18n } from '@/plugins/i18n'
 import { formatNumber } from '@/services/utils/FormatNumber'
+import { PROJECT_SERVICES_BY_SECTOR } from '@/services/utils/ProjectServiceList'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
@@ -519,6 +503,26 @@ const getStatusLabel = (status: ProjectStatus | null): string => {
 
   return t(`projects.form.lists.projectStatus.${status}`)
 }
+
+const getServiceName = (service: ProjectServiceType): string => {
+  const serviceLabel =
+    i18n.t('projects.form.lists.serviceTypes', {})[service as unknown as number] || service
+
+  // If several sectors are selected, precise it in service label
+  let title = serviceLabel
+  if ((project.value.secteurs_intervention as InterventionSector[]).length > 1) {
+    const sector = Object.keys(PROJECT_SERVICES_BY_SECTOR).find((sectorKey) =>
+      PROJECT_SERVICES_BY_SECTOR[sectorKey as InterventionSector].includes(service),
+    ) as InterventionSector
+
+    if (sector) {
+      const sectorLabel = i18n.t(`intervention_sector.${sector}`) || sector
+      title = `${sectorLabel} - ${serviceLabel}`
+    }
+  }
+
+  return title
+}
 </script>
 
 <style lang="scss" scoped>
@@ -586,12 +590,12 @@ const getStatusLabel = (status: ProjectStatus | null): string => {
     font-weight: 600;
     color: rgb(var(--v-theme-main-grey));
     margin-bottom: 4px;
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   &__field-value {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #333;
     line-height: 1.4;
 
@@ -616,7 +620,19 @@ const getStatusLabel = (status: ProjectStatus | null): string => {
   }
 
   &__chip {
-    margin: 0;
+    white-space: normal !important;
+    height: auto !important;
+    width: fit-content !important;
+    max-width: 200px;
+    min-height: 32px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.3;
+    padding: 8px 12px !important;
   }
 
   &__status-chip {

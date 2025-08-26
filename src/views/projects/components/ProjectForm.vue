@@ -306,9 +306,9 @@
                 "
                 :error-messages="projectForm.form.types_services_fournis.errorMessage.value"
                 @blur="projectForm.form.types_services_fournis.handleBlur"
-                :items="Object.values(ProjectServiceType)"
-                :item-title="(key) => $t(`projects.form.lists.serviceTypes.${key}`)"
-                :item-value="(item) => item"
+                :items="translatedProjectServicesList"
+                item-title="title"
+                item-value="value"
                 multiple
                 required
                 clearable
@@ -514,6 +514,7 @@ import { CommonFormService } from '@/services/forms/CommonFormService'
 import { addNotification } from '@/services/NotificationsService'
 import { ProjectFormService } from '@/services/projects/ProjectFormService'
 import { formatDateToString } from '@/services/utils/FormatDate'
+import { PROJECT_SERVICES_BY_SECTOR } from '@/services/utils/ProjectServiceList'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { useProjectsStore } from '@/stores/projectsStore'
@@ -616,6 +617,47 @@ function confirmEndDate() {
   }
   showEndDatePicker.value = false
 }
+
+const projectServicesList = computed(() => {
+  return ProjectFormService.getProjectServiceTypesForSector(
+    projectForm.form.secteurs_intervention.value.value as InterventionSector[],
+  )
+})
+// const translatedProjectServicesList = computed(() => {
+//   return projectServicesList.value.map((service) => ({
+//     value: service,
+//     title: i18n.t('projects.form.lists.serviceTypes', {})[service as unknown as number] || service,
+//   }))
+// })
+
+const translatedProjectServicesList = computed(() => {
+  return projectServicesList.value.map((service) => {
+    const serviceLabel =
+      i18n.t('projects.form.lists.serviceTypes', {})[service as unknown as number] || service
+
+    // If several sectors are selected, precise it in service label
+    let title = serviceLabel
+    if (
+      projectForm.form.secteurs_intervention.value.value &&
+      (projectForm.form.secteurs_intervention.value.value as InterventionSector[]).length > 1
+    ) {
+      console.log('here')
+      const sector = Object.keys(PROJECT_SERVICES_BY_SECTOR).find((sectorKey) =>
+        PROJECT_SERVICES_BY_SECTOR[sectorKey as InterventionSector].includes(service),
+      ) as InterventionSector
+
+      if (sector) {
+        const sectorLabel = i18n.t(`intervention_sector.${sector}`) || sector
+        title = `${serviceLabel} - ${sectorLabel}`
+      }
+    }
+
+    return {
+      value: service,
+      title: title,
+    }
+  })
+})
 
 const createProject = projectForm.handleSubmit(
   async (values) => {
