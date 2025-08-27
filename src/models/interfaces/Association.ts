@@ -13,9 +13,9 @@ export interface Association {
   annee_creation: number;
   secteurs_interv: InterventionSector[];
   secteurs_interv_autre: string | null;
-  province: string[];
-  territoire: string[];
-  zone_sante: string[];
+  province: string;
+  territoire: string;
+  zone_sante: string;
   aire_sante: string;
   localite: string;
   latitude: number;
