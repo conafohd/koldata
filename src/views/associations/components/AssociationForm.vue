@@ -189,7 +189,9 @@
               v-model="associationForm.form.province.value.value"
               :error-messages="associationForm.form.province.errorMessage.value"
               @blur="associationForm.form.province.handleBlur"
-              :items="adminBoundariesStore.provincesList.map((p) => p.province)"
+              :items="adminBoundariesStore.provincesList"
+              item-title="province"
+              item-value="province_c"
               @update:model-value="
                 ((associationForm.form.territoire.value.value = ''),
                 (associationForm.form.zone_sante.value.value = ''),
@@ -204,6 +206,8 @@
               :error-messages="associationForm.form.territoire.errorMessage.value"
               @blur="associationForm.form.territoire.handleBlur"
               :items="territoriesList"
+              item-title="territoire"
+              item-value="territoire_c"
               @update:model-value="
                 ((associationForm.form.zone_sante.value.value = ''),
                 (associationForm.form.aire_sante.value.value = ''))
@@ -217,6 +221,8 @@
               :error-messages="associationForm.form.zone_sante.errorMessage.value"
               @blur="associationForm.form.zone_sante.handleBlur"
               :items="healthZonesList"
+              item-title="zone_sante"
+              item-value="zone_sante_c"
               @update:model-value="associationForm.form.aire_sante.value.value = ''"
               required
             />
@@ -472,20 +478,20 @@ onMounted(async () => {
 })
 const territoriesList = computed(() => {
   if (!associationForm.form.province.value.value) {
-    return adminBoundariesStore.territoriesList.map((t) => t.territoire)
-  } else {
     return adminBoundariesStore.territoriesList
-      .filter((t) => t.province === associationForm.form.province.value.value)
-      .map((t) => t.territoire)
+  } else {
+    return adminBoundariesStore.territoriesList.filter(
+      (t) => t.province_c === associationForm.form.province.value.value,
+    )
   }
 })
 const healthZonesList = computed(() => {
   if (!associationForm.form.territoire.value.value) {
-    return adminBoundariesStore.healthZonesList.map((h) => h.zone_sante)
-  } else {
     return adminBoundariesStore.healthZonesList
-      .filter((h) => h.territoire === associationForm.form.territoire.value.value)
-      .map((h) => h.zone_sante)
+  } else {
+    return adminBoundariesStore.healthZonesList.filter(
+      (h) => h.territoire_c === associationForm.form.territoire.value.value,
+    )
   }
 })
 

@@ -236,7 +236,9 @@
                 v-model="projectForm.form.province.value.value"
                 :error-messages="projectForm.form.province.errorMessage.value"
                 @blur="projectForm.form.province.handleBlur"
-                :items="adminBoundariesStore.provincesList.map((p) => p.province)"
+                :items="adminBoundariesStore.provincesList"
+                item-title="province"
+                item-value="province_c"
                 @update:model-value="updateTerritories()"
                 required
                 multiple
@@ -249,6 +251,8 @@
                 :error-messages="projectForm.form.territoire.errorMessage.value"
                 @blur="projectForm.form.territoire.handleBlur"
                 :items="territoriesList"
+                item-title="territoire"
+                item-value="territoire_c"
                 @update:model-value="updateHealthZones()"
                 required
                 multiple
@@ -261,6 +265,8 @@
                 :error-messages="projectForm.form.zone_sante.errorMessage.value"
                 @blur="projectForm.form.zone_sante.handleBlur"
                 :items="healthZonesList"
+                item-title="zone_sante"
+                item-value="zone_sante_c"
                 required
                 multiple
                 clearable
@@ -541,21 +547,21 @@ onMounted(async () => {
 })
 const territoriesList = computed(() => {
   if (!projectForm.form.province.value.value) {
-    return adminBoundariesStore.territoriesList.map((t) => t.territoire)
-  } else {
     return adminBoundariesStore.territoriesList
-      .filter((t) => projectForm.form.province.value.value.includes(t.province))
-      .map((t) => t.territoire)
+  } else {
+    return adminBoundariesStore.territoriesList.filter((t) =>
+      projectForm.form.province.value.value.includes(t.province_c),
+    )
   }
 })
 
 const healthZonesList = computed(() => {
   if (!projectForm.form.territoire.value.value) {
-    return adminBoundariesStore.healthZonesList.map((h) => h.zone_sante)
-  } else {
     return adminBoundariesStore.healthZonesList
-      .filter((h) => projectForm.form.territoire.value.value.includes(h.territoire))
-      .map((h) => h.zone_sante)
+  } else {
+    return adminBoundariesStore.healthZonesList.filter((h) =>
+      projectForm.form.territoire.value.value.includes(h.territoire_c),
+    )
   }
 })
 
