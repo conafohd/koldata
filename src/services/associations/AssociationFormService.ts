@@ -20,6 +20,7 @@ export class AssociationFormService {
         acronyme: z
         .string()
         .max(255, { message: i18n.t('forms.errors.maxLength', { max: 255 }) })
+        .or(z.literal(""))
         .nullable()
         .optional(),
 
@@ -185,36 +186,50 @@ export class AssociationFormService {
         website: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
 
         facebook: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
 
         twitter: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
+        .or(z.literal(""))
+        .nullable()
         .optional(),
 
         instagram: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
 
         linkedin: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
 
         tiktok: z
         .string()
         .url({ message: i18n.t('forms.errors.invalidUrl') })
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
 
         autre_social_media: z
         .string()
-        .optional(),
+        .or(z.literal(""))
+        .optional()
+        .nullable(),
     }
     static getAssociationForm(associationToEdit: Association | null){
         const validationSchema = toTypedSchema(
