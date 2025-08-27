@@ -46,9 +46,9 @@
       />
       <v-autocomplete
         :label="$t('projects.filters.province')"
-        :items="adminBoundStore.provincesList?.sort((a, b) => a.province.localeCompare(b.province))"
-        :item-title="'province'"
-        :item-value="'province'"
+        :items="adminBoundStore.provincesList"
+        item-title="province"
+        item-value="province_c"
         v-model="selectedProvince"
         variant="outlined"
         density="compact"
@@ -58,11 +58,9 @@
       />
       <v-autocomplete
         :label="$t('projects.filters.territory')"
-        :items="
-          adminBoundStore.territoriesList?.sort((a, b) => a.territoire.localeCompare(b.territoire))
-        "
-        :item-title="'territoire'"
-        :item-value="'territoire'"
+        :items="territoriesList"
+        item-title="territoire"
+        item-value="territoire_c"
         v-model="selectedTerritory"
         variant="outlined"
         density="compact"
@@ -72,11 +70,9 @@
       />
       <v-autocomplete
         :label="$t('projects.filters.healthZone')"
-        :items="
-          adminBoundStore.healthZonesList?.sort((a, b) => a.zone_sante.localeCompare(b.zone_sante))
-        "
+        :items="healthZonesList"
         item-title="zone_sante"
-        item-value="zone_sante"
+        item-value="zone_sante_c"
         v-model="selectedHealthZone"
         variant="outlined"
         density="compact"
@@ -193,6 +189,25 @@ onMounted(async () => {
 
 onUnmounted(() => {
   map.value?.remove()
+})
+
+const territoriesList = computed(() => {
+  if (!selectedProvince.value) {
+    return adminBoundStore.territoriesList
+  } else {
+    return adminBoundStore.territoriesList.filter((t) =>
+      selectedProvince.value?.includes(t.province_c),
+    )
+  }
+})
+const healthZonesList = computed(() => {
+  if (!selectedTerritory.value) {
+    return adminBoundStore.healthZonesList
+  } else {
+    return adminBoundStore.healthZonesList.filter((h) =>
+      selectedTerritory.value?.includes(h.territoire_c),
+    )
+  }
 })
 
 //-------------------- Filters --------------------------\\

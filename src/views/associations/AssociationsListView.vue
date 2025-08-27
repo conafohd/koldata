@@ -28,9 +28,9 @@
 
       <v-select
         :label="$t('associations.filters.province')"
-        :items="adminBoundStore.provincesList?.sort((a, b) => a.province.localeCompare(b.province))"
-        :item-title="'province'"
-        :item-value="'province'"
+        :items="adminBoundStore.provincesList"
+        item-title="province"
+        item-value="province_c"
         v-model="selectedProvince"
         variant="outlined"
         density="compact"
@@ -41,11 +41,9 @@
 
       <v-select
         :label="$t('associations.filters.territory')"
-        :items="
-          adminBoundStore.territoriesList?.sort((a, b) => a.territoire.localeCompare(b.territoire))
-        "
-        :item-title="'territoire'"
-        :item-value="'territoire'"
+        :items="territoriesList"
+        item-title="territoire"
+        item-value="territoire_c"
         v-model="selectedTerritory"
         variant="outlined"
         density="compact"
@@ -56,11 +54,9 @@
 
       <v-select
         :label="$t('associations.filters.healthZone')"
-        :items="
-          adminBoundStore.healthZonesList?.sort((a, b) => a.zone_sante.localeCompare(b.zone_sante))
-        "
-        :item-title="'zone_sante'"
-        :item-value="'zone_sante'"
+        :items="healthZonesList"
+        item-title="zone_sante"
+        item-value="zone_sante_c"
         v-model="selectedHealthZone"
         variant="outlined"
         density="compact"
@@ -186,6 +182,21 @@ const hasPermissionToEdit = (id: string) =>
 function editAssociation(association: Association) {
   associationsStore.activeAssociationEdition(association.id)
 }
+
+const territoriesList = computed(() => {
+  if (!selectedProvince.value) {
+    return adminBoundStore.territoriesList
+  } else {
+    return adminBoundStore.territoriesList.filter((t) => t.province_c === selectedProvince.value)
+  }
+})
+const healthZonesList = computed(() => {
+  if (!selectedTerritory.value) {
+    return adminBoundStore.healthZonesList
+  } else {
+    return adminBoundStore.healthZonesList.filter((h) => h.territoire_c === selectedTerritory.value)
+  }
+})
 
 const mapVisualisationActive = ref(false)
 

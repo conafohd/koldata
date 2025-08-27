@@ -22,9 +22,9 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
                 { data: territories, error: territoriesError },
                 { data: health_areas, error: healthAreasError }
             ] = await Promise.all([
-                supabase.from(TablesList.PROVINCES).select('*'),
-                supabase.from(TablesList.TERRITORIES).select('*'),
-                supabase.from(TablesList.HEALTH_ZONES).select('*')
+                supabase.from(TablesList.PROVINCES).select('*').order('province', { ascending: true }),
+                supabase.from(TablesList.TERRITORIES).select('*').order('territoire', { ascending: true }),
+                supabase.from(TablesList.HEALTH_ZONES).select('*').order('zone_sante', { ascending: true })
             ]);
 
             if (provincesError) {
