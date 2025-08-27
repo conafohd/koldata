@@ -114,15 +114,33 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   async function signOut() {
-    await supabase.auth.signOut().then(({ error }) => {
-      if (error) {
-        console.error('Sign out error:', error)
-      } else {
+    try {
+        const { error } = await supabase.auth.signOut()
+        if (error) {
+            if (error.message.includes('session_not_found') || 
+                error.message.includes('Session from session_id claim')) {
+                console.log('Session already expired, cleaning up locally')
+            } else {
+                console.error('Sign out error:', error)
+            }
+        }
+        
+    } catch (error) {
+        console.error('Unexpected sign out error:', error)
+    } finally {
         authSession.value = null
         userInfos.value = null
-      }
-    })
-  }
+        clearAuthStorage()
+    }
+}
+
+  function clearAuthStorage() {
+    const keysToRemove = Object.keys(localStorage).filter(key => 
+        key.startsWith('supabase') || key.startsWith('auth')
+    )
+    keysToRemove.forEach(key => localStorage.removeItem(key))
+    sessionStorage.clear()
+}
 
   async function recoverPassword(email: string) {
     const { error } = await supabase.auth.resetPasswordForEmail(
