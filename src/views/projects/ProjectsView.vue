@@ -104,6 +104,17 @@
         clearable
         hide-details
       />
+      <v-select
+        :label="$t('projects.filters.intervention_scope')"
+        :items="Object.values(InterventionSector)"
+        :item-title="(item) => $t(`intervention_sector.${item}`)"
+        :item-value="(item) => item"
+        v-model="selectedInterventionSector"
+        variant="outlined"
+        density="compact"
+        hide-details
+        clearable
+      />
     </section>
     <div class="Projects__map" ref="projectsMapContainer">{{ $t('projects.loadingMap') }}</div>
   </div>
@@ -146,6 +157,7 @@
 <script setup lang="ts">
 import circleYellowImg from '@/assets/img/circle-yellow.png'
 import projectPin from '@/assets/img/project-pin.png'
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import { ProjectsMapService } from '@/services/projects/ProjectsMapService'
 import { debounce } from '@/services/utils/Debounce'
@@ -221,6 +233,7 @@ const selectedTerritory = ref<string[] | null>(null)
 const selectedHealthZone = ref<string[] | null>(null)
 const selectedStartDate = ref<string | null>(null)
 const selectedEndDate = ref<string | null>(null)
+const selectedInterventionSector: Ref<InterventionSector | null> = ref(null)
 const updateSearchQuery = debounce((value: string) => {
   debouncedSearchQuery.value = value
 }, 300)
@@ -281,6 +294,14 @@ const filteredProjects = computed(() => {
       }
       return false
     })
+  }
+
+  if (selectedInterventionSector.value) {
+    result = result.filter((project) =>
+      project.secteurs_intervention.includes(
+        selectedInterventionSector.value as InterventionSector,
+      ),
+    )
   }
 
   if (debouncedSearchQuery.value) {
@@ -486,6 +507,7 @@ function setSelectedProject(id: string) {
       flex-grow: 1;
       align-items: center;
       margin-top: 2rem;
+      margin-bottom: 1rem;
     }
 
     @media (min-width: $bp-sm) {
@@ -514,6 +536,12 @@ function setSelectedProject(id: string) {
 
     @media (max-width: $bp-lg) and (min-width: $bp-sm) {
       grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: $bp-lg) {
+      > *:first-child {
+        grid-column: span 2;
+      }
     }
   }
 

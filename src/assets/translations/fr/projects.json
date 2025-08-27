@@ -9,7 +9,8 @@
       "status": "Filtrer par statut",
       "province": "Filtrer par province",
       "territory": "Filtrer par territoire",
-      "healthZone": "Filtrer par zone de santé"
+      "healthZone": "Filtrer par zone de santé",
+      "intervention_scope": "Filtrer par périmètre d'intervention"
     },
     "associationTable": {
       "intitule_projet": "Intitulé du projet",

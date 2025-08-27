@@ -34,7 +34,6 @@ export class ProjectsMapService {
                 return;
             }
         });
-        console.log(geojson)
         return geojson;
     }
 

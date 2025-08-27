@@ -1,11 +1,11 @@
 <template>
   <div class="Associations">
     <header class="Associations__header">
-      <div class="d-flex align-center">
+      <div class="Associations__title">
         <h1 class="PageTitle">{{ $t('associations.title') }}</h1>
         <v-chip color="main-blue" class="ml-2" size="small">{{ associations.length }}</v-chip>
       </div>
-      <div class="d-flex align-center">
+      <div class="Associations__filtersCounter">
         <v-chip color="light-blue" class="mr-2" size="small">{{
           filteredAssociations.length
         }}</v-chip>
@@ -289,6 +289,40 @@ function resetFilters() {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
+
+    @media (max-width: $bp-sm) {
+      margin-bottom: 0;
+    }
+  }
+
+  &__title {
+    @media (max-width: $bp-sm) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (min-width: $bp-sm) {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__filtersCounter {
+    @media (max-width: $bp-sm) {
+      display: flex;
+      justify-content: end;
+      flex-grow: 1;
+      align-items: center;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (min-width: $bp-sm) {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &__reset-btn {
@@ -305,16 +339,18 @@ function resetFilters() {
     margin-bottom: 2rem;
     align-items: end;
 
-    > *:first-child {
-      grid-column: span 2;
-    }
-
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
     }
 
     @media (max-width: 1024px) and (min-width: 769px) {
       grid-template-columns: 1fr 1fr;
+    }
+
+    @media (min-width: $bp-lg) {
+      > *:first-child {
+        grid-column: span 2;
+      }
     }
   }
 
