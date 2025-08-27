@@ -128,7 +128,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     const { error } = await supabase.auth.resetPasswordForEmail(
       email,
       {
-        redirectTo: window.location.origin + '?reset-password'
+        redirectTo: window.location.origin + import.meta.env.VITE_BASE_URL + '?reset-password'
       }
     )
     if (error) {
