@@ -2,14 +2,26 @@
   <div class="AdminProjects mt-4">
     <div class="AdminProjects__header">
       <h1 class="PageSubtitle">{{ $t('adminProjects.title') }}</h1>
-      <v-btn color="main-purple" @click="addNewProject()">
-        {{ $t('adminProjects.add') }}
-      </v-btn>
+      <div class="d-flex align-center">
+        <v-text-field
+          variant="outlined"
+          density="compact"
+          :label="$t('adminProjects.search')"
+          :placeholder="$t('adminProjects.searchPlaceholder')"
+          v-model="searchQuery"
+          clearable
+          hide-details
+          class="AdminProjects__search mr-4"
+        />
+        <v-btn color="main-purple" @click="addNewProject()">
+          {{ $t('adminProjects.add') }}
+        </v-btn>
+      </div>
     </div>
     <div class="AdminProjects__table">
       <v-data-table
         :headers="headers"
-        :items="sortedProjects"
+        :items="filteredProjects"
         item-key="intitule_projet"
         :items-per-page-text="$t('adminProjects.projectsTable.itemsPerPage')"
       >
@@ -81,9 +93,10 @@
 <script setup lang="ts">
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
+import { debounce } from '@/services/utils/Debounce'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 const associationsStore = useAssociationsStore()
 const projectStore = useProjectsStore()
 
@@ -91,10 +104,25 @@ onMounted(async () => {
   await Promise.all([associationsStore.getAssociationsList(), projectStore.getProjectsList()])
 })
 
+const searchQuery = ref('')
+const debouncedSearchQuery = ref('')
+const updateSearchQuery = debounce((value: string) => {
+  debouncedSearchQuery.value = value
+}, 300)
+watch(searchQuery, (newValue) => {
+  updateSearchQuery(newValue)
+})
+
 const sortedProjects = computed(() => {
   return [...projectStore.projectsList]
     .sort((a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation))
     .sort((a, b) => Number(b.newProject) - Number(a.newProject))
+})
+
+const filteredProjects = computed(() => {
+  return sortedProjects.value.filter((project) =>
+    project.intitule_projet.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
+  )
 })
 const headers = [
   { title: i18n.t('adminProjects.projectsTable.name'), key: 'intitule_projet' },
@@ -151,6 +179,9 @@ function confirmDeleteProject() {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+.AdminProjects__search {
+  width: 25rem;
 }
 .AdminProjects__table {
   overflow: auto;

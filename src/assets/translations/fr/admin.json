@@ -63,6 +63,8 @@
   "adminProjects": {
     "title": "Gérer les projets",
     "add": "Créer un projet",
+    "search": "Rechercher un projet",
+    "searchPlaceholder": "Entrez le nom du projet",
     "addMessage": "Sélectionnez une ONG pour ajouter un projet",
     "delete": "Supprimer un projet",
     "deleteMessage": "Cette action est irréversible, voulez-vous vraiment supprimer le projet ?",
