@@ -106,10 +106,11 @@ const adminBoundStore = useAdminBoundariesStore()
 const { associationsList: associations } = storeToRefs(associationsStore)
 
 onBeforeMount(async () => {
-  await dashboardStore.fetchStats()
-  await associationsStore.getAssociationsList()
-  await adminBoundStore.fetchBoundaries()
-  console.log(dashboardStore.stats)
+  await Promise.all([
+    dashboardStore.fetchStats(),
+    associationsStore.getAssociationsList(),
+    adminBoundStore.fetchBoundaries(),
+  ])
   appStore.isLoading = false
 })
 

@@ -59,8 +59,7 @@ const editorsList = computed(() => {
 })
 
 onMounted(async () => {
-  await associationsStore.getAssociationsList()
-  await adminStore.getAdminMembers()
+  await Promise.all([associationsStore.getAssociationsList(), adminStore.getAdminMembers()])
 })
 
 const headers = [

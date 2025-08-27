@@ -211,7 +211,11 @@
                     {{ $t('projects.form.fields.province') }}
                   </span>
                   <p class="ProjectDetails__field-value">
-                    {{ project.province.join(', ') || '-' }}
+                    {{
+                      project.province
+                        .map((p) => adminBoundStore.getProvinceNameFromCode(p))
+                        .join(', ') || '-'
+                    }}
                   </p>
                 </div>
               </v-col>
@@ -222,7 +226,11 @@
                     {{ $t('projects.form.fields.territoire') }}
                   </span>
                   <p class="ProjectDetails__field-value">
-                    {{ project.territoire.join(', ') || '-' }}
+                    {{
+                      project.territoire
+                        .map((t) => adminBoundStore.getTerritoryNameFromCode(t))
+                        .join(', ') || '-'
+                    }}
                   </p>
                 </div>
               </v-col>
@@ -233,7 +241,11 @@
                     {{ $t('projects.form.fields.zone_sante') }}
                   </span>
                   <p class="ProjectDetails__field-value">
-                    {{ project.zone_sante.join(', ') || '-' }}
+                    {{
+                      project.zone_sante
+                        .map((z) => adminBoundStore.getHealthZoneNameFromCode(z))
+                        .join(', ') || '-'
+                    }}
                   </p>
                 </div>
               </v-col>
@@ -431,6 +443,7 @@ import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
 import { formatNumber } from '@/services/utils/FormatNumber'
 import { PROJECT_SERVICES_BY_SECTOR } from '@/services/utils/ProjectServiceList'
+import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
@@ -440,6 +453,8 @@ import { useI18n } from 'vue-i18n'
 const appStore = useApplicationStore()
 const projectsStore = useProjectsStore()
 const associationsStore = useAssociationsStore()
+const adminBoundStore = useAdminBoundariesStore()
+
 const { t } = useI18n()
 const associationUrl = computed(
   () => `${import.meta.env.BASE_URL}associations/${projectAssociation.value?.id}`,

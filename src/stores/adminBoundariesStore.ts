@@ -12,6 +12,21 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
     const territoriesList: Ref<Territory[]> = ref([])
     const healthZonesList: Ref<HealthZone[]> = ref([])
 
+    function getProvinceNameFromCode(code: string) {
+        console.log(code)
+        const province = provincesList.value.find((p) => p.province_c === code)
+        console.log(province)
+        return province ? province.province : code
+    }
+    function getTerritoryNameFromCode(code: string) {
+        const territory = territoriesList.value.find((t) => t.territoire_c === code)
+        return territory ? territory.territoire : code
+    }
+    function getHealthZoneNameFromCode(code: string) {
+        const healthZone = healthZonesList.value.find((h) => h.zone_sante_c === code)
+        return healthZone ? healthZone.zone_sante : code
+    }
+
     const fetchBoundaries = async () => {
         if (provincesList.value.length > 0 && territoriesList.value.length > 0 && healthZonesList.value.length > 0) {
             return
@@ -54,5 +69,6 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
         }
     };
 
-    return { provincesList, territoriesList, healthZonesList, fetchBoundaries }
+    return { provincesList, territoriesList, healthZonesList, getProvinceNameFromCode,
+        getTerritoryNameFromCode, getHealthZoneNameFromCode, fetchBoundaries }
 })

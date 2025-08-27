@@ -83,7 +83,7 @@
               $t('associations.form.fields.province')
             }}</span>
             <span class="ContentCard__contentText">
-              {{ association.province }}
+              {{ adminBoundStore.getProvinceNameFromCode(association.province) }}
             </span>
           </div>
           <div class="ContentCard__content">
@@ -91,7 +91,7 @@
               $t('associations.form.fields.territoire')
             }}</span>
             <span class="ContentCard__contentText">
-              {{ association.territoire }}
+              {{ adminBoundStore.getTerritoryNameFromCode(association.territoire) }}
             </span>
           </div>
           <div class="ContentCard__content">
@@ -99,7 +99,7 @@
               $t('associations.form.fields.zone_sante')
             }}</span>
             <span class="ContentCard__contentText">
-              {{ association.zone_sante }}
+              {{ adminBoundStore.getHealthZoneNameFromCode(association.zone_sante) }}
             </span>
           </div>
           <div class="ContentCard__content">
@@ -268,6 +268,7 @@
 import { InterventionSector } from '@/models/enums/InterventionSector'
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import type { Association } from '@/models/interfaces/Association'
+import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { Map, Marker, NavigationControl, type LngLatLike } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
@@ -275,7 +276,7 @@ import { onMounted, ref } from 'vue'
 const props = defineProps<{
   association: Association
 }>()
-
+const adminBoundStore = useAdminBoundariesStore()
 const projectsStore = useProjectsStore()
 function getProjectsCount(): number {
   return (
@@ -294,7 +295,8 @@ function getConsortiumCount(): number {
 const assoMap = ref<HTMLElement>()
 const map = ref<Map>()
 const marker = ref<Marker>()
-onMounted(() => {
+onMounted(async () => {
+  await adminBoundStore.fetchBoundaries()
   if (!assoMap.value) return
   map.value = new Map({
     container: assoMap.value,

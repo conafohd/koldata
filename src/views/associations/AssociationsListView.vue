@@ -170,8 +170,7 @@ const authStore = useAuthenticationStore()
 const adminBoundStore = useAdminBoundariesStore()
 const { associationsList: associations } = storeToRefs(associationsStore)
 onBeforeMount(async () => {
-  await associationsStore.getAssociationsList()
-  await adminBoundStore.fetchBoundaries()
+  await Promise.all([associationsStore.getAssociationsList(), adminBoundStore.fetchBoundaries()])
 })
 onMounted(() => {
   applicationStore.isLoading = false

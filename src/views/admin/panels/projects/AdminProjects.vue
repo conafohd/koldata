@@ -81,8 +81,7 @@ const associationsStore = useAssociationsStore()
 const projectStore = useProjectsStore()
 
 onMounted(async () => {
-  await associationsStore.getAssociationsList()
-  await projectStore.getProjectsList()
+  await Promise.all([associationsStore.getAssociationsList(), projectStore.getProjectsList()])
 })
 
 const sortedProjects = computed(() => {
