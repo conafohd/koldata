@@ -9,6 +9,9 @@
       "territories_count": "Nombre de territoires",
       "interventions_fields_count": "Nombre de domaines d'intervention"
     },
+    "filters": {
+      "year": "Filtrer par année"
+    },
     "chart1": {
       "title": "Répartition des projets par secteur d'intervention"
     },

@@ -56,7 +56,7 @@
         clearable
       />
       <v-select
-        :label="$t('projects.filters.year')"
+        :label="$t('dashboard.filters.year')"
         :items="[2025, 2024, 2023, 2022]"
         v-model="selectedYear"
         variant="outlined"
