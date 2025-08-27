@@ -57,7 +57,7 @@
       />
       <v-select
         :label="$t('projects.filters.year')"
-        :items="[2024, 2023, 2022, 2021, 2020]"
+        :items="[2025, 2024, 2023, 2022]"
         v-model="selectedYear"
         variant="outlined"
         density="compact"
@@ -94,7 +94,7 @@ import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import { storeToRefs } from 'pinia'
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref, watchEffect } from 'vue'
 import BarChart from './components/BarChart.vue'
 import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
 import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
@@ -107,7 +107,13 @@ const { associationsList: associations } = storeToRefs(associationsStore)
 
 onBeforeMount(async () => {
   await Promise.all([
-    dashboardStore.fetchStats(),
+    dashboardStore.fetchStats(
+      selectedAssociation.value,
+      selectedProvince.value,
+      selectedTerritory.value,
+      selectedHealthZone.value,
+      selectedYear.value,
+    ),
     associationsStore.getAssociationsList(),
     adminBoundStore.fetchBoundaries(),
   ])
@@ -121,13 +127,19 @@ const selectedTerritory = ref<string[] | null>(null)
 const selectedHealthZone = ref<string[] | null>(null)
 const selectedYear = ref<number[] | null>(null)
 
-// watch(
-//   [selectedAssociation, selectedProvince],
-//   async ([association, provinces]) => {
-//     await dashboardStore.fetchStats(association, provinces)
-//   },
-//   { immediate: true }
-// )
+const arrayToNull = <T,>(arr: T[] | null): T[] | null => {
+  return arr && arr.length > 0 ? arr : null
+}
+
+watchEffect(async () => {
+  await dashboardStore.fetchStats(
+    selectedAssociation.value,
+    arrayToNull(selectedProvince.value),
+    arrayToNull(selectedTerritory.value),
+    arrayToNull(selectedHealthZone.value),
+    arrayToNull(selectedYear.value),
+  )
+})
 
 const interventionSectorChartData = computed(() => {
   const data = dashboardStore.stats?.interventions_fields_details || []
