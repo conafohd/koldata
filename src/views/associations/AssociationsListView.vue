@@ -77,6 +77,19 @@
         class="Associations__select"
         clearable
       />
+
+      <v-select
+        :label="$t('associations.filters.interventionSector')"
+        :items="Object.values(InterventionSector)"
+        :item-title="(item) => $t(`intervention_sector.${item}`)"
+        :item-value="(item) => item"
+        v-model="selectedInterventionSector"
+        variant="outlined"
+        density="compact"
+        hide-details
+        class="Associations__select"
+        clearable
+      />
     </section>
 
     <main class="Associations__content">
@@ -155,6 +168,7 @@
 </template>
 <script setup lang="ts">
 import { AssociationType } from '@/models/enums/associations/AssociationType'
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import type { Association } from '@/models/interfaces/Association'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
@@ -204,13 +218,15 @@ const selectedProvince: Ref<string | null> = ref(null)
 const selectedTerritory: Ref<string | null> = ref(null)
 const selectedHealthZone: Ref<string | null> = ref(null)
 const selectedTypeOrg: Ref<AssociationType | null> = ref(null)
+const selectedInterventionSector: Ref<InterventionSector | null> = ref(null)
 const filteredAssociations = computed(() => {
   if (
     !searchQuery.value &&
     !selectedProvince.value &&
     !selectedTerritory.value &&
     !selectedHealthZone.value &&
-    !selectedTypeOrg.value
+    !selectedTypeOrg.value &&
+    !selectedInterventionSector.value
   ) {
     return associations.value
   }
@@ -228,9 +244,16 @@ const filteredAssociations = computed(() => {
   const filteredByTypeOrg = selectedTypeOrg.value
     ? filteredByHealthZone.filter((association) => association.type_org === selectedTypeOrg.value)
     : filteredByHealthZone
+  const filteredByInterventionSector = selectedInterventionSector.value
+    ? filteredByTypeOrg.filter((association) =>
+        association.secteurs_interv.includes(
+          selectedInterventionSector.value as InterventionSector,
+        ),
+      )
+    : filteredByTypeOrg
 
   return searchQuery.value
-    ? filteredByTypeOrg.filter(
+    ? filteredByInterventionSector.filter(
         (association) =>
           association.nom.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
           association.acronyme?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
@@ -242,7 +265,7 @@ const filteredAssociations = computed(() => {
             secteur.toLowerCase().includes(searchQuery.value.toLowerCase()),
           ),
       )
-    : filteredByTypeOrg
+    : filteredByInterventionSector
 })
 function resetFilters() {
   searchQuery.value = ''
@@ -250,6 +273,7 @@ function resetFilters() {
   selectedTerritory.value = null
   selectedHealthZone.value = null
   selectedTypeOrg.value = null
+  selectedInterventionSector.value = null
 }
 </script>
 
@@ -276,10 +300,14 @@ function resetFilters() {
 
   &__filters {
     display: grid;
-    grid-template-columns: 1fr repeat(4, minmax(12rem, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
     margin-bottom: 2rem;
     align-items: end;
+
+    > *:first-child {
+      grid-column: span 2;
+    }
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;

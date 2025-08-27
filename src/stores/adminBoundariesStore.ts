@@ -13,9 +13,7 @@ export const useAdminBoundariesStore = defineStore('adminBoundaries', () => {
     const healthZonesList: Ref<HealthZone[]> = ref([])
 
     function getProvinceNameFromCode(code: string) {
-        console.log(code)
         const province = provincesList.value.find((p) => p.province_c === code)
-        console.log(province)
         return province ? province.province : code
     }
     function getTerritoryNameFromCode(code: string) {
