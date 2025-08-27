@@ -14,13 +14,15 @@
         :items-per-page-text="$t('adminAssociations.associationsTable.itemsPerPage')"
       >
         <template #item.waiting_for_validation="{ item }">
-          <v-icon
-            icon="$checkCircle "
-            class="mr-1"
-            color="success"
-            v-if="item.waiting_for_validation"
-          ></v-icon>
-          <v-icon icon="$circleOffOutline" class="mr-1" color="error" v-else></v-icon>
+          <div class="d-flex justify-center">
+            <v-icon
+              icon="$closeThick"
+              class="mr-1"
+              color="error"
+              v-if="item.waiting_for_validation"
+            ></v-icon>
+            <v-icon icon="$checkCircle" class="mr-1" color="success" v-else></v-icon>
+          </div>
         </template>
         <template #item.actions="{ item }">
           <v-icon

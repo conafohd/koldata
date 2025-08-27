@@ -10,8 +10,8 @@ import {
   mdiCardAccountPhoneOutline,
   mdiChartBoxMultipleOutline,
   mdiCheckCircle,
-  mdiCircleOffOutline,
   mdiClose,
+  mdiCloseThick,
   mdiFileCheckOutline,
   mdiGrid,
   mdiHomeCircleOutline,
@@ -90,10 +90,10 @@ export default createVuetify({
       accountCircleOutline: mdiAccountCircleOutline,
       cardAccountPhoneOutline: mdiCardAccountPhoneOutline,
       checkCircle: mdiCheckCircle,
-      circleOffOutline: mdiCircleOffOutline,
       arrowRightThinCircleOutline: mdiArrowRightThinCircleOutline,
       grid: mdiGrid,
-      homeCircleOutline: mdiHomeCircleOutline
+      homeCircleOutline: mdiHomeCircleOutline,
+      closeThick: mdiCloseThick
     },
     sets: {
       mdi

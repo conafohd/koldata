@@ -55,7 +55,7 @@
     "associationsTable": {
       "name": "Nom",
       "type": "Type d'organisation",
-      "update": "En attente de validation",
+      "update": "Mise à jour validée",
       "actions": "Actions",
       "itemsPerPage": "Associations par page"
     }
@@ -72,7 +72,7 @@
     "projectsTable": {
       "name": "Nom",
       "status": "Statut",
-      "update": "En attente de validation",
+      "update": "Mise à jour validée",
       "actions": "Actions",
       "itemsPerPage": "Projets par page"
     }
