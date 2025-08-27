@@ -120,9 +120,12 @@ const sortedProjects = computed(() => {
 })
 
 const filteredProjects = computed(() => {
-  return sortedProjects.value.filter((project) =>
-    project.intitule_projet.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
-  )
+  if (debouncedSearchQuery.value) {
+    return sortedProjects.value.filter((project) =>
+      project.intitule_projet.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
+    )
+  }
+  return sortedProjects.value
 })
 const headers = [
   { title: i18n.t('adminProjects.projectsTable.name'), key: 'intitule_projet' },
