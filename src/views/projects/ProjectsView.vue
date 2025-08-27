@@ -246,15 +246,23 @@ const filteredProjects = computed(() => {
   }
 
   if (selectedTerritory.value && selectedTerritory.value.length > 0) {
-    result = result.filter((project) =>
-      project.territoire.some((territoire) => selectedTerritory.value?.includes(territoire)),
-    )
+    result = result.filter((project) => {
+      if (project.territoire) {
+        return project.territoire.some((territoire) =>
+          selectedTerritory.value?.includes(territoire),
+        )
+      }
+      return false
+    })
   }
 
   if (selectedHealthZone.value && selectedHealthZone.value.length > 0) {
-    result = result.filter((project) =>
-      project.zone_sante.some((zone) => selectedHealthZone.value?.includes(zone)),
-    )
+    result = result.filter((project) => {
+      if (project.zone_sante) {
+        return project.zone_sante.some((zone) => selectedHealthZone.value?.includes(zone))
+      }
+      return false
+    })
   }
 
   if (selectedStartDate.value) {
