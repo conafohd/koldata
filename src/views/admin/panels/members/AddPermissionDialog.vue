@@ -16,7 +16,9 @@
               :error-messages="memberPermissionForm.form.memberId.errorMessage.value"
               @blur="memberPermissionForm.form.memberId.handleBlur"
               :items="membersList"
-              item-title="first_name"
+              :item-title="
+                (item) => (item ? `${item.first_name || ''} ${item.last_name || ''}`.trim() : '')
+              "
               item-value="id"
               required
             >
