@@ -573,7 +573,7 @@ function updateTerritories() {
     if (!territory) {
       return false
     }
-    return projectForm.form.province.value.value.includes(territory.province)
+    return projectForm.form.province.value.value.includes(territory.province_c)
   })
 }
 
@@ -585,7 +585,7 @@ function updateHealthZones() {
     if (!healthZone) {
       return false
     }
-    return projectForm.form.territoire.value.value.includes(healthZone.territoire)
+    return projectForm.form.territoire.value.value.includes(healthZone.territoire_c)
   })
 }
 
