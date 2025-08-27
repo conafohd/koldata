@@ -45,7 +45,8 @@
       "interventionSectors": "Secteurs d'intervention et budget"
     },
     "form": {
-      "title": "Modifier les informations de l'ONG",
+      "createTitle": "Créer une nouvelle ONG",
+      "updateTitle": "Modifier les informations de l'ONG",
       "categories": {
         "location": "Localisation",
         "organisation": "Organisation",

@@ -9,7 +9,13 @@
             (associationsStore.associationToCreate = false))
           "
         ></v-btn>
-        <v-toolbar-title>{{ $t('associations.form.title') }}</v-toolbar-title>
+        <v-toolbar-title
+          >{{
+            associationsStore.associationToCreate
+              ? $t('associations.form.createTitle')
+              : $t('associations.form.updateTitle')
+          }}
+        </v-toolbar-title>
         <v-toolbar-items class="bg-white">
           <template v-if="authStore.isAdmin">
             <v-tooltip :text="$t('admin.refuseUpdateDisclaimer')" bottom>
