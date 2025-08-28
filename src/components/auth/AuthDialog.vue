@@ -15,7 +15,7 @@
         <!-- Sign In -->
         <template v-if="activeTab === 1">
           <v-card-text>
-            <v-form @submit.prevent="onSignIn">
+            <v-form @submit.prevent="onSignIn" @keyup.enter="handleSignInEnter">
               <v-text-field
                 :label="$t('auth.forms.labels.email')"
                 v-model="signInForm.form.email.value.value"
@@ -55,7 +55,7 @@
         <!-- Sign Up -->
         <template v-else>
           <v-card-text>
-            <v-form @submit.prevent="onSignUp">
+            <v-form @submit.prevent="onSignUp" @keyup.enter="handleSignUpEnter">
               <v-text-field
                 :label="$t('auth.forms.labels.email')"
                 v-model="signUpForm.form.email.value.value"
@@ -144,6 +144,18 @@ const onSignUp = signUpForm.handleSubmit(async (values) => {
     password: sanitizedData.password,
   })
 })
+
+const handleSignInEnter = () => {
+  if (signInForm.isValid.value && !signInForm.isSubmitting.value) {
+    onSignIn()
+  }
+}
+
+const handleSignUpEnter = () => {
+  if (signUpForm.isValid.value && !signUpForm.isSubmitting.value) {
+    onSignUp()
+  }
+}
 
 function showForgotPassword() {
   authStore.showAuthModal = false
