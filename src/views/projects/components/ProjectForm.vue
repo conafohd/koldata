@@ -388,6 +388,19 @@
               />
               <v-number-input
                 variant="outlined"
+                :label="$t('projects.form.fields.nombre_personnes_atteintes')"
+                :placeholder="$t('projects.form.placeholders.nombre_personnes_atteintes')"
+                v-model="projectForm.form.nombre_personnes_atteintes.value.value"
+                :error-messages="projectForm.form.nombre_personnes_atteintes.errorMessage.value"
+                @blur="projectForm.form.nombre_personnes_atteintes.handleBlur"
+                required
+                controlVariant="stacked"
+                clearable
+              />
+            </div>
+            <div class="d-flex ga-2">
+              <v-number-input
+                variant="outlined"
                 :label="$t('projects.form.fields.nombre_hommes')"
                 :placeholder="$t('projects.form.placeholders.nombre_hommes')"
                 v-model="projectForm.form.nombre_hommes.value.value"
@@ -397,8 +410,6 @@
                 controlVariant="stacked"
                 clearable
               />
-            </div>
-            <div class="d-flex ga-2">
               <v-number-input
                 variant="outlined"
                 :label="$t('projects.form.fields.nombre_femmes')"
@@ -410,6 +421,8 @@
                 controlVariant="stacked"
                 clearable
               />
+            </div>
+            <div class="d-flex ga-2">
               <v-number-input
                 variant="outlined"
                 :label="$t('projects.form.fields.nombre_filles')"
@@ -421,8 +434,6 @@
                 controlVariant="stacked"
                 clearable
               />
-            </div>
-            <div class="d-flex ga-2">
               <v-number-input
                 variant="outlined"
                 :label="$t('projects.form.fields.nombre_garcons')"
@@ -430,17 +441,6 @@
                 v-model="projectForm.form.nombre_garcons.value.value"
                 :error-messages="projectForm.form.nombre_garcons.errorMessage.value"
                 @blur="projectForm.form.nombre_garcons.handleBlur"
-                required
-                controlVariant="stacked"
-                clearable
-              />
-              <v-number-input
-                variant="outlined"
-                :label="$t('projects.form.fields.nombre_personnes_atteintes')"
-                :placeholder="$t('projects.form.placeholders.nombre_personnes_atteintes')"
-                v-model="projectForm.form.nombre_personnes_atteintes.value.value"
-                :error-messages="projectForm.form.nombre_personnes_atteintes.errorMessage.value"
-                @blur="projectForm.form.nombre_personnes_atteintes.handleBlur"
                 required
                 controlVariant="stacked"
                 clearable

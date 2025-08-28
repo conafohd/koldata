@@ -31,7 +31,7 @@
               icon="$closeThick"
               class="mr-1"
               color="error"
-              v-if="item.waiting_for_validation"
+              v-if="item.waiting_for_validation || item.newProject"
             ></v-icon>
             <v-icon icon="$checkCircle" class="mr-1" color="success" v-else></v-icon>
           </div>
@@ -114,9 +114,9 @@ watch(searchQuery, (newValue) => {
 })
 
 const sortedProjects = computed(() => {
-  return [...projectStore.projectsList]
-    .sort((a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation))
-    .sort((a, b) => Number(b.newProject) - Number(a.newProject))
+  return [...projectStore.projectsList, ...projectStore.newProjectsList]
+    .sort((a, b) => Number(!!b.waiting_for_validation) - Number(!!a.waiting_for_validation))
+    .sort((a, b) => Number(!!b.newProject) - Number(!!a.newProject))
 })
 
 const filteredProjects = computed(() => {

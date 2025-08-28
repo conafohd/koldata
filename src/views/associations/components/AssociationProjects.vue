@@ -30,7 +30,7 @@
                 icon="$timerEditOutline"
                 :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
                 class="ml-2"
-                v-if="projects.find((p) => p.intitule_projet === value)?.waiting_for_validation"
+                v-if="isProjectWaitingForValidation(value)"
               ></v-icon>
             </template>
           </v-tooltip>
@@ -242,6 +242,11 @@ function getStatusValue(status: string) {
     return i18n.t('projects.associationTable.finished')
   }
   return i18n.t('projects.associationTable.unknown')
+}
+
+function isProjectWaitingForValidation(title: string) {
+  const project = props.projects.find((p) => p.intitule_projet === title)
+  return project ? project.waiting_for_validation : false
 }
 </script>
 
