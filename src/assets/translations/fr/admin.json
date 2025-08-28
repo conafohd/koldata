@@ -47,6 +47,8 @@
   },
   "adminAssociations": {
     "title": "Gérer les ONG",
+    "search": "Rechercher une ONG",
+    "searchPlaceholder": "Entrez le nom de l'ONG",
     "add": "Créer une ONG",
     "delete": "Supprimer une ONG",
     "deleteMessage": "Cette action est irréversible, voulez-vous vraiment supprimer l'ONG ?",

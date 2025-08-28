@@ -2,14 +2,26 @@
   <div class="AdminAssociations mt-4">
     <div class="AdminAssociations__header">
       <h1 class="PageSubtitle">{{ $t('adminAssociations.title') }}</h1>
-      <v-btn color="main-purple" @click="addNewAssociation()">
-        {{ $t('adminAssociations.add') }}
-      </v-btn>
+      <div class="d-flex align-center">
+        <v-text-field
+          variant="outlined"
+          density="compact"
+          :label="$t('adminAssociations.search')"
+          :placeholder="$t('adminAssociations.searchPlaceholder')"
+          v-model="searchQuery"
+          clearable
+          hide-details
+          class="AdminAssociations__search mr-4"
+        />
+        <v-btn color="main-purple" @click="addNewAssociation()">
+          {{ $t('adminAssociations.add') }}
+        </v-btn>
+      </div>
     </div>
     <div class="AdminAssociations__table">
       <v-data-table
         :headers="headers"
-        :items="sortedAssociations"
+        :items="filteredAssociations"
         item-key="name"
         :items-per-page-text="$t('adminAssociations.associationsTable.itemsPerPage')"
       >
@@ -58,18 +70,36 @@
 <script setup lang="ts">
 import type { Association } from '@/models/interfaces/Association'
 import { i18n } from '@/plugins/i18n'
+import { debounce } from '@/services/utils/Debounce'
 import { useAssociationsStore } from '@/stores/associationsStore'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 const associationsStore = useAssociationsStore()
 
 onMounted(async () => {
   await associationsStore.getAssociationsList()
 })
 
+const searchQuery = ref('')
+const debouncedSearchQuery = ref('')
+const updateSearchQuery = debounce((value: string) => {
+  debouncedSearchQuery.value = value
+}, 300)
+watch(searchQuery, (newValue) => {
+  updateSearchQuery(newValue)
+})
+
 const sortedAssociations = computed(() => {
   return [...associationsStore.associationsList].sort(
     (a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation),
   )
+})
+const filteredAssociations = computed(() => {
+  if (debouncedSearchQuery.value) {
+    return sortedAssociations.value.filter((association) =>
+      association.nom.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
+    )
+  }
+  return sortedAssociations.value
 })
 const headers = [
   { title: i18n.t('adminAssociations.associationsTable.name'), key: 'nom' },
@@ -119,6 +149,9 @@ function confirmDeleteAssociation() {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
+.AdminAssociations__search {
+  width: 25rem;
 }
 .AdminAssociations__table {
   overflow: auto;

@@ -8,6 +8,8 @@ import { addNotification } from '@/services/NotificationsService';
 import type { Session } from '@supabase/supabase-js';
 import { defineStore } from 'pinia';
 import { computed, ref, type Ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useApplicationStore } from './applicationStore';
 
 export const useAuthenticationStore = defineStore('authentication', () => {
   const showAuthModal = ref(false)
@@ -15,6 +17,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   const showResetPasswordModal = ref(false)
   const authSession: Ref<Session | null> = ref(null)
   const userInfos: Ref<UserInfos | null> = ref(null)
+  const applicationStore = useApplicationStore()
+  const router = useRouter()
   const isAdmin = computed(() => {
     return userInfos.value?.role === UserRole.ADMIN
   })
@@ -123,14 +127,16 @@ export const useAuthenticationStore = defineStore('authentication', () => {
             } else {
                 console.error('Sign out error:', error)
             }
-        }
-        
+        }        
     } catch (error) {
         console.error('Unexpected sign out error:', error)
     } finally {
         authSession.value = null
         userInfos.value = null
         clearAuthStorage()
+        if (applicationStore.activeTab === 4) {
+          router.push({ name: 'home' })
+        }
     }
 }
 
