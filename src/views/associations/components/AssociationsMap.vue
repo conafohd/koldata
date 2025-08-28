@@ -78,6 +78,7 @@ function initMap() {
     style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
     center: [21.7587, -4.0383],
     zoom: 4,
+    minZoom: 2,
   })
 
   map.value.on('load', async () => {
