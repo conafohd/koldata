@@ -98,6 +98,7 @@
         "nom": "Entrez le nom de l'organisation",
         "acronyme": "Ex: MSF, OMS...",
         "desc": "Décrivez la mission et les activités de l'organisation",
+        "annee_creation": "Précisez l'année de création",
         "type_org_autre": "Précisez le type d'organisation",
         "secteurs_interv_autre": "Précisez les autres secteurs",
         "province": "Sélectionnez une province",

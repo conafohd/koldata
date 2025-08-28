@@ -105,14 +105,18 @@ const territoriesList = computed(() => {
   if (!selectedProvince.value) {
     return adminBoundStore.territoriesList
   } else {
-    return adminBoundStore.territoriesList.filter((t) => t.province_c === selectedProvince.value)
+    return adminBoundStore.territoriesList.filter((t) =>
+      selectedProvince.value?.includes(t.province_c),
+    )
   }
 })
 const healthZonesList = computed(() => {
   if (!selectedTerritory.value) {
     return adminBoundStore.healthZonesList
   } else {
-    return adminBoundStore.healthZonesList.filter((h) => h.territoire_c === selectedTerritory.value)
+    return adminBoundStore.healthZonesList.filter((h) =>
+      selectedTerritory.value?.includes(h.territoire_c),
+    )
   }
 })
 
