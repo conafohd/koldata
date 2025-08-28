@@ -41,7 +41,7 @@
             icon="$squareEditOutline"
             class="mr-1 cursor-pointer"
             color="light-blue"
-            @click.stop="editProject(item.id)"
+            @click.stop="item.newProject ? validateNewProject(item.id) : editProject(item.id)"
           ></v-icon>
           <v-icon
             icon="$trashCanOutline"
@@ -148,6 +148,10 @@ function confirmAddNewProject() {
   projectStore.activeProjectCreation(associationToAddProject.value as string)
   showCreateDialog.value = false
   associationToAddProject.value = null
+}
+
+function validateNewProject(id: string) {
+  projectStore.activeNewProjectEdition(id)
 }
 
 function editProject(id: string) {
