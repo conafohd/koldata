@@ -11,6 +11,7 @@ The KolData platform is developed by Cartong for the [Conafohd](https://conafohd
 - **Pinia** - State management store for Vue
 - **Vuetify** - Material Design UI framework for Vue
 - **Vue I18n** - Internationalization plugin for Vue.js
+- **Zod/Vee-validate** - Forms validation
 - **Supabase SDK** - JavaScript client for Supabase integration
 
 ## Backend
@@ -19,6 +20,8 @@ The KolData platform is developed by Cartong for the [Conafohd](https://conafohd
 - **PostGIS** - PostgreSQL extension for geospatial data
 
 # Project Setup
+
+- Set the VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY env variables in a env.local file
 
 ```sh
 npm install
