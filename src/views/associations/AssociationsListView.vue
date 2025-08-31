@@ -94,17 +94,25 @@
 
     <main class="Associations__content">
       <div class="Associations__viewSwitcher">
-        <v-tooltip :text="$t('associations.switch.grid')">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props" icon="$grid" size="small"></v-icon>
-          </template>
-        </v-tooltip>
-        <v-switch v-model="mapVisualisationActive" color="main-blue" hide-details></v-switch>
-        <v-tooltip :text="$t('associations.switch.map')">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props" icon="$map" size="small"></v-icon>
-          </template>
-        </v-tooltip>
+        <div class="Associations__request">
+          <div @click="openEmailTemplate()" v-if="authStore.userInfos?.role === UserRole.READER">
+            {{ $t('associations.creationRequest') }}
+          </div>
+        </div>
+
+        <div class="d-flex align-center ga-1">
+          <v-tooltip :text="$t('associations.switch.grid')">
+            <template v-slot:activator="{ props }">
+              <v-icon v-bind="props" icon="$grid" size="small"></v-icon>
+            </template>
+          </v-tooltip>
+          <v-switch v-model="mapVisualisationActive" color="main-blue" hide-details></v-switch>
+          <v-tooltip :text="$t('associations.switch.map')">
+            <template v-slot:activator="{ props }">
+              <v-icon v-bind="props" icon="$map" size="small"></v-icon>
+            </template>
+          </v-tooltip>
+        </div>
       </div>
       <AssociationsMap v-if="mapVisualisationActive" :associations="filteredAssociations" />
       <div class="Associations__grid" v-if="!mapVisualisationActive">
@@ -169,7 +177,10 @@
 <script setup lang="ts">
 import { AssociationType } from '@/models/enums/associations/AssociationType'
 import { InterventionSector } from '@/models/enums/InterventionSector'
+import { UserRole } from '@/models/enums/UserRole'
 import type { Association } from '@/models/interfaces/Association'
+import type { UserInfos } from '@/models/interfaces/UserInfos'
+import { EmailTemplateService } from '@/services/contact/emailTemplateService'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -275,6 +286,15 @@ function resetFilters() {
   selectedTypeOrg.value = null
   selectedInterventionSector.value = null
 }
+
+function openEmailTemplate() {
+  const emailTemplate = EmailTemplateService.getAssociationCreationRequestTemplate(
+    authStore.userInfos as UserInfos,
+  )
+  window.open(
+    `mailto:${emailTemplate.to}?subject=${emailTemplate.subject}&body=${emailTemplate.body}`,
+  )
+}
 </script>
 
 <style scoped lang="scss">
@@ -364,10 +384,16 @@ function resetFilters() {
 
   &__viewSwitcher {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin-top: -2rem;
-    gap: 0.5rem;
+  }
+
+  &__request {
+    font-size: 0.6rem;
+    font-style: italic;
+    cursor: pointer;
+    color: rgb(var(--v-theme-main-blue));
   }
 
   &__grid {

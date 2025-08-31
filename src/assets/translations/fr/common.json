@@ -64,5 +64,11 @@
     "Éducation": "Éducation",
     "Coordination inter-agence": "Coordination inter-agence",
     "Autre": "Autre"
+  },
+  "email": {
+    "createAssociationRequest": {
+      "subject": "Demande d'ajout d'une nouvelle ONG",
+      "body": "Bonjour,\n\nJe souhaiterais ajouter une nouvelle ONG à la liste de la plateforme KolData.\n\nInformations du demandeur :\n\n- Nom : {last_name}\n- Prénom : {first_name}\n- Email : {email}\n\nMerci de me contacter pour la procédure à suivre.\nCordialement,\n{first_name} {last_name}"
+    }
   }
 }

@@ -19,6 +19,7 @@
     "deleteAssociationError": "Une erreur est survenue lors de la suppression de l'ONG",
     "deleteAssociationSuccess": "ONG supprimée avec succès",
     "accessToAssociation": "Fiche complète",
+    "creationRequest": "Votre ONG est manquante? Contactez nous",
     "filters": {
       "search": "Rechercher",
       "province": "Filtrer par province",
