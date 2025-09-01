@@ -17,9 +17,19 @@ export const useAdminStore = defineStore('admin', () => {
         }
     }
 
-    async function setMemberPermission(memberId: string, associationId: string) {
+    async function setMemberEditPermission(memberId: string, associationId: string) {
         try {
-            await AdminMembersDbService.setMemberPermission(memberId, associationId)
+            await AdminMembersDbService.setMemberEditPermission(memberId, associationId)
+            addNotification(i18n.t('adminMembers.addPermissionSuccess'), NotificationType.SUCCESS)
+            await getAdminMembers()
+        } catch (error) {
+            console.log('Error setting member permission:', error)
+        }
+    }
+
+    async function setMemberCreationPermission(memberId: string) {
+        try {
+            await AdminMembersDbService.setMemberCreationPermission(memberId)
             addNotification(i18n.t('adminMembers.addPermissionSuccess'), NotificationType.SUCCESS)
             await getAdminMembers()
         } catch (error) {
@@ -36,5 +46,5 @@ export const useAdminStore = defineStore('admin', () => {
             console.log('Error removing member permission:', error)
         }
     }
-    return { membersList, getAdminMembers, setMemberPermission, removeMemberPermission }
+    return { membersList, getAdminMembers, setMemberEditPermission, setMemberCreationPermission, removeMemberPermission }
 })

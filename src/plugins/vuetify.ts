@@ -3,6 +3,7 @@ import {
   mdiAccountCircleOutline,
   mdiAccountGroup,
   mdiApplicationArrayOutline,
+  mdiArrowDownBoldCircleOutline,
   mdiArrowLeft,
   mdiArrowRightThinCircleOutline,
   mdiCalendar,
@@ -10,6 +11,7 @@ import {
   mdiCardAccountPhoneOutline,
   mdiChartBoxMultipleOutline,
   mdiCheckCircle,
+  mdiCircleEditOutline,
   mdiClose,
   mdiCloseThick,
   mdiFileCheckOutline,
@@ -23,6 +25,7 @@ import {
   mdiMap,
   mdiMonitorDashboard,
   mdiNewBox,
+  mdiPlusCircleOutline,
   mdiReceiptClock,
   mdiSecurity,
   mdiSelectMarker,
@@ -93,7 +96,10 @@ export default createVuetify({
       arrowRightThinCircleOutline: mdiArrowRightThinCircleOutline,
       grid: mdiGrid,
       homeCircleOutline: mdiHomeCircleOutline,
-      closeThick: mdiCloseThick
+      closeThick: mdiCloseThick,
+      circleEditOutline: mdiCircleEditOutline,
+      plusCircleOutline: mdiPlusCircleOutline,
+      arrowDownBoldCircleOutline: mdiArrowDownBoldCircleOutline
     },
     sets: {
       mdi

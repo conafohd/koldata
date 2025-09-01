@@ -14,10 +14,15 @@
     "validationSuccess": "La validation a bien été enregistrée"
   },
   "adminMembers": {
-    "title": "Gérer les droits d'édition",
-    "add": "Ajouter un droit d'édition",
+    "title": "Gérer les droits des utilisateurs",
+    "add": "Ajouter un droit d'accès",
+    "addEditor": "Ajouter un droit d'édition",
+    "addCreator": "Ajouter un droit de création",
     "fetchError": "Une erreur est survenue lors de la récupération des utilisateurs",
     "membersTable": {
+      "editRight": "Droit actuel",
+      "editTooltip": "Droit d'édition",
+      "createTooltip": "Droit de création",
       "firstName": "Prénom",
       "lastName": "Nom",
       "email": "Email",
@@ -34,11 +39,17 @@
     },
     "deletePermissionSuccess": "Droit d'édition supprimé avec succès",
     "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition",
-    "addDialog": {
+    "addEditDialog": {
       "title": "Ajouter un droit d'édition",
       "titleEdit": "Modifier le droit d'édition",
       "selectMember": "Choisir un utilisateur",
       "selectAssociation": "Choisir une ONG",
+      "cancel": "Annuler",
+      "confirm": "Confirmer"
+    },
+    "addCreationDialog": {
+      "title": "Ajouter un droit de création",
+      "selectMember": "Choisir un utilisateur",
       "cancel": "Annuler",
       "confirm": "Confirmer"
     },

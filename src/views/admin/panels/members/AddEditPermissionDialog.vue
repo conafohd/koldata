@@ -1,17 +1,17 @@
 <template>
-  <v-dialog v-model="showAddDialog" max-width="400px">
+  <v-dialog v-model="showAddEditDialog" max-width="400px">
     <v-card>
       <v-card-title>{{
         selectedMemberId
-          ? $t('adminMembers.addDialog.titleEdit')
-          : $t('adminMembers.addDialog.title')
+          ? $t('adminMembers.addEditDialog.titleEdit')
+          : $t('adminMembers.addEditDialog.title')
       }}</v-card-title>
       <v-card-text>
         <div class="AddPermissionForm">
           <div class="Form__fields">
             <v-select
               variant="outlined"
-              :label="$t('adminMembers.addDialog.selectMember')"
+              :label="$t('adminMembers.addEditDialog.selectMember')"
               v-model="memberPermissionForm.form.memberId.value.value"
               :error-messages="memberPermissionForm.form.memberId.errorMessage.value"
               @blur="memberPermissionForm.form.memberId.handleBlur"
@@ -27,7 +27,7 @@
           <div class="Form__fields">
             <v-select
               variant="outlined"
-              :label="$t('adminMembers.addDialog.selectAssociation')"
+              :label="$t('adminMembers.addEditDialog.selectAssociation')"
               v-model="memberPermissionForm.form.associationId.value.value"
               :error-messages="memberPermissionForm.form.associationId.errorMessage.value"
               @blur="memberPermissionForm.form.associationId.handleBlur"
@@ -40,10 +40,12 @@
         </div>
       </v-card-text>
       <div class="AddPermissionForm__actions">
-        <v-btn @click="confirmAddPermission" color="main-purple">{{
-          $t('adminMembers.addDialog.confirm')
+        <v-btn @click="confirmAddEditPermission" color="main-purple">{{
+          $t('adminMembers.addEditDialog.confirm')
         }}</v-btn>
-        <v-btn @click="showAddDialog = false">{{ $t('adminMembers.addDialog.cancel') }}</v-btn>
+        <v-btn @click="showAddEditDialog = false">{{
+          $t('adminMembers.addEditDialog.cancel')
+        }}</v-btn>
       </div>
     </v-card>
   </v-dialog>
@@ -57,7 +59,7 @@ import { type ModelRef } from 'vue'
 
 const associationsStore = useAssociationsStore()
 const adminStore = useAdminStore()
-const showAddDialog: ModelRef<boolean | undefined> = defineModel('showAddDialog')
+const showAddEditDialog: ModelRef<boolean | undefined> = defineModel('showAddEditDialog')
 const selectedAssociationId: ModelRef<string | undefined> = defineModel('selectedAssociationId')
 const selectedMemberId: ModelRef<string | undefined> = defineModel('selectedMemberId')
 
@@ -68,12 +70,12 @@ const memberPermissionForm = AdminMemberFormService.getMemberPermissionForm(
   selectedMemberId.value,
   selectedAssociationId.value,
 )
-const confirmAddPermission = () => {
-  adminStore.setMemberPermission(
+const confirmAddEditPermission = () => {
+  adminStore.setMemberEditPermission(
     memberPermissionForm.form.memberId.value.value,
     memberPermissionForm.form.associationId.value.value,
   )
-  showAddDialog.value = false
+  showAddEditDialog.value = false
 }
 </script>
 

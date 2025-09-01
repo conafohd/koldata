@@ -15,8 +15,16 @@ export class AdminMembersDbService {
         return users
     }
 
-    public static async setMemberPermission(memberId: string, associationId: string) {
+    public static async setMemberEditPermission(memberId: string, associationId: string) {
         const { error } = await supabase.from(TablesList.USER_PROFILES).update({ edit_association_id: associationId, role: UserRole.EDITOR }).eq('id', memberId)
+        if (error) {
+            addNotification(i18n.t('adminMembers.addPermissionError'), NotificationType.ERROR)
+            throw error
+        }
+    }
+
+    public static async setMemberCreationPermission(memberId: string) {
+        const { error } = await supabase.from(TablesList.USER_PROFILES).update({ edit_association_id: null, role: UserRole.CREATOR }).eq('id', memberId)
         if (error) {
             addNotification(i18n.t('adminMembers.addPermissionError'), NotificationType.ERROR)
             throw error
