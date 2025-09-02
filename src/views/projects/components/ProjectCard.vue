@@ -213,8 +213,10 @@
                   <p class="ProjectDetails__field-value">
                     {{
                       project.province
-                        .map((p) => adminBoundStore.getProvinceNameFromCode(p))
-                        .join(', ') || '-'
+                        ? project.province
+                            .map((p) => adminBoundStore.getProvinceNameFromCode(p))
+                            .join(', ')
+                        : '-'
                     }}
                   </p>
                 </div>
@@ -228,8 +230,10 @@
                   <p class="ProjectDetails__field-value">
                     {{
                       project.territoire
-                        .map((t) => adminBoundStore.getTerritoryNameFromCode(t))
-                        .join(', ') || '-'
+                        ? project.territoire
+                            .map((t) => adminBoundStore.getTerritoryNameFromCode(t))
+                            .join(', ')
+                        : '-'
                     }}
                   </p>
                 </div>
@@ -243,8 +247,10 @@
                   <p class="ProjectDetails__field-value">
                     {{
                       project.zone_sante
-                        .map((z) => adminBoundStore.getHealthZoneNameFromCode(z))
-                        .join(', ') || '-'
+                        ? project.zone_sante
+                            .map((z) => adminBoundStore.getHealthZoneNameFromCode(z))
+                            .join(', ')
+                        : '-'
                     }}
                   </p>
                 </div>

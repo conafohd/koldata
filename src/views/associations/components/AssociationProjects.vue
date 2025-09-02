@@ -22,29 +22,32 @@
         @click:row="handleRowClick"
       >
         <template #item.intitule_projet="{ value }">
-          {{ value }}
-          <v-tooltip :text="$t('admin.disclaimer')" v-if="hasEditPermission">
-            <template v-slot:activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="$timerEditOutline"
-                :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
-                class="ml-2"
-                v-if="isProjectWaitingForValidation(value)"
-              ></v-icon>
-            </template>
-          </v-tooltip>
-          <v-tooltip :text="$t('projects.associationTable.newProject')">
-            <template v-slot:activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="$newBox"
-                :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
-                class="ml-2"
-                v-if="projects.find((p) => p.intitule_projet === value)?.newProject"
-              ></v-icon>
-            </template>
-          </v-tooltip>
+          <div class="d-flex align-center">
+            <v-icon icon="$magnify" color="main-blue" class="mr-1"></v-icon>
+            {{ value }}
+            <v-tooltip :text="$t('admin.disclaimer')" v-if="hasEditPermission">
+              <template v-slot:activator="{ props }">
+                <v-icon
+                  v-bind="props"
+                  icon="$timerEditOutline"
+                  :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                  class="ml-2"
+                  v-if="isProjectWaitingForValidation(value)"
+                ></v-icon>
+              </template>
+            </v-tooltip>
+            <v-tooltip :text="$t('projects.associationTable.newProject')">
+              <template v-slot:activator="{ props }">
+                <v-icon
+                  v-bind="props"
+                  icon="$newBox"
+                  :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                  class="ml-2"
+                  v-if="projects.find((p) => p.intitule_projet === value)?.newProject"
+                ></v-icon>
+              </template>
+            </v-tooltip>
+          </div>
         </template>
         <template #item.statut_projet="{ value }">
           <v-chip
