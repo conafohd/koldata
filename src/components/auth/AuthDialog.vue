@@ -119,7 +119,7 @@
 import { AuthFormValidator } from '@/services/forms/AuthFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const authStore = useAuthenticationStore()
 const activeTab = ref(1)
@@ -161,6 +161,14 @@ function showForgotPassword() {
   authStore.showAuthModal = false
   authStore.showForgotPasswordModal = true
 }
+
+watch(
+  () => authStore.userInfos,
+  () => {
+    signInForm.form.email.value.value = ''
+    signInForm.form.password.value.value = ''
+  },
+)
 </script>
 
 <style scoped lang="scss">
