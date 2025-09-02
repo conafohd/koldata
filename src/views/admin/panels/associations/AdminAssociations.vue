@@ -91,9 +91,17 @@ watch(searchQuery, (newValue) => {
 })
 
 const sortedAssociations = computed(() => {
-  return [...associationsStore.associationsList, ...associationsStore.newAssociationsList]
-    .sort((a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation))
-    .sort((a, b) => Number(!!b.newAssociation) - Number(!!a.newAssociation))
+  return [...associationsStore.associationsList, ...associationsStore.newAssociationsList].sort(
+    (a, b) => {
+      const getPriority = (item: Association) => {
+        if (item.newAssociation) return 3 // Highest priority
+        if (item.waiting_for_validation) return 2 // Medium priority
+        return 1 // Lower priority
+      }
+
+      return getPriority(b) - getPriority(a)
+    },
+  )
 })
 const filteredAssociations = computed(() => {
   if (debouncedSearchQuery.value) {

@@ -2,7 +2,7 @@
   <div class="keyNumber">
     <span class="keyNumber__label">{{ label }}</span>
     <span class="keyNumber__value"
-      >{{ formatNumber(parseFloat(keyNumber.toFixed(2))) }}{{ isMillion ? ' M$' : '' }}</span
+      >{{ formatNumber(parseFloat(keyNumber?.toFixed(2))) }}{{ isMillion ? ' M$' : '' }}</span
     >
   </div>
 </template>

@@ -409,9 +409,9 @@ function createAssociation() {
   }
 
   &__request {
-    font-size: 0.6rem;
+    font-weight: bold;
     cursor: pointer;
-    color: rgb(var(--v-theme-main-blue));
+    color: rgb(var(--v-theme-light-blue));
     > div {
       font-style: italic;
     }
