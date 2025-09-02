@@ -20,7 +20,8 @@
     },
     "beneficiariesCount": {
       "target": "Nombre de bénéficiaires ciblés",
-      "beneficiaries": "Nombre de bénéficiaires atteints"
+      "beneficiaries": "Nombre de bénéficiaires atteints",
+      "objective": "Objectif"
     },
     "chart3": {
       "title": "Répartition des bénéficiaires par profil",
