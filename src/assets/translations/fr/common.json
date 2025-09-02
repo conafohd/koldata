@@ -51,7 +51,8 @@
     "sizeExceeded": "La taille du fichier dépasse la limite autorisée de 1 Mo",
     "invalidType": "Type de fichier non autorisé. Seuls les fichiers JPEG, PNG et WebP sont autorisés.",
     "permissionDenied": "Vous n'avez pas les permissions nécessaires pour effectuer cette action",
-    "deleteFailed": "Échec de la suppression du logo"
+    "deleteFailed": "Échec de la suppression du logo",
+    "deleteSuccess": "Logo supprimé avec succès"
   },
   "intervention_sector": {
     "Protection": "Protection",
