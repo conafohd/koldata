@@ -98,6 +98,16 @@
           <div @click="openEmailTemplate()" v-if="authStore.userInfos?.role === UserRole.READER">
             {{ $t('associations.creationRequest') }}
           </div>
+          <v-btn
+            color="main-blue"
+            v-if="authStore.userInfos?.role === UserRole.CREATOR"
+            :disabled="!!newProjectSubmitted"
+            @click="createAssociation()"
+          >
+            {{
+              newProjectSubmitted ? $t('associations.creationSubmitted') : $t('associations.create')
+            }}
+          </v-btn>
         </div>
 
         <div class="d-flex align-center ga-1">
@@ -295,6 +305,15 @@ function openEmailTemplate() {
     `mailto:${emailTemplate.to}?subject=${emailTemplate.subject}&body=${emailTemplate.body}`,
   )
 }
+
+const newProjectSubmitted = computed(() =>
+  associationsStore.newAssociationsList.find(
+    (x) => x.created_by === (authStore.userInfos as UserInfos).id,
+  ),
+)
+function createAssociation() {
+  associationsStore.associationToCreate = true
+}
 </script>
 
 <style scoped lang="scss">
@@ -391,9 +410,17 @@ function openEmailTemplate() {
 
   &__request {
     font-size: 0.6rem;
-    font-style: italic;
     cursor: pointer;
     color: rgb(var(--v-theme-main-blue));
+    > div {
+      font-style: italic;
+    }
+    @media (max-width: 768px) {
+      > div,
+      button {
+        display: none;
+      }
+    }
   }
 
   &__grid {

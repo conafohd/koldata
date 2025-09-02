@@ -63,6 +63,7 @@ _Tables referenced via frontend enums_
 - users_profiles: Extends Supabase Auth table with 3 user roles: reader / editor / admin
 - associations: Public table containing validated NGO data, admin-only write access
 - associations_maj: Private staging table for NGO updates submitted by editors
+- associations_new: Private staging table for new NGO created by creator role
 - projets: Public table containing validated project data, admin-only write access
 - projets_maj: Private staging table for project updates submitted by editors
 - projets_new: Private staging table for new projects created by NGO editors
@@ -76,21 +77,22 @@ Editors submit to staging tables → Admin reviews and validates → Data merged
 **Policies ensure:**
 
 - Only admins can write to public tables
-- Editors can only write to staging tables for their assigned NGOs
-- Editors can only read their own staging table entries
+- Editors/creators can only write to staging tables for their assigned NGOs
+- Editors/creators can only read their own staging table entries
 
 **Data Flow Cycle**
 
 ```
 Admin → Direct write to source tables
-Editor → Write to update/new tables → Admin validation → Merge to public tables
+Editor/creators → Write to update/new tables → Admin validation → Merge to public tables
 ```
 
 ## **PostgreSQL Functions**
 
 - is_admin - Verifies if user has admin role
 - handle_new_user - On user registration, auto-assigns editor role if email matches NGO's editing contact
-- can_edit_association - Verifies user has editor role for specific NGO
+- check_user_has_edit_association - Verifies user has editor role for specific NGO
+- check_user_is_creator - Verifies user has creator role
 - submit_association_update - Handles NGO updates: replaces existing entry or creates new one in associations_update table
 - submit_project_update - Same logic as above for projects
 - get_db_stats - Calculates dashboard statistics

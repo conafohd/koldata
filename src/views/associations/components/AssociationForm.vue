@@ -13,7 +13,9 @@
           >{{
             associationsStore.associationToCreate
               ? $t('associations.form.createTitle')
-              : $t('associations.form.updateTitle')
+              : associationsStore.associationToEdit?.newAssociation
+                ? $t('associations.form.validateNewAssociationTitle')
+                : $t('associations.form.updateTitle')
           }}
         </v-toolbar-title>
         <v-toolbar-items class="bg-white">
@@ -26,7 +28,10 @@
                   variant="flat"
                   v-bind="props"
                   :loading="associationForm.isSubmitting.value"
-                  v-if="associationsStore.associationToEdit?.waiting_for_validation"
+                  v-if="
+                    associationsStore.associationToEdit?.waiting_for_validation ||
+                    associationsStore.associationToEdit?.newAssociation
+                  "
                   >{{ $t('admin.refuseUpdate') }}</v-btn
                 >
               </template>
@@ -509,15 +514,21 @@ const handleCoordinatesChange = (lat: number, lng: number) => {
 const submitUpdate = associationForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
-    // If this association already have an update submitted, use the update id
-    const associationId = (associationsStore.associationToEdit as AssociationUpdate).association_id
-      ? (associationsStore.associationToEdit as AssociationUpdate).association_id
-      : associationsStore.associationToEdit!.id
-    const updatedAssociation: AssociationUpdate = {
-      ...sanitizedData,
-      association_id: associationId,
+    if (associationsStore.associationToEdit) {
+      // If this association already have an update submitted, use the update id
+      const associationId = (associationsStore.associationToEdit as AssociationUpdate)
+        .association_id
+        ? (associationsStore.associationToEdit as AssociationUpdate).association_id
+        : associationsStore.associationToEdit!.id
+      const updatedAssociation: AssociationUpdate = {
+        ...sanitizedData,
+        association_id: associationId,
+      }
+      await associationsStore.submitUpdate(updatedAssociation)
+    } else {
+      sanitizedData.created_by = authStore.userInfos?.id as string
+      await associationsStore.createAssociation(sanitizedData)
     }
-    await associationsStore.submitUpdate(updatedAssociation)
   },
   ({ errors }) => {
     console.error(errors)
@@ -526,13 +537,22 @@ const submitUpdate = associationForm.handleSubmit(
 )
 
 function refuseUpdate() {
-  associationsStore.refuseUpdate(associationsStore.associationToEdit!.id as unknown as number)
+  if (associationsStore.associationToEdit?.newAssociation) {
+    associationsStore.refuseNewAssociation(
+      associationsStore.associationToEdit!.id as unknown as number,
+    )
+  } else {
+    associationsStore.refuseUpdate(associationsStore.associationToEdit!.id as unknown as number)
+  }
 }
 
 const validateUpdate = associationForm.handleSubmit(
   async (values) => {
     const sanitizedData = CommonFormService.sanitizeFormData(values)
-    if (associationsStore.associationToEdit) {
+    if (associationsStore.associationToEdit?.newAssociation) {
+      sanitizedData.created_by = (associationsStore.associationToEdit as Association).created_by
+      await associationsStore.validateNewAssociation(sanitizedData)
+    } else if (associationsStore.associationToEdit) {
       // If this association already have an update submitted, use the update id
       const associationId = (associationsStore.associationToEdit as AssociationUpdate)
         .association_id
@@ -544,6 +564,7 @@ const validateUpdate = associationForm.handleSubmit(
       }
       await associationsStore.validateUpdate(updatedAssociation)
     } else if (associationsStore.associationToCreate) {
+      sanitizedData.created_by = authStore.userInfos?.id as string
       await associationsStore.createAssociation(sanitizedData)
     }
   },

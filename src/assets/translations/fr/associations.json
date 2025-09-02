@@ -4,6 +4,8 @@
     "title": "Profils des ONG",
     "resetFilters": "Réinitialiser les filtres",
     "edit": "Modifier",
+    "create": "Ajouter votre ONG",
+    "creationSubmitted": "L'ONG que vous avez créé est en cours de validation",
     "updatedAt": "Mis à jour le",
     "infos": "Informations générales",
     "projects": "Projets",
@@ -12,12 +14,15 @@
     "creationError": "Une erreur est survenue lors de la création de l'ONG",
     "creationSuccess": "ONG créée avec succès",
     "updateError": "Erreur lors de la mise à jour des informations de l'ONG",
-    "updateSuccess": "Les modifications ont été soumies à l'administrateur pour validation",
+    "updateSuccess": "Les modifications ont été soumises à l'administrateur pour validation",
+    "associationNotFound": "ONG non trouvée",
     "associationNotFoundForEdit": "Une erreur est survenue, l'ONG ne peut pas faire l'objet d'une modification",
     "updateDeletionError": "Une erreur est survenue lors de la suppression de la modification",
     "updateDeletionSuccess": "La modification a bien été supprimée",
     "deleteAssociationError": "Une erreur est survenue lors de la suppression de l'ONG",
     "deleteAssociationSuccess": "ONG supprimée avec succès",
+    "createError": "Une erreur est survenue lors de la création de l'ONG",
+    "createSuccess": "ONG créée avec succès",
     "accessToAssociation": "Fiche complète",
     "creationRequest": "Votre ONG est manquante? Contactez nous",
     "filters": {
@@ -48,6 +53,7 @@
     "form": {
       "createTitle": "Créer une nouvelle ONG",
       "updateTitle": "Modifier les informations de l'ONG",
+      "validateNewAssociationTitle": "Valider la nouvelle ONG",
       "categories": {
         "location": "Localisation",
         "organisation": "Organisation",

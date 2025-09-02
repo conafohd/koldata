@@ -69,7 +69,7 @@ export class LogoUploadService {
       throw new Error(i18n.t('logoStorage.permissionDenied', NotificationType.ERROR))
     }
 
-    if (authStore.userInfos?.role !== UserRole.EDITOR && !authStore.isAdmin) {
+    if ((authStore.userInfos?.role !== UserRole.EDITOR && authStore.userInfos?.role !== UserRole.CREATOR) && !authStore.isAdmin) {
       console.log('User does not have permission to upload logos')
       console.log(authStore.isAdmin)
       addNotification(i18n.t('logoStorage.permissionDenied'), NotificationType.ERROR)

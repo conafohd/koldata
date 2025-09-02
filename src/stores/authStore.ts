@@ -100,7 +100,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       addNotification(i18n.t('auth.errorFetchingSession'), NotificationType.ERROR)
     } else {
       if (session) {
-        console.log(session)
         authSession.value = session
         getUserInfos()
       }

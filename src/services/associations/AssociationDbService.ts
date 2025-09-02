@@ -26,15 +26,24 @@ export class AssociationDbService {
                     }
                 })
             }
+            const { data: new_associations, error: errorNewAssociations } = await supabase.from(TablesList.ASSOCIATIONS_NEW).select('*')
+            if (errorNewAssociations) {
+                addNotification(i18n.t('associations.fetchError'), NotificationType.ERROR)
+                throw errorNewAssociations
+            }
             return {
                 associations: associations,
-                updates: update_submissions
+                updates: update_submissions,
+                newAssociations: new_associations.map((association: Association) => {
+                    association.newAssociation = true
+                    return association
+                })
             }
         }
     }
 
-    public static async createAssociation(association: Association) {
-        const { error } = await supabase.from(TablesList.ASSOCIATIONS).insert(association)
+    public static async createAssociation(association: Association, isAdmin: boolean = false) {
+        const { error } = await supabase.from(isAdmin ? TablesList.ASSOCIATIONS : TablesList.ASSOCIATIONS_NEW).insert(association)
         if (error) {
             addNotification(i18n.t('associations.creationError'), NotificationType.ERROR)
             throw error
@@ -73,6 +82,35 @@ export class AssociationDbService {
             throw error
         } else {
             addNotification(i18n.t('admin.validationSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
+    public static async validateNewAssociation(association: Association): Promise<string> {
+        const { data, error } = await supabase
+            .from(TablesList.ASSOCIATIONS)
+            .insert(association)
+            .select('id')
+            .single()
+        
+        if (error) {
+            addNotification(i18n.t('associations.createError'), NotificationType.ERROR)
+            throw error
+        } else {
+            addNotification(i18n.t('associations.createSuccess'), NotificationType.SUCCESS)
+            return data.id
+        }
+    }
+
+
+    public static async removeNewAssociation(id: number, raiseResult: boolean) {
+        const { error } = await supabase.from(TablesList.ASSOCIATIONS_NEW).delete().eq('id', id)
+        if (error && raiseResult) {
+            addNotification(i18n.t('associations.updateDeletionError'), NotificationType.ERROR)
+            throw error
+        } else {
+            if (raiseResult) {
+                addNotification(i18n.t('associations.updateDeletionSuccess'), NotificationType.SUCCESS)
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import type { AssociationType } from "../enums/associations/AssociationType";
 export interface Association {
   id: string;
   created_at: string;
+  created_by: string;
   logo_url: string | null;
   nom: string;
   acronyme: string;
@@ -45,6 +46,7 @@ export interface Association {
   autre_social_media: string | null;
   updated_at: string;
   waiting_for_validation: boolean;
+  newAssociation?: boolean
 }
 
 export type AssociationCreate = Omit<Association, 'id' | 'created_at' | 'updated_at'>

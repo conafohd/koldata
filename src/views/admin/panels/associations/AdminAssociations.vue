@@ -31,7 +31,7 @@
               icon="$closeThick"
               class="mr-1"
               color="error"
-              v-if="item.waiting_for_validation"
+              v-if="item.waiting_for_validation || item.newAssociation"
             ></v-icon>
             <v-icon icon="$checkCircle" class="mr-1" color="success" v-else></v-icon>
           </div>
@@ -41,7 +41,9 @@
             icon="$squareEditOutline"
             class="mr-1 cursor-pointer"
             color="light-blue"
-            @click.stop="editAssociation(item.id)"
+            @click.stop="
+              item.newAssociation ? validateNewAssociation(item.id) : editAssociation(item.id)
+            "
           ></v-icon>
           <v-icon
             icon="$trashCanOutline"
@@ -89,9 +91,9 @@ watch(searchQuery, (newValue) => {
 })
 
 const sortedAssociations = computed(() => {
-  return [...associationsStore.associationsList].sort(
-    (a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation),
-  )
+  return [...associationsStore.associationsList, ...associationsStore.newAssociationsList]
+    .sort((a, b) => Number(b.waiting_for_validation) - Number(a.waiting_for_validation))
+    .sort((a, b) => Number(!!b.newAssociation) - Number(!!a.newAssociation))
 })
 const filteredAssociations = computed(() => {
   if (debouncedSearchQuery.value) {
@@ -118,6 +120,10 @@ function addNewAssociation() {
 
 function editAssociation(id: string) {
   associationsStore.activeAssociationEdition(id as string)
+}
+
+function validateNewAssociation(id: string) {
+  associationsStore.activeNewAssociationEdition(id)
 }
 
 const showDeleteDialog = ref(false)
