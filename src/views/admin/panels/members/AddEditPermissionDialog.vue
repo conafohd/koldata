@@ -17,7 +17,10 @@
               @blur="memberPermissionForm.form.memberId.handleBlur"
               :items="membersList"
               :item-title="
-                (item) => (item ? `${item.first_name || ''} ${item.last_name || ''}`.trim() : '')
+                (item) =>
+                  item
+                    ? `${item.first_name || ''} ${item.last_name || ''} -  ${item.email || ''}`.trim()
+                    : ''
               "
               item-value="id"
               required
@@ -40,9 +43,13 @@
         </div>
       </v-card-text>
       <div class="AddPermissionForm__actions">
-        <v-btn @click="confirmAddEditPermission" color="main-purple">{{
-          $t('adminMembers.addEditDialog.confirm')
-        }}</v-btn>
+        <v-btn
+          @click="confirmAddEditPermission"
+          color="main-purple"
+          :disabled="!memberPermissionForm.isValid.value"
+          :loading="memberPermissionForm.isSubmitting.value"
+          >{{ $t('adminMembers.addEditDialog.confirm') }}</v-btn
+        >
         <v-btn @click="showAddEditDialog = false">{{
           $t('adminMembers.addEditDialog.cancel')
         }}</v-btn>

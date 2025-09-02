@@ -11,7 +11,10 @@
               v-model="selectedUser"
               :items="membersList"
               :item-title="
-                (item) => (item ? `${item.first_name || ''} ${item.last_name || ''}`.trim() : '')
+                (item) =>
+                  item
+                    ? `${item.first_name || ''} ${item.last_name || ''} -  ${item.email || ''}`.trim()
+                    : ''
               "
               item-value="id"
               required
