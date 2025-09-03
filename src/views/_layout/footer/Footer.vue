@@ -1,5 +1,8 @@
 <template>
-  <div class="Footer"><a href="https://www.cartong.org" target="_blank">2025 - CartONG</a></div>
+  <a href="https://www.cartong.org" target="_blank" class="Footer"
+    >2025
+    <img src="@/assets/img/CartONG_logo_sans_noir.webp" alt="logo-cartong" class="Footer__logo"
+  /></a>
 </template>
 
 <script setup lang="ts"></script>
@@ -9,13 +12,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 5rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
   font-weight: 600;
-
-  a {
-    text-decoration: none;
-    color: rgb(var(--v-theme-main-grey));
-  }
+  text-decoration: none;
+  gap: 0.5rem;
+  color: rgb(var(--v-theme-main-grey));
+}
+.Footer__logo {
+  height: 1.5rem;
+  margin-left: 0.5rem;
 }
 </style>
