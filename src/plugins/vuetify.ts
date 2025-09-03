@@ -2,6 +2,7 @@ import {
   mdiAccountCircle,
   mdiAccountCircleOutline,
   mdiAccountGroup,
+  mdiAccountSupervisorCircle,
   mdiApplicationArrayOutline,
   mdiArrowDownBoldCircleOutline,
   mdiArrowLeft,
@@ -29,6 +30,7 @@ import {
   mdiReceiptClock,
   mdiSecurity,
   mdiSelectMarker,
+  mdiSendCircleOutline,
   mdiSquareEditOutline,
   mdiTimerEditOutline,
   mdiTrashCanOutline
@@ -99,7 +101,9 @@ export default createVuetify({
       closeThick: mdiCloseThick,
       circleEditOutline: mdiCircleEditOutline,
       plusCircleOutline: mdiPlusCircleOutline,
-      arrowDownBoldCircleOutline: mdiArrowDownBoldCircleOutline
+      arrowDownBoldCircleOutline: mdiArrowDownBoldCircleOutline,
+      sendCircleOutline: mdiSendCircleOutline,
+      accountSupervisorCircle: mdiAccountSupervisorCircle
     },
     sets: {
       mdi

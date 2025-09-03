@@ -1,5 +1,26 @@
 {
   "home": {
-    "title": "Bienvenue sur la plateforme Kongo Local Data du CONAFOHD RDC"
+    "title": "Bienvenue sur la plateforme Kongo Local Data",
+    "desc": "Développée par <a href='https://conafohd.org/' target='_blank'>CONAFOHD</a> avec le soutien technique de <a href='https://www.cartong.org/' target='_blank'>CartONG</a> et financée par <a href='https://www.h2hnetwork.org/' target='_blank'>H2HNetwork</a>, KOLData (Kongo Local Data) est une plateforme numérique visant à :",
+    "list1": "Centraliser et valoriser les données produites par les ONG congolaises",
+    "list2": "Renforcer l’autonomie locale dans la gestion de l’information",
+    "list3": "Offrir un outil sécurisé et accessible pour la coordination, la planification et le plaidoyer",
+    "list4": "Promouvoir la souveraineté numérique des structures locales",
+    "desc2": "KOLData est plus qu’un outil technique : c’est un levier stratégique pour la reconnaissance des initiatives locales, l’appropriation des données et le repositionnement des ONG congolaises dans l’écosystème de l’aide.",
+    "title2": "Présentation du CONAFOHD RDC",
+    "desc3": "Le Conseil National des Fora des ONG Humanitaires et de Développement (CONAFOHD) est une coordination nationale regroupant les principales plateformes d’ONG locales en RDC œuvrant dans les domaines humanitaire et de développement. Il fédère plus de 500 organisations à travers cinq fora régionaux couvrant tout le territoire congolais :",
+    "list5": "FONAHD RDC (Nord Kivu, Tshopo – siège à Goma)",
+    "list6": "CCONAT (Sud Kivu, Maniema, Grand Kasaï – siège à Bukavu)",
+    "list7": "RONHD (Ouest et centre – siège à Kinshasa)",
+    "list8": "FONAHI (Ituri, Haut/ Bas Uélé – siège à Bunia)",
+    "list9": "RHONA (Tanganyika, Lualaba, Haut-Katanga, Haut-Lomami – siège à Kalemie)",
+    "title3": "Vision",
+    "desc4": "Favoriser la localisation de la réponse humanitaire en RDC, avec un rôle central des acteurs locaux dans la coordination et la transition vers le Nexus Humanitaire-Paix-Développement.",
+    "title4": "Missions et objectifs",
+    "list10": "Coordination unique et représentative des ONG locales",
+    "list11": "Promotion de la localisation à travers le plaidoyer et le leadership local",
+    "list12": "Mobilisation de fonds pour renforcer les capacités des ONG",
+    "list13": "Représentation dans les mécanismes humanitaires nationaux",
+    "list14": "Mise en œuvre d’une académie numérique pour la formation certifiant des ONG locales"
   }
 }

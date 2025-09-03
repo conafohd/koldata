@@ -1,5 +1,26 @@
 {
   "home": {
-    "title": "Welcome to the Kongo Local Data platform of CONAFOHD DRC"
+    "title": "Welcome to the Kongo Local Data platform",
+    "desc": "Developed by <a href='https://conafohd.org/' target='_blank'>CONAFOHD</a> with technical support from <a href='https://www.cartong.org/' target='_blank'>CartONG</a> and funded by <a href='https://www.h2hnetwork.org/' target='_blank'>H2HNetwork</a>, KOLData (Kongo Local Data) is a digital platform aiming to:",
+    "list1": "Centralize and enhance data produced by Congolese NGOs",
+    "list2": "Strengthen local autonomy in information management",
+    "list3": "Provide a secure and accessible tool for coordination, planning and advocacy",
+    "list4": "Promote digital sovereignty of local organizations",
+    "desc2": "KOLData is more than a technical tool: it is a strategic lever for recognizing local initiatives, data ownership and repositioning Congolese NGOs within the aid ecosystem.",
+    "title2": "Presentation of CONAFOHD DRC",
+    "desc3": "The National Council of Humanitarian and Development NGO Forums (CONAFOHD) is a national coordination bringing together the main local NGO platforms in DRC working in humanitarian and development fields. It federates more than 500 organizations through five regional forums covering the entire Congolese territory:",
+    "list5": "FONAHD RDC (North Kivu, Tshopo – headquarters in Goma)",
+    "list6": "CCONAT (South Kivu, Maniema, Greater Kasai – headquarters in Bukavu)",
+    "list7": "RONHD (West and center – headquarters in Kinshasa)",
+    "list8": "FONAHI (Ituri, Upper/Lower Uele – headquarters in Bunia)",
+    "list9": "RHONA (Tanganyika, Lualaba, Upper Katanga, Upper Lomami – headquarters in Kalemie)",
+    "title3": "Vision",
+    "desc4": "Foster the localization of humanitarian response in DRC, with a central role for local actors in coordination and transition towards the Humanitarian-Peace-Development Nexus.",
+    "title4": "Missions and objectives",
+    "list10": "Unified and representative coordination of local NGOs",
+    "list11": "Promotion of localization through advocacy and local leadership",
+    "list12": "Fundraising to strengthen NGO capacities",
+    "list13": "Representation in national humanitarian mechanisms",
+    "list14": "Implementation of a digital academy for certified training of local NGOs"
   }
 }
