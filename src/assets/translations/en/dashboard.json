@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "fetchError": "Error while fetching dashboard statistics",
+    "mainStats": {
+      "ngos_count": "Number of NGOs",
+      "projects_count": "Number of projects",
+      "budget_count": "Total budget",
+      "territories_count": "Number of territories",
+      "interventions_fields_count": "Number of intervention sectors"
+    },
+    "filters": {
+      "year": "Filter by year"
+    },
+    "chart1": {
+      "title": "Project distribution by intervention sector"
+    },
+    "chart2": {
+      "title": "Project distribution by beneficiary type"
+    },
+    "beneficiariesCount": {
+      "target": "Number of targeted beneficiaries",
+      "beneficiaries": "Number of reached beneficiaries",
+      "objective": "Objective"
+    },
+    "chart3": {
+      "title": "Beneficiary distribution by profile",
+      "nb_women": "Women",
+      "nb_men": "Men",
+      "nb_boys": "Boys",
+      "nb_girls": "Girls",
+      "nb_disabled": "People with disabilities",
+      "nb_elderly": "Elderly people"
+    }
+  }
+}

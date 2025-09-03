@@ -45,6 +45,25 @@
             </RouterLink>
           </v-list-item>
           <v-list-item>
+            <div class="Header__langSelector">
+              <span
+                @click="appStore.changeLanguage('en')"
+                :class="{ 'Header__langSelector--active': appStore.currentLocale === 'en' }"
+                class="Header__langSelector__item"
+              >
+                En
+              </span>
+              <span class="Header__langSelector__separator">|</span>
+              <span
+                @click="appStore.changeLanguage('fr')"
+                :class="{ 'Header__langSelector--active': appStore.currentLocale === 'fr' }"
+                class="Header__langSelector__item"
+              >
+                Fr
+              </span>
+            </div>
+          </v-list-item>
+          <v-list-item>
             <AuthButton />
           </v-list-item>
         </v-list>
@@ -73,12 +92,6 @@ const showMobileMenu = ref(false)
       width: 100%;
       max-height: 30rem;
       height: 60vh;
-    }
-    .Header__bannerLink {
-      display: flex;
-      align-items: center;
-      color: rgb(var(--v-theme-main-grey));
-      text-decoration: none;
     }
 
     .Header__appLogo {

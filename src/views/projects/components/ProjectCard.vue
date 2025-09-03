@@ -18,7 +18,7 @@
 
       <v-card-text class="ProjectDetails__content">
         <div class="ProjectDetails__association" v-if="projectAssociation">
-          <a :href="associationUrl" target="_blank">
+          <a :href="associationUrl">
             <v-btn variant="outlined" color="light-blue" class="mt-2">{{
               $t('projects.seeAssociation')
             }}</v-btn>

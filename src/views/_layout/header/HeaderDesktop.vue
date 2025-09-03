@@ -1,8 +1,36 @@
 <template>
   <div class="Header">
-    <img src="~@/assets/img/logo.webp" alt="Logo" class="Header__logo" />
+    <router-link :to="{ name: 'home' }" class="Header__bannerLink" @click="appStore.activeTab = 0">
+      <img src="~@/assets/img/logo.webp" alt="Logo" class="Header__logo"
+    /></router-link>
     <div class="Header__content">
-      <span class="Header__title">{{ $t('header.title') }}</span>
+      <div class="Header__titleSection">
+        <router-link
+          :to="{ name: 'home' }"
+          class="Header__bannerLink"
+          @click="appStore.activeTab = 0"
+        >
+          <span class="Header__title">{{ $t('header.title') }}</span>
+        </router-link>
+        <div class="Header__langSelector">
+          <span
+            @click="appStore.changeLanguage('en')"
+            :class="{ 'Header__langSelector--active': appStore.currentLocale === 'en' }"
+            class="Header__langSelector__item"
+          >
+            En
+          </span>
+          <span class="Header__langSelector__separator">|</span>
+          <span
+            @click="appStore.changeLanguage('fr')"
+            :class="{ 'Header__langSelector--active': appStore.currentLocale === 'fr' }"
+            class="Header__langSelector__item"
+          >
+            Fr
+          </span>
+        </div>
+      </div>
+
       <div class="Header__actions">
         <v-tabs v-model="appStore.activeTab" align-tabs="start" color="main-blue">
           <v-tab
@@ -54,6 +82,10 @@ const authStore = useAuthenticationStore()
   width: 100%;
   padding-left: 1rem;
 }
+.Header__titleSection {
+  display: flex;
+  justify-content: space-between;
+}
 .Header__title {
   font-size: 1.5rem;
   font-weight: bold;
@@ -63,6 +95,7 @@ const authStore = useAuthenticationStore()
   display: flex;
   flex-grow: 1;
   justify-content: space-between;
+  align-items: center;
 }
 .Header__tabsText {
   text-transform: none;

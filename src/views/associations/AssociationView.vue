@@ -44,7 +44,7 @@
               icon="$timerEditOutline"
               :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
               class="ml-2"
-              v-if="selectedAssociation.waiting_for_validation"
+              v-if="selectedAssociation.waiting_for_validation && hasPermission"
             ></v-icon>
           </template>
         </v-tooltip>

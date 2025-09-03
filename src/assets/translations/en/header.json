@@ -1,0 +1,12 @@
+{
+  "header": {
+    "title": "Kongo Local Data",
+    "tabs": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "projectsMap": "Projects Map",
+      "associations": "NGO Profiles",
+      "admin": "Administration"
+    }
+  }
+}

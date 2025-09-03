@@ -1,0 +1,95 @@
+{
+  "admin": {
+    "title": "Administration Panel",
+    "members": "Access Rights",
+    "assos": "NGOs",
+    "projects": "Projects",
+    "disclaimer": "A modification of this content is pending validation by a platform administrator.",
+    "refuseUpdate": "Refuse modification",
+    "refuseSubmission": "Refuse this content",
+    "refuseUpdateDisclaimer": "This action results in deletion of the modification request made by the user.",
+    "acceptUpdate": "Validate modification",
+    "acceptSubmission": "Validate this content",
+    "acceptUpdateDisclaimer": "This action results in an update of information that will be visible to all site users.",
+    "validationSuccess": "Validation has been successfully recorded"
+  },
+  "adminMembers": {
+    "title": "Manage user rights",
+    "add": "Add access right",
+    "addEditor": "Add editing right",
+    "addCreator": "Add creation right",
+    "fetchError": "An error occurred while fetching users",
+    "membersTable": {
+      "editRight": "Current right",
+      "editTooltip": "Editing right",
+      "createTooltip": "Creation right",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "association": "Association",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "deleteDialog": {
+      "title": "Delete editing right",
+      "message": "Do you really want to delete the user's editing right?",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "deletePermissionSuccess": "Editing right successfully deleted",
+    "deletePermissionError": "An error occurred while deleting the editing right",
+    "addEditDialog": {
+      "title": "Add editing right",
+      "titleEdit": "Modify editing right",
+      "selectMember": "Choose a user",
+      "selectAssociation": "Choose an NGO",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "addCreationDialog": {
+      "title": "Add creation right",
+      "selectMember": "Choose a user",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "addPermissionSuccess": "Editing right successfully added",
+    "addPermissionError": "An error occurred while adding the editing right"
+  },
+  "adminAssociations": {
+    "title": "Manage NGOs",
+    "search": "Search for an NGO",
+    "searchPlaceholder": "Enter the NGO name",
+    "add": "Create an NGO",
+    "delete": "Delete an NGO",
+    "deleteMessage": "This action is irreversible, do you really want to delete the NGO?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "associationsTable": {
+      "name": "Name",
+      "type": "Organization Type",
+      "update": "Validated update",
+      "actions": "Actions",
+      "itemsPerPage": "Associations per page"
+    }
+  },
+  "adminProjects": {
+    "title": "Manage projects",
+    "add": "Create a project",
+    "search": "Search for a project",
+    "searchPlaceholder": "Enter the project name",
+    "addMessage": "Select an NGO to add a project",
+    "delete": "Delete a project",
+    "deleteMessage": "This action is irreversible, do you really want to delete the project?",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "selectAssociation": "Choose an NGO",
+    "projectsTable": {
+      "name": "Name",
+      "status": "Status",
+      "update": "Validated update",
+      "actions": "Actions",
+      "itemsPerPage": "Projects per page"
+    }
+  }
+}

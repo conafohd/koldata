@@ -1,7 +1,8 @@
 import type { Notification } from "@/models/interfaces/Notifications"
 import { NavigationTabsService } from "@/services/NavigationService"
 import { defineStore } from "pinia"
-import { ref, type Ref } from "vue"
+import { computed, ref, type Ref } from "vue"
+import { useI18n } from "vue-i18n"
 import { useRoute } from "vue-router"
 import { useDisplay } from 'vuetify'
 
@@ -17,6 +18,12 @@ export const useApplicationStore = defineStore('application', () => {
       activeTab.value
     )
   }
+  const { locale } = useI18n()
+  const currentLocale = computed(() => locale.value)
 
-  return { mobile, activeTab, setActiveTab, notificationPile, isLoading }
+  const changeLanguage = (lang: string) => {
+    locale.value = lang
+  }
+
+  return { mobile, activeTab, setActiveTab, notificationPile, isLoading, currentLocale, changeLanguage }
 })

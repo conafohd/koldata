@@ -24,7 +24,6 @@ body {
 .fullScreenCard {
   width: 100%;
   height: 100%;
-  background-color: red;
 }
 
 .v-tooltip .v-overlay__content {
@@ -109,4 +108,39 @@ body {
   flex-shrink: 0;
   font-weight: bold;
   margin-bottom: 1rem;
+}
+
+.Header__bannerLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgb(var(--v-theme-main-grey));
+  text-decoration: none !important;
+}
+.Header__langSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+
+  &__item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__separator {
+    color: rgb(var(--v-theme-main-grey));
+    user-select: none;
+  }
+
+  &--active {
+    font-weight: bold;
+    text-decoration: underline;
+    color: rgb(var(--v-theme-light-blue));
+  }
 }

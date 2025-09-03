@@ -1,0 +1,75 @@
+{
+  "forms": {
+    "errors": {
+      "formNotValid": "Please correct the form errors.",
+      "required": "This field is required.",
+      "email": "Please enter a valid email address.",
+      "minLength": "This field must contain at least {min} characters.",
+      "maxLength": "This field must not exceed {max} characters.",
+      "minValue": "The minimum accepted value is: {min}.",
+      "maxValue": "The maximum accepted value is: {max}.",
+      "emailValid": "Please enter a valid email address.",
+      "invalidUrl": "Please enter a valid URL.",
+      "invalidLatitude": "Please enter a valid latitude.",
+      "invalidLongitude": "Please enter a valid longitude.",
+      "positiveNumber": "Please enter a positive number.",
+      "invalidPhone": "Please enter a valid phone number.",
+      "dateRange": "The start date must be before the end date."
+    },
+    "validate": "Validate",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "error": {
+    "generic": "An error occurred, please try again.",
+    "notFound": "Page not found.",
+    "unauthorized": "Unauthorized access.",
+    "forbidden": "Forbidden action.",
+    "serverError": "Server error, please try again later.",
+    "errorFetchingBoundaries": "An error occurred while fetching administrative boundaries.",
+    "errorFetchingProvinces": "An error occurred while fetching provinces.",
+    "errorFetchingTerritories": "An error occurred while fetching territories.",
+    "errorFetchingHealthAreas": "An error occurred while fetching health zones."
+  },
+  "loading": {
+    "message": "Loading in progress, please wait..."
+  },
+  "geocoding": {
+    "searching": "Searching...",
+    "noResults": "No results found.",
+    "error": "An error occurred while searching for the address.",
+    "searchPlaceholder": "Search for an address or location",
+    "searchLabel": "Search",
+    "latitudeError": "Invalid latitude (-90 to 90)",
+    "longitudeError": "Invalid longitude (-180 to 180)"
+  },
+  "logoStorage": {
+    "permissionRefused": "You don't have the necessary permissions to upload logos",
+    "uploadFailed": "Logo upload failed",
+    "uploadSuccess": "Logo uploaded successfully",
+    "sizeExceeded": "File size exceeds the allowed limit of 1 MB",
+    "invalidType": "Unauthorized file type. Only JPEG, PNG and WebP files are allowed.",
+    "permissionDenied": "You don't have the necessary permissions to perform this action",
+    "deleteFailed": "Logo deletion failed",
+    "deleteSuccess": "Logo deleted successfully"
+  },
+  "intervention_sector": {
+    "Protection": "Protection",
+    "Nutrition": "Nutrition",
+    "Logistique": "Logistics",
+    "Eau, Hygiène et Assainissement (WASH)": "Water, Sanitation and Hygiene (WASH)",
+    "Santé": "Health",
+    "Sécurité alimentaire": "Food Security",
+    "Abris": "Shelter",
+    "Éducation": "Education",
+    "Coordination inter-agence": "Inter-agency Coordination",
+    "Autre": "Other"
+  },
+  "email": {
+    "createAssociationRequest": {
+      "subject": "Request to add a new NGO",
+      "body": "Hello,\n\nI would like to add a new NGO to the KolData platform list.\n\nRequester information:\n\n- Last name: {last_name}\n- First name: {first_name}\n- Email: {email}\n\nPlease contact me for the procedure to follow.\nBest regards,\n{first_name} {last_name}"
+    }
+  }
+}

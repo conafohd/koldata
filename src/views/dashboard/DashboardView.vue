@@ -159,7 +159,7 @@ watchEffect(async () => {
 const interventionSectorChartData = computed(() => {
   const data = dashboardStore.stats?.interventions_fields_details || []
   return {
-    labels: data.map((d) => d.secteur),
+    labels: data.map((d) => i18n.t('intervention_sector.' + d.secteur)),
     values: data.map((d) => d.occurrences),
   }
 })
