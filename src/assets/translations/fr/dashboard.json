@@ -16,7 +16,11 @@
       "title": "Répartition des projets par secteur d'intervention"
     },
     "chart2": {
-      "title": "Répartition des projets par type de bénéficiaires"
+      "title": "Répartition des projets par type de bénéficiaires",
+      "refugeesDescription": "<strong>Les réfugiés</strong> sont des personnes qui fuient les conflits ou la persécution. Leur statut est défini et protégé par le droit international et les réfugiés ne peuvent être expulsés ou renvoyés vers des situations où leur vie et leur liberté sont en péril.",
+      "displacedDescription": "<strong>Les déplacés internes</strong> n’ont traversé aucune frontière internationale en quête de sécurité. Contrairement aux réfugiés, ils ont fui au sein de leur propre pays.",
+      "returneesDescription": "<strong>Retournés</strong>: Ce groupe inclut les personnes dont on estime qu’elles n’ont pas besoin de protection internationale ou qui n’ont pas de raisons humanitaires impérieuses pour rester dans le pays d'accueil (les « demandeurs d'asile déboutés »), ainsi que celles qui n'ont jamais demandé l'asile. Les personnes qui ont retiré leur demande d'asile et qui souhaitent rentrer dans leur pays d'origine entrent également dans cette catégorie.",
+      "localCommunitiesDescription": "<strong>Les populations autochtones</strong> : De façon générale, les populations autochtones descendent des peuples qui habitaient une région donnée lorsqu’elle fut conquise ou colonisée, ou lorsque les frontières nationales existantes ont été définies par les cultures dominantes actuelles."
     },
     "beneficiariesCount": {
       "target": "Nombre de bénéficiaires ciblés",

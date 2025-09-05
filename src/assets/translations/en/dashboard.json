@@ -16,7 +16,11 @@
       "title": "Project distribution by intervention sector"
     },
     "chart2": {
-      "title": "Project distribution by beneficiary type"
+      "title": "Project distribution by beneficiary type",
+      "refugeesDescription": "<strong>Refugees</strong> are people who flee conflict or persecution. Their status is defined and protected by international law, and refugees cannot be expelled or returned to situations where their life and freedom are at risk.",
+      "displacedDescription": "<strong>Internally displaced persons</strong> have not crossed an international border in search of safety. Unlike refugees, they have fled within their own country.",
+      "returneesDescription": "<strong>Returnees</strong>: This group includes people who are considered not to need international protection or who have no compelling humanitarian reasons to remain in the host country (so-called 'failed asylum seekers'), as well as those who have never applied for asylum. People who have withdrawn their asylum application and wish to return to their country of origin also fall into this category.",
+      "localCommunitiesDescription": "<strong>Indigenous peoples</strong>: Generally, indigenous peoples are descended from the peoples who inhabited a given region when it was conquered or colonized, or when the existing national borders were defined by the current dominant cultures."
     },
     "beneficiariesCount": {
       "target": "Number of targeted beneficiaries",

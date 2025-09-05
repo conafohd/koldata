@@ -70,7 +70,11 @@
         <div class="ContentCard">
           <BarChart :data="interventionSectorChartData" :title="$t('dashboard.chart1.title')" />
         </div>
-        <div class="ContentCard">
+        <div class="ContentCard position-relative">
+          <div class="BeneficiaryTypeChart--info" @click="showBeneficiariesInfosDialog = true">
+            <v-icon icon="$informationSlabBoxOutline" size="x-large"></v-icon>
+          </div>
+
           <BeneficiaryTypeChart :data="beneficiaryTypeChartData" />
         </div>
         <div class="d-flex ContentCard">
@@ -82,6 +86,9 @@
       </div>
     </div>
   </div>
+  <BeneficiariesTypeInfosDialog
+    v-model:showBeneficiariesInfosDialog="showBeneficiariesInfosDialog"
+  />
 </template>
 <script setup lang="ts">
 import { i18n } from '@/plugins/i18n'
@@ -93,6 +100,7 @@ import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, ref, watchEffect } from 'vue'
 import BarChart from './components/BarChart.vue'
 import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
+import BeneficiariesTypeInfosDialog from './components/BeneficiariesTypeInfosDialog.vue'
 import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
 const appStore = useApplicationStore()
@@ -186,6 +194,7 @@ const beneficiaryProfileChartData = computed(() => {
     ],
   } as any
 })
+const showBeneficiariesInfosDialog = ref(false)
 </script>
 
 <style lang="scss">
@@ -260,5 +269,13 @@ const beneficiaryProfileChartData = computed(() => {
   > * {
     padding: 1rem;
   }
+}
+.BeneficiaryTypeChart--info {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 0.8rem;
+  z-index: 100;
+  cursor: pointer;
 }
 </style>
