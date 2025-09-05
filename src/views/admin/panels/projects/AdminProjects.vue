@@ -25,6 +25,10 @@
         item-key="intitule_projet"
         :items-per-page-text="$t('adminProjects.projectsTable.itemsPerPage')"
       >
+        <template #item.intitule_projet="{ item }">
+          {{ item.intitule_projet }}
+          <v-icon icon="$newBox" color="main-purple" class="ml-2" v-if="item.newProject"></v-icon>
+        </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
             <v-icon

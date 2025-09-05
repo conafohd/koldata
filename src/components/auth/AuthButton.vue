@@ -7,7 +7,12 @@
   >
     {{ $t('auth.signIn') }}
   </v-btn>
-  <v-btn v-else color="main-blue" @click="authStore.signOut" prepend-icon="$logout">
+  <v-btn
+    v-else
+    :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+    @click="authStore.signOut"
+    prepend-icon="$logout"
+  >
     {{ $t('auth.signOut') }}</v-btn
   >
 </template>

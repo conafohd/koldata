@@ -25,6 +25,15 @@
         item-key="name"
         :items-per-page-text="$t('adminAssociations.associationsTable.itemsPerPage')"
       >
+        <template #item.nom="{ item }">
+          {{ item.nom }}
+          <v-icon
+            icon="$newBox"
+            color="main-purple"
+            class="ml-2"
+            v-if="item.newAssociation"
+          ></v-icon>
+        </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
             <v-icon
