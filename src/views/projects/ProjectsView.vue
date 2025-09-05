@@ -167,7 +167,7 @@ import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import Spiderfy from '@nazka/map-gl-js-spiderfy'
-import { Map, type Feature } from 'maplibre-gl'
+import { Map, NavigationControl, type Feature } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { storeToRefs } from 'pinia'
 import {
@@ -372,6 +372,7 @@ function initMap() {
     zoom: 4,
     minZoom: 2,
   })
+  map.value.addControl(new NavigationControl(), 'top-right')
 
   map.value.on('load', async () => {
     map.value?.addSource('projectsSource', {

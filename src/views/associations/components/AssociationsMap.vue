@@ -40,7 +40,7 @@ import type { Association } from '@/models/interfaces/Association'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import Spiderfy from '@nazka/map-gl-js-spiderfy'
 import type { FeatureCollection, GeoJsonProperties, Point } from 'geojson'
-import { GeoJSONSource, Map, type Feature } from 'maplibre-gl'
+import { GeoJSONSource, Map, NavigationControl, type Feature } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 const props = defineProps<{
@@ -80,6 +80,7 @@ function initMap() {
     zoom: 4,
     minZoom: 2,
   })
+  map.value.addControl(new NavigationControl(), 'top-right')
 
   map.value.on('load', async () => {
     map.value?.addSource('associationsSource', {
