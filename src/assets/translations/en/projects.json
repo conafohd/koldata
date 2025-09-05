@@ -59,6 +59,10 @@
         "general": "General information",
         "beneficiaries": "Beneficiaries"
       },
+      "disclaimers": {
+        "totalPeople": "If the project is ongoing, indicate the number of target people planned for the entire duration of the project. If the project is completed, indicate the total number of people reached by the project.",
+        "peopleCategories": "If the project is ongoing, the total of the categories must equal the total number of target people. If the project is completed, the total of the categories must equal the total number of people reached."
+      },
       "fields": {
         "intitule_projet": "Project title",
         "consortium": "Is this project part of a consortium?",
@@ -82,10 +86,10 @@
         "types_beneficiaires_populations_cibles": "Types of beneficiaries/target populations",
         "autre_types_beneficiaires_populations_cibles": "Other types of beneficiaries",
         "nombre_total_personnes_cibles": "Total number of target people",
-        "nombre_hommes": "Number of men",
-        "nombre_femmes": "Number of women",
-        "nombre_filles": "Number of girls",
-        "nombre_garcons": "Number of boys",
+        "nombre_hommes": "Number of men (>= 18 years)",
+        "nombre_femmes": "Number of women (>= 18 years)",
+        "nombre_filles": "Number of girls (< 18 years)",
+        "nombre_garcons": "Number of boys (< 18 years)",
         "nombre_personnes_atteintes": "Number of people reached",
         "nombre_personnes_handicapees": "Number of people with disabilities",
         "nombre_personnes_agees": "Number of elderly people (>= 60 years)"
@@ -106,10 +110,10 @@
         "autre_type_services_fournis": "Specify other type of services",
         "autre_types_beneficiaires_populations_cibles": "Specify other types of beneficiaries",
         "nombre_total_personnes_cibles": "Total number of beneficiaries",
-        "nombre_hommes": "Number of male beneficiaries",
-        "nombre_femmes": "Number of female beneficiaries",
-        "nombre_filles": "Number of girl beneficiaries",
-        "nombre_garcons": "Number of boy beneficiaries",
+        "nombre_hommes": "Number of male (>= 18 years) beneficiaries",
+        "nombre_femmes": "Number of female (>= 18 years) beneficiaries",
+        "nombre_filles": "Number of girl (< 18 years) beneficiaries",
+        "nombre_garcons": "Number of boy (< 18 years) beneficiaries",
         "nombre_personnes_atteintes": "Number of people reached",
         "nombre_personnes_handicapees": "Number of people with disabilities",
         "nombre_personnes_agees": "Number of elderly people (>= 60 years)",

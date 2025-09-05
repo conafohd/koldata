@@ -59,6 +59,10 @@
         "general": "Informations générales",
         "beneficiaries": "Bénéficiaires"
       },
+      "disclaimers": {
+        "totalPeople": "Si le projet est en cours, indiquez le nombre de personnes cibles prévues pour toute la durée du projet. Si le projet est terminé, indiquez le nombre total de personnes atteintes par le projet.",
+        "peopleCategories": "Si le projet est en cours, le total des catégories doit être égal au nombre total de personnes cibles. Si le projet est terminé, le total des catégories doit être égal au nombre total de personnes atteintes."
+      },
       "fields": {
         "intitule_projet": "Intitulé du projet",
         "consortium": "Ce projet est il en consortium?",
@@ -82,10 +86,10 @@
         "types_beneficiaires_populations_cibles": "Types de bénéficiaires/populations cibles",
         "autre_types_beneficiaires_populations_cibles": "Autres types de bénéficiaires",
         "nombre_total_personnes_cibles": "Nombre total de personnes cibles",
-        "nombre_hommes": "Nombre d'hommes",
-        "nombre_femmes": "Nombre de femmes",
-        "nombre_filles": "Nombre de filles",
-        "nombre_garcons": "Nombre de garçons",
+        "nombre_hommes": "Nombre d'hommes (>= 18 ans)",
+        "nombre_femmes": "Nombre de femmes (>= 18 ans)",
+        "nombre_filles": "Nombre de filles (< 18 ans)",
+        "nombre_garcons": "Nombre de garçons (< 18 ans)",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
         "nombre_personnes_handicapees": "Nombre de personnes handicapées",
         "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)"
@@ -106,10 +110,10 @@
         "autre_type_services_fournis": "Précisez l'autre type de services",
         "autre_types_beneficiaires_populations_cibles": "Précisez les autres types de bénéficiaires",
         "nombre_total_personnes_cibles": "Nombre total de bénéficiaires",
-        "nombre_hommes": "Nombre d'hommes bénéficiaires",
-        "nombre_femmes": "Nombre de femmes bénéficiaires",
-        "nombre_filles": "Nombre de filles bénéficiaires",
-        "nombre_garcons": "Nombre de garçons bénéficiaires",
+        "nombre_hommes": "Nombre d'hommes (>= 18 ans) bénéficiaires",
+        "nombre_femmes": "Nombre de femmes (>= 18 ans) bénéficiaires",
+        "nombre_filles": "Nombre de filles (< 18 ans) bénéficiaires",
+        "nombre_garcons": "Nombre de garçons (< 18 ans) bénéficiaires",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
         "nombre_personnes_handicapees": "Nombre de personnes handicapées",
         "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)",

@@ -373,7 +373,10 @@
                 clearable
               />
             </div>
-            <div class="d-flex ga-2"></div>
+
+            <div class="ProjectForm__peopleDisclaimer">
+              <em>{{ $t('projects.form.disclaimers.totalPeople') }}</em>
+            </div>
             <div class="d-flex ga-2">
               <v-number-input
                 variant="outlined"
@@ -397,6 +400,9 @@
                 controlVariant="stacked"
                 clearable
               />
+            </div>
+            <div class="ProjectForm__peopleDisclaimer">
+              <em>{{ $t('projects.form.disclaimers.peopleCategories') }}</em>
             </div>
             <div class="d-flex ga-2">
               <v-number-input
@@ -737,5 +743,9 @@ const validateUpdate = projectForm.handleSubmit(
 <style lang="scss" scoped>
 .ProjectForm__serviceType {
   width: 100%;
+}
+.ProjectForm__peopleDisclaimer {
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
 }
 </style>
