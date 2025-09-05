@@ -119,6 +119,7 @@ onBeforeMount(async () => {
 })
 
 onMounted(() => {
+  applicationStore.setActiveTab()
   applicationStore.isLoading = false
 })
 

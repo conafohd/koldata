@@ -35,7 +35,6 @@ const projectsStore = useProjectsStore()
 
 onMounted(() => {
   authStore.initAuth()
-  appStore.setActiveTab()
 })
 </script>
 

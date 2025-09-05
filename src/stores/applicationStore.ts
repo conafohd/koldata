@@ -13,7 +13,7 @@ export const useApplicationStore = defineStore('application', () => {
   const isLoading = ref(false)
   const route = useRoute()
   function setActiveTab() {
-    NavigationTabsService.getTabsNumberFromRoute(
+    activeTab.value = NavigationTabsService.getTabsNumberFromRoute(
       route,
       activeTab.value
     )

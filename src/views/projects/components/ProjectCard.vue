@@ -18,11 +18,13 @@
 
       <v-card-text class="ProjectDetails__content">
         <div class="ProjectDetails__association" v-if="projectAssociation">
-          <a :href="associationUrl">
-            <v-btn variant="outlined" color="light-blue" class="mt-2">{{
-              $t('projects.seeAssociation')
-            }}</v-btn>
-          </a>
+          <v-btn
+            variant="outlined"
+            color="light-blue"
+            class="mt-2"
+            @click="(associationsStore.navigateToAssociation(projectAssociation.id), closeDialog())"
+            >{{ $t('projects.seeAssociation') }}</v-btn
+          >
         </div>
         <v-container fluid class="pa-0">
           <!-- Informations générales -->
