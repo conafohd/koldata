@@ -3,7 +3,6 @@ import type { Project } from "@/models/interfaces/Project";
 import { useAdminBoundariesStore } from "@/stores/adminBoundariesStore";
 
 export class ProjectsMapService {
-    private static adminBoundariesStore = useAdminBoundariesStore();
     public static getProjectsGeoJson(projects: Project[]) {
         const geojson: {
             type: string;
@@ -37,9 +36,47 @@ export class ProjectsMapService {
         return geojson;
     }
 
+    public static getProjectCentroid(project: Project): [number, number] {
+        const adminBoundariesStore = useAdminBoundariesStore();
+        const DRC_CENTER: [number, number] = [21.7587, -4.0383]
+        // IF project has several admin boundaries, return the centroid of all of them
+        const coords: [number, number][] = [];
+        if (project.zone_sante && project.zone_sante.length > 0) {
+            project.zone_sante.forEach(zone => {
+                const hz = adminBoundariesStore.healthZonesList.find(hz => hz.zone_sante_c === zone);
+                if (hz) {
+                    coords.push(hz.centroid.coordinates);
+                }
+            });
+        }
+        if (project.territoire && project.territoire.length > 0) {
+            project.territoire.forEach(territoire => {
+                const t = adminBoundariesStore.territoriesList.find(t => t.territoire_c === territoire);
+                if (t) {
+                    coords.push(t.centroid.coordinates);
+                }
+            });
+        }
+        if (project.province && project.province.length > 0) {
+            project.province.forEach(province => {
+                const p = adminBoundariesStore.provincesList.find(p => p.province_c === province);
+                if (p) {
+                    coords.push(p.centroid.coordinates);
+                }
+            });
+        }
+        if (coords.length > 0) {
+            const avgLng = coords.reduce((sum, c) => sum + c[0], 0) / coords.length;
+            const avgLat = coords.reduce((sum, c) => sum + c[1], 0) / coords.length;
+            return [avgLng, avgLat];
+        }
+        return DRC_CENTER;
+    }
+
     private static getHealthZonesFeatures(project: Project) {
+        const adminBoundariesStore = useAdminBoundariesStore();
         const healthZones = project.zone_sante.map(zone => {
-            return this.adminBoundariesStore.healthZonesList.find(hz => hz.zone_sante_c === zone );
+            return adminBoundariesStore.healthZonesList.find(hz => hz.zone_sante_c === zone );
         }).filter(hz => hz !== undefined);
 
         return healthZones.map((hz: HealthZone) => {
@@ -52,8 +89,9 @@ export class ProjectsMapService {
     }
 
     private static getTerritoriesFeatures(project: Project) {
+        const adminBoundariesStore = useAdminBoundariesStore();
         const territories = project.territoire.map(territoire => {
-            return this.adminBoundariesStore.territoriesList.find(t => t.territoire_c === territoire);
+            return adminBoundariesStore.territoriesList.find(t => t.territoire_c === territoire);
         }).filter(hz => hz !== undefined);
 
         return territories.map((t: Territory) => {
@@ -66,8 +104,9 @@ export class ProjectsMapService {
     }
 
     private static getProvincesFeatures(project: Project) {
+        const adminBoundariesStore = useAdminBoundariesStore();
         const provinces = project.province.map(province => {
-            return this.adminBoundariesStore.provincesList.find(p => p.province_c === province);
+            return adminBoundariesStore.provincesList.find(p => p.province_c === province);
         }).filter(hz => hz !== undefined);
 
         return provinces.map((p: Province) => {

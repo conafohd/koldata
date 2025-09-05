@@ -34,7 +34,7 @@
               {{ $t('projects.form.categories.general') }}
             </h3>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -88,7 +88,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -112,7 +112,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -145,7 +145,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -206,7 +206,7 @@
               >{{ $t('associations.form.categories.location') }}
             </h3>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -278,6 +278,9 @@
                 </div>
               </v-col>
             </v-row>
+            <v-row>
+              <div class="ProjectDetails__map" ref="projectMap"></div>
+            </v-row>
           </section>
 
           <!-- Bénéficiaires -->
@@ -287,7 +290,7 @@
               {{ $t('projects.form.categories.beneficiaries') }}
             </h3>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -322,7 +325,7 @@
               </v-col>
             </v-row>
 
-            <v-row class="ProjectDetails__row">
+            <v-row>
               <v-col cols="12" md="6">
                 <div class="ProjectDetails__field">
                   <span class="ProjectDetails__field-label">
@@ -349,7 +352,7 @@
             <div class="ProjectDetails__demographics">
               <h4 class="ProjectDetails__demographics-title">Répartition démographique</h4>
 
-              <v-row class="ProjectDetails__row">
+              <v-row>
                 <v-col cols="6" md="4">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
@@ -418,7 +421,7 @@
           </section>
 
           <!-- Validation Badge -->
-          <v-row v-if="project.waiting_for_validation" class="ProjectDetails__row">
+          <v-row v-if="project.waiting_for_validation">
             <v-col cols="12">
               <v-alert type="warning" variant="outlined" class="ProjectDetails__validation-alert">
                 <template #prepend>
@@ -449,13 +452,15 @@ import { ProjectServiceType } from '@/models/enums/projects/ProjectServiceType'
 import { ProjectStatus } from '@/models/enums/projects/ProjectStatus'
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
+import { ProjectsMapService } from '@/services/projects/ProjectsMapService'
 import { formatNumber } from '@/services/utils/FormatNumber'
 import { PROJECT_SERVICES_BY_SECTOR } from '@/services/utils/ProjectServiceList'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
-import { computed } from 'vue'
+import { Map, Marker, NavigationControl } from 'maplibre-gl'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const appStore = useApplicationStore()
@@ -546,6 +551,27 @@ const getServiceName = (service: ProjectServiceType): string => {
 
   return title
 }
+
+const projectMap = ref<HTMLElement>()
+const map = ref<Map>()
+onMounted(async () => {
+  await adminBoundStore.fetchBoundaries()
+  if (!projectMap.value) return
+  map.value = new Map({
+    container: projectMap.value,
+    style: 'https://tiles.openfreemap.org/styles/liberty',
+    center: ProjectsMapService.getProjectCentroid(project.value),
+    zoom: 6,
+  })
+  map.value.addControl(new NavigationControl(), 'top-right')
+  const markersList = ProjectsMapService.getProjectsGeoJson([project.value])
+  markersList.features.forEach((f) => {
+    const m = new Marker().setLngLat((f.geometry as any).coordinates).addTo(map.value as Map)
+  })
+})
+onUnmounted(() => {
+  map.value?.remove()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -606,6 +632,13 @@ const getServiceName = (service: ProjectServiceType): string => {
     color: #333;
     padding-bottom: 8px;
     border-bottom: 2px solid rgb(var(--v-theme-light-blue));
+  }
+
+  &__map {
+    width: 100%;
+    height: 12rem;
+    // margin-top: 1rem;
+    background-color: red;
   }
 
   &__field-label {
