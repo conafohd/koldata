@@ -9,10 +9,6 @@
       >
       <span
         ><v-icon color="main-blue" icon="$sendCircleOutline" class="mr-2"></v-icon
-        >{{ $t('home.list1') }}</span
-      >
-      <span
-        ><v-icon color="main-blue" icon="$sendCircleOutline" class="mr-2"></v-icon
         >{{ $t('home.list2') }}</span
       >
       <span
