@@ -18,6 +18,7 @@ export interface DashboardStats {
         beneficiaries: number
     }
     beneficiaries_profile_details: {
+        total_population: number
         nb_women: number
         nb_men: number
         nb_boys: number

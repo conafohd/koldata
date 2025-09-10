@@ -67,21 +67,52 @@
         <KeyNumbers />
       </div>
       <div class="Dashboard__charts">
-        <div class="ContentCard">
+        <div class="ContentCard ChartCard">
           <BarChart :data="interventionSectorChartData" :title="$t('dashboard.chart1.title')" />
         </div>
-        <div class="ContentCard position-relative">
+        <div class="ContentCard position-relative ChartCard">
           <div class="BeneficiaryTypeChart--info" @click="showBeneficiariesInfosDialog = true">
             <v-icon icon="$informationSlabBoxOutline" size="x-large"></v-icon>
           </div>
 
-          <BeneficiaryTypeChart :data="beneficiaryTypeChartData" />
+          <DoughnutChart
+            :dataset="beneficiaryTypeChartData"
+            :title="$t('dashboard.chart2.title')"
+          />
         </div>
-        <div class="d-flex ContentCard">
+        <div class="d-flex ContentCard ChartCard">
           <BeneficiariesKeyNumbers />
         </div>
-        <div class="d-flex ContentCard">
-          <BarChart :data="beneficiaryProfileChartData" :title="$t('dashboard.chart3.title')" />
+        <div class="d-flex ContentCard ChartCard">
+          <BarChart :data="beneficiaryGendersChartData" :title="$t('dashboard.chart3.title')" />
+        </div>
+        <div class="d-flex ContentCard ChartCard">
+          <DoughnutChart
+            :dataset="beneficiaryAgesChartData"
+            :title="$t('dashboard.chart4.title')"
+          />
+        </div>
+        <div class="d-flex ContentCard ChartCard">
+          <div class="Dashboard__disabled">
+            <div class="Dashboard__disabled--leftBlock">
+              <img
+                src="@/assets/img/disabled.min.svg"
+                alt="Disability Awareness"
+                class="Dashboard__disabled--image"
+              />
+            </div>
+            <div class="Dashboard__disabled--rightBlock">
+              <span class="Dashboard__disabled--title">{{
+                $t('dashboard.disabledCount.title')
+              }}</span>
+              <span class="Dashboard__disabled--count">{{ formatNumber(disabledCount) }}</span>
+              <span class="Dashboard__disabled--percentage">{{
+                $t('dashboard.disabledCount.percentage', {
+                  count: disabledPercentage,
+                })
+              }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -92,6 +123,7 @@
 </template>
 <script setup lang="ts">
 import { i18n } from '@/plugins/i18n'
+import { formatNumber } from '@/services/utils/FormatNumber'
 import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -101,7 +133,7 @@ import { computed, onBeforeMount, ref, watchEffect } from 'vue'
 import BarChart from './components/BarChart.vue'
 import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
 import BeneficiariesTypeInfosDialog from './components/BeneficiariesTypeInfosDialog.vue'
-import BeneficiaryTypeChart from './components/BeneficiaryTypeChart.vue'
+import DoughnutChart from './components/DoughnutChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
 const appStore = useApplicationStore()
 const dashboardStore = useDashboardStore()
@@ -172,31 +204,72 @@ const interventionSectorChartData = computed(() => {
   }
 })
 const beneficiaryTypeChartData = computed(() => {
-  return dashboardStore.stats?.beneficiaries_types_details || []
-})
-const beneficiaryProfileChartData = computed(() => {
-  return {
-    labels: [
-      i18n.t('dashboard.chart3.nb_women'),
-      i18n.t('dashboard.chart3.nb_men'),
-      i18n.t('dashboard.chart3.nb_boys'),
-      i18n.t('dashboard.chart3.nb_girls'),
-      i18n.t('dashboard.chart3.nb_old_men'),
-      i18n.t('dashboard.chart3.nb_old_women'),
-      i18n.t('dashboard.chart3.nb_disabled'),
-    ],
-    values: [
-      dashboardStore.stats?.beneficiaries_profile_details.nb_women,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_men,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_boys,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_girls,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_old_men,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_old_women,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_disabled,
-    ],
-  } as any
+  return (
+    dashboardStore.stats?.beneficiaries_types_details.map((d) => ({
+      label: i18n.t('projects.form.lists.beneficiariesTypes.' + d.type),
+      value: d.occurrences,
+    })) || []
+  )
 })
 const showBeneficiariesInfosDialog = ref(false)
+const beneficiaryGendersChartData = computed(() => {
+  if (!dashboardStore.stats) {
+    return { labels: [], values: [] }
+  }
+  return {
+    labels: [i18n.t('dashboard.chart3.nb_women'), i18n.t('dashboard.chart3.nb_men')],
+    values: [
+      dashboardStore.stats?.beneficiaries_profile_details.nb_women +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_girls +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_old_women,
+      dashboardStore.stats?.beneficiaries_profile_details.nb_men +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_old_men +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_boys,
+    ],
+  }
+})
+const beneficiaryAgesChartData = computed(() => {
+  if (!dashboardStore.stats) {
+    return []
+  }
+  return [
+    {
+      label: i18n.t('dashboard.chart4.nb_youngs'),
+      value:
+        dashboardStore.stats?.beneficiaries_profile_details.nb_boys +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_girls,
+    },
+    {
+      label: i18n.t('dashboard.chart4.nb_adults'),
+      value:
+        dashboardStore.stats?.beneficiaries_profile_details.nb_men +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_women,
+    },
+    {
+      label: i18n.t('dashboard.chart4.nb_elderly'),
+      value:
+        dashboardStore.stats?.beneficiaries_profile_details.nb_old_men +
+        dashboardStore.stats?.beneficiaries_profile_details.nb_old_women,
+    },
+  ]
+})
+
+const disabledCount = computed(() => {
+  return dashboardStore.stats?.beneficiaries_profile_details.nb_disabled || 0
+})
+const disabledPercentage = computed(() => {
+  if (
+    !dashboardStore.stats ||
+    dashboardStore.stats.beneficiaries_profile_details.total_population === 0
+  ) {
+    return '0%'
+  }
+  const percentage =
+    (dashboardStore.stats?.beneficiaries_profile_details.nb_disabled /
+      dashboardStore.stats.beneficiaries_profile_details.total_population) *
+    100
+  return percentage.toFixed(2) + '%'
+})
 </script>
 
 <style lang="scss">
@@ -228,7 +301,7 @@ const showBeneficiariesInfosDialog = ref(false)
 }
 @media (min-width: $bp-sm) {
   .Dashboard__filters > :first-child {
-    grid-column: span 2; /* il s'étend sur 2 colonnes */
+    grid-column: span 2;
   }
 }
 
@@ -272,6 +345,13 @@ const showBeneficiariesInfosDialog = ref(false)
     padding: 1rem;
   }
 }
+
+.ChartCard {
+  height: 18rem;
+  @media (max-width: $bp-sm) {
+    height: 15rem;
+  }
+}
 .BeneficiaryTypeChart--info {
   position: absolute;
   right: 1rem;
@@ -279,5 +359,46 @@ const showBeneficiariesInfosDialog = ref(false)
   font-size: 0.8rem;
   z-index: 100;
   cursor: pointer;
+}
+
+.Dashboard__disabled {
+  display: flex;
+  &--leftBlock {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(var(--v-theme-light-blue));
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+  &--rightBlock {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    padding-left: 2rem;
+  }
+  &--image {
+    max-height: 10rem;
+    margin: auto;
+  }
+  &--title {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  &--count {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    color: rgb(var(--v-theme-main-blue));
+  }
+  &--percentage {
+    font-style: italic;
+  }
 }
 </style>

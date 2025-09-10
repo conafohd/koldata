@@ -28,14 +28,19 @@
       "objective": "Objectif"
     },
     "chart3": {
-      "title": "Répartition des bénéficiaires par profil",
+      "title": "Répartition des bénéficiaires par genre",
       "nb_women": "Femmes",
-      "nb_men": "Hommes",
-      "nb_boys": "Garçons",
-      "nb_girls": "Filles",
-      "nb_disabled": "Personnes handicapées",
-      "nb_old_men": "Hommes âgées",
-      "nb_old_women": "Femmes âgées"
+      "nb_men": "Hommes"
+    },
+    "chart4": {
+      "title": "Répartition des bénéficiaires par catégorie d'age",
+      "nb_youngs": "Personnes mineures (< 18 ans)",
+      "nb_adults": "Personnes adultes (18-59 ans)",
+      "nb_elderly": "Personnes âgées (60 ans et plus)"
+    },
+    "disabledCount": {
+      "title": "Nombre de bénéficiaires en situation de handicap",
+      "percentage": "Soit {count}% de la population totale des bénéficiaires"
     }
   }
 }
