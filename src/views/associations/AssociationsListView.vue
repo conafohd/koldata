@@ -129,6 +129,13 @@
         <article
           v-for="association in filteredAssociations"
           :key="association.id"
+          v-memo="[
+            association.id,
+            association.nom,
+            association.logo_url,
+            association.updated_at,
+            association.desc,
+          ]"
           class="Associations__card"
           @click="() => associationsStore.navigateToAssociation(association.id)"
         >
