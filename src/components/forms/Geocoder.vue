@@ -141,6 +141,16 @@ const initializeMap = () => {
     updateCoordinateInputs(lngLat.lat, lngLat.lng)
     props.onCoordinatesChange(lngLat.lat, lngLat.lng)
   })
+  map.value.on('click', (event) => {
+    const { lng, lat } = event.lngLat
+    marker.value!.setLngLat([lng, lat])
+    updateCoordinateInputs(lat, lng)
+    props.onCoordinatesChange(lat, lng)
+    map.value!.easeTo({
+      center: [lng, lat],
+      duration: 500,
+    })
+  })
 }
 
 const getInitialCenter = (): LngLatLike => {
@@ -154,7 +164,10 @@ const getInitialCenter = (): LngLatLike => {
 const updateMarkerPosition = (lat: number, lng: number) => {
   if (marker.value && map.value) {
     marker.value.setLngLat([lng, lat])
-    map.value.flyTo({ center: [lng, lat], zoom: 14 })
+    map.value!.easeTo({
+      center: [lng, lat],
+      duration: 500,
+    })
   }
 }
 
