@@ -181,7 +181,8 @@ const beneficiaryProfileChartData = computed(() => {
       i18n.t('dashboard.chart3.nb_men'),
       i18n.t('dashboard.chart3.nb_boys'),
       i18n.t('dashboard.chart3.nb_girls'),
-      i18n.t('dashboard.chart3.nb_elderly'),
+      i18n.t('dashboard.chart3.nb_old_men'),
+      i18n.t('dashboard.chart3.nb_old_women'),
       i18n.t('dashboard.chart3.nb_disabled'),
     ],
     values: [
@@ -189,7 +190,8 @@ const beneficiaryProfileChartData = computed(() => {
       dashboardStore.stats?.beneficiaries_profile_details.nb_men,
       dashboardStore.stats?.beneficiaries_profile_details.nb_boys,
       dashboardStore.stats?.beneficiaries_profile_details.nb_girls,
-      dashboardStore.stats?.beneficiaries_profile_details.nb_elderly,
+      dashboardStore.stats?.beneficiaries_profile_details.nb_old_men,
+      dashboardStore.stats?.beneficiaries_profile_details.nb_old_women,
       dashboardStore.stats?.beneficiaries_profile_details.nb_disabled,
     ],
   } as any

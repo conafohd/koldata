@@ -34,7 +34,8 @@
       "nb_boys": "Garçons",
       "nb_girls": "Filles",
       "nb_disabled": "Personnes handicapées",
-      "nb_elderly": "Personnes âgées"
+      "nb_old_men": "Hommes âgées",
+      "nb_old_women": "Femmes âgées"
     }
   }
 }

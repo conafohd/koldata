@@ -44,7 +44,7 @@
     "confirmDeleteProject": "Are you sure you want to delete this project? This action is irreversible.",
     "confirm": "Confirm",
     "cancel": "Cancel",
-    "loadingMap": "Loading map. Retrieving data...",
+    "loadingMap": "Map loading in progress. Retrieving data...",
     "card": {
       "consortium_question": "Is this project part of a consortium?",
       "consortium_yes": "Yes",
@@ -59,9 +59,12 @@
         "general": "General information",
         "beneficiaries": "Beneficiaries"
       },
-      "disclaimers": {
-        "totalPeople": "If the project is ongoing, indicate the number of target people planned for the entire duration of the project. If the project is completed, indicate the total number of people reached by the project.",
-        "peopleCategories": "If the project is ongoing, the total of the categories must equal the total number of target people. If the project is completed, the total of the categories must equal the total number of people reached."
+      "beneficiariesCount": {
+        "disabledPeople": "Indicate the number of people, among the total beneficiaries, who have disabilities. Put 0 if you don't have this information",
+        "incorrectTotalTarget": "The category totals do not match the total number of target people.",
+        "incorrectTotalReached": "The category totals do not match the total number of people reached.",
+        "totalPeople": "If the project is ongoing, indicate the number of target people planned for the entire project duration. If the project is finished, also indicate the total number of people reached by the project.",
+        "peopleCategories": "If the project is ongoing, the category totals must equal the total number of target people. If the project is finished, the category totals must equal the total number of people reached."
       },
       "fields": {
         "intitule_projet": "Project title",
@@ -91,8 +94,9 @@
         "nombre_filles": "Number of girls (< 18 years)",
         "nombre_garcons": "Number of boys (< 18 years)",
         "nombre_personnes_atteintes": "Number of people reached",
-        "nombre_personnes_handicapees": "Number of people with disabilities",
-        "nombre_personnes_agees": "Number of elderly people (>= 60 years)"
+        "nombre_personnes_handicapees": "Including number of disabled people (among beneficiaries counted in different categories)",
+        "nombre_hommes_agees": "Number of elderly men (>= 60 years)",
+        "nombre_femmes_agees": "Number of elderly women (>= 60 years)"
       },
       "placeholders": {
         "intitule_projet": "Enter the project title",
@@ -110,13 +114,14 @@
         "autre_type_services_fournis": "Specify other type of services",
         "autre_types_beneficiaires_populations_cibles": "Specify other types of beneficiaries",
         "nombre_total_personnes_cibles": "Total number of beneficiaries",
-        "nombre_hommes": "Number of male (>= 18 years) beneficiaries",
-        "nombre_femmes": "Number of female (>= 18 years) beneficiaries",
-        "nombre_filles": "Number of girl (< 18 years) beneficiaries",
-        "nombre_garcons": "Number of boy (< 18 years) beneficiaries",
+        "nombre_hommes": "Number of male beneficiaries (>= 18 years)",
+        "nombre_femmes": "Number of female beneficiaries (>= 18 years)",
+        "nombre_filles": "Number of girl beneficiaries (< 18 years)",
+        "nombre_garcons": "Number of boy beneficiaries (< 18 years)",
         "nombre_personnes_atteintes": "Number of people reached",
-        "nombre_personnes_handicapees": "Number of people with disabilities",
-        "nombre_personnes_agees": "Number of elderly people (>= 60 years)",
+        "nombre_personnes_handicapees": "Including number of disabled people",
+        "nombre_hommes_agees": "Number of elderly men (>= 60 years)",
+        "nombre_femmes_agees": "Number of elderly women (>= 60 years)",
         "partenaires_consortium": "Consortium partners"
       },
       "hints": {
@@ -141,10 +146,10 @@
           "Distribution d'aliments thérapeutiques": "Therapeutic food distribution",
           "Sensibilisation nutritionnelle": "Nutritional awareness",
           "Soutien à l'allaitement": "Breastfeeding support",
-          "Formation de relais communautaires": "Community volunteer training",
+          "Formation de relais communautaires": "Community relay training",
           "Transport et distribution de biens humanitaires": "Transport and distribution of humanitarian goods",
           "Gestion des stocks": "Stock management",
-          "Approvisionnement en médicaments et vivres": "Medical and food supplies procurement",
+          "Approvisionnement en médicaments et vivres": "Medicine and food supply",
           "Installation d'infrastructures temporaires": "Temporary infrastructure installation",
           "Entretien et réparation d'équipements": "Equipment maintenance and repair",
           "Construction et réhabilitation de points d'eau": "Water point construction and rehabilitation",
@@ -166,18 +171,18 @@
           "Sensibilisation alimentaire": "Food awareness",
           "Construction et distribution d'abris d'urgence": "Emergency shelter construction and distribution",
           "Réhabilitation de logements": "Housing rehabilitation",
-          "Distribution de bâches et matériaux": "Tarpaulin and material distribution",
+          "Distribution de bâches et matériaux": "Tarp and material distribution",
           "Aménagement de sites temporaires": "Temporary site development",
-          "Assistance technique à l'auto-construction": "Technical assistance for self-construction",
+          "Assistance technique à l'auto-construction": "Self-construction technical assistance",
           "Réhabilitation et construction d'écoles": "School rehabilitation and construction",
           "Distribution de kits scolaires": "School kit distribution",
           "Éducation non formelle pour enfants déplacés": "Non-formal education for displaced children",
           "Formation et appui aux enseignants": "Teacher training and support",
           "Sensibilisation à la protection scolaire": "School protection awareness",
-          "Réunions sectorielles": "Sector meetings",
+          "Réunions sectorielles": "Sectoral meetings",
           "Harmonisation des interventions": "Intervention harmonization",
           "Suivi des besoins": "Needs monitoring",
-          "Plans de réponse communs": "Joint response plans",
+          "Plans de réponse communs": "Common response plans",
           "Gestion de bases de données inter-agences": "Inter-agency database management"
         },
         "projectFunders": {
@@ -187,7 +192,7 @@
           "Banque Mondiale": "World Bank",
           "BHA (Bureau for Humanitarian Assistance)": "BHA (Bureau for Humanitarian Assistance)",
           "CARITAS": "CARITAS",
-          "CDCS (Centre de crise et de soutien)": "CDCS (Crisis and Support Center)",
+          "CDCS (Centre de crise et de soutien)": "CDCS (Crisis and Support Centre)",
           "CIAT": "CIAT",
           "CODESPA": "CODESPA",
           "Contribution locale": "Local contribution",
@@ -232,7 +237,7 @@
           "Warchild": "Warchild"
         },
         "beneficiariesTypes": {
-          "Déplacés": "Displaced persons",
+          "Déplacés": "Displaced",
           "Réfugiés": "Refugees",
           "Populations autochtones": "Indigenous populations",
           "retournés": "Returnees",
