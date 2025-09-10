@@ -23,6 +23,7 @@ export interface DashboardStats {
         nb_boys: number
         nb_girls: number
         nb_disabled: number
-        nb_elderly: number
+        nb_old_men: number
+        nb_old_women: number
     }
 }
