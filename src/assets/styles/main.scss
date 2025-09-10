@@ -144,3 +144,7 @@ body {
     color: rgb(var(--v-theme-light-blue));
   }
 }
+
+.MapBackground {
+  background: radial-gradient(circle, #314c67 0%, #000000 100%);
+}

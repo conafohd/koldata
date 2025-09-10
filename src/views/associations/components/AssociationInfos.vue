@@ -303,6 +303,7 @@ onMounted(async () => {
     style: 'https://tiles.openfreemap.org/styles/liberty',
     center: getInitialCenter(),
     zoom: 7,
+    minZoom: 3,
   })
   map.value.addControl(new NavigationControl(), 'top-right')
   marker.value = new Marker().setLngLat(getInitialCenter()).addTo(map.value)

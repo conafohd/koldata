@@ -574,6 +574,7 @@ onMounted(async () => {
     style: 'https://tiles.openfreemap.org/styles/liberty',
     center: ProjectsMapService.getProjectCentroid(project.value),
     zoom: 6,
+    minZoom: 3,
   })
   map.value.addControl(new NavigationControl(), 'top-right')
   const markersList = ProjectsMapService.getProjectsGeoJson([project.value])

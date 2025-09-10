@@ -1,6 +1,6 @@
 <template>
   <div class="AssociationsMapContainer">
-    <div ref="associationsMapContainer" class="AssociationsMap">
+    <div ref="associationsMapContainer" class="AssociationsMap MapBackground">
       <div class="AssociationDescription" v-if="selectedAssociation">
         <div class="d-flex align-center">
           <div class="d-flex flex-column align-center">
@@ -78,11 +78,13 @@ function initMap() {
     style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
     center: [21.7587, -4.0383],
     zoom: 4,
-    minZoom: 2,
   })
   map.value.addControl(new NavigationControl(), 'top-right')
 
   map.value.on('load', async () => {
+    map.value?.setProjection({
+      type: 'globe',
+    })
     map.value?.addSource('associationsSource', {
       type: 'geojson',
       data: mapData.value,

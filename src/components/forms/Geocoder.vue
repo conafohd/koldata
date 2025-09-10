@@ -132,6 +132,7 @@ const initializeMap = () => {
     style: 'https://tiles.openfreemap.org/styles/liberty',
     center: getInitialCenter(),
     zoom: 10,
+    minZoom: 3,
   })
   map.value.addControl(new NavigationControl(), 'top-right')
   marker.value = new Marker({ draggable: true }).setLngLat(getInitialCenter()).addTo(map.value)

@@ -116,7 +116,10 @@
         clearable
       />
     </section>
-    <div class="Projects__map" ref="projectsMapContainer">{{ $t('projects.loadingMap') }}</div>
+    <div class="d-flex justify-center mt-3" v-if="!showMap">
+      {{ $t('projects.loadingMap') }}
+    </div>
+    <div class="Projects__map MapBackground" ref="projectsMapContainer" v-show="showMap"></div>
   </div>
   <v-dialog v-model="showStartDatePicker" max-width="400px">
     <v-card>
@@ -360,7 +363,6 @@ const map = ref<Map>()
 const projectsGeojson: Ref<any> = ref(null)
 const showMap = ref(false)
 function initMap() {
-  showMap.value = true
   if (!projectsMapContainer.value) return
   if (!projectsGeojson.value || projectsGeojson.value.features.length === 0) return
 
@@ -370,11 +372,14 @@ function initMap() {
     style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
     center: [21.7587, -4.0383],
     zoom: 4,
-    minZoom: 2,
   })
   map.value.addControl(new NavigationControl(), 'top-right')
 
   map.value.on('load', async () => {
+    showMap.value = true
+    map.value?.setProjection({
+      type: 'globe',
+    })
     map.value?.addSource('projectsSource', {
       type: 'geojson',
       data: projectsGeojson.value,
