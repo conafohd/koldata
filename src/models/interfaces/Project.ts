@@ -32,7 +32,8 @@ export interface Project {
   nombre_garcons: number | null;
   nombre_personnes_atteintes: number | null;
   nombre_personnes_handicapees: number | null;
-  nombre_personnes_agees: number | null;
+  nombre_hommes_agees: number | null;
+  nombre_femmes_agees: number | null;
   consortium: boolean;
   partenaires_consortium: string | null;
   association_id: string;

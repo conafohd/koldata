@@ -3,6 +3,7 @@ import {
   mdiAccountCircleOutline,
   mdiAccountGroup,
   mdiAccountSupervisorCircle,
+  mdiAlertCircleOutline,
   mdiApplicationArrayOutline,
   mdiArrowDownBoldCircleOutline,
   mdiArrowLeft,
@@ -103,7 +104,8 @@ export default createVuetify({
       plusCircleOutline: mdiPlusCircleOutline,
       arrowDownBoldCircleOutline: mdiArrowDownBoldCircleOutline,
       sendCircleOutline: mdiSendCircleOutline,
-      accountSupervisorCircle: mdiAccountSupervisorCircle
+      accountSupervisorCircle: mdiAccountSupervisorCircle,
+      alertCircleOutline: mdiAlertCircleOutline
     },
     sets: {
       mdi

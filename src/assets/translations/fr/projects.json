@@ -59,8 +59,11 @@
         "general": "Informations générales",
         "beneficiaries": "Bénéficiaires"
       },
-      "disclaimers": {
-        "totalPeople": "Si le projet est en cours, indiquez le nombre de personnes cibles prévues pour toute la durée du projet. Si le projet est terminé, indiquez le nombre total de personnes atteintes par le projet.",
+      "beneficiariesCount": {
+        "disabledPeople": "Indiquez le nombre de personnes, parmis le total des bénéficiaires, qui sont en situation de handicap. Mettez 0 si vous n'avez pas cette information",
+        "incorrectTotalTarget": "Le total des catégories ne correspond pas au nombre total de personnes cibles.",
+        "incorrectTotalReached": "Le total des catégories ne correspond pas au nombre total de personnes atteintes.",
+        "totalPeople": "Si le projet est en cours, indiquez le nombre de personnes cibles prévues pour toute la durée du projet. Si le projet est terminé, indiquez également le nombre total de personnes atteintes par le projet.",
         "peopleCategories": "Si le projet est en cours, le total des catégories doit être égal au nombre total de personnes cibles. Si le projet est terminé, le total des catégories doit être égal au nombre total de personnes atteintes."
       },
       "fields": {
@@ -91,8 +94,9 @@
         "nombre_filles": "Nombre de filles (< 18 ans)",
         "nombre_garcons": "Nombre de garçons (< 18 ans)",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
-        "nombre_personnes_handicapees": "Nombre de personnes handicapées",
-        "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)"
+        "nombre_personnes_handicapees": "Dont Nombre de personnes handicapées (parmis les bénéficiaires comptés dans les différentes catégories)",
+        "nombre_hommes_agees": "Nombre d'hommes âgés (>= 60 ans)",
+        "nombre_femmes_agees": "Nombre de femmes âgées (>= 60 ans)"
       },
       "placeholders": {
         "intitule_projet": "Entrez l'intitulé du projet",
@@ -115,8 +119,9 @@
         "nombre_filles": "Nombre de filles (< 18 ans) bénéficiaires",
         "nombre_garcons": "Nombre de garçons (< 18 ans) bénéficiaires",
         "nombre_personnes_atteintes": "Nombre de personnes atteintes",
-        "nombre_personnes_handicapees": "Nombre de personnes handicapées",
-        "nombre_personnes_agees": "Nombre de personnes âgées (>= 60 ans)",
+        "nombre_personnes_handicapees": "Dont nombre de personnes handicapées",
+        "nombre_hommes_agees": "Nombre d'hommes âgés (>= 60 ans)",
+        "nombre_femmes_agees": "Nombre de femmes âgées (>= 60 ans)",
         "partenaires_consortium": "Partenaires du consortium"
       },
       "hints": {

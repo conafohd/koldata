@@ -375,7 +375,8 @@
             </div>
 
             <div class="ProjectForm__peopleDisclaimer">
-              <em>{{ $t('projects.form.disclaimers.totalPeople') }}</em>
+              <v-icon icon="$alertCircleOutline" class="mr-1" color="warning"></v-icon>
+              <em>{{ $t('projects.form.beneficiariesCount.totalPeople') }}</em>
             </div>
             <div class="d-flex ga-2">
               <v-number-input
@@ -402,7 +403,8 @@
               />
             </div>
             <div class="ProjectForm__peopleDisclaimer">
-              <em>{{ $t('projects.form.disclaimers.peopleCategories') }}</em>
+              <v-icon icon="$alertCircleOutline" class="mr-1" color="warning"></v-icon>
+              <em>{{ $t('projects.form.beneficiariesCount.peopleCategories') }}</em>
             </div>
             <div class="d-flex ga-2">
               <v-number-input
@@ -455,22 +457,35 @@
             <div class="d-flex ga-2">
               <v-number-input
                 variant="outlined"
-                :label="$t('projects.form.fields.nombre_personnes_handicapees')"
-                :placeholder="$t('projects.form.placeholders.nombre_personnes_handicapees')"
-                v-model="projectForm.form.nombre_personnes_handicapees.value.value"
-                :error-messages="projectForm.form.nombre_personnes_handicapees.errorMessage.value"
-                @blur="projectForm.form.nombre_personnes_handicapees.handleBlur"
+                :label="$t('projects.form.fields.nombre_hommes_agees')"
+                :placeholder="$t('projects.form.placeholders.nombre_hommes_agees')"
+                v-model="projectForm.form.nombre_hommes_agees.value.value"
+                :error-messages="projectForm.form.nombre_hommes_agees.errorMessage.value"
+                @blur="projectForm.form.nombre_hommes_agees.handleBlur"
                 required
                 controlVariant="stacked"
                 clearable
               />
               <v-number-input
                 variant="outlined"
-                :label="$t('projects.form.fields.nombre_personnes_agees')"
-                :placeholder="$t('projects.form.placeholders.nombre_personnes_agees')"
-                v-model="projectForm.form.nombre_personnes_agees.value.value"
-                :error-messages="projectForm.form.nombre_personnes_agees.errorMessage.value"
-                @blur="projectForm.form.nombre_personnes_agees.handleBlur"
+                :label="$t('projects.form.fields.nombre_femmes_agees')"
+                :placeholder="$t('projects.form.placeholders.nombre_femmes_agees')"
+                v-model="projectForm.form.nombre_femmes_agees.value.value"
+                :error-messages="projectForm.form.nombre_femmes_agees.errorMessage.value"
+                @blur="projectForm.form.nombre_femmes_agees.handleBlur"
+                required
+                controlVariant="stacked"
+                clearable
+              />
+            </div>
+            <div class="d-flex ga-2">
+              <v-number-input
+                variant="outlined"
+                :label="$t('projects.form.fields.nombre_personnes_handicapees')"
+                :placeholder="$t('projects.form.placeholders.nombre_personnes_handicapees')"
+                v-model="projectForm.form.nombre_personnes_handicapees.value.value"
+                :error-messages="projectForm.form.nombre_personnes_handicapees.errorMessage.value"
+                @blur="projectForm.form.nombre_personnes_handicapees.handleBlur"
                 required
                 controlVariant="stacked"
                 clearable

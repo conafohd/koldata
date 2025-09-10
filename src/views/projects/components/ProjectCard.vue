@@ -396,23 +396,35 @@
                     </p>
                   </div>
                 </v-col>
-                <v-col cols="12" md="4">
+                <v-col cols="6" md="4">
+                  <div class="ProjectDetails__field ProjectDetails__field--compact">
+                    <span class="ProjectDetails__field-label">
+                      {{ $t('projects.form.fields.nombre_hommes_agees') }}
+                    </span>
+                    <p class="ProjectDetails__field-value">
+                      {{ formatNumber(project.nombre_hommes_agees) }}
+                    </p>
+                  </div>
+                </v-col>
+                <v-col cols="6" md="4">
+                  <div class="ProjectDetails__field ProjectDetails__field--compact">
+                    <span class="ProjectDetails__field-label">
+                      {{ $t('projects.form.fields.nombre_femmes_agees') }}
+                    </span>
+                    <p class="ProjectDetails__field-value">
+                      {{ formatNumber(project.nombre_femmes_agees) }}
+                    </p>
+                  </div>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12">
                   <div class="ProjectDetails__field ProjectDetails__field--compact">
                     <span class="ProjectDetails__field-label">
                       {{ $t('projects.form.fields.nombre_personnes_handicapees') }}
                     </span>
                     <p class="ProjectDetails__field-value">
                       {{ formatNumber(project.nombre_personnes_handicapees) }}
-                    </p>
-                  </div>
-                </v-col>
-                <v-col cols="12" md="4">
-                  <div class="ProjectDetails__field ProjectDetails__field--compact">
-                    <span class="ProjectDetails__field-label">
-                      {{ $t('projects.form.fields.nombre_personnes_agees') }}
-                    </span>
-                    <p class="ProjectDetails__field-value">
-                      {{ formatNumber(project.nombre_personnes_agees) }}
                     </p>
                   </div>
                 </v-col>

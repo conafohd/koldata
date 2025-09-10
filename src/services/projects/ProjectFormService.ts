@@ -56,9 +56,7 @@ export class ProjectFormService {
         .nullable(),
 
         statut_projet: z
-        .nativeEnum(ProjectStatus)
-        .optional()
-        .nullable(),
+        .nativeEnum(ProjectStatus),
 
         province: z.array(z.string(), {
             message: i18n.t('forms.errors.required')
@@ -117,51 +115,45 @@ export class ProjectFormService {
         nombre_hommes: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
         nombre_femmes: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
         nombre_filles: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
         nombre_garcons: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
         nombre_personnes_atteintes: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
         .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
         .optional()
-        .nullable(),
+        .nullable()
+        .or(z.literal('')),
 
         nombre_personnes_handicapees: z
-        .number()
+        .number({ message: i18n.t('projects.form.beneficiariesCount.disabledPeople') })
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
-        nombre_personnes_agees: z
+        nombre_hommes_agees: z
         .number()
         .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) })
-        .optional()
-        .nullable(),
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
+
+        nombre_femmes_agees: z
+        .number()
+        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
+        .max(2147483647, { message: i18n.t('forms.errors.maxValue', { max: 2147483647 }) }),
 
         consortium: z
         .boolean()
@@ -180,7 +172,7 @@ export class ProjectFormService {
                 .refine(
                     (data) => {
                         if (data.noms_bailleurs_fonds.includes(ProjectFunder.OTHER)) {
-                            return data.autre_bailleur_fonds && data.autre_bailleur_fonds.trim() !== ''
+                            return data.autre_bailleur_fonds && !!data.autre_bailleur_fonds.trim()
                         }
                         return true
                     },
@@ -192,7 +184,7 @@ export class ProjectFormService {
                 .refine(
                     (data) => {
                         if (data.secteurs_intervention.includes(InterventionSector.OTHER)) {
-                            return data.autre_secteur_intervention && data.autre_secteur_intervention.trim() !== ''
+                            return data.autre_secteur_intervention && !!data.autre_secteur_intervention.trim()
                         }
                         return true
                     },
@@ -204,7 +196,7 @@ export class ProjectFormService {
                 .refine(
                     (data) => {
                         if (data.types_services_fournis.includes(ProjectServiceType.OTHER)) {
-                            return data.autre_type_services_fournis && data.autre_type_services_fournis.trim() !== ''
+                            return data.autre_type_services_fournis && !!data.autre_type_services_fournis.trim()
                         }
                         return true
                     },
@@ -216,7 +208,7 @@ export class ProjectFormService {
                 .refine(
                     (data) => {
                         if (data.types_beneficiaires_populations_cibles.includes(ProjectBeneficiaryType.OTHER)) {
-                            return data.autre_types_beneficiaires_populations_cibles && data.autre_types_beneficiaires_populations_cibles.trim() !== ''
+                            return data.autre_types_beneficiaires_populations_cibles && !!data.autre_types_beneficiaires_populations_cibles.trim()
                         }
                         return true
                     },
@@ -249,7 +241,31 @@ export class ProjectFormService {
                         path: ['partenaires_consortium']
                     }
                 )
-        )
+                .refine(
+                    (data) => {
+                        if (data.statut_projet === ProjectStatus.ON_GOING) {
+                            return data.nombre_hommes + data.nombre_femmes + data.nombre_filles + data.nombre_garcons + data.nombre_hommes_agees + data.nombre_femmes_agees === data.nombre_total_personnes_cibles
+                        }
+                        return true
+                    },
+                    {
+                        message: i18n.t('projects.form.beneficiariesCount.incorrectTotalTarget'),
+                        path: ['nombre_total_personnes_cibles']
+                    }
+                )
+                .refine(
+                    (data) => {
+                        if (data.statut_projet === ProjectStatus.FINISHED) {
+                            return data.nombre_hommes + data.nombre_femmes + data.nombre_filles + data.nombre_garcons + data.nombre_hommes_agees + data.nombre_femmes_agees === data.nombre_personnes_atteintes
+                        }
+                        return true
+                    },
+                    {
+                        message: i18n.t('projects.form.beneficiariesCount.incorrectTotalReached'),
+                        path: ['nombre_personnes_atteintes']
+                    }
+                )
+            )
 
         const { errors, handleSubmit, isSubmitting, meta } = useForm<Project>({
             initialValues: projectToEdit,
@@ -277,13 +293,14 @@ export class ProjectFormService {
             types_beneficiaires_populations_cibles: useField<string[]>('types_beneficiaires_populations_cibles', [], { validateOnValueUpdate: true }),
             autre_types_beneficiaires_populations_cibles: useField<string>('autre_types_beneficiaires_populations_cibles', '', { validateOnValueUpdate: true }),
             nombre_total_personnes_cibles: useField<number>('nombre_total_personnes_cibles', '', { validateOnValueUpdate: true }),
+            nombre_personnes_atteintes: useField<number | null>('nombre_personnes_atteintes', '', { validateOnValueUpdate: true }),
             nombre_hommes: useField<number | null>('nombre_hommes', '', { validateOnValueUpdate: true }),
             nombre_femmes: useField<number | null>('nombre_femmes', '', { validateOnValueUpdate: true }),
             nombre_filles: useField<number | null>('nombre_filles', '', { validateOnValueUpdate: true }),
             nombre_garcons: useField<number | null>('nombre_garcons', '', { validateOnValueUpdate: true }),
-            nombre_personnes_atteintes: useField<number | null>('nombre_personnes_atteintes', '', { validateOnValueUpdate: true }),
+            nombre_hommes_agees: useField<number | null>('nombre_hommes_agees', '', { validateOnValueUpdate: true }),
+            nombre_femmes_agees: useField<number | null>('nombre_femmes_agees', '', { validateOnValueUpdate: true }),
             nombre_personnes_handicapees: useField<number | null>('nombre_personnes_handicapees', '', { validateOnValueUpdate: true }),
-            nombre_personnes_agees: useField<number | null>('nombre_personnes_agees', '', { validateOnValueUpdate: true }),
             consortium: useField<boolean>('consortium', '', { validateOnValueUpdate: true }),
             partenaires_consortium: useField<string | null>('partenaires_consortium', '', { validateOnValueUpdate: true })
         }
