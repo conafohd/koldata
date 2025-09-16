@@ -18,7 +18,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ['vue-router']
   },
-  base: '/koldata/',
+  base: '/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
