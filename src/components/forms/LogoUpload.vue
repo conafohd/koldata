@@ -35,6 +35,7 @@ import { NotificationType } from '@/models/enums/NotificationType'
 import { i18n } from '@/plugins/i18n'
 import { addNotification } from '@/services/NotificationsService'
 import { LogoUploadService } from '@/services/storage/LogoUploadService'
+import { resizeImage } from '@/services/utils/ImageService'
 import { ref, watch } from 'vue'
 
 interface Props {
@@ -65,6 +66,10 @@ const onFileSelected = async (event: Event) => {
   if (!files || files.length === 0) return
 
   const file = files[0]
+
+  
+  if (!file) return
+  const resizedFile = await resizeImage(file, 160)
   errorMessage.value = null
   isUploading.value = true
 
@@ -73,7 +78,7 @@ const onFileSelected = async (event: Event) => {
       await LogoUploadService.deleteLogo(currentLogoUrl.value)
     }
 
-    const logoUrl = await LogoUploadService.uploadLogo(file, props.associationId)
+    const logoUrl = await LogoUploadService.uploadLogo(resizedFile, props.associationId)
     currentLogoUrl.value = logoUrl
     emit('update:modelValue', logoUrl)
 

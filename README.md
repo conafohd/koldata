@@ -21,7 +21,7 @@ The KolData platform is developed by Cartong for the [Conafohd](https://conafohd
 
 # Project Setup
 
-- Set the VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY env variables in a env.local file
+- Set the VITE_SUPABASE_URL/VITE_SUPABASE_ANON_KEY env variables in a `.env.local` file
 
 ```sh
 npm install
