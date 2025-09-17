@@ -3,8 +3,7 @@ import { i18n } from "@/plugins/i18n";
 
 export class EmailTemplateService {
   static getAssociationCreationRequestTemplate(userInfos: UserInfos): Record<string, string> {
-    const RECIPIENT_EMAIL = "o_ribiere@cartong.org"
-    console.log()
+    const RECIPIENT_EMAIL = "info@conafohd.org"
     return {
         to: RECIPIENT_EMAIL,
         subject: encodeURIComponent(i18n.t('email.createAssociationRequest.subject')),
