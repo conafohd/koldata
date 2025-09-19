@@ -4,8 +4,8 @@
     "fetchError": "Error fetching dashboard statistics",
     "mainStats": {
       "ngos_count": "Number of NGOs",
-      "projects_count": "Number of projects",
-      "budget_count": "Total budget",
+      "projects_count": "Number of projects (since 2022)",
+      "budget_count": "Total budget (since 2022)",
       "territories_count": "Number of territories",
       "interventions_fields_count": "Number of intervention sectors"
     },

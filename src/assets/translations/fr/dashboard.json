@@ -4,8 +4,8 @@
     "fetchError": "Erreur lors de la récupération des statistiques du tableau de bord",
     "mainStats": {
       "ngos_count": "Nombre d'ONG",
-      "projects_count": "Nombre de projets",
-      "budget_count": "Budget total",
+      "projects_count": "Nombre de projets (depuis 2022)",
+      "budget_count": "Budget total (depuis 2022)",
       "territories_count": "Nombre de territoires",
       "interventions_fields_count": "Nombre de secteurs d'intervention"
     },

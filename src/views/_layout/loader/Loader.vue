@@ -9,6 +9,7 @@
 .loader {
   display: flex;
   align-items: center;
+  gap: 1rem;
   justify-content: center;
   flex-direction: column;
   height: 70vh;

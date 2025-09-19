@@ -1,6 +1,6 @@
 <template>
   <div class="HomeView">
-    <span class="HomeView__title">{{ $t('home.title') }}</span>
+    <h1 class="HomeView__title mb-8">{{ $t('home.title') }}</h1>
     <span class="HomeView__subtitle" v-html="$t('home.desc')"></span>
     <div class="HomeView__list">
       <span
@@ -21,8 +21,9 @@
       >
     </div>
     <span class="HomeView__text" v-html="$t('home.desc2')"></span>
-    <span class="HomeView__title mt-8">{{ $t('home.title2') }}</span>
-    <span class="HomeView__text text-justify" v-html="$t('home.desc3')"></span>
+    <span class="HomeView__text" v-html="$t('home.desc3')"></span>
+    <h2 class="HomeView__title mt-8">{{ $t('home.title2') }}</h2>
+    <span class="HomeView__text text-justify" v-html="$t('home.desc4')"></span>
     <div class="HomeView__list">
       <span
         ><v-icon color="main-blue" icon="$accountSupervisorCircle" class="mr-2"></v-icon
@@ -51,9 +52,9 @@
         >https://conafohd.org/contacts/</a
       ></span
     >
-    <span class="HomeView__title">{{ $t('home.title3') }}</span>
-    <span class="HomeView__text" v-html="$t('home.desc4')"></span>
-    <span class="HomeView__title">{{ $t('home.title4') }}</span>
+    <h2 class="HomeView__title">{{ $t('home.title3') }}</h2>
+    <span class="HomeView__text" v-html="$t('home.desc5')"></span>
+    <h2 class="HomeView__title">{{ $t('home.title4') }}</h2>
     <div class="HomeView__list">
       <span
         ><v-icon color="main-blue" icon="$sendCircleOutline" class="mr-2"></v-icon
@@ -84,16 +85,21 @@
 .HomeView {
   display: flex;
   flex-direction: column;
-  width: 80%;
   gap: 1.5rem;
-  align-items: center;
   margin-top: 4rem;
-  text-align: center;
+  h1 {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
 }
 .HomeView__title {
-  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: -0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
 .HomeView__subtitle {
   font-size: 1.1rem;

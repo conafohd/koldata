@@ -1,14 +1,10 @@
 @import '_variables';
 
-@media (max-width: $bp-sm) {
-  body {
-    padding: 0 $mobile-side-padding;
-  }
-}
-@media (min-width: $bp-sm) {
-  body {
-    padding: 0 $desktop-side-padding;
-  }
+body {
+  width: 1100px;
+  max-width: 100%;
+  padding: 1rem;
+  margin: 0 auto;
 }
 
 body {
@@ -127,6 +123,9 @@ body {
   &__item {
     cursor: pointer;
     transition: all 0.2s ease;
+    font-weight: bold;
+    font-size: .875rem;
+    text-transform: uppercase;
 
     &:hover {
       opacity: 0.7;

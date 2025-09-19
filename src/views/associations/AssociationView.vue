@@ -181,7 +181,7 @@ function editAssociation() {
     align-items: center;
   }
   .Association__header--date {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--main-grey);
     margin-left: auto;
     font-style: italic;
