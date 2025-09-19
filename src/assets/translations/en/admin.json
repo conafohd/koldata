@@ -54,7 +54,8 @@
       "confirm": "Confirm"
     },
     "addPermissionSuccess": "Editing right successfully added",
-    "addPermissionError": "An error occurred while adding the editing right"
+    "addPermissionError": "An error occurred while adding the editing right",
+    "alreadyAnotherEditorError": "An editor already exists for this organization"
   },
   "adminAssociations": {
     "title": "Manage NGOs",

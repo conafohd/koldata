@@ -54,7 +54,8 @@
       "confirm": "Confirmer"
     },
     "addPermissionSuccess": "Droit d'édition ajouté avec succès",
-    "addPermissionError": "Une erreur est survenue lors de l'ajout du droit d'édition"
+    "addPermissionError": "Une erreur est survenue lors de l'ajout du droit d'édition",
+    "alreadyAnotherEditorError": "Il existe déjà un éditeur pour cette organisation"
   },
   "adminAssociations": {
     "title": "Gérer les ONG",
