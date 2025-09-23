@@ -1,3 +1,4 @@
+import type { InterventionSector } from "@/models/enums/InterventionSector";
 import type { DashboardStats } from "@/models/interfaces/DashboardStats";
 import { i18n } from "@/plugins/i18n";
 import { supabase } from "@/plugins/supabase";
@@ -8,13 +9,14 @@ import { ref } from "vue";
 export const useDashboardStore = defineStore('dashboard', () => {
     const stats = ref<DashboardStats | null>(null)
 
-    const fetchStats = async (asso: string | null, province: string[] | null, territory: string[] | null, healthzone: string[] | null, year: number[] | null) => {
+    const fetchStats = async (asso: string | null, province: string[] | null, territory: string[] | null, healthzone: string[] | null, year: number[] | null, interventionSector: InterventionSector[] | null) => {
         const { data, error } = await supabase.rpc('get_db_stats', {
             p_asso: asso,
             p_province: province,
             p_territory: territory,
             p_healthzone: healthzone,
-            p_year: year
+            p_year: year,
+            p_intervention_sector: interventionSector
         });
         if (error) {
             addNotification(i18n.t('dashboard.fetchError'))

@@ -61,6 +61,20 @@
         multiple
         clearable
       />
+
+      <v-select
+        :label="$t('associations.filters.interventionSector')"
+        :items="Object.values(InterventionSector)"
+        :item-title="(item) => $t(`intervention_sector.${item}`)"
+        :item-value="(item) => item"
+        v-model="selectedInterventionSector"
+        variant="outlined"
+        density="compact"
+        hide-details
+        multiple
+        class="Associations__select"
+        clearable
+      />
     </div>
     <div class="Dashboard__content">
       <div class="Dashboard__mainStats ContentCard">
@@ -130,6 +144,8 @@ import { useAssociationsStore } from '@/stores/associationsStore'
 import { useDashboardStore } from '@/stores/dashboardStore'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, ref, watchEffect } from 'vue'
+import type { Ref } from 'vue'
+import { InterventionSector } from '@/models/enums/InterventionSector'
 import BarChart from './components/BarChart.vue'
 import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
 import BeneficiariesTypeInfosDialog from './components/BeneficiariesTypeInfosDialog.vue'
@@ -168,6 +184,7 @@ onBeforeMount(async () => {
       selectedTerritory.value,
       selectedHealthZone.value,
       selectedYear.value,
+      selectedInterventionSector.value,
     ),
     associationsStore.getAssociationsList(),
     adminBoundStore.fetchBoundaries(),
@@ -181,6 +198,7 @@ const selectedProvince = ref<string[] | null>(null)
 const selectedTerritory = ref<string[] | null>(null)
 const selectedHealthZone = ref<string[] | null>(null)
 const selectedYear = ref<number[] | null>(null)
+const selectedInterventionSector: Ref<InterventionSector[] | null> = ref(null)
 
 const arrayToNull = <T,>(arr: T[] | null): T[] | null => {
   return arr && arr.length > 0 ? arr : null
@@ -193,6 +211,7 @@ watchEffect(async () => {
     arrayToNull(selectedTerritory.value),
     arrayToNull(selectedHealthZone.value),
     arrayToNull(selectedYear.value),
+    arrayToNull(selectedInterventionSector.value),
   )
 })
 
