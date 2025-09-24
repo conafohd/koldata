@@ -16,7 +16,6 @@
         v-model="searchQuery"
         clearable
       />
-
       <v-select
         :label="$t('associations.filters.province')"
         :items="adminBoundStore.provincesList"
@@ -333,54 +332,6 @@ function createAssociation() {
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-
-    @media (max-width: $bp-sm) {
-      margin-bottom: 0;
-    }
-  }
-
-  &__title {
-    @media (max-width: $bp-sm) {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @media (min-width: $bp-sm) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &__filtersCounter {
-    @media (max-width: $bp-sm) {
-      display: flex;
-      justify-content: end;
-      flex-grow: 1;
-      align-items: center;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (min-width: $bp-sm) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &__reset-btn {
-    color: #666;
-    font-size: 0.875rem;
-    text-transform: none;
-    letter-spacing: normal;
-  }
 
   &__filters {
     display: grid;
