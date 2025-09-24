@@ -71,5 +71,8 @@
       "subject": "Request to add a new NGO",
       "body": "Hello,\n\nI would like to add a new NGO to the KolData platform list.\n\nRequester information:\n\n- Last name: {last_name}\n- First name: {first_name}\n- Email: {email}\n\nPlease contact me for the procedure to follow.\nBest regards,\n{first_name} {last_name}"
     }
+  },
+  "pageHeader": {
+    "resetFilters": "Reset filters"
   }
 }

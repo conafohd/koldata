@@ -2,7 +2,6 @@
   "associations": {
     "fetchError": "Erreur lors de la récupération des associations",
     "title": "Profils des ONG",
-    "resetFilters": "Réinitialiser les filtres",
     "edit": "Modifier",
     "create": "Ajouter votre ONG",
     "creationSubmitted": "L'ONG que vous avez créé est en cours de validation",

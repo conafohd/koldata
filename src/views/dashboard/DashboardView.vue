@@ -1,8 +1,9 @@
 <template>
   <div class="Dashboard">
-    <div class="Dashboard__header">
-      <span class="PageTitle">{{ $t('dashboard.title') }}</span>
-    </div>
+    <PageHeader
+      :title="$t('dashboard.title')"
+      :active-filters-count="activeFiltersCount"
+      @reset-filters="resetFilters" />
     <div class="Dashboard__filters">
       <v-autocomplete
         :label="$t('projects.filters.association')"
@@ -151,6 +152,7 @@ import BeneficiariesKeyNumbers from './components/BeneficiariesKeyNumbers.vue'
 import BeneficiariesTypeInfosDialog from './components/BeneficiariesTypeInfosDialog.vue'
 import DoughnutChart from './components/DoughnutChart.vue'
 import KeyNumbers from './components/KeyNumbers.vue'
+import PageHeader from '../_layout/page/PageHeader.vue'
 const appStore = useApplicationStore()
 const dashboardStore = useDashboardStore()
 const associationsStore = useAssociationsStore()
@@ -214,6 +216,24 @@ watchEffect(async () => {
     arrayToNull(selectedInterventionSector.value),
   )
 })
+
+const activeFiltersCount = computed(() => [
+  selectedAssociation.value,
+  selectedProvince.value,
+  selectedTerritory.value,
+  selectedHealthZone.value,
+  selectedYear.value,
+  selectedInterventionSector.value,
+].filter(filter => filter != null).length)
+
+function resetFilters() {
+  selectedAssociation.value = null
+  selectedProvince.value = null
+  selectedTerritory.value = null
+  selectedHealthZone.value = null
+  selectedYear.value = null
+  selectedInterventionSector.value = null
+}
 
 const interventionSectorChartData = computed(() => {
   const data = dashboardStore.stats?.interventions_fields_details || []
@@ -298,14 +318,6 @@ const disabledPercentage = computed(() => {
   flex-grow: 1;
   width: 100%;
   gap: 1rem;
-}
-.Dashboard__header {
-  display: flex;
-  width: 100%;
-
-  @media (max-width: $bp-sm) {
-    justify-content: center;
-  }
 }
 .Dashboard__filters {
   display: grid;

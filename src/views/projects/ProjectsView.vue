@@ -1,17 +1,11 @@
 <template>
   <div class="Projects">
-    <header class="Projects__header">
-      <div class="Projects__title">
-        <h1 class="PageTitle">{{ $t('projects.title') }}</h1>
-        <v-chip color="main-blue" class="ml-2" size="small">{{ projects.length }}</v-chip>
-      </div>
-      <div class="Projects__filtersCounter">
-        <v-chip color="light-blue" class="mr-2" size="small">{{ filteredProjects.length }}</v-chip>
-        <v-btn variant="text" size="small" class="Projects__reset-btn" @click="resetFilters">
-          {{ $t('associations.resetFilters') }}
-        </v-btn>
-      </div>
-    </header>
+    <PageHeader
+      :title="$t('projects.title')"
+      :active-filters-count="activeFiltersCount"
+      :items-total-count="projects.length"
+      :items-filters-count="filteredProjects.length"
+      @reset-filters="resetFilters" />
     <section class="Projects__filters">
       <v-text-field
         :placeholder="$t('projects.filters.search')"
@@ -183,6 +177,7 @@ import {
   watch,
   type Ref,
 } from 'vue'
+import PageHeader from '../_layout/page/PageHeader.vue'
 
 const applicationStore = useApplicationStore()
 const projectsStore = useProjectsStore()
@@ -314,12 +309,30 @@ const filteredProjects = computed(() => {
 
   return result
 })
+
 function resetFilters() {
   searchQuery.value = ''
   selectedAssociation.value = null
   selectedProjectStatus.value = null
   selectedProvince.value = null
+  selectedTerritory.value = null
+  selectedHealthZone.value = null
+  selectedStartDate.value = null
+  selectedEndDate.value = null
+  selectedInterventionSector.value = null
 }
+
+const activeFiltersCount = computed(() => [
+  searchQuery.value,
+  selectedAssociation.value,
+  selectedProjectStatus.value,
+  selectedProvince.value,
+  selectedTerritory.value,
+  selectedHealthZone.value,
+  selectedStartDate.value,
+  selectedEndDate.value,
+  selectedInterventionSector.value,
+].filter(filter => filter != null && filter != '').length)
 
 const showStartDatePicker = ref(false)
 const showEndDatePicker = ref(false)
@@ -481,54 +494,6 @@ function setSelectedProject(id: string) {
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-
-    @media (max-width: $bp-sm) {
-      margin-bottom: 0;
-    }
-  }
-
-  &__title {
-    @media (max-width: $bp-sm) {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    @media (min-width: $bp-sm) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &__filtersCounter {
-    @media (max-width: $bp-sm) {
-      display: flex;
-      justify-content: end;
-      flex-grow: 1;
-      align-items: center;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (min-width: $bp-sm) {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  &__reset-btn {
-    color: #666;
-    font-size: 0.875rem;
-    text-transform: none;
-    letter-spacing: normal;
-  }
 
   &__filters {
     display: grid;

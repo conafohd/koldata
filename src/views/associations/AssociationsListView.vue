@@ -1,20 +1,11 @@
 <template>
   <div class="Associations">
-    <header class="Associations__header">
-      <div class="Associations__title">
-        <h1 class="PageTitle">{{ $t('associations.title') }}</h1>
-        <v-chip color="main-blue" class="ml-2" size="small">{{ associations.length }}</v-chip>
-      </div>
-      <div class="Associations__filtersCounter">
-        <v-chip color="light-blue" class="mr-2" size="small">{{
-          filteredAssociations.length
-        }}</v-chip>
-        <v-btn variant="text" size="small" class="Associations__reset-btn" @click="resetFilters">
-          {{ $t('associations.resetFilters') }}
-        </v-btn>
-      </div>
-    </header>
-
+    <PageHeader
+      :title="$t('associations.title')"
+      :active-filters-count="activeFiltersCount"
+      :items-total-count="associations.length"
+      :items-filters-count="filteredAssociations.length"
+      @reset-filters="resetFilters" />
     <section class="Associations__filters">
       <v-text-field
         :placeholder="$t('associations.filters.search')"
@@ -207,6 +198,7 @@ import { useAuthenticationStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref, type Ref } from 'vue'
 import AssociationsMap from './components/AssociationsMap.vue'
+import PageHeader from '../_layout/page/PageHeader.vue'
 
 const applicationStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
@@ -297,6 +289,7 @@ const filteredAssociations = computed(() => {
       )
     : filteredByInterventionSector
 })
+
 function resetFilters() {
   searchQuery.value = ''
   selectedProvince.value = null
@@ -305,6 +298,15 @@ function resetFilters() {
   selectedTypeOrg.value = null
   selectedInterventionSector.value = null
 }
+
+const activeFiltersCount = computed(() => [
+  searchQuery.value,
+  selectedProvince.value,
+  selectedTerritory.value,
+  selectedHealthZone.value,
+  selectedTypeOrg.value,
+  selectedInterventionSector.value
+].filter(filter => filter != null && filter != '').length)
 
 function openEmailTemplate() {
   const emailTemplate = EmailTemplateService.getAssociationCreationRequestTemplate(

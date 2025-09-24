@@ -2,7 +2,6 @@
   "associations": {
     "fetchError": "Error while fetching associations",
     "title": "NGO Profiles",
-    "resetFilters": "Reset filters",
     "edit": "Edit",
     "create": "Add your NGO",
     "creationSubmitted": "The NGO you created is under validation",
