@@ -21,6 +21,7 @@ import { RouterView } from 'vue-router'
 import { useApplicationStore } from './stores/applicationStore'
 import { useAssociationsStore } from './stores/associationsStore'
 import { useProjectsStore } from './stores/projectsStore'
+import { useInactivityLogout } from '@/composables/useInactivityLogout'
 import Footer from './views/_layout/footer/Footer.vue'
 import Header from './views/_layout/header/Header.vue'
 import Loader from './views/_layout/loader/Loader.vue'
@@ -32,6 +33,8 @@ const authStore = useAuthenticationStore()
 const appStore = useApplicationStore()
 const associationsStore = useAssociationsStore()
 const projectsStore = useProjectsStore()
+
+useInactivityLogout(30 * 60 * 1000) // logout after 30 minutes inactivity
 
 onMounted(() => {
   authStore.initAuth()
