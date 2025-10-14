@@ -457,6 +457,14 @@ function initMap() {
       map.value as any,
       {
         onLeafClick: (f: Feature) => setSelectedProject(f.properties.id),
+        onLeafHover: (f: Feature, event: any) => {
+          const canvas = event.target.getCanvas()
+          if (f) {
+            canvas.style.cursor = 'pointer'
+          } else {
+            canvas.style.cursor = ''
+          }
+        },
         minZoomLevel: 8,
         zoomIncrement: 2,
         spiderLeavesLayout: {
