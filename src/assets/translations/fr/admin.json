@@ -87,6 +87,7 @@
     "selectAssociation": "Choisir une ONG",
     "projectsTable": {
       "name": "Nom",
+      "ngo": "ONG",
       "status": "Statut",
       "update": "Mise à jour validée",
       "actions": "Actions",

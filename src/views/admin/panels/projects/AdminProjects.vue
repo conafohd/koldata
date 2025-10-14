@@ -29,6 +29,9 @@
           {{ item.intitule_projet }}
           <v-icon icon="$newBox" color="main-purple" class="ml-2" v-if="item.newProject"></v-icon>
         </template>
+        <template #item.ngo="{ item }">
+          {{ item.associations?.nom ?? '' }}
+        </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
             <v-icon
@@ -133,6 +136,7 @@ const filteredProjects = computed(() => {
 })
 const headers = [
   { title: i18n.t('adminProjects.projectsTable.name'), key: 'intitule_projet' },
+  { title: i18n.t('adminProjects.projectsTable.ngo'), key: 'ngo' },
   { title: i18n.t('adminProjects.projectsTable.status'), key: 'statut_projet' },
   { title: i18n.t('adminProjects.projectsTable.update'), key: 'waiting_for_validation' },
   {

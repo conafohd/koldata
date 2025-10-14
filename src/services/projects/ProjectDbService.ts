@@ -8,7 +8,7 @@ import { addNotification } from "@/services/NotificationsService"
 
 export class ProjectDbService {
     public static async getProjects() {
-        const { data: projects, error } = await supabase.from(TablesList.PROJECTS).select('*')
+        const { data: projects, error } = await supabase.from(TablesList.PROJECTS).select('*, associations(nom)')
         if (error) {
             addNotification(i18n.t('projects.fetchError'), NotificationType.ERROR)
             throw error

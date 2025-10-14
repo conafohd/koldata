@@ -3,6 +3,7 @@ import type { ProjectBeneficiaryType } from "../enums/projects/ProjectBeneficiar
 import type { ProjectFunder } from "../enums/projects/ProjectFunder";
 import type { ProjectServiceType } from "../enums/projects/ProjectServiceType";
 import type { ProjectStatus } from "../enums/projects/ProjectStatus";
+import type { Association } from "./Association";
 
 export interface Project {
   id: string;
@@ -42,6 +43,7 @@ export interface Project {
   created_by: string;
   waiting_for_validation: boolean
   newProject?: boolean;
+  associations?: Association
 }
 
 export type CreateProject = Omit<Project, 'id' | 'created_at' | 'updated_at' | 'created_by'>
