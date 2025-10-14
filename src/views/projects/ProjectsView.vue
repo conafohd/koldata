@@ -178,6 +178,7 @@ import {
   type Ref,
 } from 'vue'
 import PageHeader from '../_layout/page/PageHeader.vue'
+import { MapService } from '@/services/MapService'
 
 const applicationStore = useApplicationStore()
 const projectsStore = useProjectsStore()
@@ -449,6 +450,8 @@ function initMap() {
         'text-size': 12,
       },
     })
+    
+    MapService.addCursorPointerOnHover(['projectsCluster', 'projects', 'clusterCount'], map.value)
 
     const spiderfy = new Spiderfy(
       map.value as any,

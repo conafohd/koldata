@@ -37,6 +37,7 @@
 import associationPin from '@/assets/img/association-pin.png'
 import circleYellowImg from '@/assets/img/circle-yellow.png'
 import type { Association } from '@/models/interfaces/Association'
+import { MapService } from '@/services/MapService'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import Spiderfy from '@nazka/map-gl-js-spiderfy'
 import type { FeatureCollection, GeoJsonProperties, Point } from 'geojson'
@@ -154,6 +155,8 @@ function initMap() {
       } as any,
     )
     spiderfy.applyTo('associationsCluster')
+
+    MapService.addCursorPointerOnHover(['associationsCluster', 'associations', 'clusterCount'], map.value)
   })
 }
 
