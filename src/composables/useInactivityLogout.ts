@@ -22,6 +22,7 @@ export function useInactivityLogout(limitMs = 15 * 60 * 1000) {
 
   async function logout() {
     await authStore.signOut()
+    localStorage.removeItem(STORAGE_LAST_ACTIVITY)
     localStorage.setItem("forceLogout", Date.now().toString()) // sync logout
   }
 
