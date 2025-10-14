@@ -147,11 +147,7 @@ function initMap() {
         onLeafClick: (f: Feature) => showAssociationPopUp(f.properties.id),
         onLeafHover: (f: Feature, event: any) => {
           const canvas = event.target.getCanvas()
-          if (f) {
-            canvas.style.cursor = 'pointer'
-          } else {
-            canvas.style.cursor = ''
-          }
+          canvas.style.cursor = f ? 'pointer' : ''
         },
         minZoomLevel: 8,
         zoomIncrement: 2,

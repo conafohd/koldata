@@ -450,8 +450,6 @@ function initMap() {
         'text-size': 12,
       },
     })
-    
-    MapService.addCursorPointerOnHover(['projectsCluster', 'projects', 'clusterCount'], map.value)
 
     const spiderfy = new Spiderfy(
       map.value as any,
@@ -459,11 +457,7 @@ function initMap() {
         onLeafClick: (f: Feature) => setSelectedProject(f.properties.id),
         onLeafHover: (f: Feature, event: any) => {
           const canvas = event.target.getCanvas()
-          if (f) {
-            canvas.style.cursor = 'pointer'
-          } else {
-            canvas.style.cursor = ''
-          }
+          canvas.style.cursor = f ? 'pointer' : ''
         },
         minZoomLevel: 8,
         zoomIncrement: 2,
@@ -475,6 +469,8 @@ function initMap() {
       } as any,
     )
     spiderfy.applyTo('projectsCluster')
+    
+    MapService.addCursorPointerOnHover(['projectsCluster', 'projects', 'clusterCount'], map.value)
   })
 }
 
