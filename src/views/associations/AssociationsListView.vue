@@ -126,6 +126,7 @@
             association.updated_at,
             association.desc,
           ]"
+          :is-editable="hasPermissionToEdit(association.id)"
           class="Associations__card"
           @click="() => associationsStore.navigateToAssociation(association.id)"
         >
@@ -405,6 +406,10 @@ function createAssociation() {
     background: white;
     transition: all 0.3s ease;
     cursor: pointer;
+
+    &[is-editable="true"] {
+      order: -1;
+    }
 
     &:hover {
       box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
