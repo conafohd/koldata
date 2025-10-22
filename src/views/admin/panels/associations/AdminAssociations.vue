@@ -6,6 +6,7 @@
         <v-text-field
           variant="outlined"
           density="compact"
+          append-inner-icon="$magnify"
           :label="$t('adminAssociations.search')"
           :placeholder="$t('adminAssociations.searchPlaceholder')"
           v-model="searchQuery"
@@ -174,7 +175,7 @@ function confirmDeleteAssociation() {
   margin-bottom: 2rem;
 }
 .AdminAssociations__search {
-  width: 25rem;
+  width: 20em;
 }
 .AdminAssociations__table {
   overflow: auto;

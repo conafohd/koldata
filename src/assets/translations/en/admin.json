@@ -19,6 +19,8 @@
     "addEditor": "Add editing right",
     "addCreator": "Add creation right",
     "fetchError": "An error occurred while fetching users",
+    "search": "Search for a member",
+    "searchPlaceholder": "Search for a member",
     "membersTable": {
       "editRight": "Current right",
       "editTooltip": "Editing right",

@@ -5,7 +5,7 @@
       <v-card-text>
         <div class="AddPermissionForm">
           <div class="Form__fields">
-            <v-select
+            <v-autocomplete
               variant="outlined"
               :label="$t('adminMembers.addCreationDialog.selectMember')"
               v-model="selectedUser"
@@ -13,13 +13,13 @@
               :item-title="
                 (item) =>
                   item
-                    ? `${item.first_name || ''} ${item.last_name || ''} -  ${item.email || ''}`.trim()
+                    ? `${item.email || ''} (${item.first_name || ''} ${item.last_name || ''})`.trim()
                     : ''
               "
               item-value="id"
               required
             >
-            </v-select>
+            </v-autocomplete>
           </div>
         </div>
       </v-card-text>

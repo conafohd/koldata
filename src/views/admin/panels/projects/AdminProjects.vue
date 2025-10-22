@@ -5,6 +5,7 @@
       <div class="d-flex align-center">
         <v-text-field
           variant="outlined"
+          append-inner-icon="$magnify"
           density="compact"
           :label="$t('adminProjects.search')"
           :placeholder="$t('adminProjects.searchPlaceholder')"
@@ -196,7 +197,7 @@ function confirmDeleteProject() {
   margin-bottom: 2rem;
 }
 .AdminProjects__search {
-  width: 25rem;
+  width: 20rem;
 }
 .AdminProjects__table {
   overflow: auto;

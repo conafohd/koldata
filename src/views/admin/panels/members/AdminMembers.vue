@@ -4,9 +4,22 @@
       <h1 class="PageSubtitle">{{ $t('adminMembers.title') }}</h1>
       <v-menu>
         <template v-slot:activator="{ props }">
-          <v-btn color="main-purple" v-bind="props" prepend-icon="$arrowDownBoldCircleOutline">
-            {{ $t('adminMembers.add') }}
-          </v-btn>
+          <div class="d-flex align-center">
+            <v-text-field
+              variant="outlined"
+              density="compact"
+              append-inner-icon="$magnify"
+              :label="$t('adminMembers.search')"
+              :placeholder="$t('adminMembers.searchPlaceholder')"
+              v-model="searchQuery"
+              clearable
+              hide-details
+              class="AdminMembers__search mr-4"
+            />
+            <v-btn color="main-purple" v-bind="props" prepend-icon="$arrowDownBoldCircleOutline">
+              {{ $t('adminMembers.add') }}
+            </v-btn>
+          </div>
         </template>
         <v-list>
           <v-list-item @click="addNewEditPermission()">
@@ -27,7 +40,7 @@
     <div>
       <v-data-table
         :headers="headers"
-        :items="editorsList"
+        :items="filteredEditors"
         item-key="name"
         :items-per-page="-1"
         hide-default-footer
@@ -97,6 +110,8 @@ import { computed, onMounted, ref } from 'vue'
 import AddCreationPermissionDialog from './AddCreationPermissionDialog.vue'
 import AddEditPermissionDialog from './AddEditPermissionDialog.vue'
 import DeletePermissionDialog from './DeletePermissionDialog.vue'
+import { debounce } from '@/services/utils/Debounce'
+import { watch } from 'vue'
 
 const adminStore = useAdminStore()
 const associationsStore = useAssociationsStore()
@@ -106,6 +121,29 @@ const editorsList = computed(() => {
     (member: UserInfos) => member.role === UserRole.EDITOR || member.role === UserRole.CREATOR,
   )
 })
+
+const searchQuery = ref('')
+const debouncedSearchQuery = ref('')
+const updateSearchQuery = debounce((value: string) => {
+  debouncedSearchQuery.value = value
+}, 300)
+
+watch(searchQuery, (newValue) => {
+  updateSearchQuery(newValue)
+})
+
+const filteredEditors = computed(() => {
+  if (debouncedSearchQuery.value) {
+    return editorsList.value.filter((member) =>
+      member.first_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+      || member.last_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+    )
+  }
+  return editorsList.value
+})
+
 
 onMounted(async () => {
   await Promise.all([associationsStore.getAssociationsList(), adminStore.getAdminMembers()])
@@ -168,6 +206,9 @@ function deleteMemberPermission(id: string) {
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
+}
+.AdminMembers__search {
+  width: 20em;
 }
 .AdminMembers__header {
   display: flex;

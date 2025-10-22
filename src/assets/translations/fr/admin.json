@@ -19,6 +19,8 @@
     "addEditor": "Ajouter un droit d'édition",
     "addCreator": "Ajouter un droit de création",
     "fetchError": "Une erreur est survenue lors de la récupération des utilisateurs",
+    "search": "Rechercher un membre",
+    "searchPlaceholder": "Rechercher un membre",
     "membersTable": {
       "editRight": "Droit actuel",
       "editTooltip": "Droit d'édition",
