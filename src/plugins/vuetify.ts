@@ -26,6 +26,7 @@ import {
   mdiMagnify,
   mdiMap,
   mdiMonitorDashboard,
+  mdiGithub,
   mdiNewBox,
   mdiPlusCircleOutline,
   mdiReceiptClock,
@@ -71,6 +72,7 @@ export default createVuetify({
     aliases: {
       ...aliases,
       accountCircle: mdiAccountCircle,
+      github: mdiGithub,
       calendar: mdiCalendar,
       arrowLeft: mdiArrowLeft,
       squareEditOutline: mdiSquareEditOutline,
