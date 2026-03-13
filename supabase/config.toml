@@ -55,7 +55,7 @@ schema_paths = []
 enabled = true
 # Specifies an ordered list of seed files to load during db reset.
 # Supports glob patterns relative to supabase directory: "./seeds/*.sql"
-sql_paths = ["./seeds/*.sql"]
+sql_paths = ["./seed/public/*.sql"]
 
 [realtime]
 enabled = true
@@ -99,7 +99,7 @@ file_size_limit = "50MiB"
 public = false
 file_size_limit = "1MiB"
 allowed_mime_types = ["image/*"]
-objects_path = "./logos"
+#objects_path = "./logos"
 
 [auth]
 enabled = true
