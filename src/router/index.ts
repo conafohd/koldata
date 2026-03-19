@@ -10,6 +10,10 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: () => import('@/views/homepage/HomeView.vue'),
+      beforeEnter: () => {
+         const applicationStore = useApplicationStore(pinia)
+        applicationStore.isLoading = false
+      }
     },
     {
       path: '/dashboard',

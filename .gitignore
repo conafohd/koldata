@@ -31,3 +31,4 @@ coverage
 *.tsbuildinfo
 
 supabase/snippets
+supabase/seed/private/*

@@ -78,6 +78,17 @@
                 @blur="signUpForm.form.lastName.handleBlur"
                 autocomplete="family-name"
               />
+              <v-autocomplete
+                variant="outlined"
+                :label="$t('adminMembers.addEditDialog.selectAssociation')"
+                v-model="signUpForm.form.associationId.value.value"
+                :error-messages="signUpForm.form.associationId.errorMessage.value"
+                :items="associationsList"
+                item-title="nom"
+                item-value="id"
+                clearable
+                required
+              />
               <v-text-field
                 :label="$t('auth.forms.labels.password')"
                 v-model="signUpForm.form.password.value.value"
@@ -119,9 +130,15 @@
 import { AuthFormValidator } from '@/services/forms/AuthFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { useAuthenticationStore } from '@/stores/authStore'
+import { useAssociationsStore } from '@/stores/associationsStore'
+import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 
 const authStore = useAuthenticationStore()
+const associationsStore = useAssociationsStore()
+
+const { associationsList } = storeToRefs(associationsStore)
+
 const activeTab = ref(1)
 
 const signInForm = AuthFormValidator.getSignInForm()
@@ -142,6 +159,7 @@ const onSignUp = signUpForm.handleSubmit(async (values) => {
     first_name: sanitizedData.firstName,
     last_name: sanitizedData.lastName,
     password: sanitizedData.password,
+    associationId: sanitizedData.associationId,
   })
 })
 

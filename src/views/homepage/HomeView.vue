@@ -79,7 +79,17 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { useAssociationsStore } from '@/stores/associationsStore';
+  import {onBeforeMount} from 'vue'
+
+    const associationsStore = useAssociationsStore()
+    onBeforeMount(async () => {
+  await Promise.all([
+    associationsStore.getAssociationsList(),
+  ])
+})
+</script>
 
 <style lang="scss">
 .HomeView {

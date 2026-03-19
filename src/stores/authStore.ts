@@ -22,6 +22,9 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   const isAdmin = computed(() => {
     return userInfos.value?.role === UserRole.ADMIN
   })
+  const isPending = computed(() => {
+    return userInfos.value?.role === UserRole.PENDING
+  })
 
   async function initAuth() {
     if (authSession.value) {
@@ -70,14 +73,16 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     })
   }
 
-  async function signUp(signupData: { email: string; first_name: string; last_name: string; password: string }) {
+  async function signUp(signupData: { email: string; first_name: string; last_name: string; password: string; associationId: string }) {
     await supabase.auth.signUp({
       email: signupData.email,
       password: signupData.password,
       options: {
         data: {
           first_name: signupData.first_name,
-          last_name: signupData.last_name
+          last_name: signupData.last_name,
+          edit_association_id: signupData.associationId,
+          role: UserRole.PENDING
         },
         emailRedirectTo: window.location.origin + import.meta.env.VITE_BASE_URL + '?signup-success'
       }

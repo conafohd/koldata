@@ -2,5 +2,6 @@ export enum UserRole {
     ADMIN = 'admin',
     EDITOR = 'editor',
     READER = 'reader',
-    CREATOR = 'creator'
+    CREATOR = 'creator',
+    PENDING = 'pending'
 }
