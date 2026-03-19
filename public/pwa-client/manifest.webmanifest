@@ -1,0 +1,17 @@
+{
+  "name": "KOLData OAuth PWA Client",
+  "short_name": "KOL OAuth",
+  "description": "Quick OAuth 2.1 PKCE test client for KOLData",
+  "start_url": "/pwa-client/",
+  "scope": "/pwa-client/",
+  "display": "standalone",
+  "background_color": "#eef2f7",
+  "theme_color": "#335c8e",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
