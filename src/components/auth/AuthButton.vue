@@ -2,8 +2,10 @@
   <v-btn
     v-if="!authStore.authSession"
     color="main-blue"
-    @click="authStore.showAuthModal = true"
+    :to="{ name: 'auth-sign-in' }"
     prepend-icon="$login"
+    variant="tonal"
+
   >
     {{ $t('auth.signIn') }}
   </v-btn>
@@ -12,6 +14,8 @@
     :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
     @click="authStore.signOut"
     prepend-icon="$logout"
+    variant="tonal"
+
   >
     {{ $t('auth.signOut') }}</v-btn
   >

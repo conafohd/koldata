@@ -6,73 +6,27 @@
 DROP EXTENSION postgis CASCADE;
 
 create extension if not exists "postgis" with schema "extensions";
-ALTER TABLE "public"."provinces" DROP COLUMN centroid;
-ALTER TABLE "public"."provinces" ADD centroid::extensions.geometry;
+ALTER TABLE "public"."provinces" DROP COLUMN IF EXISTS centroid;
+ALTER TABLE "public"."provinces" ADD COLUMN IF NOT EXISTS centroid extensions.geometry;
   
-ALTER TABLE "public"."territoires" DROP COLUMN centroid;
-ALTER TABLE "public"."territoires" ADD centroid::extensions.geometry;
-  
-
-ALTER TABLE "public"."zones_sante" DROP COLUMN centroid;
-ALTER TABLE "public"."zones_sante" ADD centroid::extensions.geometry;
+ALTER TABLE "public"."territoires" DROP COLUMN IF EXISTS centroid;
+ALTER TABLE "public"."territoires" ADD COLUMN IF NOT EXISTS centroid extensions.geometry;
   
 
-revoke delete on table "public"."spatial_ref_sys" from "anon";
+ALTER TABLE "public"."zones_sante" DROP COLUMN IF EXISTS centroid;
+ALTER TABLE "public"."zones_sante" ADD COLUMN IF NOT EXISTS centroid extensions.geometry;
+  
+DO $$
+BEGIN
+  IF to_regclass('public.spatial_ref_sys') IS NOT NULL THEN
+    EXECUTE 'REVOKE ALL PRIVILEGES ON TABLE "public"."spatial_ref_sys" FROM "anon", "authenticated", "postgres", "service_role"';
+  END IF;
 
-revoke insert on table "public"."spatial_ref_sys" from "anon";
+  IF to_regclass('extensions.spatial_ref_sys') IS NOT NULL THEN
+    EXECUTE 'REVOKE ALL PRIVILEGES ON TABLE "extensions"."spatial_ref_sys" FROM "anon", "authenticated", "postgres", "service_role"';
+  END IF;
+END $$;
 
-revoke references on table "public"."spatial_ref_sys" from "anon";
+drop type if exists "public"."geometry_dump";
 
-revoke select on table "public"."spatial_ref_sys" from "anon";
-
-revoke trigger on table "public"."spatial_ref_sys" from "anon";
-
-revoke truncate on table "public"."spatial_ref_sys" from "anon";
-
-revoke update on table "public"."spatial_ref_sys" from "anon";
-
-revoke delete on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke insert on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke references on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke select on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke trigger on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke truncate on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke update on table "public"."spatial_ref_sys" from "authenticated";
-
-revoke delete on table "public"."spatial_ref_sys" from "postgres";
-
-revoke insert on table "public"."spatial_ref_sys" from "postgres";
-
-revoke references on table "public"."spatial_ref_sys" from "postgres";
-
-revoke select on table "public"."spatial_ref_sys" from "postgres";
-
-revoke trigger on table "public"."spatial_ref_sys" from "postgres";
-
-revoke truncate on table "public"."spatial_ref_sys" from "postgres";
-
-revoke update on table "public"."spatial_ref_sys" from "postgres";
-
-revoke delete on table "public"."spatial_ref_sys" from "service_role";
-
-revoke insert on table "public"."spatial_ref_sys" from "service_role";
-
-revoke references on table "public"."spatial_ref_sys" from "service_role";
-
-revoke select on table "public"."spatial_ref_sys" from "service_role";
-
-revoke trigger on table "public"."spatial_ref_sys" from "service_role";
-
-revoke truncate on table "public"."spatial_ref_sys" from "service_role";
-
-revoke update on table "public"."spatial_ref_sys" from "service_role";
-
-drop type "public"."geometry_dump";
-
-drop type "public"."valid_detail";
+drop type if exists "public"."valid_detail";

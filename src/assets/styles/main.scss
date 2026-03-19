@@ -1,10 +1,7 @@
 @import '_variables';
 
-body {
-  width: 1100px;
-  max-width: 100%;
-  padding: 1rem;
-  margin: 0 auto;
+.App {
+  width: 100%;
 }
 
 body {
@@ -146,4 +143,40 @@ body {
 
 .MapBackground {
   background: radial-gradient(circle, #314c67 0%, #000000 100%);
+}
+
+.AuthRoutesLayout {
+  .v-card,
+  .v-btn,
+  .v-field,
+  a {
+    transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease, opacity 0.24s ease;
+  }
+
+  .v-btn:hover:not(.v-btn--disabled) {
+    transform: translateY(-1px);
+  }
+
+  .v-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .v-field:hover {
+    border-color: #cbd5e1;
+  }
+
+  a:hover {
+    opacity: 0.78;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .AuthRoutesLayout {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition-duration: 0s !important;
+    }
+  }
 }

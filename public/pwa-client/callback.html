@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#335c8e" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>KOLData OAuth Callback</title>
+  </head>
+  <body data-page="callback">
+    <main class="shell">
+      <section class="card">
+        <h1>OAuth Callback</h1>
+        <p class="sub">Exchanging authorization code for tokens...</p>
+
+        <pre id="result" class="result">Waiting...</pre>
+        
+        <div style="margin-top: 20px;">
+          <button id="test-refresh" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; margin-right: 10px; cursor: pointer;">
+            Test Refresh Token
+          </button>
+          <button id="check-tokens" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; margin-right: 10px; cursor: pointer;">
+            Check Stored Tokens
+          </button>
+          <button id="clear-tokens" style="background: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+            Clear Tokens
+          </button>
+        </div>
+        
+        <pre id="refresh-result" class="result" style="margin-top: 20px; display: none;">Waiting...</pre>
+        
+        <a class="link" href="./index.html">Back to login</a>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

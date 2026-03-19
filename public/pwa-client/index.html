@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#335c8e" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>KOLData OAuth PWA Client</title>
+  </head>
+  <body data-page="login">
+    <main class="shell">
+      <section class="card">
+        <h1>KOLData OAuth Client</h1>
+        <p class="sub">Quick PWA test client for OAuth 2.1 + PKCE.</p>
+
+        <label>
+          Supabase URL
+          <input id="supabase-url" type="url" value="http://127.0.0.1:54331" />
+        </label>
+
+        <label>
+          Client ID
+          <input type="text" id="client_id" value="ca665a9e-5e98-4606-9bd0-dfde596e69a4" required>
+        </label>
+
+        <label>
+          Redirect URI
+          <input id="redirect-uri" type="url" value="http://localhost:4173/callback.html" />
+        </label>
+
+        <label>
+          Scope
+          <input id="scope" type="text" value="openid profile email" />
+        </label>
+
+        <button id="login-btn" class="primary">Login with KOLData</button>
+        <p id="status" class="status"></p>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
