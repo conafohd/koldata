@@ -94,6 +94,15 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         showAuthModal.value = false
         addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
         getSession()
+
+        await supabase.functions.invoke('send-editor-email', {
+          body: {
+            associationId: signupData.associationId,
+          },
+        }).then(async({error}) =>{
+          console.error('Signup error:', error)
+          addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
+        })
       }
     })
   }
