@@ -84,7 +84,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
           edit_association_id: signupData.associationId,
           role: UserRole.PENDING
         },
-        emailRedirectTo: window.location.origin + import.meta.env.VITE_BASE_URL + '?signup-success'
+        emailRedirectTo: window.location.origin + import.meta.env.BASE_URL + '?signup-success'
       }
     }).then(async ({ error }) => {
       if (error) {
