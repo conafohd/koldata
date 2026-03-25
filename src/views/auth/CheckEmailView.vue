@@ -152,7 +152,7 @@ async function verifyCodeAndReset() {
     // Save the redirect parameter before verifyOtp in case it gets lost
     const savedRedirect = route.query.redirect
     
-    // For Supabase, the 6-digit code needs to be used with verifyOtp
+    // For Supabase, the 8-digit code needs to be used with verifyOtp
     // The code acts as a one-time password (OTP) for recovery
     const { error: verifyError } = await supabase.auth.verifyOtp({
       token: resetCode.value,
