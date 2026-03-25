@@ -1,3 +1,14 @@
+/**
+ * Get the full path for a public asset, handling base URL for subpath deployments
+ * @param path - The path to the public asset (e.g., 'favicon.ico', 'assets/logo.png')
+ * @returns The full path including the base URL
+ */
+export function getPublicPath(path: string): string {
+  const baseUrl = import.meta.env.BASE_URL || '/'
+  // Remove leading slash from path if present to avoid double slashes
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path
+  return `${baseUrl}${cleanPath}`
+}
 
 export async function resizeImage(file: File, size: number): Promise<File> {
   return new Promise((resolve, reject) => {
