@@ -4,7 +4,7 @@
       <div class="AuthPageLayout__logoArea">
         <RouterLink class="AuthPageLayout__logoBox" :to="{ name: 'home' }">
           <!-- <v-icon icon="$database" size="30" color="main-blue" /> -->
-          <v-img src="/favicon.ico" :width="30" alt="Kongo Local Data" />
+          <v-img :src="faviconPath" :width="30" alt="Kongo Local Data" />
         </RouterLink>
         <h2 class="AuthPageLayout__brand">{{ $t('auth.brandShort') }}</h2>
       </div>
@@ -32,12 +32,17 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { getPublicPath } from '@/services/utils/ImageService'
+
 defineProps<{
   title: string
   subtitle?: string
   icon?: string
   fullWidth?: boolean
 }>()
+
+const faviconPath = computed(() => getPublicPath('favicon.ico'))
 </script>
 
 <style scoped lang="scss">

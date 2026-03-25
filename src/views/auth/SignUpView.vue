@@ -32,7 +32,7 @@
         <div class="SignUpView__brand">
           <RouterLink class="AuthPageLayout__logoBox" :to="{ name: 'home' }">
             <!-- <v-icon icon="$database" size="30" color="main-blue" /> -->
-            <v-img src="/favicon.ico" :width="30" alt="Kongo Local Data" />
+            <v-img :src="faviconPath" :width="30" alt="Kongo Local Data" />
           </RouterLink>
           <span>{{ $t('auth.brand') }}</span>
         </div>
@@ -95,7 +95,7 @@
 
           <p class="SignUpView__passwordHint">{{ $t('auth.pages.signUp.passwordHint') }}</p>
 
-          <div class="SignUpView__termsRow">
+          <div class="SignUpView__termsRow" v-if="false">
             <v-checkbox-btn v-model="acceptTerms" color="main-blue" density="comfortable" :disabled="isSubmitting" />
             <span>
               {{ $t('auth.pages.signUp.acceptTermsPrefix') }}
@@ -126,6 +126,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authStore'
+import { getPublicPath } from '@/services/utils/ImageService'
 
 const route = useRoute()
 const router = useRouter()
@@ -139,6 +140,8 @@ const acceptTerms = ref(false)
 const showPassword = ref(false)
 const isSubmitting = ref(false)
 const error = ref<string | null>(null)
+
+const faviconPath = computed(() => getPublicPath('favicon.ico'))
 
 const canSubmit = computed(() => {
   return Boolean(
