@@ -19,7 +19,6 @@
           :append-inner-icon="showPassword ? '$eyeOff' : '$eye'"
           @click:append-inner="showPassword = !showPassword"
           :disabled="isSubmitting"
-          :error-messages="passwordErrors"
           required
         />
       </div>
@@ -43,27 +42,7 @@
       </div>
 
       <!-- Password Requirements -->
-      <div v-if="password" class="ResetPasswordView__requirements">
-        <h4>{{ $t('auth.forms.passwordRequirements.title') }}</h4>
-        <ul>
-          <li :class="{ 'requirement-met': password.length >= 6 }">
-            <v-icon :icon="password.length >= 6 ? '$checkCircle' : '$closeCircle'" :color="password.length >= 6 ? 'success' : 'error'" size="16" />
-            {{ $t('auth.forms.passwordRequirements.minLength') }}
-          </li>
-          <li :class="{ 'requirement-met': /[A-Z]/.test(password) }">
-            <v-icon :icon="/[A-Z]/.test(password) ? '$checkCircle' : '$closeCircle'" :color="/[A-Z]/.test(password) ? 'success' : 'error'" size="16" />
-            {{ $t('auth.forms.passwordRequirements.uppercase') }}
-          </li>
-          <li :class="{ 'requirement-met': /[a-z]/.test(password) }">
-            <v-icon :icon="/[a-z]/.test(password) ? '$checkCircle' : '$closeCircle'" :color="/[a-z]/.test(password) ? 'success' : 'error'" size="16" />
-            {{ $t('auth.forms.passwordRequirements.lowercase') }}
-          </li>
-          <li :class="{ 'requirement-met': /\d/.test(password) }">
-            <v-icon :icon="/\d/.test(password) ? '$checkCircle' : '$closeCircle'" :color="/\d/.test(password) ? 'success' : 'error'" size="16" />
-            {{ $t('auth.forms.passwordRequirements.number') }}
-          </li>
-        </ul>
-      </div>
+      <PasswordRequirements :password="password" />
 
       <v-alert v-if="error" type="error" density="compact" variant="tonal">{{ error }}</v-alert>
 
@@ -89,10 +68,12 @@
 <script setup lang="ts">
 import { supabase } from '@/plugins/supabase'
 import AuthPageLayout from '@/views/auth/components/AuthPageLayout.vue'
+import PasswordRequirements from '@/views/auth/components/PasswordRequirements.vue'
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authStore'
+import { usePasswordValidation } from '@/composables/usePasswordValidation'
 
 const router = useRouter()
 const route = useRoute()
@@ -106,14 +87,8 @@ const error = ref<string | null>(null)
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 
-// Password validation
-const passwordErrors = computed(() => {
-  const errors = []
-  if (password.value && password.value.length < 6) {
-    errors.push(t('auth.forms.errors.passwordTooShort'))
-  }
-  return errors
-})
+// Password validation using composable
+const { isPasswordValid } = usePasswordValidation(password)
 
 const confirmPasswordErrors = computed(() => {
   const errors = []
@@ -121,13 +96,6 @@ const confirmPasswordErrors = computed(() => {
     errors.push(t('auth.forms.errors.passwordMismatch'))
   }
   return errors
-})
-
-const isPasswordValid = computed(() => {
-  return password.value.length >= 6 && 
-         /[A-Z]/.test(password.value) && 
-         /[a-z]/.test(password.value) && 
-         /\d/.test(password.value)
 })
 
 const redirectTarget = computed(() => {
@@ -208,40 +176,6 @@ async function handleSubmit() {
   font-size: 0.85rem;
   font-weight: 600;
   color: #475569;
-}
-
-.ResetPasswordView__requirements {
-  background: rgba(51, 92, 142, 0.05);
-  border: 1px solid rgba(51, 92, 142, 0.1);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 0.5rem 0;
-}
-
-.ResetPasswordView__requirements h4 {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #334155;
-}
-
-.ResetPasswordView__requirements ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.ResetPasswordView__requirements li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.8rem;
-  color: #64748b;
-  
-  &.requirement-met {
-    color: #22c55e;
-  }
 }
 
 .ResetPasswordView__back {

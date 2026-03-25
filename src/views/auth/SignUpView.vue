@@ -93,7 +93,7 @@
             />
           </div>
 
-          <p class="SignUpView__passwordHint">{{ $t('auth.pages.signUp.passwordHint') }}</p>
+          <PasswordRequirements :password="password" />
 
           <div class="SignUpView__termsRow" v-if="false">
             <v-checkbox-btn v-model="acceptTerms" color="main-blue" density="comfortable" :disabled="isSubmitting" />
@@ -127,6 +127,8 @@ import { useI18n } from 'vue-i18n'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useAuthenticationStore } from '@/stores/authStore'
 import { getPublicPath } from '@/services/utils/ImageService'
+import PasswordRequirements from '@/views/auth/components/PasswordRequirements.vue'
+import { usePasswordValidation } from '@/composables/usePasswordValidation'
 
 const route = useRoute()
 const router = useRouter()
@@ -143,12 +145,15 @@ const error = ref<string | null>(null)
 
 const faviconPath = computed(() => getPublicPath('favicon.ico'))
 
+// Password validation using composable
+const { isPasswordValid } = usePasswordValidation(password)
+
 const canSubmit = computed(() => {
   return Boolean(
     fullName.value.trim() &&
       email.value.trim() &&
       password.value &&
-      acceptTerms.value,
+      isPasswordValid.value,
   )
 })
 
