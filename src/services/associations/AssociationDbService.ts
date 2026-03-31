@@ -62,6 +62,25 @@ export class AssociationDbService {
         }
     }
 
+    public static async exportAssociationsCSV() {
+        const { data, error } = await supabase.rpc(DBFunction.EXPORT_ASSOCIATIONS_CSV)
+        if (error) {
+            addNotification(i18n.t('associations.exportError'), NotificationType.ERROR)
+            throw error
+        } else {
+            const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' })
+            const link = document.createElement('a')
+            const url = URL.createObjectURL(blob)
+            link.setAttribute('href', url)
+            link.setAttribute('download', `associations_export_${new Date().toISOString().split('T')[0]}.csv`)
+            link.style.visibility = 'hidden'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            addNotification(i18n.t('associations.exportSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
     public static async removeAssociationUpdate(id: number, raiseResult: boolean) {
         const { error } = await supabase.from(TablesList.ASSOCIATIONS_UPDATE).delete().eq('id', id)
         if (error && raiseResult) {
