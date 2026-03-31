@@ -1,6 +1,3 @@
--- Helper function to clean and escape CSV field values (reuse from associations export)
--- This function is already created in the associations migration, so we don't recreate it
-
 -- Function to export projects data as CSV
 CREATE OR REPLACE FUNCTION export_projects_csv()
 RETURNS TEXT
