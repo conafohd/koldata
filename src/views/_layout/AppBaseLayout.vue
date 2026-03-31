@@ -14,7 +14,7 @@ import Footer from '@/views/_layout/footer/Footer.vue'
 import Header from '@/views/_layout/header/Header.vue'
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .AppBaseLayout {
   display: flex;
   flex-direction: column;
@@ -23,13 +23,14 @@ import Header from '@/views/_layout/header/Header.vue'
   max-width: 100%;
   padding: 1rem;
   margin: 0 auto;
+
+  .AppBaseLayout__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    padding-top: 1rem;
+  }
 }
 
-.AppBaseLayout__content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
-  padding-top: 1rem;
-}
 </style>
