@@ -2,7 +2,7 @@
   <div class="AdminAssociations mt-4">
     <div class="AdminAssociations__header">
       <h1 class="PageSubtitle">{{ $t('adminAssociations.title') }}</h1>
-      <div class="d-flex align-center">
+      <div class="d-flex align-center ga-4">
         <v-text-field
           variant="outlined"
           density="compact"
@@ -12,8 +12,11 @@
           v-model="searchQuery"
           clearable
           hide-details
-          class="AdminAssociations__search mr-4"
+          class="AdminAssociations__search"
         />
+        <v-btn color="secondary-purple" variant="flat" @click="exportAssociations()" prepend-icon="$download">
+          {{ $t('adminAssociations.export') }}
+        </v-btn>
         <v-btn color="main-purple" @click="addNewAssociation()">
           {{ $t('adminAssociations.add') }}
         </v-btn>
@@ -142,6 +145,11 @@ function editAssociation(id: string) {
 
 function validateNewAssociation(id: string) {
   associationsStore.activeNewAssociationEdition(id)
+}
+
+function exportAssociations() {
+  // TODO: Implement export functionality
+  console.log('Exporting associations...')
 }
 
 const showDeleteDialog = ref(false)
