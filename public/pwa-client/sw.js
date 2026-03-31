@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koldatra-pwa-client-v1'
+const CACHE_NAME = 'koldata-pwa-client-v1'
 const ASSETS = [
   './',
   './index.html',

@@ -116,7 +116,6 @@
 
       <footer class="OAuthConsent__footer">
         <span><v-icon icon="$lockOutline" size="12" /> {{ $t('auth.pages.oauthConsent.secureConnection') }}</span>
-        <small>KOL v2.4.0</small>
       </footer>
     </div>
   </div>

@@ -1,5 +1,5 @@
-const STORAGE_KEY = 'koldatra-oauth-pkce'
-const TOKENS_KEY = 'koldatra-oauth-tokens'
+const STORAGE_KEY = 'koldata-oauth-pkce'
+const TOKENS_KEY = 'koldata-oauth-tokens'
 
 const byId = (id) => document.getElementById(id)
 
