@@ -23,7 +23,7 @@ enabled = false
 
 [db]
 # Port to use for the local database URL.
-port = 54332
+port = 54322
 # Port used by db diff command to initialize the shadow database.
 shadow_port = 54330
 # The database major version to use. This has to be the same as your remote database's. Run `SHOW
@@ -55,7 +55,7 @@ schema_paths = []
 enabled = true
 # Specifies an ordered list of seed files to load during db reset.
 # Supports glob patterns relative to supabase directory: "./seeds/*.sql"
-sql_paths = ["./seed/public/*.sql"]
+sql_paths = ["./seed/public/*.sql","./seed/private/*.sql"]
 
 [realtime]
 enabled = true
