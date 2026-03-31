@@ -10,14 +10,23 @@
 
 ```sql
 -- Run in Supabase Studio (http://localhost:54323) SQL Editor
+-- Existing E-Learning OAuth Client:
+-- client_id: ca665a9e-5e98-4606-9bd0-dfde596e69a4
+-- redirect_uris: http://localhost:4173/callback.html, http://localhost:3002/pwa-client/callback.html, http://localhost:3000/auth/callback
+
+-- To create a new client:
 INSERT INTO auth.oauth_clients (
-  id, name, redirect_uris, client_secret_encrypted
+  id, client_name, client_type, grant_types, registration_type, redirect_uris, client_secret_hash, token_endpoint_auth_method
 )
 VALUES (
   gen_random_uuid(),
-  'Test Client',
-  ARRAY['http://localhost:4173/callback.html'],
-  crypt('test-secret-123', gen_salt('bf'))
+  'Client name',
+  'public',
+  'authorization_code,refresh_token',
+  'manual',
+  'http://localhost:4173/callback.html',
+  crypt('test-secret-123', gen_salt('bf')),
+  'none'
 )
 RETURNING id as client_id;
 ```
