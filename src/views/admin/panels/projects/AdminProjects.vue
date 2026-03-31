@@ -2,7 +2,10 @@
   <div class="AdminProjects mt-4">
     <div class="AdminProjects__header">
       <h1 class="PageSubtitle">{{ $t('adminProjects.title') }}</h1>
-      <div class="d-flex align-center">
+      <div class="d-flex align-center ga-4">
+        <v-btn variant="flat" @click="exportProjects()" prepend-icon="$download" :loading="isExporting" :disabled="isExporting">
+          {{ $t('adminProjects.export') }}
+        </v-btn>
         <v-text-field
           variant="outlined"
           append-inner-icon="$magnify"
@@ -12,7 +15,7 @@
           v-model="searchQuery"
           clearable
           hide-details
-          class="AdminProjects__search mr-4"
+          class="AdminProjects__search"
         />
         <v-btn color="main-purple" @click="addNewProject()">
           {{ $t('adminProjects.add') }}
@@ -102,6 +105,7 @@
 import type { Project } from '@/models/interfaces/Project'
 import { i18n } from '@/plugins/i18n'
 import { debounce } from '@/services/utils/Debounce'
+import { ProjectDbService } from '@/services/projects/ProjectDbService'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { computed, onMounted, ref, watch } from 'vue'
@@ -114,6 +118,7 @@ onMounted(async () => {
 
 const searchQuery = ref('')
 const debouncedSearchQuery = ref('')
+const isExporting = ref(false)
 const updateSearchQuery = debounce((value: string) => {
   debouncedSearchQuery.value = value
 }, 300)
@@ -165,6 +170,15 @@ function validateNewProject(id: string) {
 
 function editProject(id: string) {
   projectStore.activeProjectEdition(id)
+}
+
+async function exportProjects() {
+  isExporting.value = true
+  try {
+    await ProjectDbService.exportProjectsCSV()
+  } finally {
+    isExporting.value = false
+  }
 }
 
 const showDeleteDialog = ref(false)

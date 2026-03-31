@@ -5,6 +5,7 @@ import type { Project, ProjectUpdate } from "@/models/interfaces/Project"
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
 import { addNotification } from "@/services/NotificationsService"
+import { downloadFile, generateDateFilename } from "@/services/utils/DownloadFile"
 
 export class ProjectDbService {
     public static async getProjects() {
@@ -113,6 +114,17 @@ export class ProjectDbService {
             throw error
         } else {
             addNotification(i18n.t('projects.deleteProjectSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
+    public static async exportProjectsCSV() {
+        const { data, error } = await supabase.rpc(DBFunction.EXPORT_PROJECTS_CSV)
+        if (error) {
+            addNotification(i18n.t('projects.exportError'), NotificationType.ERROR)
+            throw error
+        } else {
+            downloadFile(data, generateDateFilename('projects_export'))
+            addNotification(i18n.t('projects.exportSuccess'), NotificationType.SUCCESS)
         }
     }
 }
