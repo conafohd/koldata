@@ -5,6 +5,7 @@ import type { Association, AssociationUpdate } from "@/models/interfaces/Associa
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
 import { addNotification } from "@/services/NotificationsService"
+import { downloadFile, generateDateFilename } from "@/services/utils/DownloadFile"
 
 export class AssociationDbService {
     public static async getAssociations() {
@@ -59,6 +60,17 @@ export class AssociationDbService {
         throw error
         } else {
             addNotification(i18n.t('associations.updateSuccess'), NotificationType.SUCCESS)
+        }
+    }
+
+    public static async exportAssociationsCSV() {
+        const { data, error } = await supabase.rpc(DBFunction.EXPORT_ASSOCIATIONS_CSV)
+        if (error) {
+            addNotification(i18n.t('associations.exportError'), NotificationType.ERROR)
+            throw error
+        } else {
+            downloadFile(data, generateDateFilename('associations_export'))
+            addNotification(i18n.t('associations.exportSuccess'), NotificationType.SUCCESS)
         }
     }
 

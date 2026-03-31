@@ -41,6 +41,8 @@
     "deleteProject": "Supprimer le projet",
     "deleteProjectSuccess": "Projet supprimé avec succès",
     "deleteProjectError": "Erreur lors de la suppression du projet",
+    "exportError": "Une erreur est survenue lors de l'exportation des projets",
+    "exportSuccess": "Projets exportés avec succès",
     "confirmDeleteProject": "Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.",
     "confirm": "Confirmer",
     "cancel": "Annuler",

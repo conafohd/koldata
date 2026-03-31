@@ -2,7 +2,10 @@
   <div class="AdminAssociations mt-4">
     <div class="AdminAssociations__header">
       <h1 class="PageSubtitle">{{ $t('adminAssociations.title') }}</h1>
-      <div class="d-flex align-center">
+      <div class="d-flex align-center ga-4">
+        <v-btn variant="flat" @click="exportAssociations()" prepend-icon="$download" :loading="isExporting" :disabled="isExporting">
+          {{ $t('adminAssociations.export') }}
+        </v-btn>
         <v-text-field
           variant="outlined"
           density="compact"
@@ -12,7 +15,7 @@
           v-model="searchQuery"
           clearable
           hide-details
-          class="AdminAssociations__search mr-4"
+          class="AdminAssociations__search"
         />
         <v-btn color="main-purple" @click="addNewAssociation()">
           {{ $t('adminAssociations.add') }}
@@ -83,6 +86,7 @@
 import type { Association } from '@/models/interfaces/Association'
 import { i18n } from '@/plugins/i18n'
 import { debounce } from '@/services/utils/Debounce'
+import { AssociationDbService } from '@/services/associations/AssociationDbService'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { computed, onMounted, ref, watch } from 'vue'
 const associationsStore = useAssociationsStore()
@@ -93,6 +97,7 @@ onMounted(async () => {
 
 const searchQuery = ref('')
 const debouncedSearchQuery = ref('')
+const isExporting = ref(false)
 const updateSearchQuery = debounce((value: string) => {
   debouncedSearchQuery.value = value
 }, 300)
@@ -142,6 +147,15 @@ function editAssociation(id: string) {
 
 function validateNewAssociation(id: string) {
   associationsStore.activeNewAssociationEdition(id)
+}
+
+async function exportAssociations() {
+  isExporting.value = true
+  try {
+    await AssociationDbService.exportAssociationsCSV()
+  } finally {
+    isExporting.value = false
+  }
 }
 
 const showDeleteDialog = ref(false)
