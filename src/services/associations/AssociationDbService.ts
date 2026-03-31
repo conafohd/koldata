@@ -5,6 +5,7 @@ import type { Association, AssociationUpdate } from "@/models/interfaces/Associa
 import { i18n } from "@/plugins/i18n"
 import { supabase } from "@/plugins/supabase"
 import { addNotification } from "@/services/NotificationsService"
+import { downloadFile, generateDateFilename } from "@/services/utils/DownloadFile"
 
 export class AssociationDbService {
     public static async getAssociations() {
@@ -68,15 +69,7 @@ export class AssociationDbService {
             addNotification(i18n.t('associations.exportError'), NotificationType.ERROR)
             throw error
         } else {
-            const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' })
-            const link = document.createElement('a')
-            const url = URL.createObjectURL(blob)
-            link.setAttribute('href', url)
-            link.setAttribute('download', `associations_export_${new Date().toISOString().split('T')[0]}.csv`)
-            link.style.visibility = 'hidden'
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
+            downloadFile(data, generateDateFilename('associations_export'))
             addNotification(i18n.t('associations.exportSuccess'), NotificationType.SUCCESS)
         }
     }
