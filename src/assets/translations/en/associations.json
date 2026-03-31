@@ -20,6 +20,8 @@
     "updateDeletionSuccess": "The modification has been successfully deleted",
     "deleteAssociationError": "An error occurred while deleting the NGO",
     "deleteAssociationSuccess": "NGO deleted successfully",
+    "exportError": "An error occurred while exporting associations",
+    "exportSuccess": "Associations exported successfully",
     "createError": "An error occurred while creating the NGO",
     "createSuccess": "NGO created successfully",
     "accessToAssociation": "Full profile",

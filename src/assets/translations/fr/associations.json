@@ -20,6 +20,8 @@
     "updateDeletionSuccess": "La modification a bien été supprimée",
     "deleteAssociationError": "Une erreur est survenue lors de la suppression de l'ONG",
     "deleteAssociationSuccess": "ONG supprimée avec succès",
+    "exportError": "Une erreur est survenue lors de l'exportation des associations",
+    "exportSuccess": "Associations exportées avec succès",
     "createError": "Une erreur est survenue lors de la création de l'ONG",
     "createSuccess": "ONG créée avec succès",
     "accessToAssociation": "Fiche complète",
