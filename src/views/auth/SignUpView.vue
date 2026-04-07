@@ -138,6 +138,10 @@ const { t } = useI18n()
 const fullName = ref('')
 const email = ref('')
 const password = ref('')
+
+const associationId = ref('')
+const NotFoundAssociation = ref(false)
+
 const acceptTerms = ref(false)
 const showPassword = ref(false)
 const isSubmitting = ref(false)

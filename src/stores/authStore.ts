@@ -99,8 +99,16 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     return true
   }
 
- async function signUp(signupData: { email: string; first_name: string; last_name: string; password: string; associationId: string }) {
-    await supabase.auth.signUp({
+
+  async function signUp(signupData: { 
+    email: string; 
+    first_name: string;
+    last_name: string;
+    password: string;
+    associationId: string;
+    notFoundAssociation: boolean 
+  }) {
+    const { error } = await supabase.auth.signUp({
       email: signupData.email,
       password: signupData.password,
       options: {
@@ -131,17 +139,27 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         })
       }
     })
-
+    
     if (error) {
       console.error('Signup error:', error)
       addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
       return false
-    }
+    } 
 
-    showAuthModal.value = false
-    addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
-    await getSession()
-    return true
+      await supabase.functions.invoke('send-editor-email', {
+        body: {
+          associationId: signupData.associationId,
+        },
+      }).then(async({error}) =>{
+        console.error('Signup error:', error)
+        addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
+      })
+
+      showAuthModal.value = false
+      addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
+      getSession()
+      
+      return true
   }
   
   async function getSession() {
@@ -188,7 +206,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
           router.push({ name: 'home' })
         }
     }
-}
 
   function clearAuthStorage() {
     const keysToRemove = Object.keys(localStorage).filter(key => 
@@ -280,4 +297,5 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, userInfos, isAdmin, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword, resetPasswordWithToken }
+}
 })

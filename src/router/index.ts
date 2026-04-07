@@ -15,6 +15,7 @@ component: () => import('@/views/_layout/AppBaseLayout.vue'),
           path: '',
           name: 'home',
           component: () => import('@/views/homepage/HomeView.vue'),
+
           beforeEnter: () => {
             const applicationStore = useApplicationStore(pinia)
             applicationStore.isLoading = true
