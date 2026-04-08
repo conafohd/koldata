@@ -115,8 +115,8 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         data: {
           first_name: signupData.first_name,
           last_name: signupData.last_name,
-          edit_association_id: signupData.associationId,
-          role: UserRole.PENDING
+          edit_association_id: signupData.notFoundAssociation?null:signupData.associationId,
+          role: signupData.notFoundAssociation?UserRole.CREATOR:UserRole.PENDING
         },
         emailRedirectTo: window.location.origin + import.meta.env.BASE_URL + '?signup-success'
       }

@@ -1,6 +1,11 @@
 {
   "header": {
     "title": "Kongo Local Data",
+    "creatorNotice": {
+      "message": "Vous n'avez pas encore créé votre association. Pour ce faire, veuillez aller sur la page de création",
+      "submittedMessage": "Votre demande d'ajout a bien été envoyée, vous recevrez une réponse bientôt",
+      "link": "en cliquant ici."
+    },
     "tabs": {
       "home": "Accueil",
       "dashboard": "Statistiques",
