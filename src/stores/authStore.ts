@@ -120,24 +120,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
         },
         emailRedirectTo: window.location.origin + import.meta.env.BASE_URL + '?signup-success'
       }
-      }).then(async ({ error }) => {
-      if (error) {
-        console.error('Signup error:', error)
-        addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
-      } else {
-        showAuthModal.value = false
-        addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
-        getSession()
-
-        await supabase.functions.invoke('send-editor-email', {
-          body: {
-            associationId: signupData.associationId,
-          },
-        }).then(async({error}) =>{
-          console.error('Signup error:', error)
-          addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
-        })
-      }
     })
     
     if (error) {
@@ -145,15 +127,6 @@ export const useAuthenticationStore = defineStore('authentication', () => {
       addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
       return false
     } 
-
-      await supabase.functions.invoke('send-editor-email', {
-        body: {
-          associationId: signupData.associationId,
-        },
-      }).then(async({error}) =>{
-        console.error('Signup error:', error)
-        addNotification(i18n.t('auth.accountFailed'), NotificationType.ERROR)
-      })
 
       showAuthModal.value = false
       addNotification(i18n.t('auth.accountCreated'), NotificationType.SUCCESS)
@@ -206,6 +179,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
           router.push({ name: 'home' })
         }
     }
+  }
 
   function clearAuthStorage() {
     const keysToRemove = Object.keys(localStorage).filter(key => 
@@ -297,5 +271,4 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, userInfos, isAdmin, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword, resetPasswordWithToken }
-}
 })

@@ -93,6 +93,25 @@
             />
           </div>
 
+          <div class="SignUpView__field">
+            <label class="SignUpView__fieldLabel" for="sign-up-association">{{$t('adminMembers.addEditDialog.selectAssociation')}}</label>
+            <v-autocomplete
+              id="sign-up-association"
+              variant="outlined"
+              v-model="associationId"
+              :items="associationsList"
+              item-title="nom"
+              item-value="id"
+              clearable
+              required
+              :disabled="NotFoundAssociation"
+            />
+            <div class="SignUpView__notFoundAssociation">
+            <v-checkbox-btn v-model="NotFoundAssociation" color="main-blue" />
+            <span>Mon association n'est pas référencée, je représente mon association pour demander son intégration dans KalData</span>
+          </div>
+          </div>
+
           <PasswordRequirements :password="password" />
 
           <div class="SignUpView__termsRow" v-if="false">
@@ -129,11 +148,24 @@ import { useAuthenticationStore } from '@/stores/authStore'
 import { getPublicPath } from '@/services/utils/ImageService'
 import PasswordRequirements from '@/views/auth/components/PasswordRequirements.vue'
 import { usePasswordValidation } from '@/composables/usePasswordValidation'
+import { useAssociationsStore } from '@/stores/associationsStore'
+import { storeToRefs } from 'pinia'
+import {onBeforeMount} from 'vue'
+
+    const associationsStore = useAssociationsStore()
+    onBeforeMount(async () => {
+  await Promise.all([
+    associationsStore.getAssociationsList(),
+  ])
+})
+
 
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthenticationStore()
 const { t } = useI18n()
+
+const { associationsList } = storeToRefs(associationsStore)
 
 const fullName = ref('')
 const email = ref('')
@@ -192,6 +224,8 @@ async function handleSubmit() {
       first_name: splitName.value.firstName,
       last_name: splitName.value.lastName,
       password: password.value,
+      associationId: associationId.value,
+      notFoundAssociation: NotFoundAssociation.value
     })
 
     if (isSuccess) {
@@ -346,6 +380,22 @@ async function handleSubmit() {
   color: #64748b;
   margin-bottom: 0.5rem;
 }
+
+.SignUpView__notFoundAssociation {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  font-size: 0.86rem;
+  color: #64748b;
+  margin-bottom: 0.8rem;
+padding-left: 0.5rem;
+border-left: 2px solid #e2e8f0;
+}
+
+#sign-up-association-messages {
+  display: none;
+}
+
 
 .SignUpView__termsRow {
   display: flex;

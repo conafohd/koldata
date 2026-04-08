@@ -81,6 +81,8 @@
 </template>
 <script setup lang="ts">
   import { useAssociationsStore } from '@/stores/associationsStore';
+  import { useApplicationStore } from '@/stores/applicationStore'
+  import { pinia } from '@/main'
   import {onBeforeMount} from 'vue'
 
     const associationsStore = useAssociationsStore()
@@ -88,6 +90,8 @@
   await Promise.all([
     associationsStore.getAssociationsList(),
   ])
+  const applicationStore = useApplicationStore(pinia)
+            applicationStore.isLoading = false
 })
 </script>
 

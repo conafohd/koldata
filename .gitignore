@@ -33,3 +33,4 @@ coverage
 
 supabase/snippets
 supabase/seed/private/*
+.codex
