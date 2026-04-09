@@ -17,6 +17,9 @@ Role:
 Notes:
 - `verify_jwt = false` in `supabase/config.toml`
 - access is protected with the `x-supabase-functions` header and `WEBHOOK_SECRET`
+- the SQL trigger reads `send_editor_email_webhook_secret` from Supabase Vault
+- the Edge Function runtime reads `WEBHOOK_SECRET` from `supabase secrets set`
+- both values must be identical
 
 ### `manage-association-members`
 
