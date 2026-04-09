@@ -24,6 +24,40 @@
     "createSuccess": "ONG créée avec succès",
     "accessToAssociation": "Fiche complète",
     "creationRequest": "Votre ONG est manquante? Contactez nous",
+    "members": {
+      "tab": "Utilisateurs",
+      "title": "Gérer les utilisateurs de l'ONG",
+      "search": "Rechercher un utilisateur",
+      "searchPlaceholder": "Rechercher un utilisateur",
+      "empty": "Aucun utilisateur en attente ou lecteur pour cette ONG",
+      "fetchError": "Une erreur est survenue lors de la récupération des utilisateurs",
+      "approveSuccess": "L'utilisateur a bien été validé",
+      "approveError": "Une erreur est survenue lors de la validation de l'utilisateur",
+      "deleteSuccess": "L'utilisateur a bien été supprimé",
+      "deleteError": "Une erreur est survenue lors de la suppression de l'utilisateur",
+      "status": {
+        "pending": "En attente",
+        "reader": "Lecteur"
+      },
+      "table": {
+        "status": "Statut",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "email": "Email",
+        "createdAt": "Date d'inscription",
+        "actions": "Actions",
+        "approve": "Valider",
+        "delete": "Supprimer"
+      },
+      "dialog": {
+        "approveTitle": "Valider l'utilisateur",
+        "approveMessage": "Voulez-vous vraiment valider cet utilisateur et lui donner l'accès en lecture à l'ONG ?",
+        "deleteTitle": "Supprimer l'utilisateur",
+        "deleteMessage": "Cette action supprimera définitivement le compte utilisateur. Voulez-vous continuer ?",
+        "cancel": "Annuler",
+        "confirm": "Confirmer"
+      }
+    },
     "filters": {
       "search": "Rechercher",
       "province": "Filtrer par province",

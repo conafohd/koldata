@@ -60,6 +60,9 @@
         <v-btn-toggle v-model="selectedTab" color="light-blue" rounded="0" mandatory>
           <v-btn value="infos"> {{ $t('associations.infos') }} </v-btn>
           <v-btn value="projects"> {{ $t('associations.projects') }} </v-btn>
+          <v-btn v-if="canManageMembers" value="members">
+            {{ $t('associations.members.tab') }}
+          </v-btn>
         </v-btn-toggle>
       </div>
       <div class="Association__contentCtn">
@@ -69,12 +72,17 @@
           :projects="projects"
           :association-id="selectedAssociation.id"
         />
+        <AssociationMembersManagement
+          v-if="selectedTab === 'members' && canManageMembers"
+          :association-id="selectedAssociation.id"
+        />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import type { Association } from '@/models/interfaces/Association'
+import { UserRole } from '@/models/enums/UserRole'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
@@ -83,6 +91,7 @@ import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import AssociationInfos from './components/AssociationInfos.vue'
+import AssociationMembersManagement from './components/AssociationMembersManagement.vue'
 import AssociationProjects from './components/AssociationProjects.vue'
 
 const applicationStore = useApplicationStore()
@@ -126,6 +135,12 @@ onMounted(() => {
 const hasPermission = computed(() => {
   return (
     authStore.isAdmin || authStore.userInfos?.edit_association_id === selectedAssociation.value?.id
+  )
+})
+const canManageMembers = computed(() => {
+  return (
+    authStore.userInfos?.role === UserRole.EDITOR
+    && authStore.userInfos.edit_association_id === selectedAssociation.value?.id
   )
 })
 const selectedTab = ref('infos')

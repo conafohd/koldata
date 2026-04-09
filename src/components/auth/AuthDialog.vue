@@ -167,6 +167,7 @@ const onSignUp = signUpForm.handleSubmit(async (values) => {
     last_name: sanitizedData.lastName,
     password: sanitizedData.password,
     associationId: sanitizedData.associationId,
+    notFoundAssociation: false,
   })
 })
 

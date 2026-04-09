@@ -24,6 +24,40 @@
     "createSuccess": "NGO created successfully",
     "accessToAssociation": "Full profile",
     "creationRequest": "Is your NGO missing? Contact us",
+    "members": {
+      "tab": "Users",
+      "title": "Manage NGO users",
+      "search": "Search for a user",
+      "searchPlaceholder": "Search for a user",
+      "empty": "No pending or reader users for this NGO",
+      "fetchError": "An error occurred while fetching users",
+      "approveSuccess": "The user has been approved",
+      "approveError": "An error occurred while approving the user",
+      "deleteSuccess": "The user has been deleted",
+      "deleteError": "An error occurred while deleting the user",
+      "status": {
+        "pending": "Pending",
+        "reader": "Reader"
+      },
+      "table": {
+        "status": "Status",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "email": "Email",
+        "createdAt": "Registration date",
+        "actions": "Actions",
+        "approve": "Approve",
+        "delete": "Delete"
+      },
+      "dialog": {
+        "approveTitle": "Approve user",
+        "approveMessage": "Do you really want to approve this user and grant read access to the NGO?",
+        "deleteTitle": "Delete user",
+        "deleteMessage": "This action will permanently delete the user account. Do you want to continue?",
+        "cancel": "Cancel",
+        "confirm": "Confirm"
+      }
+    },
     "filters": {
       "search": "Search",
       "province": "Filter by province",
