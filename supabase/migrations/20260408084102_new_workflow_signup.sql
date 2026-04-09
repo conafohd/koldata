@@ -4,23 +4,12 @@ alter table "public"."user_profiles" drop constraint "user_profiles_edit_associa
 
 drop index if exists "public"."user_profiles_edit_association_id_key";
 
-alter table "public"."user_profiles" alter column "role" drop default;
-
-alter type "public"."user_roles" rename to "user_roles__old_version_to_be_dropped";
-
-create type "public"."user_roles" as enum ('admin', 'editor', 'reader', 'creator', 'pending');
+alter type "public"."user_roles" add value if not exists 'pending';
 
 
   create table "public"."v_email" (
     "email" character varying
       );
-
-
-alter table "public"."user_profiles" alter column role type "public"."user_roles" using role::text::"public"."user_roles";
-
-alter table "public"."user_profiles" alter column "role" set default 'reader'::public.user_roles;
-
-drop type "public"."user_roles__old_version_to_be_dropped";
 
 CREATE UNIQUE INDEX unique_editor_per_association ON public.user_profiles USING btree (edit_association_id) WHERE (role = 'editor'::public.user_roles);
 
@@ -203,4 +192,3 @@ using (public.is_editor_of_association(edit_association_id));
 
 
 CREATE TRIGGER "Email validation new user" AFTER INSERT ON public.user_profiles FOR EACH ROW EXECUTE FUNCTION public.notify_send_editor_email();
-
