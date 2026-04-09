@@ -51,13 +51,15 @@ serve(async (req) => {
     if (!email) {
       return new Response(JSON.stringify({ error: 'No editor found' }), { status: 404 })
     }
-
-
-    const transporter = nodemailer.createTransport({
-        host: Deno.env.get('SMTP_HOST') ?? 'inbucket',
-        port: Number(Deno.env.get('SMTP_PORT') ?? '1025'),
-        secure: false,
-      })
+    const transporter = createMailerTransport()
+    if (!transporter) {
+      console.warn('SMTP_HOST is not configured, skipping editor email notifications')
+      return new Response(JSON.stringify({
+        success: true,
+        mode: 'skipped',
+        reason: 'smtp_not_configured'
+      }), { status: 200 })
+    }
 
       await transporter.sendMail({
   from: Deno.env.get('MAIL_FROM') ?? 'dev@local.test',
@@ -267,10 +269,30 @@ L'équipe KolData`,
 
       return new Response(JSON.stringify({
         success: true,
-        mode: 'mailpit',
+        mode: 'smtp',
         sentTo: email
       }), { status: 200 })
 })
+
+function createMailerTransport() {
+  const host = Deno.env.get('SMTP_HOST')?.trim()
+  if (!host) {
+    return null
+  }
+
+  const user = Deno.env.get('SMTP_USER')?.trim()
+  const pass = Deno.env.get('SMTP_PASS')
+
+  return nodemailer.createTransport({
+    host,
+    port: Number(Deno.env.get('SMTP_PORT') ?? '587'),
+    secure: false,
+    connectionTimeout: 3000,
+    greetingTimeout: 3000,
+    socketTimeout: 5000,
+    auth: user && pass ? { user, pass } : undefined,
+  })
+}
 
 function getAssociationMembersUrl(associationId: string | null) {
   const appUrl = (

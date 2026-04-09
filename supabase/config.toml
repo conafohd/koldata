@@ -325,3 +325,6 @@ s3_secret_key = "env(S3_SECRET_KEY)"
 # Custom Edge Function
 [functions.send-editor-email]
 verify_jwt = false
+
+[functions.manage-association-members]
+verify_jwt = false

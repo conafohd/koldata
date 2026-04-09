@@ -33,16 +33,17 @@ serve(async (req) => {
       })
     }
 
+    const accessToken = authHeader.replace(/^Bearer\s+/i, '').trim()
+    if (!accessToken) {
+      return new Response(JSON.stringify({ error: 'Missing bearer token' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
     const userClient = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_ANON_KEY')!,
-      {
-        global: {
-          headers: {
-            Authorization: authHeader,
-          },
-        },
-      },
     )
 
     const adminClient = createClient(
@@ -53,9 +54,14 @@ serve(async (req) => {
     const {
       data: { user },
       error: authError,
-    } = await userClient.auth.getUser()
+    } = await userClient.auth.getUser(accessToken)
 
     if (authError || !user) {
+      console.error('manage-association-members auth failed', {
+        message: authError?.message ?? null,
+        status: authError?.status ?? null,
+        hasUser: Boolean(user),
+      })
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -171,11 +177,11 @@ serve(async (req) => {
 })
 
 async function sendApprovalEmail(email: string, fullName: string) {
-  const transporter = nodemailer.createTransport({
-    host: Deno.env.get('SMTP_HOST') ?? 'inbucket',
-    port: Number(Deno.env.get('SMTP_PORT') ?? '1025'),
-    secure: false,
-  })
+  const transporter = createMailerTransport()
+  if (!transporter) {
+    console.warn('SMTP_HOST is not configured, skipping approval email notification')
+    return
+  }
 
   await transporter.sendMail({
     from: Deno.env.get('MAIL_FROM') ?? 'dev@local.test',
@@ -243,6 +249,26 @@ L'equipe KolData`,
         </div>
       </div>
     `,
+  })
+}
+
+function createMailerTransport() {
+  const host = Deno.env.get('SMTP_HOST')?.trim()
+  if (!host) {
+    return null
+  }
+
+  const user = Deno.env.get('SMTP_USER')?.trim()
+  const pass = Deno.env.get('SMTP_PASS')
+
+  return nodemailer.createTransport({
+    host,
+    port: Number(Deno.env.get('SMTP_PORT') ?? '587'),
+    secure: false,
+    connectionTimeout: 3000,
+    greetingTimeout: 3000,
+    socketTimeout: 5000,
+    auth: user && pass ? { user, pass } : undefined,
   })
 }
 

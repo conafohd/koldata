@@ -1,27 +1,25 @@
 # Edge Functions
+
 ## send-editor-email
+
 Path `supabase/functions/send-editor-email/index.ts`
 
-This function is called by a WebHook. It neeeds :
-- `x-supabase-functions` HTTP header in WebHook
-- the user
+This function is called by a database webhook and expects:
 
-The SECRET `x-supabase-functions` is stored in the Supabase vault. 
+- the `x-supabase-functions` header
+- a valid user payload
 
-To integrate it in supabase distant, run supabase `secrets set send_editor_email_webhook_secret=SUPER_SECRET_TO_CHANGE`
+Important:
 
-To integrate it in local cli supabase, run the following SQL command :
-`
-select vault.create_secret(
-  'SUPER_SECRET_TO_CHANGE',
-  'send_editor_email_webhook_secret',
-  'Web hook secret'
-);
-`
+- the SQL trigger reads `send_editor_email_webhook_secret` from Supabase Vault
+- the Edge Function runtime reads `WEBHOOK_SECRET` from `supabase secrets set`
+- both values must be identical
 
-It sends an email to the NGO editor for new user validation, and an email to the user to explain the process.
-To execute the function in a local mode :
-```
+To run locally:
+
+```bash
 cd supabase
 supabase functions serve send-editor-email --no-verify-jwt --debug --env-file ../.env.local
 ```
+
+For the full list of required secrets and how to set them, see [SupabaseSecrets.md](./SupabaseSecrets.md).
