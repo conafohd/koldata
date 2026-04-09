@@ -143,7 +143,19 @@ const canManageMembers = computed(() => {
     && authStore.userInfos.edit_association_id === selectedAssociation.value?.id
   )
 })
-const selectedTab = ref('infos')
+const allowedTabs = ['infos', 'projects', 'members'] as const
+
+function getInitialTab() {
+  const requestedTab = route.query.tab
+
+  if (typeof requestedTab === 'string' && allowedTabs.includes(requestedTab as typeof allowedTabs[number])) {
+    return requestedTab
+  }
+
+  return 'infos'
+}
+
+const selectedTab = ref(getInitialTab())
 function editAssociation() {
   associationsStore.activeAssociationEdition(selectedAssociation.value?.id as string)
 }

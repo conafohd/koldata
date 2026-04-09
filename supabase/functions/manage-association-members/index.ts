@@ -180,8 +180,19 @@ async function sendApprovalEmail(email: string, fullName: string) {
   await transporter.sendMail({
     from: Deno.env.get('MAIL_FROM') ?? 'dev@local.test',
     to: email,
-    subject: 'KolData - Votre compte a ete valide',
-    text: `Bonjour ${fullName || ''},
+    subject: 'KolData - Account approved / Compte valide',
+    text: `Hello ${fullName || ''},
+
+Your registration on KolData has been approved by the focal point of your association.
+
+You can now sign in to the platform and access your NGO information.
+
+Best regards,
+The KolData team
+
+---
+
+Bonjour ${fullName || ''},
 
 Votre inscription a KolData a ete acceptee par le point focal de votre association.
 
@@ -194,22 +205,39 @@ L'equipe KolData`,
         <div style="max-width:600px;margin:0 auto;padding:32px 20px;">
           <div style="background:#ffffff;border-radius:12px;padding:40px 32px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
             <h1 style="margin:0 0 24px;font-size:24px;line-height:1.3;color:#111827;">
-              Votre compte KolData a ete valide
+              Account approved / Compte valide
             </h1>
             <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">
-              Bonjour ${escapeHtml(fullName || '')},
+              Hello ${escapeHtml(fullName || '')},
             </p>
             <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">
-              Votre inscription a <strong>KolData</strong> a ete acceptee par le point focal de votre association.
+              Your registration on <strong>KolData</strong> has been approved by the focal point of your association.
             </p>
             <p style="margin:0 0 24px;font-size:16px;line-height:1.7;">
-              Vous pouvez maintenant vous connecter a la plateforme et consulter les informations de votre ONG.
+              You can now sign in to the platform and access your NGO information.
             </p>
-            <div style="margin-top:32px;padding-top:24px;border-top:1px solid #e5e7eb;">
+            <div style="margin:32px 0;padding-top:24px;border-top:1px solid #e5e7eb;">
               <p style="margin:0;font-size:15px;line-height:1.6;color:#4b5563;">
-                Cordialement,<br />
-                <strong>L'equipe KolData</strong>
+                Best regards,<br />
+                <strong>The KolData team</strong>
               </p>
+            </div>
+            <div style="padding-top:24px;border-top:1px solid #e5e7eb;">
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">
+                Bonjour ${escapeHtml(fullName || '')},
+              </p>
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.7;">
+                Votre inscription a <strong>KolData</strong> a ete acceptee par le point focal de votre association.
+              </p>
+              <p style="margin:0 0 24px;font-size:16px;line-height:1.7;">
+                Vous pouvez maintenant vous connecter a la plateforme et consulter les informations de votre ONG.
+              </p>
+              <div style="margin-top:32px;padding-top:24px;border-top:1px solid #e5e7eb;">
+                <p style="margin:0;font-size:15px;line-height:1.6;color:#4b5563;">
+                  Cordialement,<br />
+                  <strong>L'equipe KolData</strong>
+                </p>
+              </div>
             </div>
           </div>
         </div>
