@@ -36,11 +36,15 @@
     "deleteDialog": {
       "title": "Delete editing right",
       "message": "Do you really want to delete the user's editing right?",
+      "creatorTitle": "Delete creator account",
+      "creatorMessage": "Do you really want to delete this creator account?",
       "cancel": "Cancel",
       "confirm": "Confirm"
     },
     "deletePermissionSuccess": "Editing right successfully deleted",
     "deletePermissionError": "An error occurred while deleting the editing right",
+    "deleteCreatorSuccess": "Creator account successfully deleted",
+    "deleteCreatorError": "An error occurred while deleting the creator account",
     "addEditDialog": {
       "title": "Add editing right",
       "titleEdit": "Modify editing right",

@@ -328,3 +328,6 @@ verify_jwt = false
 
 [functions.manage-association-members]
 verify_jwt = false
+
+[functions.manage-admin-members]
+verify_jwt = false

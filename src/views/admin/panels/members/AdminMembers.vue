@@ -78,7 +78,7 @@
             icon="$trashCanOutline"
             class="cursor-pointer"
             color="main-purple"
-            @click.stop="deleteMemberPermission(item.id)"
+            @click.stop="deleteMemberPermission(item.id, item.role)"
           ></v-icon>
         </template>
       </v-data-table>
@@ -87,6 +87,7 @@
   <DeletePermissionDialog
     v-model:showDeleteDialog="showDeleteDialog"
     v-model:permissionId="permissionToDelete"
+    v-model:permissionRole="permissionRoleToDelete"
   />
   <AddEditPermissionDialog
     v-if="showAddEditDialog"
@@ -134,16 +135,16 @@ watch(searchQuery, (newValue) => {
 
 const filteredEditors = computed(() => {
   if (debouncedSearchQuery.value) {
-    return editorsList.value.filter((member) =>
-      member.first_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.last_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+    return editorsList.value.filter(
+      (member) =>
+        member.first_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.last_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
     )
   }
   return editorsList.value
 })
-
 
 onMounted(async () => {
   await Promise.all([associationsStore.getAssociationsList(), adminStore.getAdminMembers()])
@@ -193,9 +194,11 @@ function addNewCreatePermission() {
 }
 
 const permissionToDelete = ref('')
+const permissionRoleToDelete = ref<UserRole>(UserRole.EDITOR)
 const showDeleteDialog = ref(false)
-function deleteMemberPermission(id: string) {
+function deleteMemberPermission(id: string, role: UserRole) {
   permissionToDelete.value = id
+  permissionRoleToDelete.value = role
   showDeleteDialog.value = true
 }
 </script>

@@ -36,11 +36,15 @@
     "deleteDialog": {
       "title": "Suppression de droit d'édition",
       "message": "Voulez-vous vraiment supprimer le droit d'édition de l'utilisateur ?",
+      "creatorTitle": "Suppression du créateur",
+      "creatorMessage": "Voulez-vous vraiment supprimer ce compte créateur ?",
       "cancel": "Annuler",
       "confirm": "Confirmer"
     },
     "deletePermissionSuccess": "Droit d'édition supprimé avec succès",
     "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition",
+    "deleteCreatorSuccess": "Compte créateur supprimé avec succès",
+    "deleteCreatorError": "Une erreur est survenue lors de la suppression du compte créateur",
     "addEditDialog": {
       "title": "Ajouter un droit d'édition",
       "titleEdit": "Modifier le droit d'édition",
