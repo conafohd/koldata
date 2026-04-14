@@ -82,7 +82,6 @@
 </template>
 <script setup lang="ts">
 import type { Association } from '@/models/interfaces/Association'
-import { UserRole } from '@/models/enums/UserRole'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
@@ -133,15 +132,10 @@ onMounted(() => {
 })
 
 const hasPermission = computed(() => {
-  return (
-    authStore.isAdmin || authStore.userInfos?.edit_association_id === selectedAssociation.value?.id
-  )
+  return authStore.canEditAssociation(selectedAssociation.value?.id)
 })
 const canManageMembers = computed(() => {
-  return (
-    authStore.userInfos?.role === UserRole.EDITOR
-    && authStore.userInfos.edit_association_id === selectedAssociation.value?.id
-  )
+  return authStore.canManageAssociationMembers(selectedAssociation.value?.id)
 })
 const allowedTabs = ['infos', 'projects', 'members'] as const
 

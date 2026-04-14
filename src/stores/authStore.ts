@@ -26,6 +26,25 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     return userInfos.value?.role === UserRole.PENDING
   })
 
+  function isEditorOfAssociation(associationId?: string | null) {
+    if (!associationId) {
+      return false
+    }
+
+    return (
+      userInfos.value?.role === UserRole.EDITOR
+      && userInfos.value.edit_association_id === associationId
+    )
+  }
+
+  function canEditAssociation(associationId?: string | null) {
+    return isAdmin.value || isEditorOfAssociation(associationId)
+  }
+
+  function canManageAssociationMembers(associationId?: string | null) {
+    return isEditorOfAssociation(associationId)
+  }
+
   async function initAuth() {
     if (authSession.value) {
       return
@@ -270,5 +289,23 @@ export const useAuthenticationStore = defineStore('authentication', () => {
     }
   }
 
-  return { showAuthModal, showForgotPasswordModal, showResetPasswordModal, authSession, userInfos, isAdmin, initAuth, signIn, signUp, signOut, recoverPassword, updatePassword, resetPasswordWithToken }
+  return {
+    showAuthModal,
+    showForgotPasswordModal,
+    showResetPasswordModal,
+    authSession,
+    userInfos,
+    isAdmin,
+    isPending,
+    isEditorOfAssociation,
+    canEditAssociation,
+    canManageAssociationMembers,
+    initAuth,
+    signIn,
+    signUp,
+    signOut,
+    recoverPassword,
+    updatePassword,
+    resetPasswordWithToken,
+  }
 })

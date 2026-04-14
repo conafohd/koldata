@@ -44,6 +44,12 @@ export const useAssociationsStore = defineStore('associations', () => {
   }
 
   function activeAssociationEdition(id: string) {
+    const authStore = useAuthenticationStore()
+    if (!authStore.canEditAssociation(id)) {
+      addNotification(i18n.t('common.permissionDenied'), NotificationType.ERROR)
+      return
+    }
+
     const updateSubmission = updateslist.value.find(association => association.association_id === id)
     if (updateSubmission) {
       associationToEdit.value = updateSubmission

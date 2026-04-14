@@ -132,8 +132,7 @@ const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
 const appStore = useApplicationStore()
 
-const hasEditPermission =
-  authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId
+const hasEditPermission = authStore.canEditAssociation(props.associationId)
 
 function handleRowClick(e: MouseEvent, item: any) {
   projectsStore.selectedProject = item.item
@@ -203,7 +202,7 @@ const headersMobile = [
 ]
 
 onBeforeMount(() => {
-  if (authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId) {
+  if (authStore.canEditAssociation(props.associationId)) {
     headers.push({
       title: i18n.t('projects.associationTable.actions'),
       key: 'actions',

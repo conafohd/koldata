@@ -211,8 +211,7 @@ onBeforeMount(async () => {
 onMounted(() => {
   applicationStore.isLoading = false
 })
-const hasPermissionToEdit = (id: string) =>
-  authStore.isAdmin || authStore.userInfos?.edit_association_id === id
+const hasPermissionToEdit = (id: string) => authStore.canEditAssociation(id)
 
 function editAssociation(association: Association) {
   associationsStore.activeAssociationEdition(association.id)
