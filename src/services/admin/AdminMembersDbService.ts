@@ -9,7 +9,7 @@ import { PostgrestError } from "@/models/enums/PostgrestError"
 
 export class AdminMembersDbService {
     public static async getAdminMembers() {
-        const { data: users, error } = await supabase.from(TablesList.USER_PROFILES).select('*').not('role', 'eq', UserRole.ADMIN)
+        const { data: users, error } = await supabase.rpc('get_verified_admin_members')
         if (error) {
             addNotification(i18n.t('adminMembers.fetchError'), NotificationType.ERROR)
             throw error
