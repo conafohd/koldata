@@ -165,7 +165,7 @@
                 <v-icon
                   size="small"
                   icon="$squareEditOutline"
-                  :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                  color="light-blue"
                   v-if="hasPermissionToEdit(association.id) && !applicationStore.mobile"
                   @click.stop="editAssociation(association)"
                 ></v-icon>

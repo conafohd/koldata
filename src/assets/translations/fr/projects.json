@@ -28,6 +28,8 @@
       "newProject": "Nouveau projet en attente de validation",
       "validationPending": "En attente de validation",
       "validateNewProject": "Valider le nouveau projet",
+      "editProject": "Modifier le projet",
+      "deleteProject": "Supprimer le projet",
       "from": "Du",
       "to": "au"
     },

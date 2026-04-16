@@ -42,7 +42,7 @@ export const useAuthenticationStore = defineStore('authentication', () => {
   }
 
   function canManageAssociationMembers(associationId?: string | null) {
-    return isEditorOfAssociation(associationId)
+    return isAdmin.value || isEditorOfAssociation(associationId)
   }
 
   async function initAuth() {

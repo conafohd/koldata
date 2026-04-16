@@ -45,7 +45,7 @@
               <v-icon
                 v-bind="props"
                 icon="$checkCircleOutline"
-                color="light-blue"
+                color="success"
                 class="mr-2 cursor-pointer"
                 @click.stop="openDialog('approve', item)"
               />
@@ -99,7 +99,7 @@
             {{ $t('associations.members.dialog.cancel') }}
           </v-btn>
           <v-btn
-            :color="selectedAction === 'approve' ? 'light-blue' : 'main-purple'"
+            :color="selectedAction === 'approve' ? 'success' : 'main-purple'"
             @click="confirmAction"
           >
             {{ $t('associations.members.dialog.confirm') }}

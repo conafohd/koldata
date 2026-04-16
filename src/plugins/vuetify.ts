@@ -1,6 +1,7 @@
 import {
   mdiAccountCircle,
   mdiAccountCircleOutline,
+  mdiAccountCancelOutline,
   mdiAccountGroup,
   mdiAccountSupervisorCircle,
   mdiAlertCircleOutline,
@@ -83,6 +84,7 @@ export default createVuetify({
     defaultSet: 'mdi',
     aliases: {
       ...aliases,
+      accountCancelOutline: mdiAccountCancelOutline,
       accountCircle: mdiAccountCircle,
       accountOutline: mdiAccountCircleOutline,
       github: mdiGithub,
@@ -168,4 +170,3 @@ export default createVuetify({
     },
   }
 })
-

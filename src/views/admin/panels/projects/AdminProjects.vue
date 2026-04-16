@@ -31,35 +31,53 @@
       >
         <template #item.intitule_projet="{ item }">
           {{ item.intitule_projet }}
-          <v-icon icon="$newBox" color="main-purple" class="ml-2" v-if="item.newProject"></v-icon>
+          <v-tooltip v-if="item.newProject" :text="$t('adminProjects.projectsTable.newProjectTooltip')">
+            <template #activator="{ props }">
+              <v-icon v-bind="props" icon="$newBox" color="main-purple" class="ml-2"></v-icon>
+            </template>
+          </v-tooltip>
         </template>
         <template #item.ngo="{ item }">
           {{ item.associations?.nom ?? '' }}
         </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
-            <v-icon
-              icon="$closeThick"
-              class="mr-1"
-              color="error"
-              v-if="item.waiting_for_validation || item.newProject"
-            ></v-icon>
-            <v-icon icon="$checkCircle" class="mr-1" color="success" v-else></v-icon>
+            <v-chip
+              :color="getValidationStatusColor(item)"
+              size="small"
+              variant="flat"
+            >
+              {{ getValidationStatusLabel(item) }}
+            </v-chip>
           </div>
         </template>
         <template #item.actions="{ item }">
-          <v-icon
-            icon="$squareEditOutline"
-            class="mr-1 cursor-pointer"
-            color="light-blue"
-            @click.stop="item.newProject ? validateNewProject(item.id) : editProject(item.id)"
-          ></v-icon>
-          <v-icon
-            icon="$trashCanOutline"
-            class="cursor-pointer"
-            color="main-purple"
-            @click.stop="deleteProject(item.id)"
-          ></v-icon>
+          <v-tooltip
+            :text="item.newProject
+              ? $t('adminProjects.projectsTable.validateTooltip')
+              : $t('adminProjects.projectsTable.editTooltip')"
+          >
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$squareEditOutline"
+                class="mr-1 cursor-pointer"
+                color="light-blue"
+                @click.stop="item.newProject ? validateNewProject(item.id) : editProject(item.id)"
+              ></v-icon>
+            </template>
+          </v-tooltip>
+          <v-tooltip :text="$t('adminProjects.projectsTable.deleteTooltip')">
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$trashCanOutline"
+                class="cursor-pointer"
+                color="main-purple"
+                @click.stop="deleteProject(item.id)"
+              ></v-icon>
+            </template>
+          </v-tooltip>
         </template>
       </v-data-table>
     </div>
@@ -142,9 +160,9 @@ const filteredProjects = computed(() => {
 })
 const headers = [
   { title: i18n.t('adminProjects.projectsTable.name'), key: 'intitule_projet' },
+  { title: i18n.t('adminProjects.projectsTable.update'), key: 'waiting_for_validation' },
   { title: i18n.t('adminProjects.projectsTable.ngo'), key: 'ngo' },
   { title: i18n.t('adminProjects.projectsTable.status'), key: 'statut_projet' },
-  { title: i18n.t('adminProjects.projectsTable.update'), key: 'waiting_for_validation' },
   {
     title: i18n.t('adminProjects.projectsTable.actions'),
     key: 'actions',
@@ -194,6 +212,30 @@ function confirmDeleteProject() {
     projectToDelete.value = null
   }
   showDeleteDialog.value = false
+}
+
+function getValidationStatusLabel(item: Project) {
+  if (item.newProject) {
+    return i18n.t('adminProjects.projectsTable.statusNew')
+  }
+
+  if (item.waiting_for_validation) {
+    return i18n.t('adminProjects.projectsTable.statusPending')
+  }
+
+  return i18n.t('adminProjects.projectsTable.statusValidated')
+}
+
+function getValidationStatusColor(item: Project) {
+  if (item.newProject) {
+    return 'main-purple'
+  }
+
+  if (item.waiting_for_validation) {
+    return 'orange-darken-1'
+  }
+
+  return 'main-blue'
 }
 </script>
 
