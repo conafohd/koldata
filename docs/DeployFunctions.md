@@ -13,6 +13,7 @@ Role:
 - called by a SQL trigger after a new `user_profiles` row is created
 - notifies the association editor
 - notifies the newly registered user
+- notifies admin users when a new `creator` signs up
 
 Notes:
 - `verify_jwt = false` in `supabase/config.toml`
@@ -136,6 +137,8 @@ Expected behavior:
 
 - user signup succeeds
 - the SQL trigger calls `send-editor-email`
+- if the user is `pending`, the editor and the user receive emails
+- if the user is `creator`, verified admins receive an email
 - if SMTP is configured, emails are sent
 - if SMTP is not configured, the function logs a skip instead of blocking signup
 
