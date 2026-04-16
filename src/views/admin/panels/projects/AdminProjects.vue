@@ -31,11 +31,6 @@
       >
         <template #item.intitule_projet="{ item }">
           {{ item.intitule_projet }}
-          <v-tooltip v-if="item.newProject" :text="$t('adminProjects.projectsTable.newProjectTooltip')">
-            <template #activator="{ props }">
-              <v-icon v-bind="props" icon="$newBox" color="main-purple" class="ml-2"></v-icon>
-            </template>
-          </v-tooltip>
         </template>
         <template #item.ngo="{ item }">
           {{ item.associations?.nom ?? '' }}

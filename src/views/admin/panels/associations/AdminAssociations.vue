@@ -31,16 +31,6 @@
       >
         <template #item.nom="{ item }">
           {{ item.nom }}
-          <v-tooltip v-if="item.newAssociation" :text="$t('adminAssociations.associationsTable.newAssociationTooltip')">
-            <template #activator="{ props }">
-              <v-icon
-                v-bind="props"
-                icon="$newBox"
-                color="main-purple"
-                class="ml-2"
-              ></v-icon>
-            </template>
-          </v-tooltip>
         </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
