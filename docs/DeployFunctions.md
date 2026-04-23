@@ -1,9 +1,10 @@
 # Deploy Edge Functions
 
-This document explains how to deploy the two Supabase Edge Functions used by the signup and member approval workflows:
+This document explains how to deploy the Supabase Edge Functions used by the signup and member management workflows:
 
 - `send-editor-email`
 - `manage-association-members`
+- `manage-admin-members`
 
 ## Functions covered
 
@@ -33,6 +34,18 @@ Notes:
 - `verify_jwt = false` in `supabase/config.toml`
 - access is protected in the function code by validating the bearer token with `auth.getUser(accessToken)`
 - the function then checks the user's role and association in the database
+
+### `manage-admin-members`
+
+Role:
+- deletes a `creator` user
+- only allows admins to perform the action
+
+Notes:
+- `verify_jwt = false` in `supabase/config.toml`
+- access is protected in the function code by validating the bearer token with `auth.getUser(accessToken)`
+- the function then checks that the caller is an `admin`
+- the function deletes the target user through `auth.admin.deleteUser(memberId)`
 
 ## Prerequisites
 
@@ -76,10 +89,10 @@ Important:
 
 ## Deploy commands
 
-Deploy both functions:
+Deploy all functions:
 
 ```bash
-supabase functions deploy send-editor-email manage-association-members
+supabase functions deploy send-editor-email manage-association-members manage-admin-members
 ```
 
 Deploy one function only:
@@ -87,6 +100,7 @@ Deploy one function only:
 ```bash
 supabase functions deploy send-editor-email
 supabase functions deploy manage-association-members
+supabase functions deploy manage-admin-members
 ```
 
 ## Config related to deployment
@@ -99,12 +113,16 @@ verify_jwt = false
 
 [functions.manage-association-members]
 verify_jwt = false
+
+[functions.manage-admin-members]
+verify_jwt = false
 ```
 
 This is intentional:
 
 - `send-editor-email` is called by Postgres, not by a logged-in browser user
 - `manage-association-members` validates the bearer token itself in code
+- `manage-admin-members` validates the bearer token itself in code
 
 ## Typical deployment order
 
@@ -113,9 +131,10 @@ When deploying this workflow on a new environment:
 1. Push database migrations.
 2. Create Vault secrets in SQL.
 3. Set Edge Function secrets with `supabase secrets set`.
-4. Deploy `send-editor-email` and `manage-association-members`.
+4. Deploy `send-editor-email`, `manage-association-members`, and `manage-admin-members`.
 5. Test signup.
 6. Test pending member approval.
+7. Test creator deletion from the admin workflow.
 
 ## Post-deployment checks
 
@@ -149,6 +168,15 @@ Expected behavior:
 - authenticated editor or admin can call `manage-association-members`
 - pending member becomes `reader`
 - if SMTP is configured, an approval email is sent
+
+### Test admin member management flow
+
+Expected behavior:
+
+- authenticated admin can call `manage-admin-members`
+- the function accepts `action = delete_creator`
+- the target user must exist and have role `creator`
+- the target auth user is deleted successfully
 
 ## Troubleshooting
 
@@ -195,6 +223,30 @@ Check:
 - or the caller is `editor` of the targeted association
 - the target member belongs to the same association
 
+### `manage-admin-members` returns `401`
+
+Check:
+- the client is authenticated
+- the request includes a valid bearer token
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` are available in the function runtime
+
+### `manage-admin-members` returns `403`
+
+Check:
+- the caller is `admin`
+
+### `manage-admin-members` returns `400`
+
+Check:
+- `action` is exactly `delete_creator`
+- `memberId` is present
+- the target user has role `creator`
+
+### `manage-admin-members` returns `404`
+
+Check:
+- the target user exists in `user_profiles`
+
 ## Local development
 
 Run locally:
@@ -203,6 +255,7 @@ Run locally:
 cd supabase
 supabase functions serve send-editor-email --no-verify-jwt --debug --env-file ../.env.local
 supabase functions serve manage-association-members --no-verify-jwt --debug --env-file ../.env.local
+supabase functions serve manage-admin-members --no-verify-jwt --debug --env-file ../.env.local
 ```
 
 For local email testing, Mailpit or another local SMTP server can be used.
