@@ -10,6 +10,7 @@
             <v-text-field
               :label="$t('auth.forms.labels.email')"
               v-model="email"
+              hide-details="auto"
               type="email"
               autocomplete="email"
             />

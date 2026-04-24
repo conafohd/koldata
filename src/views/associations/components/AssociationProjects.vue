@@ -80,20 +80,28 @@
               </v-tooltip>
             </template>
             <template v-else>
-              <v-icon
-                icon="$squareEditOutline"
-                class="mr-1 cursor-pointer"
-                color="light-blue"
-                @click.stop="editProject(value)"
-                v-if="hasEditPermission"
-              ></v-icon>
-              <v-icon
-                icon="$trashCanOutline"
-                class="cursor-pointer"
-                color="main-purple"
-                v-if="authStore.isAdmin"
-                @click.stop="deleteProject(value)"
-              ></v-icon>
+              <v-tooltip :text="$t('projects.associationTable.editProject')" v-if="hasEditPermission">
+                <template v-slot:activator="{ props }">
+                  <v-icon
+                    v-bind="props"
+                    icon="$squareEditOutline"
+                    class="mr-1 cursor-pointer"
+                    color="light-blue"
+                    @click.stop="editProject(value)"
+                  ></v-icon>
+                </template>
+              </v-tooltip>
+              <v-tooltip :text="$t('projects.associationTable.deleteProject')" v-if="authStore.isAdmin">
+                <template v-slot:activator="{ props }">
+                  <v-icon
+                    v-bind="props"
+                    icon="$trashCanOutline"
+                    class="cursor-pointer"
+                    color="main-purple"
+                    @click.stop="deleteProject(value)"
+                  ></v-icon>
+                </template>
+              </v-tooltip>
             </template>
           </div>
         </template>
@@ -132,8 +140,7 @@ const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
 const appStore = useApplicationStore()
 
-const hasEditPermission =
-  authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId
+const hasEditPermission = authStore.canEditAssociation(props.associationId)
 
 function handleRowClick(e: MouseEvent, item: any) {
   projectsStore.selectedProject = item.item
@@ -203,7 +210,7 @@ const headersMobile = [
 ]
 
 onBeforeMount(() => {
-  if (authStore.isAdmin || authStore.userInfos?.edit_association_id === props.associationId) {
+  if (authStore.canEditAssociation(props.associationId)) {
     headers.push({
       title: i18n.t('projects.associationTable.actions'),
       key: 'actions',

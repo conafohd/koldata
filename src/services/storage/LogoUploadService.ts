@@ -13,11 +13,10 @@ export class LogoUploadService {
   private static readonly ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
   static async uploadLogo(file: File, associationId: string): Promise<string> {
+    await this.checkUserPermissions(associationId)
 
-    await this.checkUserPermissions()
-    
     this.validateFile(file)
-    
+
     const fileExtension = file.name.split('.').pop()
     const fileName = `${associationId}-${uuidv4()}.${fileExtension}`
     const filePath = `logos/${fileName}`
@@ -60,7 +59,7 @@ export class LogoUploadService {
     }
   }
 
-  private static async checkUserPermissions(): Promise<void> {
+  private static async checkUserPermissions(associationId?: string): Promise<void> {
     const authStore = useAuthenticationStore()
 
     if (!authStore.authSession) {
@@ -69,12 +68,30 @@ export class LogoUploadService {
       throw new Error(i18n.t('logoStorage.permissionDenied', NotificationType.ERROR))
     }
 
-    if ((authStore.userInfos?.role !== UserRole.EDITOR && authStore.userInfos?.role !== UserRole.CREATOR) && !authStore.isAdmin) {
+    if (authStore.isAdmin) {
+      return
+    }
+
+    if (associationId && authStore.canEditAssociation(associationId)) {
+      return
+    }
+
+    const isNewAssociationDraft =
+      authStore.userInfos?.role === UserRole.CREATOR && Boolean(associationId?.startsWith('temp-'))
+
+    if (isNewAssociationDraft) {
+      return
+    }
+
+    if (authStore.userInfos?.role !== UserRole.CREATOR) {
       console.log('User does not have permission to upload logos')
-      console.log(authStore.isAdmin)
       addNotification(i18n.t('logoStorage.permissionDenied'), NotificationType.ERROR)
       throw new Error(i18n.t('logoStorage.permissionDenied', NotificationType.ERROR))
     }
+
+    console.log('User does not have permission to upload logos')
+    addNotification(i18n.t('logoStorage.permissionDenied'), NotificationType.ERROR)
+    throw new Error(i18n.t('logoStorage.permissionDenied', NotificationType.ERROR))
   }
 
   private static validateFile(file: File): void {

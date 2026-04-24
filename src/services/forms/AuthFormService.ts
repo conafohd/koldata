@@ -27,6 +27,10 @@ export class AuthFormValidator {
       .min(1, { message: i18n.t('forms.errors.required') })
       .min(2, { message: i18n.t('forms.errors.minLength', { min: 2 }) })
       .max(50, { message: i18n.t('forms.errors.maxLength', { max: 50 }) }),
+
+    associationId: z
+      .string()
+      .min(1, { message: i18n.t('forms.errors.required') }),
     
     stayLoggedIn: z.boolean().optional()
   }
@@ -63,6 +67,7 @@ export class AuthFormValidator {
         email: this.commonValidations.email,
         firstName: this.commonValidations.firstName,
         lastName: this.commonValidations.lastName,
+        associationId: this.commonValidations.associationId,
         password: this.commonValidations.password,
         confirmPassword: z.string().min(1, { message: i18n.t('forms.errors.required') })
       })
@@ -78,6 +83,7 @@ export class AuthFormValidator {
         email: '',
         firstName: '',
         lastName: '',
+        associationId: '',
         password: '',
         confirmPassword: ''
       }
@@ -88,7 +94,8 @@ export class AuthFormValidator {
       firstName: useField<string>('firstName', '', { validateOnValueUpdate: true }),
       lastName: useField<string>('lastName', '', { validateOnValueUpdate: true }),
       password: useField<string>('password', '', { validateOnValueUpdate: true }),
-      confirmPassword: useField<string>('confirmPassword', '', { validateOnValueUpdate: true })
+      confirmPassword: useField<string>('confirmPassword', '', { validateOnValueUpdate: true }),
+      associationId: useField<string>('associationId', '', { validateOnValueUpdate: true }),
     }
 
     const isValid = computed(() => meta.value.valid)

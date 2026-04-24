@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@nazka/map-gl-js-spiderfy": "^1.2.8",
-    "@supabase/supabase-js": "^2.50.2",
+    "@supabase/supabase-js": "^2.98.0",
     "@types/maplibre-gl": "^1.13.2",
     "@vee-validate/zod": "^4.15.1",
     "chart.js": "^4.5.0",

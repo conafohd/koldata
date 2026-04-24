@@ -29,16 +29,34 @@ export const useProjectsStore = defineStore('projects', () => {
     }
 
     async function activeProjectCreation(associationId: string) {
+        const authStore = useAuthenticationStore()
+        if (!authStore.canEditAssociation(associationId)) {
+            addNotification(i18n.t('common.permissionDenied'), NotificationType.ERROR)
+            return
+        }
+
         projectToCreate.value = associationId
     }
 
     function activeProjectEdition(id: string) {
         const updateSubmission = updateslist.value.find(project => project.projet_id === id)
         if (updateSubmission) {
+            const authStore = useAuthenticationStore()
+            if (!authStore.canEditAssociation(updateSubmission.association_id)) {
+                addNotification(i18n.t('common.permissionDenied'), NotificationType.ERROR)
+                return
+            }
+
             projectToEdit.value = updateSubmission
         } else {
             const project = projectsList.value.find(project => project.id === id)
             if (project) {
+                const authStore = useAuthenticationStore()
+                if (!authStore.canEditAssociation(project.association_id)) {
+                    addNotification(i18n.t('common.permissionDenied'), NotificationType.ERROR)
+                    return
+                }
+
                 projectToEdit.value = project
             } else {
                 addNotification(i18n.t('projects.projectNotFound'), NotificationType.ERROR)

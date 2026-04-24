@@ -165,7 +165,7 @@
                 <v-icon
                   size="small"
                   icon="$squareEditOutline"
-                  :color="authStore.isAdmin ? 'main-purple' : 'main-blue'"
+                  color="light-blue"
                   v-if="hasPermissionToEdit(association.id) && !applicationStore.mobile"
                   @click.stop="editAssociation(association)"
                 ></v-icon>
@@ -211,8 +211,7 @@ onBeforeMount(async () => {
 onMounted(() => {
   applicationStore.isLoading = false
 })
-const hasPermissionToEdit = (id: string) =>
-  authStore.isAdmin || authStore.userInfos?.edit_association_id === id
+const hasPermissionToEdit = (id: string) => authStore.canEditAssociation(id)
 
 function editAssociation(association: Association) {
   associationsStore.activeAssociationEdition(association.id)

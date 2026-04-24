@@ -24,6 +24,7 @@ echo "Deploy branch: ${BRANCH_NAME}"
 
 rm -rf dist
 
+npm install
 VITE_BASE_PATH="/${BRANCH_NAME}/" \
 npm run build
 

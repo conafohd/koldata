@@ -28,6 +28,8 @@
       "newProject": "New project pending validation",
       "validationPending": "Pending validation",
       "validateNewProject": "Validate new project",
+      "editProject": "Edit project",
+      "deleteProject": "Delete project",
       "from": "From",
       "to": "to"
     },

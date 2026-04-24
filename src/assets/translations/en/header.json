@@ -1,6 +1,11 @@
 {
   "header": {
     "title": "Kongo Local Data",
+    "creatorNotice": {
+      "message": "You have not created your organization yet. To do so, please go to the creation page",
+      "submittedMessage": "Your addition request has been sent successfully, and you will receive a response soon",
+      "link": "by clicking here."
+    },
     "tabs": {
       "home": "Home",
       "dashboard": "Dashboard",

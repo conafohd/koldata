@@ -67,19 +67,28 @@
           </v-tooltip>
         </template>
         <template #item.actions="{ item }">
-          <v-icon
-            icon="$squareEditOutline"
-            class="mr-1 cursor-pointer"
-            color="light-blue"
-            @click.stop="editMemberPermission(item.id, item.edit_association_id)"
-            v-if="item.role === UserRole.EDITOR"
-          ></v-icon>
-          <v-icon
-            icon="$trashCanOutline"
-            class="cursor-pointer"
-            color="main-purple"
-            @click.stop="deleteMemberPermission(item.id)"
-          ></v-icon>
+          <v-tooltip v-if="item.role === UserRole.EDITOR" :text="$t('adminMembers.membersTable.editActionTooltip')">
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$squareEditOutline"
+                class="mr-1 cursor-pointer"
+                color="light-blue"
+                @click.stop="editMemberPermission(item.id, item.edit_association_id)"
+              ></v-icon>
+            </template>
+          </v-tooltip>
+          <v-tooltip :text="getDeleteActionTooltip(item.role)">
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                :icon="item.role === UserRole.CREATOR ? '$trashCanOutline' : '$accountCancelOutline'"
+                class="cursor-pointer"
+                :color="item.role === UserRole.CREATOR ? 'main-purple' : 'main-grey'"
+                @click.stop="deleteMemberPermission(item.id, item.role)"
+              ></v-icon>
+            </template>
+          </v-tooltip>
         </template>
       </v-data-table>
     </div>
@@ -87,6 +96,7 @@
   <DeletePermissionDialog
     v-model:showDeleteDialog="showDeleteDialog"
     v-model:permissionId="permissionToDelete"
+    v-model:permissionRole="permissionRoleToDelete"
   />
   <AddEditPermissionDialog
     v-if="showAddEditDialog"
@@ -134,16 +144,16 @@ watch(searchQuery, (newValue) => {
 
 const filteredEditors = computed(() => {
   if (debouncedSearchQuery.value) {
-    return editorsList.value.filter((member) =>
-      member.first_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.last_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
-      || member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase())
+    return editorsList.value.filter(
+      (member) =>
+        member.first_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.last_name.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()) ||
+        member.email.toLowerCase().includes(debouncedSearchQuery.value.toLowerCase()),
     )
   }
   return editorsList.value
 })
-
 
 onMounted(async () => {
   await Promise.all([associationsStore.getAssociationsList(), adminStore.getAdminMembers()])
@@ -193,10 +203,18 @@ function addNewCreatePermission() {
 }
 
 const permissionToDelete = ref('')
+const permissionRoleToDelete = ref<UserRole>(UserRole.EDITOR)
 const showDeleteDialog = ref(false)
-function deleteMemberPermission(id: string) {
+function deleteMemberPermission(id: string, role: UserRole) {
   permissionToDelete.value = id
+  permissionRoleToDelete.value = role
   showDeleteDialog.value = true
+}
+
+function getDeleteActionTooltip(role: UserRole) {
+  return role === UserRole.CREATOR
+    ? i18n.t('adminMembers.membersTable.deleteCreatorTooltip')
+    : i18n.t('adminMembers.membersTable.revokeTooltip')
 }
 </script>
 

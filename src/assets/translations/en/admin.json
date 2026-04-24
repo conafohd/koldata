@@ -25,6 +25,9 @@
       "editRight": "Current right",
       "editTooltip": "Editing right",
       "createTooltip": "Creation right",
+      "editActionTooltip": "Edit right",
+      "revokeTooltip": "Revoke right",
+      "deleteCreatorTooltip": "Delete creator account",
       "firstName": "First Name",
       "lastName": "Last Name",
       "email": "Email",
@@ -36,11 +39,15 @@
     "deleteDialog": {
       "title": "Delete editing right",
       "message": "Do you really want to delete the user's editing right?",
+      "creatorTitle": "Delete creator account",
+      "creatorMessage": "Do you really want to delete this creator account?",
       "cancel": "Cancel",
       "confirm": "Confirm"
     },
     "deletePermissionSuccess": "Editing right successfully deleted",
     "deletePermissionError": "An error occurred while deleting the editing right",
+    "deleteCreatorSuccess": "Creator account successfully deleted",
+    "deleteCreatorError": "An error occurred while deleting the creator account",
     "addEditDialog": {
       "title": "Add editing right",
       "titleEdit": "Modify editing right",
@@ -73,6 +80,15 @@
       "name": "Name",
       "type": "Organization Type",
       "update": "Validated update",
+      "statusNew": "New entry",
+      "statusPending": "Pending",
+      "statusValidated": "Validated",
+      "newAssociationTooltip": "New NGO pending validation",
+      "pendingValidationTooltip": "Update pending validation",
+      "validatedTooltip": "No pending validation",
+      "editTooltip": "Edit NGO",
+      "validateTooltip": "Validate new NGO",
+      "deleteTooltip": "Delete NGO",
       "actions": "Actions",
       "itemsPerPage": "Associations per page"
     }
@@ -94,6 +110,15 @@
       "ngo": "NGO",
       "status": "Status",
       "update": "Validated update",
+      "statusNew": "New project",
+      "statusPending": "Pending",
+      "statusValidated": "Validated",
+      "newProjectTooltip": "New project pending validation",
+      "pendingValidationTooltip": "Update pending validation",
+      "validatedTooltip": "No pending validation",
+      "editTooltip": "Edit project",
+      "validateTooltip": "Validate new project",
+      "deleteTooltip": "Delete project",
       "actions": "Actions",
       "itemsPerPage": "Projects per page"
     }

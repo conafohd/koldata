@@ -1,7 +1,8 @@
 <template>
   <div class="App">
-    <Header />
-    <div v-show="!appStore.isLoading" class="App__content"><RouterView /></div>
+    <div v-show="!appStore.isLoading" class="App__content">
+      <RouterView />
+    </div>
     <Loader v-show="appStore.isLoading" />
     <NotificationBox />
     <AssociationForm
@@ -9,7 +10,6 @@
     />
     <ProjectForm v-if="projectsStore.projectToEdit || projectsStore.projectToCreate" />
     <ProjectCard v-if="projectsStore.selectedProject" />
-    <Footer />
   </div>
 </template>
 
@@ -22,8 +22,6 @@ import { useApplicationStore } from './stores/applicationStore'
 import { useAssociationsStore } from './stores/associationsStore'
 import { useProjectsStore } from './stores/projectsStore'
 import { useInactivityLogout } from '@/composables/useInactivityLogout'
-import Footer from './views/_layout/footer/Footer.vue'
-import Header from './views/_layout/header/Header.vue'
 import Loader from './views/_layout/loader/Loader.vue'
 import NotificationBox from './views/_layout/notification/NotificationBox.vue'
 import AssociationForm from './views/associations/components/AssociationForm.vue'
@@ -46,13 +44,14 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 1rem;
 }
+
 .App__content {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   flex-grow: 1;
-  padding-top: 1rem;
+  padding-top: 0;
 }
+
 </style>

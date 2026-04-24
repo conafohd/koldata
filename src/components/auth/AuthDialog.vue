@@ -20,6 +20,7 @@
                 :label="$t('auth.forms.labels.email')"
                 v-model="signInForm.form.email.value.value"
                 :error-messages="signInForm.form.email.errorMessage.value"
+                hide-details="auto"
                 @blur="signInForm.form.email.handleBlur"
                 type="email"
                 autocomplete="email"
@@ -28,6 +29,7 @@
                 :label="$t('auth.forms.labels.password')"
                 v-model="signInForm.form.password.value.value"
                 :error-messages="signInForm.form.password.errorMessage.value"
+                hide-details="auto"
                 @blur="signInForm.form.password.handleBlur"
                 type="password"
                 autocomplete="current-password"
@@ -60,6 +62,7 @@
                 :label="$t('auth.forms.labels.email')"
                 v-model="signUpForm.form.email.value.value"
                 :error-messages="signUpForm.form.email.errorMessage.value"
+                hide-details="auto"
                 @blur="signUpForm.form.email.handleBlur"
                 type="email"
                 autocomplete="email"
@@ -68,6 +71,7 @@
                 :label="$t('auth.forms.labels.firstName')"
                 v-model="signUpForm.form.firstName.value.value"
                 :error-messages="signUpForm.form.firstName.errorMessage.value"
+                hide-details="auto"
                 @blur="signUpForm.form.firstName.handleBlur"
                 autocomplete="given-name"
               />
@@ -75,13 +79,26 @@
                 :label="$t('auth.forms.labels.lastName')"
                 v-model="signUpForm.form.lastName.value.value"
                 :error-messages="signUpForm.form.lastName.errorMessage.value"
+                hide-details="auto"
                 @blur="signUpForm.form.lastName.handleBlur"
                 autocomplete="family-name"
+              />
+              <v-autocomplete
+                variant="outlined"
+                :label="$t('adminMembers.addEditDialog.selectAssociation')"
+                v-model="signUpForm.form.associationId.value.value"
+                :error-messages="signUpForm.form.associationId.errorMessage.value"
+                :items="associationsList"
+                item-title="nom"
+                item-value="id"
+                clearable
+                required
               />
               <v-text-field
                 :label="$t('auth.forms.labels.password')"
                 v-model="signUpForm.form.password.value.value"
                 :error-messages="signUpForm.form.password.errorMessage.value"
+                hide-details="auto"
                 @blur="signUpForm.form.password.handleBlur"
                 type="password"
                 autocomplete="new-password"
@@ -90,6 +107,7 @@
                 :label="$t('auth.forms.labels.confirmPassword')"
                 v-model="signUpForm.form.confirmPassword.value.value"
                 :error-messages="signUpForm.form.confirmPassword.errorMessage.value"
+                hide-details="auto"
                 @blur="signUpForm.form.confirmPassword.handleBlur"
                 type="password"
                 autocomplete="new-password"
@@ -119,9 +137,15 @@
 import { AuthFormValidator } from '@/services/forms/AuthFormService'
 import { CommonFormService } from '@/services/forms/CommonFormService'
 import { useAuthenticationStore } from '@/stores/authStore'
+import { useAssociationsStore } from '@/stores/associationsStore'
+import { storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 
 const authStore = useAuthenticationStore()
+const associationsStore = useAssociationsStore()
+
+const { associationsList } = storeToRefs(associationsStore)
+
 const activeTab = ref(1)
 
 const signInForm = AuthFormValidator.getSignInForm()
@@ -142,6 +166,8 @@ const onSignUp = signUpForm.handleSubmit(async (values) => {
     first_name: sanitizedData.firstName,
     last_name: sanitizedData.lastName,
     password: sanitizedData.password,
+    associationId: sanitizedData.associationId,
+    notFoundAssociation: false,
   })
 })
 

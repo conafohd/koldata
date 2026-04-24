@@ -60,6 +60,9 @@
         <v-btn-toggle v-model="selectedTab" color="light-blue" rounded="0" mandatory>
           <v-btn value="infos"> {{ $t('associations.infos') }} </v-btn>
           <v-btn value="projects"> {{ $t('associations.projects') }} </v-btn>
+          <v-btn v-if="canManageMembers" value="members">
+            {{ $t('associations.members.tab') }}
+          </v-btn>
         </v-btn-toggle>
       </div>
       <div class="Association__contentCtn">
@@ -67,6 +70,10 @@
         <AssociationProjects
           v-if="selectedTab === 'projects'"
           :projects="projects"
+          :association-id="selectedAssociation.id"
+        />
+        <AssociationMembersManagement
+          v-if="selectedTab === 'members' && canManageMembers"
           :association-id="selectedAssociation.id"
         />
       </div>
@@ -83,6 +90,7 @@ import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import AssociationInfos from './components/AssociationInfos.vue'
+import AssociationMembersManagement from './components/AssociationMembersManagement.vue'
 import AssociationProjects from './components/AssociationProjects.vue'
 
 const applicationStore = useApplicationStore()
@@ -124,11 +132,24 @@ onMounted(() => {
 })
 
 const hasPermission = computed(() => {
-  return (
-    authStore.isAdmin || authStore.userInfos?.edit_association_id === selectedAssociation.value?.id
-  )
+  return authStore.canEditAssociation(selectedAssociation.value?.id)
 })
-const selectedTab = ref('infos')
+const canManageMembers = computed(() => {
+  return authStore.canManageAssociationMembers(selectedAssociation.value?.id)
+})
+const allowedTabs = ['infos', 'projects', 'members'] as const
+
+function getInitialTab() {
+  const requestedTab = route.query.tab
+
+  if (typeof requestedTab === 'string' && allowedTabs.includes(requestedTab as typeof allowedTabs[number])) {
+    return requestedTab
+  }
+
+  return 'infos'
+}
+
+const selectedTab = ref(getInitialTab())
 function editAssociation() {
   associationsStore.activeAssociationEdition(selectedAssociation.value?.id as string)
 }

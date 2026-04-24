@@ -31,39 +31,47 @@
       >
         <template #item.nom="{ item }">
           {{ item.nom }}
-          <v-icon
-            icon="$newBox"
-            color="main-purple"
-            class="ml-2"
-            v-if="item.newAssociation"
-          ></v-icon>
         </template>
         <template #item.waiting_for_validation="{ item }">
           <div class="d-flex justify-center">
-            <v-icon
-              icon="$closeThick"
-              class="mr-1"
-              color="error"
-              v-if="item.waiting_for_validation || item.newAssociation"
-            ></v-icon>
-            <v-icon icon="$checkCircle" class="mr-1" color="success" v-else></v-icon>
+            <v-chip
+              :color="getValidationStatusColor(item)"
+              size="small"
+              variant="flat"
+            >
+              {{ getValidationStatusLabel(item) }}
+            </v-chip>
           </div>
         </template>
         <template #item.actions="{ item }">
-          <v-icon
-            icon="$squareEditOutline"
-            class="mr-1 cursor-pointer"
-            color="light-blue"
-            @click.stop="
-              item.newAssociation ? validateNewAssociation(item.id) : editAssociation(item.id)
-            "
-          ></v-icon>
-          <v-icon
-            icon="$trashCanOutline"
-            class="cursor-pointer"
-            color="main-purple"
-            @click.stop="deleteAssociation(item.id)"
-          ></v-icon>
+          <v-tooltip
+            :text="item.newAssociation
+              ? $t('adminAssociations.associationsTable.validateTooltip')
+              : $t('adminAssociations.associationsTable.editTooltip')"
+          >
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$squareEditOutline"
+                class="mr-1 cursor-pointer"
+                color="light-blue"
+                @click.stop="
+                  item.newAssociation ? validateNewAssociation(item.id) : editAssociation(item.id)
+                "
+              ></v-icon>
+            </template>
+          </v-tooltip>
+          <v-tooltip :text="$t('adminAssociations.associationsTable.deleteTooltip')">
+            <template #activator="{ props }">
+              <v-icon
+                v-bind="props"
+                icon="$trashCanOutline"
+                class="cursor-pointer"
+                color="main-purple"
+                @click.stop="deleteAssociation(item.id)"
+              ></v-icon>
+            </template>
+          </v-tooltip>
         </template>
       </v-data-table>
     </div>
@@ -128,8 +136,8 @@ const filteredAssociations = computed(() => {
 })
 const headers = [
   { title: i18n.t('adminAssociations.associationsTable.name'), key: 'nom' },
-  { title: i18n.t('adminAssociations.associationsTable.type'), key: 'type_org' },
   { title: i18n.t('adminAssociations.associationsTable.update'), key: 'waiting_for_validation' },
+  { title: i18n.t('adminAssociations.associationsTable.type'), key: 'type_org' },
   {
     title: i18n.t('adminAssociations.associationsTable.actions'),
     key: 'actions',
@@ -172,6 +180,30 @@ function confirmDeleteAssociation() {
     associationToDelete.value = null
   }
   showDeleteDialog.value = false
+}
+
+function getValidationStatusLabel(item: Association) {
+  if (item.newAssociation) {
+    return i18n.t('adminAssociations.associationsTable.statusNew')
+  }
+
+  if (item.waiting_for_validation) {
+    return i18n.t('adminAssociations.associationsTable.statusPending')
+  }
+
+  return i18n.t('adminAssociations.associationsTable.statusValidated')
+}
+
+function getValidationStatusColor(item: Association) {
+  if (item.newAssociation) {
+    return 'main-purple'
+  }
+
+  if (item.waiting_for_validation) {
+    return 'orange-darken-1'
+  }
+
+  return 'main-blue'
 }
 </script>
 

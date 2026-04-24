@@ -25,6 +25,9 @@
       "editRight": "Droit actuel",
       "editTooltip": "Droit d'édition",
       "createTooltip": "Droit de création",
+      "editActionTooltip": "Modifier le droit",
+      "revokeTooltip": "Révoquer le droit",
+      "deleteCreatorTooltip": "Supprimer le compte créateur",
       "firstName": "Prénom",
       "lastName": "Nom",
       "email": "Email",
@@ -36,11 +39,15 @@
     "deleteDialog": {
       "title": "Suppression de droit d'édition",
       "message": "Voulez-vous vraiment supprimer le droit d'édition de l'utilisateur ?",
+      "creatorTitle": "Suppression du créateur",
+      "creatorMessage": "Voulez-vous vraiment supprimer ce compte créateur ?",
       "cancel": "Annuler",
       "confirm": "Confirmer"
     },
     "deletePermissionSuccess": "Droit d'édition supprimé avec succès",
     "deletePermissionError": "Une erreur est survenue lors de la suppression du droit d'édition",
+    "deleteCreatorSuccess": "Compte créateur supprimé avec succès",
+    "deleteCreatorError": "Une erreur est survenue lors de la suppression du compte créateur",
     "addEditDialog": {
       "title": "Ajouter un droit d'édition",
       "titleEdit": "Modifier le droit d'édition",
@@ -73,6 +80,15 @@
       "name": "Nom",
       "type": "Type d'organisation",
       "update": "Mise à jour validée",
+      "statusNew": "Nouvelle fiche",
+      "statusPending": "En attente",
+      "statusValidated": "Validé",
+      "newAssociationTooltip": "Nouvelle ONG en attente de validation",
+      "pendingValidationTooltip": "Modification en attente de validation",
+      "validatedTooltip": "Aucune validation en attente",
+      "editTooltip": "Modifier l'ONG",
+      "validateTooltip": "Valider la nouvelle ONG",
+      "deleteTooltip": "Supprimer l'ONG",
       "actions": "Actions",
       "itemsPerPage": "Associations par page"
     }
@@ -94,6 +110,15 @@
       "ngo": "ONG",
       "status": "Statut",
       "update": "Mise à jour validée",
+      "statusNew": "Nouveau projet",
+      "statusPending": "En attente",
+      "statusValidated": "Validé",
+      "newProjectTooltip": "Nouveau projet en attente de validation",
+      "pendingValidationTooltip": "Modification en attente de validation",
+      "validatedTooltip": "Aucune validation en attente",
+      "editTooltip": "Modifier le projet",
+      "validateTooltip": "Valider le nouveau projet",
+      "deleteTooltip": "Supprimer le projet",
       "actions": "Actions",
       "itemsPerPage": "Projets par page"
     }

@@ -98,3 +98,9 @@ Editor/creators → Write to update/new tables → Admin validation → Merge to
 - get_db_stats - Calculates dashboard statistics
 
 _Functions are referenced via enums in frontend_
+
+# 🔐 OAuth 2.0 Integration
+
+**📖 [OAuth Guide](./docs/OAuth.md)** - Local testing and implementation
+
+KolData implements OAuth 2.0 server for third-party app integration. See the guide for setup and flow examples.
