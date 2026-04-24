@@ -147,6 +147,24 @@ Example:
 supabase secrets set SMTP_PORT='2525'
 ```
 
+### `SMTP_SECURE`
+
+Optional.
+
+Used by:
+- `supabase/functions/send-editor-email/index.ts`
+- `supabase/functions/manage-association-members/index.ts`
+
+Purpose:
+- enables SSL/TLS for SMTP connections when set to `true`
+- use `true` for providers that expect implicit TLS, such as IONOS on port `465`
+
+Example:
+
+```bash
+supabase secrets set SMTP_SECURE='true'
+```
+
 ### `SMTP_USER`
 
 Optional.
@@ -213,6 +231,7 @@ Edge Function secrets:
 - `MAIL_FROM`
 - `SMTP_HOST`
 - `SMTP_PORT`
+- optionally `SMTP_SECURE`
 - optionally `SMTP_USER`
 - optionally `SMTP_PASS`
 
@@ -246,5 +265,6 @@ supabase secrets set \
   APP_URL='https://dev.koldata.cartong.org/signup-workflow' \
   MAIL_FROM='KolData <noreply@example.org>' \
   SMTP_HOST='mail.example.org' \
-  SMTP_PORT='2525'
+  SMTP_PORT='2525' \
+  SMTP_SECURE='false'
 ```

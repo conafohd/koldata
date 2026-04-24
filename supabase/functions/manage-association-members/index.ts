@@ -260,14 +260,15 @@ function createMailerTransport() {
 
   const user = Deno.env.get('SMTP_USER')?.trim()
   const pass = Deno.env.get('SMTP_PASS')
+  const secure = Deno.env.get('SMTP_SECURE')?.trim().toLowerCase() === 'true'
 
   return nodemailer.createTransport({
     host,
     port: Number(Deno.env.get('SMTP_PORT') ?? '587'),
-    secure: false,
-    connectionTimeout: 3000,
-    greetingTimeout: 3000,
-    socketTimeout: 5000,
+    secure,
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
     auth: user && pass ? { user, pass } : undefined,
   })
 }
