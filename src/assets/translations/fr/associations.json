@@ -25,7 +25,6 @@
     "createError": "Une erreur est survenue lors de la création de l'ONG",
     "createSuccess": "ONG créée avec succès",
     "accessToAssociation": "Fiche complète",
-    "creationRequest": "Votre ONG est manquante? Contactez nous",
     "members": {
       "tab": "Utilisateurs",
       "title": "Gérer les utilisateurs de l'ONG",

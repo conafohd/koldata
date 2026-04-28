@@ -25,7 +25,6 @@
     "createError": "An error occurred while creating the NGO",
     "createSuccess": "NGO created successfully",
     "accessToAssociation": "Full profile",
-    "creationRequest": "Is your NGO missing? Contact us",
     "members": {
       "tab": "Users",
       "title": "Manage NGO users",

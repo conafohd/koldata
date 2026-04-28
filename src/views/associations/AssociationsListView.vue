@@ -85,9 +85,6 @@
     <main class="Associations__content">
       <div class="Associations__viewSwitcher">
         <div class="Associations__request">
-          <div @click="openEmailTemplate()" v-if="authStore.userInfos?.role === UserRole.READER">
-            {{ $t('associations.creationRequest') }}
-          </div>
           <v-btn
             color="main-blue"
             v-if="authStore.userInfos?.role === UserRole.CREATOR"
