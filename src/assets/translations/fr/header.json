@@ -6,6 +6,9 @@
       "submittedMessage": "Votre demande d'ajout a bien été envoyée, vous recevrez une réponse bientôt",
       "link": "en cliquant ici."
     },
+    "pendingNotice": {
+      "message": "Votre compte est en attente de validation. Un administrateur vous donnera accès dès que votre demande aura été approuvée."
+    },
     "tabs": {
       "home": "Accueil",
       "dashboard": "Statistiques",

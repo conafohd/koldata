@@ -54,65 +54,18 @@
         </v-tabs>
         <AuthButton />
       </div>
-      <div v-if="authStore.userInfos?.role === UserRole.CREATOR" class="Header__creatorNotice">
-        <span>{{ $t(noticeTranslationKey) }}</span>
-        <button
-          v-if="!newProjectSubmitted"
-          type="button"
-          class="Header__creatorNoticeLink"
-          @click="openAssociationCreation"
-        >
-          {{ $t('header.creatorNotice.link') }}
-        </button>
-      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import AuthButton from '@/components/auth/AuthButton.vue'
 import { UserRole } from '@/models/enums/UserRole'
-import type { UserInfos } from '@/models/interfaces/UserInfos'
 import { NavigationTabsService } from '@/services/NavigationService'
 import { useApplicationStore } from '@/stores/applicationStore'
-import { useAssociationsStore } from '@/stores/associationsStore'
 import { useAuthenticationStore } from '@/stores/authStore'
-import { computed, watch } from 'vue'
-import { useRouter } from 'vue-router'
 
 const appStore = useApplicationStore()
-const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
-const router = useRouter()
-
-const newProjectSubmitted = computed(() =>
-  associationsStore.newAssociationsList.find(
-    (x) => x.created_by === (authStore.userInfos as UserInfos | null)?.id,
-  ),
-)
-
-const noticeTranslationKey = computed(() =>
-  newProjectSubmitted.value
-    ? 'header.creatorNotice.submittedMessage'
-    : 'header.creatorNotice.message',
-)
-
-watch(
-  () => authStore.userInfos?.role,
-  async (role) => {
-    if (role === UserRole.CREATOR && associationsStore.newAssociationsList.length === 0) {
-      await associationsStore.getAssociationsList()
-    }
-  },
-  { immediate: true },
-)
-
-async function openAssociationCreation() {
-  if (router.currentRoute.value.name !== 'associations') {
-    await router.push({ name: 'associations' })
-  }
-
-  associationsStore.associationToCreate = true
-}
 </script>
 <style scoped lang="scss">
 .Header {
@@ -144,31 +97,6 @@ async function openAssociationCreation() {
   flex-grow: 1;
   justify-content: space-between;
   align-items: center;
-}
-.Header__creatorNotice {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-left: 4px solid rgb(var(--v-theme-main-yellow));
-  border-radius: 0.5rem;
-  background: rgba(var(--v-theme-main-yellow), 0.18);
-  color: rgb(var(--v-theme-main-grey));
-  font-weight: 600;
-}
-.Header__creatorNoticeLink {
-  border: none;
-  padding: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.15rem;
-  cursor: pointer;
-}
-.Header__creatorNoticeLink:hover {
-  opacity: 0.8;
 }
 .Header__tabsText {
   text-transform: none;

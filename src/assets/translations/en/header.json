@@ -6,6 +6,9 @@
       "submittedMessage": "Your addition request has been sent successfully, and you will receive a response soon",
       "link": "by clicking here."
     },
+    "pendingNotice": {
+      "message": "Your account is pending validation. An administrator will grant you access once your request has been approved."
+    },
     "tabs": {
       "home": "Home",
       "dashboard": "Dashboard",
