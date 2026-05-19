@@ -259,3 +259,11 @@ supabase functions serve manage-admin-members --no-verify-jwt --debug --env-file
 ```
 
 For local email testing, Mailpit or another local SMTP server can be used.
+Set the local function env to the capture SMTP instead of a real provider:
+
+```bash
+MAIL_MODE=mailpit
+SMTP_HOST=inbucket
+SMTP_PORT=1025
+MAIL_FROM='KolData <noreply@local.test>'
+```

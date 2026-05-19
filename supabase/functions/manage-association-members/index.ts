@@ -13,9 +13,28 @@ type UserProfile = {
   edit_association_id: string | null
 }
 
+type ApprovalEmailResult =
+  | {
+    status: 'sent'
+  }
+  | {
+    status: 'skipped'
+    reason: 'smtp_not_configured'
+  }
+  | {
+    status: 'failed'
+  }
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+function jsonResponse(body: Record<string, unknown>, status: number) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  })
 }
 
 serve(async (req) => {
@@ -27,18 +46,12 @@ serve(async (req) => {
     const authHeader = req.headers.get('Authorization')
 
     if (!authHeader) {
-      return new Response(JSON.stringify({ error: 'Missing authorization header' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'Missing authorization header' }, 401)
     }
 
     const accessToken = authHeader.replace(/^Bearer\s+/i, '').trim()
     if (!accessToken) {
-      return new Response(JSON.stringify({ error: 'Missing bearer token' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'Missing bearer token' }, 401)
     }
 
     const userClient = createClient(
@@ -62,10 +75,7 @@ serve(async (req) => {
         status: authError?.status ?? null,
         hasUser: Boolean(user),
       })
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'Unauthorized' }, 401)
     }
 
     const { action, memberId, associationId } = await req.json() as {
@@ -75,10 +85,21 @@ serve(async (req) => {
     }
 
     if (!action || !memberId || !associationId) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      console.warn('[manage-association-members] bad request: missing required fields', {
+        hasAction: Boolean(action),
+        hasMemberId: Boolean(memberId),
+        hasAssociationId: Boolean(associationId),
       })
+      return jsonResponse({ error: 'Missing required fields' }, 400)
+    }
+
+    if (!['approve', 'delete'].includes(action)) {
+      console.warn('[manage-association-members] bad request: unsupported action', {
+        action,
+        memberId,
+        associationId,
+      })
+      return jsonResponse({ error: 'Unsupported action' }, 400)
     }
 
     const { data: actorProfile, error: actorError } = await adminClient
@@ -88,10 +109,7 @@ serve(async (req) => {
       .single()
 
     if (actorError || !actorProfile) {
-      return new Response(JSON.stringify({ error: 'Unable to load actor profile' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'Unable to load actor profile' }, 403)
     }
 
     const canManageAssociation =
@@ -99,10 +117,7 @@ serve(async (req) => {
       || (actorProfile.role === 'editor' && actorProfile.edit_association_id === associationId)
 
     if (!canManageAssociation) {
-      return new Response(JSON.stringify({ error: 'Forbidden' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'Forbidden' }, 403)
     }
 
     const { data: targetProfileData, error: targetError } = await adminClient
@@ -114,32 +129,33 @@ serve(async (req) => {
     const targetProfile = targetProfileData as UserProfile | null
 
     if (targetError || !targetProfile) {
-      return new Response(JSON.stringify({ error: 'User not found' }), {
-        status: 404,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'User not found' }, 404)
     }
 
     if (targetProfile.edit_association_id !== associationId) {
-      return new Response(JSON.stringify({ error: 'User not linked to this association' }), {
-        status: 403,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      })
+      return jsonResponse({ error: 'User not linked to this association' }, 403)
     }
 
     if (!['pending', 'reader'].includes(targetProfile.role)) {
-      return new Response(JSON.stringify({ error: 'Unsupported target role' }), {
-        status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      console.warn('[manage-association-members] bad request: unsupported target role', {
+        action,
+        memberId,
+        associationId,
+        targetRole: targetProfile.role,
       })
+      return jsonResponse({ error: 'Unsupported target role' }, 400)
     }
+
+    let approvalEmailResult: ApprovalEmailResult | null = null
 
     if (action === 'approve') {
       if (targetProfile.role !== 'pending') {
-        return new Response(JSON.stringify({ error: 'Only pending users can be approved' }), {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        console.warn('[manage-association-members] bad request: approving non-pending user', {
+          memberId,
+          associationId,
+          targetRole: targetProfile.role,
         })
+        return jsonResponse({ error: 'Only pending users can be approved' }, 400)
       }
 
       const { error: updateError } = await adminClient
@@ -151,7 +167,18 @@ serve(async (req) => {
         throw updateError
       }
 
-      await sendApprovalEmail(targetProfile.email, `${targetProfile.first_name} ${targetProfile.last_name}`.trim())
+      try {
+        approvalEmailResult = await sendApprovalEmail(
+          targetProfile.email,
+          `${targetProfile.first_name} ${targetProfile.last_name}`.trim(),
+        )
+      } catch (emailError) {
+        approvalEmailResult = { status: 'failed' }
+        console.error('Approval email notification failed', {
+          memberId,
+          message: emailError instanceof Error ? emailError.message : 'Unknown error',
+        })
+      }
     }
 
     if (action === 'delete') {
@@ -162,17 +189,11 @@ serve(async (req) => {
       }
     }
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    return jsonResponse({ success: true, email: approvalEmailResult }, 200)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error'
 
-    return new Response(JSON.stringify({ error: message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    })
+    return jsonResponse({ error: message }, 500)
   }
 })
 
@@ -180,7 +201,10 @@ async function sendApprovalEmail(email: string, fullName: string) {
   const transporter = createMailerTransport()
   if (!transporter) {
     console.warn('SMTP_HOST is not configured, skipping approval email notification')
-    return
+    return {
+      status: 'skipped',
+      reason: 'smtp_not_configured',
+    } satisfies ApprovalEmailResult
   }
 
   await transporter.sendMail({
@@ -250,27 +274,38 @@ L'equipe KolData`,
       </div>
     `,
   })
+
+  return { status: 'sent' } satisfies ApprovalEmailResult
 }
 
 function createMailerTransport() {
-  const host = Deno.env.get('SMTP_HOST')?.trim()
+  const mailMode = Deno.env.get('MAIL_MODE')?.trim().toLowerCase()
+  const configuredHost = Deno.env.get('SMTP_HOST')?.trim()
+  const isCaptureMode = mailMode === 'mailpit' || mailMode === 'inbucket'
+  const host = configuredHost || (isCaptureMode ? 'inbucket' : undefined)
   if (!host) {
     return null
   }
 
   const user = Deno.env.get('SMTP_USER')?.trim()
   const pass = Deno.env.get('SMTP_PASS')
-  const secure = Deno.env.get('SMTP_SECURE')?.trim().toLowerCase() === 'true'
+  const defaultPort = mailMode === 'mailpit' ? '1025' : mailMode === 'inbucket' ? '54325' : '587'
+  const port = Number(Deno.env.get('SMTP_PORT') || defaultPort)
+  const isLocalCaptureHost = ['inbucket', 'mailpit', 'localhost', '127.0.0.1'].includes(host)
+  const secure = !isLocalCaptureHost
+    && (Deno.env.get('SMTP_SECURE')?.trim().toLowerCase() === 'true' || port === 465)
 
-  return nodemailer.createTransport({
+  const transportConfig = {
     host,
-    port: Number(Deno.env.get('SMTP_PORT') ?? '587'),
+    port,
     secure,
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
-    auth: user && pass ? { user, pass } : undefined,
-  })
+    auth: !isLocalCaptureHost && user && pass ? { user, pass } : undefined,
+  }
+
+  return nodemailer.createTransport(transportConfig)
 }
 
 function escapeHtml(value: string) {

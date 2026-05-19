@@ -512,15 +512,21 @@ L'equipe KolData`,
 }
 
 function createMailerTransport() {
-  const host = Deno.env.get('SMTP_HOST')?.trim()
+  const mailMode = Deno.env.get('MAIL_MODE')?.trim().toLowerCase()
+  const configuredHost = Deno.env.get('SMTP_HOST')?.trim()
+  const isCaptureMode = mailMode === 'mailpit' || mailMode === 'inbucket'
+  const host = configuredHost || (isCaptureMode ? 'inbucket' : undefined)
   if (!host) {
     return null
   }
 
   const user = Deno.env.get('SMTP_USER')?.trim()
   const pass = Deno.env.get('SMTP_PASS')
-  const port = Number(Deno.env.get('SMTP_PORT') ?? '587')
-  const secure = Deno.env.get('SMTP_SECURE')?.trim().toLowerCase() === 'true' || port === 465
+  const defaultPort = mailMode === 'mailpit' ? '1025' : mailMode === 'inbucket' ? '54325' : '587'
+  const port = Number(Deno.env.get('SMTP_PORT') || defaultPort)
+  const isLocalCaptureHost = ['inbucket', 'mailpit', 'localhost', '127.0.0.1'].includes(host)
+  const secure = !isLocalCaptureHost
+    && (Deno.env.get('SMTP_SECURE')?.trim().toLowerCase() === 'true' || port === 465)
 
   const transportConfig = {
     host,
@@ -529,10 +535,11 @@ function createMailerTransport() {
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
-    auth: user && pass ? { user, pass } : undefined,
+    auth: !isLocalCaptureHost && user && pass ? { user, pass } : undefined,
   }
 
   console.log('[send-editor-email] creating SMTP transport', {
+    mailMode: mailMode || null,
     host: transportConfig.host,
     port: transportConfig.port,
     secure: transportConfig.secure,
