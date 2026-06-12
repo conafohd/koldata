@@ -8,5 +8,6 @@ export enum TablesList {
   PROVINCES = 'provinces',
   TERRITORIES = 'territoires',
   HEALTH_ZONES = 'zones_sante',
-  USER_PROFILES = 'user_profiles'
+  USER_PROFILES = 'user_profiles',
+  ASSESSMENTS = 'assessments'
 }

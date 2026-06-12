@@ -58,6 +58,49 @@ const router = createRouter({
           }
         },
         {
+          path: 'associations/:id/assessments',
+          component: () => import('../views/assessments/AssessmentsLayout.vue'),
+          meta: { requiresAuth: true },
+          beforeEnter: async () => {
+            const authStore = useAuthenticationStore(pinia)
+            if (!authStore.authSession) {
+              await authStore.initAuth()
+            }
+            if (!authStore.authSession) {
+              router.push({ name: 'home' })
+            }
+          },
+          children: [
+            {
+              path: '',
+              name: 'assessments',
+              component: () => import('../views/assessments/AssessmentsView.vue'),
+              beforeEnter: () => {
+                const applicationStore = useApplicationStore(pinia)
+                applicationStore.isLoading = true
+              },
+            },
+            {
+              path: ':assessmentId/edit',
+              name: 'assessments-edit',
+              component: () => import('../views/assessments/AssessmentsFormView.vue'),
+              beforeEnter: () => {
+                const applicationStore = useApplicationStore(pinia)
+                applicationStore.isLoading = true
+              },
+            },
+            {
+              path: ':assessmentId/report',
+              name: 'assessments-report',
+              component: () => import('../views/assessments/AssessmentsReportView.vue'),
+              beforeEnter: () => {
+                const applicationStore = useApplicationStore(pinia)
+                applicationStore.isLoading = true
+              },
+            },
+          ],
+        },
+        {
           path: 'admin',
           name: 'admin',
           component: () => import('../views/admin/AdminView.vue'),

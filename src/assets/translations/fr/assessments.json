@@ -1,0 +1,76 @@
+{
+  "assessments": {
+    "tab": "Évaluations",
+    "title": "Campagnes d'évaluation",
+    "intro": "Les évaluations permettent de mesurer la capacité organisationnelle et opérationnelle de l'ONG sur une période donnée. Chaque campagne suit un questionnaire structuré et produit un rapport une fois finalisée.",
+    "newAssessment": "Nouvelle évaluation",
+    "noAssessments": "Aucune évaluation pour cette organisation.",
+    "fetchError": "Erreur lors du chargement des évaluations.",
+    "createError": "Erreur lors de la création de l'évaluation.",
+    "createSuccess": "Évaluation créée avec succès.",
+    "updateError": "Erreur lors de la sauvegarde.",
+    "finalizeError": "Erreur lors de la finalisation.",
+    "finalizeSuccess": "Évaluation finalisée.",
+    "deleteError": "Erreur lors de la suppression.",
+    "deleteSuccess": "Évaluation supprimée.",
+    "status": {
+      "finalized": "Finalisée",
+      "inProgress": "En cours"
+    },
+    "columns": {
+      "title": "Titre",
+      "period": "Période",
+      "createdAt": "Créée le",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "viewReport": "Voir le rapport",
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "report": {
+      "title": "Rapport d'évaluation",
+      "finalizedOn": "Finalisée le",
+      "createdOn": "Créée le",
+      "period": "Période couverte",
+      "notAvailable": "Non renseigné",
+      "sections": "Contenu de l'évaluation",
+      "backToList": "Retour aux évaluations",
+      "yes": "Oui",
+      "no": "Non",
+      "globalScore": "Score global"
+    },
+    "delete": {
+      "confirm": "Supprimer cette évaluation ?",
+      "confirmText": "Cette action est irréversible.",
+      "yes": "Supprimer",
+      "no": "Annuler"
+    },
+    "form": {
+      "heroSub": "Renseignez les informations et répondez aux questions de l'évaluation.",
+      "stepIdentity": "Informations générales",
+      "stepFields": "Questionnaire",
+      "stepReview": "Récapitulatif",
+      "campaignTitle": "Titre de la campagne",
+      "campaignTitlePlaceholder": "Ex : Évaluation 2026",
+      "periodStart": "Début de période",
+      "periodEnd": "Fin de période",
+      "next": "Suivant",
+      "previous": "Précédent",
+      "save": "Enregistrer",
+      "finalize": "Finaliser",
+      "finalizeWarning": "Une fois finalisée, l'évaluation ne pourra plus être modifiée.",
+      "readOnly": "Cette évaluation est finalisée et en lecture seule.",
+      "dateOrderError": "La date de début ne peut pas être après la date de fin.",
+      "datePlaceholder": "JJ/MM/AAAA",
+      "yes": "Oui",
+      "no": "Non",
+      "questionsAnswered": "questions répondues",
+      "placeholder": {
+        "sectionTitle": "Section à compléter",
+        "sectionDesc": "Les champs de cette section seront définis ultérieurement."
+      }
+    }
+  }
+}

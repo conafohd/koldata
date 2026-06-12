@@ -48,6 +48,8 @@ import {
   mdiSquareEditOutline,
   mdiSwapHorizontal,
   mdiTimerEditOutline,
+  mdiChevronRight,
+  mdiDotsVertical,
   mdiTrashCanOutline
 } from '@mdi/js'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
@@ -116,6 +118,8 @@ export default createVuetify({
       lockReset: mdiLockReset,
       timerEditOutline: mdiTimerEditOutline,
       trashCanOutline: mdiTrashCanOutline,
+      chevronRight: mdiChevronRight,
+      dotsVertical: mdiDotsVertical,
       newBox: mdiNewBox,
       fileCheckOutline: mdiFileCheckOutline,
       receiptClock: mdiReceiptClock,

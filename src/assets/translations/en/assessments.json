@@ -1,0 +1,76 @@
+{
+  "assessments": {
+    "tab": "Assessments",
+    "title": "Assessment campaigns",
+    "intro": "Assessments measure the organisational and operational capacity of the NGO over a given period. Each campaign follows a structured questionnaire and produces a report once finalised.",
+    "newAssessment": "New assessment",
+    "noAssessments": "No assessments for this organisation.",
+    "fetchError": "Error loading assessments.",
+    "createError": "Error creating assessment.",
+    "createSuccess": "Assessment created successfully.",
+    "updateError": "Error saving assessment.",
+    "finalizeError": "Error finalizing assessment.",
+    "finalizeSuccess": "Assessment finalized.",
+    "deleteError": "Error deleting assessment.",
+    "deleteSuccess": "Assessment deleted.",
+    "status": {
+      "finalized": "Finalized",
+      "inProgress": "In progress"
+    },
+    "columns": {
+      "title": "Title",
+      "period": "Period",
+      "createdAt": "Created on",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "viewReport": "View report",
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "report": {
+      "title": "Assessment report",
+      "finalizedOn": "Finalized on",
+      "createdOn": "Created on",
+      "period": "Period covered",
+      "notAvailable": "Not filled in",
+      "sections": "Assessment content",
+      "backToList": "Back to assessments",
+      "yes": "Yes",
+      "no": "No",
+      "globalScore": "Global score"
+    },
+    "delete": {
+      "confirm": "Delete this assessment?",
+      "confirmText": "This action cannot be undone.",
+      "yes": "Delete",
+      "no": "Cancel"
+    },
+    "form": {
+      "heroSub": "Fill in the details and answer the assessment questions.",
+      "stepIdentity": "General information",
+      "stepFields": "Questionnaire",
+      "stepReview": "Summary",
+      "campaignTitle": "Campaign title",
+      "campaignTitlePlaceholder": "E.g. Assessment 2026",
+      "periodStart": "Start of period",
+      "periodEnd": "End of period",
+      "next": "Next",
+      "previous": "Previous",
+      "save": "Save",
+      "finalize": "Finalize",
+      "finalizeWarning": "Once finalized, the assessment can no longer be edited.",
+      "readOnly": "This assessment is finalized and read-only.",
+      "dateOrderError": "Start date cannot be after end date.",
+      "datePlaceholder": "DD/MM/YYYY",
+      "yes": "Yes",
+      "no": "No",
+      "questionsAnswered": "questions answered",
+      "placeholder": {
+        "sectionTitle": "Section to be filled in",
+        "sectionDesc": "Fields for this section will be defined later."
+      }
+    }
+  }
+}

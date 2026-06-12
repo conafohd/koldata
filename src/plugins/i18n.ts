@@ -1,4 +1,5 @@
 import adminFR from '@/assets/translations/fr/admin.json'
+import assessmentsFR from '@/assets/translations/fr/assessments.json'
 import associationsFR from '@/assets/translations/fr/associations.json'
 import authFR from '@/assets/translations/fr/auth.json'
 import commonFR from '@/assets/translations/fr/common.json'
@@ -8,6 +9,7 @@ import homeFR from '@/assets/translations/fr/home.json'
 import projectFR from '@/assets/translations/fr/projects.json'
 
 import adminEN from '@/assets/translations/en/admin.json'
+import assessmentsEN from '@/assets/translations/en/assessments.json'
 import associationsEN from '@/assets/translations/en/associations.json'
 import authEN from '@/assets/translations/en/auth.json'
 import commonEN from '@/assets/translations/en/common.json'
@@ -28,6 +30,7 @@ export const i18nInstance = createI18n({
       ...authFR,
       ...commonFR,
       ...associationsFR,
+      ...assessmentsFR,
       ...adminFR,
       ...projectFR,
       ...dashboardFR,
@@ -38,6 +41,7 @@ export const i18nInstance = createI18n({
       ...authEN,
       ...commonEN,
       ...associationsEN,
+      ...assessmentsEN,
       ...adminEN,
       ...projectEN,
       ...dashboardEN,

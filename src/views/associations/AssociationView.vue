@@ -63,6 +63,9 @@
           <v-btn v-if="canManageMembers" value="members">
             {{ $t('associations.members.tab') }}
           </v-btn>
+          <v-btn v-if="hasPermission" value="assessment" @click="goToAssessment">
+            {{ $t('assessments.tab') }}
+          </v-btn>
         </v-btn-toggle>
       </div>
       <div class="Association__contentCtn">
@@ -88,7 +91,7 @@ import { useAuthenticationStore } from '@/stores/authStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeMount, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import AssociationInfos from './components/AssociationInfos.vue'
 import AssociationMembersManagement from './components/AssociationMembersManagement.vue'
 import AssociationProjects from './components/AssociationProjects.vue'
@@ -98,6 +101,7 @@ const associationsStore = useAssociationsStore()
 const authStore = useAuthenticationStore()
 const projectsStore = useProjectsStore()
 const route = useRoute()
+const router = useRouter()
 const { associationsList } = storeToRefs(associationsStore)
 const { projectsList, newProjectsList } = storeToRefs(projectsStore)
 
@@ -152,6 +156,10 @@ function getInitialTab() {
 const selectedTab = ref(getInitialTab())
 function editAssociation() {
   associationsStore.activeAssociationEdition(selectedAssociation.value?.id as string)
+}
+
+function goToAssessment() {
+  router.push({ name: 'assessments', params: { id: selectedAssociation.value?.id } })
 }
 </script>
 

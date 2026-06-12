@@ -37,6 +37,13 @@ body {
   color: rgb(var(--v-theme-main-grey));
 }
 
+.app-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 20px 45px -28px rgba(51, 92, 142, 0.22);
+}
+
 .ContentCard {
   border-radius: 5px;
   border: 1px solid rgb(var(--v-theme-light-blue));
