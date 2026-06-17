@@ -165,6 +165,26 @@ const { access_token } = await oauth.handleCallback()
 
 ---
 
+## User Info Retrieval (bash/curl)
+
+After obtaining an `access_token`, retrieve user information with these two endpoints:
+
+```bash
+SUPABASE_URL="http://127.0.0.1:54321" # Supabase URL
+
+# Auth user info
+curl -s "$SUPABASE_URL/auth/v1/user" \
+  -H "apikey: $SUPABASE_ANON_KEY" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" | jq
+
+# User profiles via PostgREST (RLS filters to authenticated user)
+curl -s "$SUPABASE_URL/rest/v1/user_profiles?select=*" \
+  -H "apikey: $SUPABASE_ANON_KEY" \
+  -H "Authorization: Bearer $ACCESS_TOKEN" | jq
+```
+
+---
+
 ## Common Issues
 
 | Issue | Solution |
