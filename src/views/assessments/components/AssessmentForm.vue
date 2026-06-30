@@ -1,5 +1,5 @@
 <template>
-  <div ref="rootEl" class="AssessmentForm">
+  <div class="AssessmentForm">
     <v-alert
       v-if="isFinalized"
       type="info"
@@ -130,13 +130,18 @@
                 v-for="question in currentGroup.questions"
                 :key="question.id"
                 class="AssessmentForm__question"
-                :class="{ 'AssessmentForm__question--missing': showErrors && !isAnswered(question.id) }"
+                :class="{
+                  'AssessmentForm__question--missing': showErrors && !isAnswered(question.id),
+                  'AssessmentForm__question--stacked': question.type !== 'boolean',
+                }"
               >
                 <span class="AssessmentForm__questionText">
                   {{ getLabel(question.label) }}
-                  <span class="AssessmentForm__required">*</span>
+                  <span v-if="AssessmentFormService.isRequired(question)" class="AssessmentForm__required">*</span>
                 </span>
+
                 <v-btn-toggle
+                  v-if="question.type === 'boolean'"
                   v-model="answers[question.id]"
                   density="compact"
                   divided
@@ -147,6 +152,43 @@
                   <v-btn :value="true" size="small" color="success" variant="tonal">{{ $t('assessments.form.yes') }}</v-btn>
                   <v-btn :value="false" size="small" color="error" variant="tonal">{{ $t('assessments.form.no') }}</v-btn>
                 </v-btn-toggle>
+
+                <v-text-field
+                  v-else-if="question.type === 'text'"
+                  v-model="answers[question.id]"
+                  :type="question.inputType ?? 'text'"
+                  variant="outlined"
+                  density="compact"
+                  hide-details
+                  :readonly="isFinalized"
+                  class="AssessmentForm__input"
+                />
+
+                <v-select
+                  v-else-if="question.type === 'select'"
+                  v-model="answers[question.id]"
+                  :items="optionItems(question)"
+                  variant="outlined"
+                  density="compact"
+                  hide-details
+                  :disabled="isFinalized"
+                  class="AssessmentForm__input"
+                />
+
+                <v-select
+                  v-else-if="question.type === 'multiselect'"
+                  :model-value="getMulti(question.id)"
+                  @update:model-value="setMulti(question.id, $event)"
+                  :items="optionItems(question)"
+                  variant="outlined"
+                  density="compact"
+                  multiple
+                  chips
+                  closable-chips
+                  hide-details
+                  :disabled="isFinalized"
+                  class="AssessmentForm__input"
+                />
               </div>
             </div>
           </div>
@@ -200,7 +242,7 @@
             variant="tonal"
             class="mt-5"
           >
-            {{ $t('assessments.form.incompleteWarning', { count: totalQuestions - answeredCount }) }}
+            {{ $t('assessments.form.incompleteWarning', { count: remainingRequiredCount }) }}
           </v-alert>
           <v-alert
             v-if="!isFinalized"
@@ -287,15 +329,17 @@
 
 <script setup lang="ts">
 import questionsData from '@/assets/assessmentQuestions.json'
-import type { Assessment, AssessmentUpdate } from '@/models/interfaces/Assessment'
+import type { Assessment, AssessmentAnswer, AssessmentUpdate } from '@/models/interfaces/Assessment'
+import {
+  AssessmentFormService,
+  type Question,
+  type QuestionGroup,
+  type QuestionLabel,
+} from '@/services/forms/AssessmentFormService'
 import { formatDateToString } from '@/services/utils/FormatDate'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
 import { computed, nextTick, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-
-interface QuestionLabel { fr: string; en: string }
-interface Question { id: string; label: QuestionLabel }
-interface QuestionGroup { id: string; label: QuestionLabel; questions: Question[] }
 
 const props = defineProps<{
   assessment: Assessment
@@ -309,20 +353,48 @@ const emit = defineEmits<{
 const { t, locale } = useI18n()
 const assessmentsStore = useAssessmentsStore()
 
-const questionGroups: QuestionGroup[] = questionsData.groups as QuestionGroup[]
+const questionGroups: QuestionGroup[] = AssessmentFormService.visibleGroups(
+  questionsData.groups as QuestionGroup[],
+)
 const totalQuestions = questionGroups.reduce((sum, g) => sum + g.questions.length, 0)
 
 function getLabel(label: QuestionLabel): string {
-  return label[locale.value as 'fr' | 'en'] ?? label.fr
+  return AssessmentFormService.getLabel(label, locale.value)
+}
+
+function optionItems(question: Question) {
+  return (question.options ?? []).map((o) => ({ value: o.value, title: getLabel(o.label) }))
+}
+
+function getMulti(questionId: string): string[] {
+  const v = answers.value[questionId]
+  return Array.isArray(v) ? v : []
+}
+
+function setMulti(questionId: string, value: unknown): void {
+  answers.value[questionId] = Array.isArray(value) ? (value as string[]) : []
 }
 
 function isAnswered(questionId: string): boolean {
-  return answers.value[questionId] !== undefined && answers.value[questionId] !== null
+  const question = questionById.value[questionId]
+  if (!question) return false
+  return AssessmentFormService.isAnswered(question, answers.value[questionId] ?? null)
 }
+
+const questionById = computed<Record<string, Question>>(() => {
+  const map: Record<string, Question> = {}
+  for (const g of questionGroups) for (const q of g.questions) map[q.id] = q
+  return map
+})
 
 function groupAnsweredCount(group: QuestionGroup): number {
   return group.questions.filter((q) => isAnswered(q.id)).length
 }
+
+// Questions that must be answered before finalizing (excludes optional ones).
+const requiredQuestions = computed(() =>
+  questionGroups.flatMap((g) => g.questions).filter((q) => AssessmentFormService.isRequired(q)),
+)
 
 const step = ref(1)
 const showErrors = ref(false)
@@ -353,18 +425,8 @@ const partItems = computed(() =>
   })),
 )
 
-const rootEl = ref<HTMLElement | null>(null)
 const groupWrap = ref<HTMLElement | null>(null)
 const slideName = ref<'slide-next' | 'slide-prev'>('slide-next')
-
-function scrollToTop() {
-  nextTick(() => {
-    const cards = rootEl.value?.querySelectorAll<HTMLElement>('.AssessmentForm__card')
-    // Only the active step's card is visible; scroll to it
-    const card = cards && Array.from(cards).find((c) => c.offsetParent !== null)
-    ;(card ?? rootEl.value)?.scrollIntoView({ block: 'start' })
-  })
-}
 
 // Animate the wrapper height alongside the slide so there's no vertical jump.
 // The height transition is applied only for the duration of the slide.
@@ -393,7 +455,6 @@ async function goToPart(index: number) {
   slideName.value = index > partIndex.value ? 'slide-next' : 'slide-prev'
   // Switch immediately so the animation is instant, then persist in the background
   partIndex.value = index
-  scrollToTop()
   if (!isFinalized.value) {
     autoSaving.value = true
     await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
@@ -405,7 +466,6 @@ async function goToPart(index: number) {
 function jumpToPart(index: number) {
   partIndex.value = index
   step.value = 2
-  scrollToTop()
 }
 
 // Clear any leftover inline height from an interrupted slide when re-entering step 2
@@ -424,7 +484,7 @@ const isFinalized = computed(() => !!props.assessment.finalized_at)
 const title = ref(props.assessment.title)
 const periodStart = ref(props.assessment.period_start ?? '')
 const periodEnd = ref(props.assessment.period_end ?? '')
-const answers = ref<Record<string, boolean | null>>(
+const answers = ref<Record<string, AssessmentAnswer>>(
   { ...(props.assessment.fields?.sections?.answers ?? {}) },
 )
 
@@ -443,11 +503,19 @@ const answeredCount = computed(() =>
   questionGroups.reduce((sum, g) => sum + groupAnsweredCount(g), 0),
 )
 
-const allAnswered = computed(() => answeredCount.value === totalQuestions)
+const allAnswered = computed(() =>
+  requiredQuestions.value.every((q) => isAnswered(q.id)),
+)
 
-// Index of the first part that still has unanswered questions, or -1 if none
+const remainingRequiredCount = computed(
+  () => requiredQuestions.value.filter((q) => !isAnswered(q.id)).length,
+)
+
+// Index of the first part that still has unanswered required questions, or -1 if none
 const firstIncompletePart = computed(() =>
-  questionGroups.findIndex((g) => groupAnsweredCount(g) < g.questions.length),
+  questionGroups.findIndex((g) =>
+    g.questions.some((q) => AssessmentFormService.isRequired(q) && !isAnswered(q.id)),
+  ),
 )
 
 watch(() => props.assessment, (newVal) => {
@@ -504,7 +572,6 @@ async function handleNext() {
   }
   if (step.value === 1) partIndex.value = 0
   step.value++
-  scrollToTop()
 }
 
 async function handlePrev() {
@@ -517,11 +584,9 @@ async function handlePrev() {
   if (step.value === 3) {
     step.value--
     partIndex.value = questionGroups.length - 1
-    scrollToTop()
     return
   }
   step.value--
-  scrollToTop()
 }
 
 async function handleSave() {
@@ -617,6 +682,14 @@ async function handleFinalize() {
       margin: 0;
       padding: 0;
     }
+
+    // Keep the Previous/Next bar pinned to the bottom of the screen while scrolling
+    :deep(.v-stepper-actions) {
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      padding: 0;
+    }
   }
 
   &__card {
@@ -624,14 +697,10 @@ async function handleFinalize() {
   }
 
   &__actions {
-    position: sticky;
-    bottom: 0;
-    z-index: 2;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 1rem 0;
-    margin-top: 0.5rem;
     background: #fff;
     border-top: 1px solid #f1f5f9;
   }
@@ -725,6 +794,17 @@ async function handleFinalize() {
         color: rgb(var(--v-theme-error));
       }
     }
+
+    // Text / dropdown questions stack the input under the label and use full width
+    &--stacked {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+  }
+
+  &__input {
+    width: 100%;
   }
 
   &__questionText {

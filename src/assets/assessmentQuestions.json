@@ -1,234 +1,1637 @@
 {
   "groups": [
     {
-      "id": "GOV",
-      "label": { "fr": "Gouvernance et leadership", "en": "Governance and Leadership" },
+      "id": "S1",
+      "label": {
+        "fr": "Informations générales",
+        "en": "General Information"
+      },
       "questions": [
-        { "id": "GOV_001", "label": { "fr": "Our organization has clearly documented vision statement", "en": "Our organization has clearly documented vision statement" } },
-        { "id": "GOV_002", "label": { "fr": "Our organization has clearly documented mission statement", "en": "Our organization has clearly documented mission statement" } },
-        { "id": "GOV_003", "label": { "fr": "The governing body understands the vision and mission of our organization", "en": "The governing body understands the vision and mission of our organization" } },
-        { "id": "GOV_004", "label": { "fr": "The management and staff understand the vision and mission of our organization", "en": "The management and staff understand the vision and mission of our organization" } },
-        { "id": "GOV_005", "label": { "fr": "Our organization's programs and projects are in line with the vision and mission", "en": "Our organization's programs and projects are in line with the vision and mission" } },
-        { "id": "GOV_006", "label": { "fr": "Our organization has an independent governing body with a documented and approved constitution", "en": "Our organization has an independent governing body with a documented and approved constitution" } },
-        { "id": "GOV_007", "label": { "fr": "Our organization has a formal and functioning governing body", "en": "Our organization has a formal and functioning governing body" } },
-        { "id": "GOV_008", "label": { "fr": "Our governing body reflects a balanced composition in terms of diversity (gender, skills, age, religion, regions, people living with disabilities, etc.)", "en": "Our governing body reflects a balanced composition in terms of diversity (gender, skills, age, religion, regions, people living with disabilities, etc.)" } },
-        { "id": "GOV_009", "label": { "fr": "Our organization has a clear process of election/selection/appointment of members of its governing body", "en": "Our organization has a clear process of election/selection/appointment of members of its governing body" } },
-        { "id": "GOV_010", "label": { "fr": "Our organization has a clear process of inducting new members of the governing body", "en": "Our organization has a clear process of inducting new members of the governing body" } },
-        { "id": "GOV_011", "label": { "fr": "The board/management committee usually reaches a quorum at its meetings in line with the constitution", "en": "The board/management committee usually reaches a quorum at its meetings in line with the constitution" } },
-        { "id": "GOV_012", "label": { "fr": "The governing body has the authority of making decisions independent from the founders", "en": "The governing body has the authority of making decisions independent from the founders" } },
-        { "id": "GOV_013", "label": { "fr": "The governing body is accessible and available to support organizational growth", "en": "The governing body is accessible and available to support organizational growth" } },
-        { "id": "GOV_014", "label": { "fr": "The governing body adheres to the mechanisms of accountability", "en": "The governing body adheres to the mechanisms of accountability" } },
-        { "id": "GOV_015", "label": { "fr": "The governing body communicates clearly and is transparent", "en": "The governing body communicates clearly and is transparent" } },
-        { "id": "GOV_016", "label": { "fr": "The governing body's roles, responsibilities and authority are clear and distinct", "en": "The governing body's roles, responsibilities and authority are clear and distinct" } },
-        { "id": "GOV_017", "label": { "fr": "The governing body is involved in resource mobilization", "en": "The governing body is involved in resource mobilization" } },
-        { "id": "GOV_018", "label": { "fr": "The governing body is involved in lobbying and advocacy", "en": "The governing body is involved in lobbying and advocacy" } },
-        { "id": "GOV_019", "label": { "fr": "The governing body demonstrates leadership in assessing organization development", "en": "The governing body demonstrates leadership in assessing organization development" } },
-        { "id": "GOV_020", "label": { "fr": "Our organization is a legal entity appropriately registered (or is hosted by a legal entity appropriately registered in the nation)", "en": "Our organization is a legal entity appropriately registered (or is hosted by a legal entity appropriately registered in the nation)" } },
-        { "id": "GOV_021", "label": { "fr": "Our organization complies with all the laws of the nation (e.g. payment of taxes, rates, etc.)", "en": "Our organization complies with all the laws of the nation (e.g. payment of taxes, rates, etc.)" } },
-        { "id": "GOV_022", "label": { "fr": "The members of the governing body have access to legal advice and services when needed", "en": "The members of the governing body have access to legal advice and services when needed" } },
-        { "id": "GOV_023", "label": { "fr": "Members of the governing body clearly understand their respective roles and responsibilities", "en": "Members of the governing body clearly understand their respective roles and responsibilities" } },
-        { "id": "GOV_024", "label": { "fr": "Our board members participate in mobilization of resources for the organization", "en": "Our board members participate in mobilization of resources for the organization" } },
-        { "id": "GOV_025", "label": { "fr": "Our organization has in place leadership succession procedures and plans", "en": "Our organization has in place leadership succession procedures and plans" } },
-        { "id": "GOV_026", "label": { "fr": "The governing body is actively involved in review of achievement of strategic goals, financial and resource position of the organization", "en": "The governing body is actively involved in review of achievement of strategic goals, financial and resource position of the organization" } },
-        { "id": "GOV_027", "label": { "fr": "The approval of strategic plans, budgets and operational plans is documented in the minutes of the governing body", "en": "The approval of strategic plans, budgets and operational plans is documented in the minutes of the governing body" } },
-        { "id": "GOV_028", "label": { "fr": "Board members consistently attend organization's key program events", "en": "Board members consistently attend organization's key program events" } },
-        { "id": "GOV_029", "label": { "fr": "Our organization has in place a conflict of interest policy", "en": "Our organization has in place a conflict of interest policy" } },
-        { "id": "GOV_030", "label": { "fr": "Our organization has a clear membership recruitment strategy", "en": "Our organization has a clear membership recruitment strategy" } },
-        { "id": "GOV_031", "label": { "fr": "Our organization has an updated list of members", "en": "Our organization has an updated list of members" } },
-        { "id": "GOV_032", "label": { "fr": "The membership contributes to the formulation of policies in our organization", "en": "The membership contributes to the formulation of policies in our organization" } },
-        { "id": "GOV_033", "label": { "fr": "There is adequate representation of the membership on the board", "en": "There is adequate representation of the membership on the board" } },
-        { "id": "GOV_034", "label": { "fr": "Our organization has clear communication processes for the different members", "en": "Our organization has clear communication processes for the different members" } },
-        { "id": "GOV_035", "label": { "fr": "Our organization has a retention strategy in place for its membership", "en": "Our organization has a retention strategy in place for its membership" } }
+        {
+          "id": "S1_01",
+          "type": "text",
+          "label": {
+            "fr": "1.1. Quel est le nom légal de l'organisation ?",
+            "en": "1.1. Quel est le nom légal de l'organisation ?"
+          }
+        },
+        {
+          "id": "S1_02",
+          "type": "text",
+          "label": {
+            "fr": "1.2. Quelle est la date de création ?",
+            "en": "1.2. Quelle est la date de création ?"
+          },
+          "inputType": "date"
+        },
+        {
+          "id": "S1_03",
+          "type": "text",
+          "label": {
+            "fr": "1.3. Votre organisation dispose-t-elle d'une vision claire ?",
+            "en": "1.3. Votre organisation dispose-t-elle d'une vision claire ?"
+          }
+        },
+        {
+          "id": "S1_04",
+          "type": "select",
+          "label": {
+            "fr": "1.4. L'organisation est-elle légalement enregistrée ?",
+            "en": "1.4. L'organisation est-elle légalement enregistrée ?"
+          },
+          "options": [
+            {
+              "value": "option1",
+              "label": {
+                "fr": "Non",
+                "en": "Non"
+              },
+              "weight": 0
+            },
+            {
+              "value": "option2",
+              "label": {
+                "fr": "En cours d'acquisition",
+                "en": "En cours d'acquisition"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option3",
+              "label": {
+                "fr": "Oui",
+                "en": "Oui"
+              },
+              "weight": 2
+            }
+          ]
+        },
+        {
+          "id": "S1_05",
+          "type": "text",
+          "label": {
+            "fr": "1.6. Où se trouve le siège social ?",
+            "en": "1.6. Où se trouve le siège social ?"
+          }
+        },
+        {
+          "id": "S1_06",
+          "type": "boolean",
+          "label": {
+            "fr": "1.7. Disposez-vous d'un organigramme ?",
+            "en": "1.7. Disposez-vous d'un organigramme ?"
+          }
+        },
+        {
+          "id": "S1_07",
+          "type": "text",
+          "label": {
+            "fr": "1.8. Combien de bureaux opérationnels existe-t-il ?",
+            "en": "1.8. Combien de bureaux opérationnels existe-t-il ?"
+          },
+          "inputType": "number"
+        },
+        {
+          "id": "S1_08",
+          "type": "text",
+          "label": {
+            "fr": "1.9. Quel est le budget annuel des 3 dernières années ?",
+            "en": "1.9. Quel est le budget annuel des 3 dernières années ?"
+          }
+        },
+        {
+          "id": "S1_09",
+          "type": "text",
+          "label": {
+            "fr": "1.10. Quels sont les principaux bailleurs ?",
+            "en": "1.10. Quels sont les principaux bailleurs ?"
+          }
+        },
+        {
+          "id": "S1_10",
+          "type": "text",
+          "label": {
+            "fr": "1.11. Quels sont les principaux secteurs d'intervention ?",
+            "en": "1.11. Quels sont les principaux secteurs d'intervention ?"
+          }
+        },
+        {
+          "id": "S1_11",
+          "type": "boolean",
+          "label": {
+            "fr": "1.12. Disposez-vous d'un énoncé clair donnant signification à votre logo ?",
+            "en": "1.12. Disposez-vous d'un énoncé clair donnant signification à votre logo ?"
+          }
+        },
+        {
+          "id": "S1_12",
+          "type": "boolean",
+          "label": {
+            "fr": "1.13. L'organisation a-t-elle un audit institutionnel des 2 dernières années ?",
+            "en": "1.13. L'organisation a-t-elle un audit institutionnel des 2 dernières années ?"
+          }
+        }
       ]
     },
     {
-      "id": "MGT",
-      "label": { "fr": "Gestion générale et administration", "en": "General Management and Administration" },
+      "id": "S2",
+      "label": {
+        "fr": "Conseil d'administration (gouvernance)",
+        "en": "Board of Directors (Governance)"
+      },
       "questions": [
-        { "id": "MGT_001", "label": { "fr": "The structure and composition of management is clear", "en": "The structure and composition of management is clear" } },
-        { "id": "MGT_002", "label": { "fr": "Members of the management team have a clear understanding of their roles and responsibilities", "en": "Members of the management team have a clear understanding of their roles and responsibilities" } },
-        { "id": "MGT_003", "label": { "fr": "The management is committed to the vision, mission, and goals of our organization", "en": "The management is committed to the vision, mission, and goals of our organization" } },
-        { "id": "MGT_004", "label": { "fr": "The management is accountable to the governing body", "en": "The management is accountable to the governing body" } },
-        { "id": "MGT_005", "label": { "fr": "Members of the management have relevant skills and competencies required for its role and functions", "en": "Members of the management have relevant skills and competencies required for its role and functions" } },
-        { "id": "MGT_006", "label": { "fr": "Members of the management receive on-going training to further develop their skills", "en": "Members of the management receive on-going training to further develop their skills" } },
-        { "id": "MGT_007", "label": { "fr": "Our organization has clear internal co-ordination mechanisms", "en": "Our organization has clear internal co-ordination mechanisms" } },
-        { "id": "MGT_008", "label": { "fr": "Our organization undertakes periodic strategic planning using a participatory process involving board, staff, members and key partners", "en": "Our organization undertakes periodic strategic planning using a participatory process involving board, staff, members and key partners" } },
-        { "id": "MGT_009", "label": { "fr": "Our organization develops operational and annual work plans to implement the strategic plan", "en": "Our organization develops operational and annual work plans to implement the strategic plan" } },
-        { "id": "MGT_010", "label": { "fr": "Our organization annually monitors/reviews the implementation of its operational plans", "en": "Our organization annually monitors/reviews the implementation of its operational plans" } },
-        { "id": "MGT_011", "label": { "fr": "The attitudes, behavior and actions of the management encourage participation and involvement of staff in decision making", "en": "The attitudes, behavior and actions of the management encourage participation and involvement of staff in decision making" } },
-        { "id": "MGT_012", "label": { "fr": "Our organization has adequate infrastructure (buildings, facilities and equipment) to support effective and efficient operations", "en": "Our organization has adequate infrastructure (buildings, facilities and equipment) to support effective and efficient operations" } },
-        { "id": "MGT_013", "label": { "fr": "Our organization has a competent officer(s) responsible for administration functions", "en": "Our organization has a competent officer(s) responsible for administration functions" } },
-        { "id": "MGT_014", "label": { "fr": "Our organization has a written policy on administration matters and they are consistently applied", "en": "Our organization has a written policy on administration matters and they are consistently applied" } },
-        { "id": "MGT_015", "label": { "fr": "Our organization has put in place persons responsible for the maintenance and security of property", "en": "Our organization has put in place persons responsible for the maintenance and security of property" } },
-        { "id": "MGT_016", "label": { "fr": "Our organization has secured facilities to ensure access to critical documents and equipment is limited to authorized personnel", "en": "Our organization has secured facilities to ensure access to critical documents and equipment is limited to authorized personnel" } },
-        { "id": "MGT_017", "label": { "fr": "Our organization has a reliable and regularly maintained filing system", "en": "Our organization has a reliable and regularly maintained filing system" } },
-        { "id": "MGT_018", "label": { "fr": "Our organizational information is backed up regularly (in soft or hard versions)", "en": "Our organizational information is backed up regularly (in soft or hard versions)" } },
-        { "id": "MGT_019", "label": { "fr": "Our organizational information is backed up remotely", "en": "Our organizational information is backed up remotely" } },
-        { "id": "MGT_020", "label": { "fr": "The organization undertakes a periodic assessment to determine space and equipment needs", "en": "The organization undertakes a periodic assessment to determine space and equipment needs" } },
-        { "id": "MGT_021", "label": { "fr": "Our organization has adequate plans to address ongoing facility needs and funds are set aside to address those needs", "en": "Our organization has adequate plans to address ongoing facility needs and funds are set aside to address those needs" } },
-        { "id": "MGT_022", "label": { "fr": "Organizational records are organized and well kept", "en": "Organizational records are organized and well kept" } },
-        { "id": "MGT_023", "label": { "fr": "There are mechanisms to ensure effective and timely communication", "en": "There are mechanisms to ensure effective and timely communication" } },
-        { "id": "MGT_024", "label": { "fr": "Organizational logistics are well supported to ensure effective and timely fulfillment of tasks", "en": "Organizational logistics are well supported to ensure effective and timely fulfillment of tasks" } },
-        { "id": "MGT_025", "label": { "fr": "Our organization keeps an updated inventory of all assets and equipment", "en": "Our organization keeps an updated inventory of all assets and equipment" } },
-        { "id": "MGT_026", "label": { "fr": "Our organization has developed values that all members of the board, management and staff identify with", "en": "Our organization has developed values that all members of the board, management and staff identify with" } },
-        { "id": "MGT_027", "label": { "fr": "Each department has a written scope of services that describes the services provided", "en": "Each department has a written scope of services that describes the services provided" } },
-        { "id": "MGT_028", "label": { "fr": "The values of our organization are reflected in the actions of board members, management and staff", "en": "The values of our organization are reflected in the actions of board members, management and staff" } },
-        { "id": "MGT_029", "label": { "fr": "Our organization has clearly written and documented staff management policies", "en": "Our organization has clearly written and documented staff management policies" } },
-        { "id": "MGT_030", "label": { "fr": "Our organization has clearly written and documented operations policies", "en": "Our organization has clearly written and documented operations policies" } },
-        { "id": "MGT_031", "label": { "fr": "Our organization has clearly written and documented equipment & facilities policies", "en": "Our organization has clearly written and documented equipment & facilities policies" } },
-        { "id": "MGT_032", "label": { "fr": "Our organization has a regularly updated structure that clearly reflects delegation of authority, division of responsibilities and lines of reporting", "en": "Our organization has a regularly updated structure that clearly reflects delegation of authority, division of responsibilities and lines of reporting" } },
-        { "id": "MGT_033", "label": { "fr": "The organizational structure allows for effective communication and work relations within the organization", "en": "The organizational structure allows for effective communication and work relations within the organization" } },
-        { "id": "MGT_034", "label": { "fr": "The policies and procedures apply to everybody in the organization without discrimination", "en": "The policies and procedures apply to everybody in the organization without discrimination" } },
-        { "id": "MGT_035", "label": { "fr": "Our organization regularly reviews and updates the policies and procedures", "en": "Our organization regularly reviews and updates the policies and procedures" } }
+        {
+          "id": "S2_01",
+          "type": "text",
+          "label": {
+            "fr": "2.1. Combien de membres composent le CA ?",
+            "en": "2.1. Combien de membres composent le CA ?"
+          },
+          "inputType": "number"
+        },
+        {
+          "id": "S2_02",
+          "type": "boolean",
+          "label": {
+            "fr": "2.2. Existe-t-il une diversité de genre ?",
+            "en": "2.2. Existe-t-il une diversité de genre ?"
+          }
+        },
+        {
+          "id": "S2_03",
+          "type": "boolean",
+          "label": {
+            "fr": "2.3. Existe-t-il une politique de diversité et inclusion dans votre organisation ?",
+            "en": "2.3. Existe-t-il une politique de diversité et inclusion dans votre organisation ?"
+          }
+        },
+        {
+          "id": "S2_04",
+          "type": "boolean",
+          "label": {
+            "fr": "2.4. Existe-t-il des critères de sélection des membres du CA ?",
+            "en": "2.4. Existe-t-il des critères de sélection des membres du CA ?"
+          }
+        },
+        {
+          "id": "S2_05",
+          "type": "boolean",
+          "label": {
+            "fr": "2.5. Existe-t-il des termes de référence du CA ?",
+            "en": "2.5. Existe-t-il des termes de référence du CA ?"
+          }
+        },
+        {
+          "id": "S2_06",
+          "type": "boolean",
+          "label": {
+            "fr": "2.6. Le conseil d'administration est-il évalué périodiquement ?",
+            "en": "2.6. Le conseil d'administration est-il évalué périodiquement ?"
+          }
+        },
+        {
+          "id": "S2_07",
+          "type": "boolean",
+          "label": {
+            "fr": "2.7. Existe-t-il des PV des réunions du CA signés ?",
+            "en": "2.7. Existe-t-il des PV des réunions du CA signés ?"
+          }
+        },
+        {
+          "id": "S2_08",
+          "type": "boolean",
+          "label": {
+            "fr": "2.8. Existe-t-il un quorum ?",
+            "en": "2.8. Existe-t-il un quorum ?"
+          }
+        },
+        {
+          "id": "S2_09",
+          "type": "boolean",
+          "label": {
+            "fr": "2.10. Existe-t-il un règlement intérieur de l'organisation ?",
+            "en": "2.10. Existe-t-il un règlement intérieur de l'organisation ?"
+          }
+        },
+        {
+          "id": "S2_10",
+          "type": "boolean",
+          "label": {
+            "fr": "2.11. Votre conseil d'administration joue-t-il son rôle véritable de mobilisation des ressources à l'équipe d'exécution ?",
+            "en": "2.11. Votre conseil d'administration joue-t-il son rôle véritable de mobilisation des ressources à l'équipe d'exécution ?"
+          }
+        },
+        {
+          "id": "S2_11",
+          "type": "boolean",
+          "label": {
+            "fr": "2.13. Existe-t-il des comités spécialisés ?",
+            "en": "2.13. Existe-t-il des comités spécialisés ?"
+          }
+        },
+        {
+          "id": "S2_12",
+          "type": "boolean",
+          "label": {
+            "fr": "2.14. Votre organisation dispose-t-elle d'une commission de contrôle interne ?",
+            "en": "2.14. Votre organisation dispose-t-elle d'une commission de contrôle interne ?"
+          }
+        },
+        {
+          "id": "S2_13",
+          "type": "multiselect",
+          "label": {
+            "fr": "2.11b. Existe-t-il :",
+            "en": "2.11b. Existe-t-il :"
+          },
+          "options": [
+            {
+              "value": "option1",
+              "label": {
+                "fr": "Politique conflit d'intérêt",
+                "en": "Politique conflit d'intérêt"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option2",
+              "label": {
+                "fr": "Déclaration annuelle d'intérêts",
+                "en": "Déclaration annuelle d'intérêts"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option3",
+              "label": {
+                "fr": "Politique anti-corruption",
+                "en": "Politique anti-corruption"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option4",
+              "label": {
+                "fr": "Politique anti-fraude",
+                "en": "Politique anti-fraude"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option5",
+              "label": {
+                "fr": "Politique de lutte contre le blanchiment de capitaux et anti-terrorisme",
+                "en": "Politique de lutte contre le blanchiment de capitaux et anti-terrorisme"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option6",
+              "label": {
+                "fr": "Politiques de partenariat",
+                "en": "Politiques de partenariat"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option7",
+              "label": {
+                "fr": "Politique Genre et inclusion",
+                "en": "Politique Genre et inclusion"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option8",
+              "label": {
+                "fr": "Politique des coûts partagés",
+                "en": "Politique des coûts partagés"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option9",
+              "label": {
+                "fr": "Politique de protection de l'enfant et sauvegarde",
+                "en": "Politique de protection de l'enfant et sauvegarde"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option10",
+              "label": {
+                "fr": "Politique de partenariat",
+                "en": "Politique de partenariat"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "id": "S2_14",
+          "type": "boolean",
+          "label": {
+            "fr": "2.12. Les membres signent-ils un code d'éthique ?",
+            "en": "2.12. Les membres signent-ils un code d'éthique ?"
+          }
+        }
       ]
     },
     {
-      "id": "FIN",
-      "label": { "fr": "Gestion financière", "en": "Financial Management" },
+      "id": "S3",
+      "label": {
+        "fr": "Direction exécutive / Coordination",
+        "en": "Executive Management / Coordination"
+      },
       "questions": [
-        { "id": "FIN_001", "label": { "fr": "Our organization has documented financial policies and procedures that apply to everyone in the organization without discrimination", "en": "Our organization has documented financial policies and procedures that apply to everyone in the organization without discrimination" } },
-        { "id": "FIN_002", "label": { "fr": "Board, management and staff use the organization's financial resources and assets as per the guidelines", "en": "Board, management and staff use the organization's financial resources and assets as per the guidelines" } },
-        { "id": "FIN_003", "label": { "fr": "Our organization has fulltime qualified finance staff", "en": "Our organization has fulltime qualified finance staff" } },
-        { "id": "FIN_004", "label": { "fr": "Our organization has clear guidelines on segregation of financial duties", "en": "Our organization has clear guidelines on segregation of financial duties" } },
-        { "id": "FIN_005", "label": { "fr": "Our organization consistently prepares timely bank reconciliations", "en": "Our organization consistently prepares timely bank reconciliations" } },
-        { "id": "FIN_006", "label": { "fr": "Our organization prepares and regularly reviews budgets", "en": "Our organization prepares and regularly reviews budgets" } },
-        { "id": "FIN_007", "label": { "fr": "All relevant staff participate in developing and reviewing the budgets", "en": "All relevant staff participate in developing and reviewing the budgets" } },
-        { "id": "FIN_008", "label": { "fr": "Our organization has a mechanism of recording each donor's income and other in-kind support", "en": "Our organization has a mechanism of recording each donor's income and other in-kind support" } },
-        { "id": "FIN_009", "label": { "fr": "Our organization's financial reporting is consistent, timely and accurate", "en": "Our organization's financial reporting is consistent, timely and accurate" } },
-        { "id": "FIN_010", "label": { "fr": "Our organization has policies and procedures that management and staff follow in the purchase of goods and services", "en": "Our organization has policies and procedures that management and staff follow in the purchase of goods and services" } },
-        { "id": "FIN_011", "label": { "fr": "Our organization has a framework that assists with the planning, recording, replacement, maintenance and use of its assets", "en": "Our organization has a framework that assists with the planning, recording, replacement, maintenance and use of its assets" } },
-        { "id": "FIN_012", "label": { "fr": "Our organization has a travel and expenses policy which includes travel arrangements, methods, approvals, per diem and receipts requirements", "en": "Our organization has a travel and expenses policy which includes travel arrangements, methods, approvals, per diem and receipts requirements" } },
-        { "id": "FIN_013", "label": { "fr": "Our organization conducts regular external audits", "en": "Our organization conducts regular external audits" } },
-        { "id": "FIN_014", "label": { "fr": "Our organization consistently shares audit recommendations with the board and relevant staff", "en": "Our organization consistently shares audit recommendations with the board and relevant staff" } },
-        { "id": "FIN_015", "label": { "fr": "Our organization consistently implements audit recommendations", "en": "Our organization consistently implements audit recommendations" } },
-        { "id": "FIN_016", "label": { "fr": "Our organization has an accounting software in place", "en": "Our organization has an accounting software in place" } },
-        { "id": "FIN_017", "label": { "fr": "Our organization notifies all prospective bidders of solicitations for contract bids with sufficient time to respond", "en": "Our organization notifies all prospective bidders of solicitations for contract bids with sufficient time to respond" } },
-        { "id": "FIN_018", "label": { "fr": "Our organization awards procurement contracts to the qualified bidder that conforms to requirements and offers a reasonable cost", "en": "Our organization awards procurement contracts to the qualified bidder that conforms to requirements and offers a reasonable cost" } },
-        { "id": "FIN_019", "label": { "fr": "Our organization has a procurement process that identifies the individuals involved, their roles and the methods used for sourcing suppliers", "en": "Our organization has a procurement process that identifies the individuals involved, their roles and the methods used for sourcing suppliers" } },
-        { "id": "FIN_020", "label": { "fr": "Our organization undertakes market surveys using a specific and documented process for maintaining the database of service providers", "en": "Our organization undertakes market surveys using a specific and documented process for maintaining the database of service providers" } },
-        { "id": "FIN_021", "label": { "fr": "Our organization has a procurement committee of qualified individuals with oversight of procurements, with recorded meeting minutes", "en": "Our organization has a procurement committee of qualified individuals with oversight of procurements, with recorded meeting minutes" } },
-        { "id": "FIN_022", "label": { "fr": "Our organization carries out feasibility and option analysis to determine the most economical option ahead of procurement", "en": "Our organization carries out feasibility and option analysis to determine the most economical option ahead of procurement" } },
-        { "id": "FIN_023", "label": { "fr": "Our organization undertakes research on service procurements and conducts interviews for major consultancies and audit services", "en": "Our organization undertakes research on service procurements and conducts interviews for major consultancies and audit services" } },
-        { "id": "FIN_024", "label": { "fr": "Our organization reviews all contract performance before renewal or any extension is granted", "en": "Our organization reviews all contract performance before renewal or any extension is granted" } },
-        { "id": "FIN_025", "label": { "fr": "Our organization keeps and maintains records showing amounts due to suppliers that are reconciled regularly with statements from them", "en": "Our organization keeps and maintains records showing amounts due to suppliers that are reconciled regularly with statements from them" } },
-        { "id": "FIN_026", "label": { "fr": "Our organization monitors all contractual and administrative issues arising out of procurement, including source evaluation, protests, claims and disputes", "en": "Our organization monitors all contractual and administrative issues arising out of procurement, including source evaluation, protests, claims and disputes" } }
+        {
+          "id": "S3_01",
+          "type": "boolean",
+          "label": {
+            "fr": "3.1. Votre organisation dispose-t-elle des descriptions de postes pour l'ensemble de l'équipe de la Direction Exécutive / Coordination ?",
+            "en": "3.1. Votre organisation dispose-t-elle des descriptions de postes pour l'ensemble de l'équipe de la Direction Exécutive / Coordination ?"
+          }
+        },
+        {
+          "id": "S3_02",
+          "type": "boolean",
+          "label": {
+            "fr": "3.2. Votre organisation dispose-t-elle d'un plan stratégique pluriannuel ?",
+            "en": "3.2. Votre organisation dispose-t-elle d'un plan stratégique pluriannuel ?"
+          }
+        },
+        {
+          "id": "S3_03",
+          "type": "boolean",
+          "label": {
+            "fr": "3.3. Votre organisation dispose-t-elle d'un plan opérationnel annuel ?",
+            "en": "3.3. Votre organisation dispose-t-elle d'un plan opérationnel annuel ?"
+          }
+        },
+        {
+          "id": "S3_04",
+          "type": "boolean",
+          "label": {
+            "fr": "3.4. Votre organisation dispose-t-elle des indicateurs clés de performance permettant de mesurer si l'organisation atteint ses objectifs stratégiques et opérationnels ?",
+            "en": "3.4. Votre organisation dispose-t-elle des indicateurs clés de performance permettant de mesurer si l'organisation atteint ses objectifs stratégiques et opérationnels ?"
+          }
+        },
+        {
+          "id": "S3_05",
+          "type": "boolean",
+          "label": {
+            "fr": "3.5. Votre organisation organise-t-elle des réunions de coordination ?",
+            "en": "3.5. Votre organisation organise-t-elle des réunions de coordination ?"
+          }
+        },
+        {
+          "id": "S3_06",
+          "type": "boolean",
+          "label": {
+            "fr": "3.6. Votre organisation organise-t-elle des réunions exclusivement pour les staff senior (Senior Management Team) ?",
+            "en": "3.6. Votre organisation organise-t-elle des réunions exclusivement pour les staff senior (Senior Management Team) ?"
+          }
+        },
+        {
+          "id": "S3_07",
+          "type": "boolean",
+          "label": {
+            "fr": "3.7. Votre organisation dispose-t-elle d'un système de reporting interne ?",
+            "en": "3.7. Votre organisation dispose-t-elle d'un système de reporting interne ?"
+          }
+        },
+        {
+          "id": "S3_08",
+          "type": "boolean",
+          "label": {
+            "fr": "3.8. Existe-t-il un registre des risques ?",
+            "en": "3.8. Existe-t-il un registre des risques ?"
+          }
+        },
+        {
+          "id": "S3_09",
+          "type": "boolean",
+          "label": {
+            "fr": "3.9. Existe-t-il un comité de gestion des risques ?",
+            "en": "3.9. Existe-t-il un comité de gestion des risques ?"
+          }
+        }
       ]
     },
     {
-      "id": "HR",
-      "label": { "fr": "Ressources humaines", "en": "Human Resources" },
+      "id": "S4",
+      "label": {
+        "fr": "Programmes",
+        "en": "Programs"
+      },
       "questions": [
-        { "id": "HR_001", "label": { "fr": "Our organization has well documented staff and volunteer policies and procedures", "en": "Our organization has well documented staff and volunteer policies and procedures" } },
-        { "id": "HR_002", "label": { "fr": "All staff and volunteers demonstrate understanding of the policies and procedures", "en": "All staff and volunteers demonstrate understanding of the policies and procedures" } },
-        { "id": "HR_003", "label": { "fr": "The staff and volunteer policies and procedures apply to all staff and volunteers uniformly without discrimination", "en": "The staff and volunteer policies and procedures apply to all staff and volunteers uniformly without discrimination" } },
-        { "id": "HR_004", "label": { "fr": "The staff and volunteer policies and procedures are regularly updated", "en": "The staff and volunteer policies and procedures are regularly updated" } },
-        { "id": "HR_005", "label": { "fr": "Our organization has an open and fair staff/volunteer recruitment process", "en": "Our organization has an open and fair staff/volunteer recruitment process" } },
-        { "id": "HR_006", "label": { "fr": "A staffing plan is developed, based on the organization's strategic plan and the department's scope of services", "en": "A staffing plan is developed, based on the organization's strategic plan and the department's scope of services" } },
-        { "id": "HR_007", "label": { "fr": "Our organization conducts thorough induction and orientation of all new staff and volunteers and the orientation program is documented", "en": "Our organization conducts thorough induction and orientation of all new staff and volunteers and the orientation program is documented" } },
-        { "id": "HR_008", "label": { "fr": "Each staff member and volunteer has a written contract", "en": "Each staff member and volunteer has a written contract" } },
-        { "id": "HR_009", "label": { "fr": "All staff and volunteers have a written job/role description", "en": "All staff and volunteers have a written job/role description" } },
-        { "id": "HR_010", "label": { "fr": "All staff members and volunteers operate within their respective roles and responsibilities as spelled out on their job/role descriptions", "en": "All staff members and volunteers operate within their respective roles and responsibilities as spelled out on their job/role descriptions" } },
-        { "id": "HR_011", "label": { "fr": "Tasks assigned to staff and volunteers correspond to written job descriptions", "en": "Tasks assigned to staff and volunteers correspond to written job descriptions" } },
-        { "id": "HR_012", "label": { "fr": "The organization has a recruitment and retention plan developed collaboratively with department leaders, updated annually", "en": "The organization has a recruitment and retention plan developed collaboratively with department leaders, updated annually" } },
-        { "id": "HR_013", "label": { "fr": "Employee turnover is well managed so that organization's operations do not falter", "en": "Employee turnover is well managed so that organization's operations do not falter" } },
-        { "id": "HR_014", "label": { "fr": "Staffing levels are adequate with at least all key positions filled", "en": "Staffing levels are adequate with at least all key positions filled" } },
-        { "id": "HR_015", "label": { "fr": "Our organization pays staff salaries that are in line with market rates", "en": "Our organization pays staff salaries that are in line with market rates" } },
-        { "id": "HR_016", "label": { "fr": "Our organization has ways of rewarding exemplary performance", "en": "Our organization has ways of rewarding exemplary performance" } },
-        { "id": "HR_017", "label": { "fr": "Our organization has ways of effectively addressing poor performance among staff", "en": "Our organization has ways of effectively addressing poor performance among staff" } },
-        { "id": "HR_018", "label": { "fr": "The work environment in our organization promotes high staff morale and positive regard for one another", "en": "The work environment in our organization promotes high staff morale and positive regard for one another" } },
-        { "id": "HR_019", "label": { "fr": "Interpersonal conflicts among staff are dealt with in a timely and fair manner", "en": "Interpersonal conflicts among staff are dealt with in a timely and fair manner" } },
-        { "id": "HR_020", "label": { "fr": "Our organization has a way of motivating and rewarding volunteers", "en": "Our organization has a way of motivating and rewarding volunteers" } },
-        { "id": "HR_021", "label": { "fr": "The organization has a documented system for reviewing and managing performance of staff and volunteers", "en": "The organization has a documented system for reviewing and managing performance of staff and volunteers" } },
-        { "id": "HR_022", "label": { "fr": "The management acts on the recommendations of staff performance assessment", "en": "The management acts on the recommendations of staff performance assessment" } },
-        { "id": "HR_023", "label": { "fr": "The management has adequate skills for staff supervision and skills development", "en": "The management has adequate skills for staff supervision and skills development" } },
-        { "id": "HR_024", "label": { "fr": "Our organization has a system for encouraging staff to develop their professional skills", "en": "Our organization has a system for encouraging staff to develop their professional skills" } },
-        { "id": "HR_025", "label": { "fr": "Our organization determines staff development needs based on annual appraisals and develops a staff development plan", "en": "Our organization determines staff development needs based on annual appraisals and develops a staff development plan" } }
+        {
+          "id": "S4_01",
+          "type": "boolean",
+          "label": {
+            "fr": "4.1. Existe-t-il une procédure formelle qui explique comment les projets sont identifiés, conçus, validés et mis en œuvre au sein de l'organisation ?",
+            "en": "4.1. Existe-t-il une procédure formelle qui explique comment les projets sont identifiés, conçus, validés et mis en œuvre au sein de l'organisation ?"
+          }
+        },
+        {
+          "id": "S4_02",
+          "type": "boolean",
+          "label": {
+            "fr": "4.2. Votre organisation dispose-t-elle d'un manuel des programmes ?",
+            "en": "4.2. Votre organisation dispose-t-elle d'un manuel des programmes ?"
+          }
+        },
+        {
+          "id": "S4_03",
+          "type": "boolean",
+          "label": {
+            "fr": "4.3. Votre organisation dispose-t-elle d'un plan de préparation et réponse aux urgences ?",
+            "en": "4.3. Votre organisation dispose-t-elle d'un plan de préparation et réponse aux urgences ?"
+          }
+        },
+        {
+          "id": "S4_04",
+          "type": "boolean",
+          "label": {
+            "fr": "4.4. Le plan de préparation et réponse aux urgences est-il exécuté tel que conçu ?",
+            "en": "4.4. Le plan de préparation et réponse aux urgences est-il exécuté tel que conçu ?"
+          }
+        },
+        {
+          "id": "S4_05",
+          "type": "boolean",
+          "label": {
+            "fr": "4.5. L'organisation développe-t-elle des plans de travail (workplans) qui décrivent les activités à réaliser, les responsables, les délais et les ressources nécessaires ?",
+            "en": "4.5. L'organisation développe-t-elle des plans de travail (workplans) qui décrivent les activités à réaliser, les responsables, les délais et les ressources nécessaires ?"
+          }
+        },
+        {
+          "id": "S4_06",
+          "type": "boolean",
+          "label": {
+            "fr": "4.6. Votre organisation dispose-t-elle d'une équipe spécialisée dans l'écriture et le montage des projets ?",
+            "en": "4.6. Votre organisation dispose-t-elle d'une équipe spécialisée dans l'écriture et le montage des projets ?"
+          }
+        },
+        {
+          "id": "S4_07",
+          "type": "boolean",
+          "label": {
+            "fr": "4.7. L'organisation dispose-t-elle des mécanismes de sélection des bénéficiaires ?",
+            "en": "4.7. L'organisation dispose-t-elle des mécanismes de sélection des bénéficiaires ?"
+          }
+        },
+        {
+          "id": "S4_08",
+          "type": "boolean",
+          "label": {
+            "fr": "4.8. À quel niveau vos programmes intègrent-ils le genre et l'inclusion ?",
+            "en": "4.8. À quel niveau vos programmes intègrent-ils le genre et l'inclusion ?"
+          }
+        },
+        {
+          "id": "S4_09",
+          "type": "boolean",
+          "label": {
+            "fr": "4.10. Avez-vous des stratégies d'intégration du HPD (Humanitaire, Paix et Développement) dans vos programmes ?",
+            "en": "4.10. Avez-vous des stratégies d'intégration du HPD (Humanitaire, Paix et Développement) dans vos programmes ?"
+          }
+        },
+        {
+          "id": "S4_10",
+          "type": "boolean",
+          "label": {
+            "fr": "4.11. Vos programmes intègrent-ils les aspects en rapport avec le changement climatique ?",
+            "en": "4.11. Vos programmes intègrent-ils les aspects en rapport avec le changement climatique ?"
+          }
+        },
+        {
+          "id": "S4_11",
+          "type": "boolean",
+          "label": {
+            "fr": "4.12. Vos programmes intègrent-ils les aspects en rapport avec les actions anticipatoires et la réduction des risques ?",
+            "en": "4.12. Vos programmes intègrent-ils les aspects en rapport avec les actions anticipatoires et la réduction des risques ?"
+          }
+        },
+        {
+          "id": "S4_12",
+          "type": "boolean",
+          "label": {
+            "fr": "4.13. L'organisation prépare-t-elle des calendriers détaillés (chronogrammes) montrant la planification des activités avec dates, responsabilités et délais ?",
+            "en": "4.13. L'organisation prépare-t-elle des calendriers détaillés (chronogrammes) montrant la planification des activités avec dates, responsabilités et délais ?"
+          }
+        },
+        {
+          "id": "S4_13",
+          "type": "boolean",
+          "label": {
+            "fr": "4.14. Existe-t-il des SOP programme ?",
+            "en": "4.14. Existe-t-il des SOP programme ?"
+          }
+        },
+        {
+          "id": "S4_14",
+          "type": "multiselect",
+          "label": {
+            "fr": "4.15. Existe-t-il :",
+            "en": "4.15. Existe-t-il :"
+          },
+          "options": [
+            {
+              "value": "option1",
+              "label": {
+                "fr": "Rapports mensuels",
+                "en": "Rapports mensuels"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option2",
+              "label": {
+                "fr": "Rapports bailleurs",
+                "en": "Rapports bailleurs"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option3",
+              "label": {
+                "fr": "Review meetings",
+                "en": "Review meetings"
+              },
+              "weight": 1
+            }
+          ]
+        }
       ]
     },
     {
-      "id": "PRG",
-      "label": { "fr": "Développement et gestion des programmes", "en": "Program Development and Management" },
+      "id": "S5",
+      "label": {
+        "fr": "Ressources humaines",
+        "en": "Human Resources"
+      },
       "questions": [
-        { "id": "PRG_001", "label": { "fr": "Our organization has a clear program strategy", "en": "Our organization has a clear program strategy" } },
-        { "id": "PRG_002", "label": { "fr": "Our organization's projects are designed on the basis of needs assessment", "en": "Our organization's projects are designed on the basis of needs assessment" } },
-        { "id": "PRG_003", "label": { "fr": "Our organization incorporates sustainability in project design", "en": "Our organization incorporates sustainability in project design" } },
-        { "id": "PRG_004", "label": { "fr": "Our organization possesses internal capacity to develop quality project proposals", "en": "Our organization possesses internal capacity to develop quality project proposals" } },
-        { "id": "PRG_005", "label": { "fr": "Our projects are implemented with the view of supporting community members", "en": "Our projects are implemented with the view of supporting community members" } },
-        { "id": "PRG_006", "label": { "fr": "Our projects take into account community views during implementation", "en": "Our projects take into account community views during implementation" } },
-        { "id": "PRG_007", "label": { "fr": "Our projects develop appropriate action plans to guide implementation", "en": "Our projects develop appropriate action plans to guide implementation" } },
-        { "id": "PRG_008", "label": { "fr": "Our projects include gender and equity strategies in all aspects of development and implementation", "en": "Our projects include gender and equity strategies in all aspects of development and implementation" } },
-        { "id": "PRG_009", "label": { "fr": "Our projects are designed to ensure they can be replicated or allow for scaling up", "en": "Our projects are designed to ensure they can be replicated or allow for scaling up" } },
-        { "id": "PRG_010", "label": { "fr": "Our organization applies lessons learnt from project implementation", "en": "Our organization applies lessons learnt from project implementation" } },
-        { "id": "PRG_011", "label": { "fr": "Our organization holds capacity building activities for those involved in program activities through training, demonstrations and extension services", "en": "Our organization holds capacity building activities for those involved in program activities through training, demonstrations and extension services" } },
-        { "id": "PRG_012", "label": { "fr": "Our organization is responsive to beneficiary needs", "en": "Our organization is responsive to beneficiary needs" } },
-        { "id": "PRG_013", "label": { "fr": "Our organization provides appropriate technologies or innovation to enhance activities", "en": "Our organization provides appropriate technologies or innovation to enhance activities" } },
-        { "id": "PRG_014", "label": { "fr": "Our organization promotes positive support and working relationship with stakeholders", "en": "Our organization promotes positive support and working relationship with stakeholders" } }
+        {
+          "id": "S5_01",
+          "type": "boolean",
+          "label": {
+            "fr": "5.1. L'ONG a-t-elle élaboré un manuel écrit de gestion des ressources humaines ?",
+            "en": "5.1. L'ONG a-t-elle élaboré un manuel écrit de gestion des ressources humaines ?"
+          }
+        },
+        {
+          "id": "S5_02",
+          "type": "boolean",
+          "label": {
+            "fr": "5.2. L'ONG dispose-t-elle d'une politique ou de procédures définies en matière de recrutement du personnel ?",
+            "en": "5.2. L'ONG dispose-t-elle d'une politique ou de procédures définies en matière de recrutement du personnel ?"
+          }
+        },
+        {
+          "id": "S5_03",
+          "type": "boolean",
+          "label": {
+            "fr": "5.3. L'organisation dispose-t-elle d'un cadre disciplinaire formel (avertissements, sanctions, recours) ?",
+            "en": "5.3. L'organisation dispose-t-elle d'un cadre disciplinaire formel (avertissements, sanctions, recours) ?"
+          }
+        },
+        {
+          "id": "S5_04",
+          "type": "boolean",
+          "label": {
+            "fr": "5.4. L'ONG a-t-elle mis en place une politique formalisée de gestion et d'évaluation des performances ?",
+            "en": "5.4. L'ONG a-t-elle mis en place une politique formalisée de gestion et d'évaluation des performances ?"
+          }
+        },
+        {
+          "id": "S5_05",
+          "type": "boolean",
+          "label": {
+            "fr": "5.5. Le processus de recrutement inclut-il des descriptions de poste, des panels de recrutement, des grilles de notation et une vérification systématique des références ?",
+            "en": "5.5. Le processus de recrutement inclut-il des descriptions de poste, des panels de recrutement, des grilles de notation et une vérification systématique des références ?"
+          }
+        },
+        {
+          "id": "S5_06",
+          "type": "boolean",
+          "label": {
+            "fr": "5.6. Les dossiers du personnel sont-ils complets (contrat, description de poste, évaluation de performance) et l'organisation dispose-t-elle de systèmes formalisés de paie et de suivi des congés ?",
+            "en": "5.6. Les dossiers du personnel sont-ils complets (contrat, description de poste, évaluation de performance) et l'organisation dispose-t-elle de systèmes formalisés de paie et de suivi des congés ?"
+          }
+        },
+        {
+          "id": "S5_07",
+          "type": "boolean",
+          "label": {
+            "fr": "5.8. Existe-t-il des formations obligatoires pour le personnel (code de conduite, PSEA, sécurité, politiques internes) ?",
+            "en": "5.8. Existe-t-il des formations obligatoires pour le personnel (code de conduite, PSEA, sécurité, politiques internes) ?"
+          }
+        },
+        {
+          "id": "S5_08",
+          "type": "boolean",
+          "label": {
+            "fr": "5.9. Votre organisation dispose-t-elle d'une politique de rétention et durabilité du personnel ?",
+            "en": "5.9. Votre organisation dispose-t-elle d'une politique de rétention et durabilité du personnel ?"
+          }
+        },
+        {
+          "id": "S5_09",
+          "type": "boolean",
+          "label": {
+            "fr": "5.10. Une politique de recrutement spécifique est-elle en place et appliquée ?",
+            "en": "5.10. Une politique de recrutement spécifique est-elle en place et appliquée ?"
+          }
+        },
+        {
+          "id": "S5_10",
+          "type": "boolean",
+          "label": {
+            "fr": "5.11. Les méthodes de recrutement sont-elles transparentes et cohérentes (annonces, notes d'entretien) ?",
+            "en": "5.11. Les méthodes de recrutement sont-elles transparentes et cohérentes (annonces, notes d'entretien) ?"
+          }
+        },
+        {
+          "id": "S5_11",
+          "type": "boolean",
+          "label": {
+            "fr": "5.12. Des vérifications de références et légales sont-elles effectuées avant l'embauche ?",
+            "en": "5.12. Des vérifications de références et légales sont-elles effectuées avant l'embauche ?"
+          }
+        },
+        {
+          "id": "S5_12",
+          "type": "boolean",
+          "label": {
+            "fr": "5.13. L'organisation est-elle efficace pour attirer et retenir du personnel qualifié ?",
+            "en": "5.13. L'organisation est-elle efficace pour attirer et retenir du personnel qualifié ?"
+          }
+        },
+        {
+          "id": "S5_13",
+          "type": "boolean",
+          "label": {
+            "fr": "5.14. La diversité et l'équilibre du personnel (genre) sont-ils respectés ?",
+            "en": "5.14. La diversité et l'équilibre du personnel (genre) sont-ils respectés ?"
+          }
+        },
+        {
+          "id": "S5_14",
+          "type": "boolean",
+          "label": {
+            "fr": "5.15. L'organisation tient-elle des feuilles de temps pour tous les employés ?",
+            "en": "5.15. L'organisation tient-elle des feuilles de temps pour tous les employés ?"
+          }
+        },
+        {
+          "id": "S5_15",
+          "type": "boolean",
+          "label": {
+            "fr": "5.16. Les feuilles de temps reflètent-elles correctement le temps travaillé ?",
+            "en": "5.16. Les feuilles de temps reflètent-elles correctement le temps travaillé ?"
+          }
+        },
+        {
+          "id": "S5_16",
+          "type": "boolean",
+          "label": {
+            "fr": "5.17. Votre organisation dispose-t-elle d'un mécanisme de calcul des avantages aux staffs (logement, soins médicaux, transports) ?",
+            "en": "5.17. Votre organisation dispose-t-elle d'un mécanisme de calcul des avantages aux staffs (logement, soins médicaux, transports) ?"
+          }
+        },
+        {
+          "id": "S5_17",
+          "type": "boolean",
+          "label": {
+            "fr": "5.18. Votre organisation est-elle en règle avec la loi congolaise en termes de déclaration et impôts, incluant le quote-part patronal ?",
+            "en": "5.18. Votre organisation est-elle en règle avec la loi congolaise en termes de déclaration et impôts, incluant le quote-part patronal ?"
+          }
+        },
+        {
+          "id": "S5_18",
+          "type": "boolean",
+          "label": {
+            "fr": "5.19. L'organisation dispose-t-elle d'un code de conduite ?",
+            "en": "5.19. L'organisation dispose-t-elle d'un code de conduite ?"
+          }
+        },
+        {
+          "id": "S5_19",
+          "type": "boolean",
+          "label": {
+            "fr": "5.20. Existe-t-il une politique de dénonciation (whistleblowing) ?",
+            "en": "5.20. Existe-t-il une politique de dénonciation (whistleblowing) ?"
+          }
+        },
+        {
+          "id": "S5_20",
+          "type": "boolean",
+          "label": {
+            "fr": "5.21. Tout le personnel a-t-il signé le code de conduite et la politique de dénonciation ?",
+            "en": "5.21. Tout le personnel a-t-il signé le code de conduite et la politique de dénonciation ?"
+          }
+        },
+        {
+          "id": "S5_21",
+          "type": "boolean",
+          "label": {
+            "fr": "5.22. Le personnel comprend-il les principes humanitaires ?",
+            "en": "5.22. Le personnel comprend-il les principes humanitaires ?"
+          }
+        },
+        {
+          "id": "S5_22",
+          "type": "boolean",
+          "label": {
+            "fr": "5.23. Le personnel est-il tenu responsable du respect des principes humanitaires ?",
+            "en": "5.23. Le personnel est-il tenu responsable du respect des principes humanitaires ?"
+          }
+        },
+        {
+          "id": "S5_23",
+          "type": "boolean",
+          "label": {
+            "fr": "5.24. Des mécanismes existent-ils pour intégrer et orienter les nouveaux employés ?",
+            "en": "5.24. Des mécanismes existent-ils pour intégrer et orienter les nouveaux employés ?"
+          }
+        },
+        {
+          "id": "S5_24",
+          "type": "boolean",
+          "label": {
+            "fr": "5.25. Le personnel comprend-il et a-t-il accès aux procédures disciplinaires et de griefs ?",
+            "en": "5.25. Le personnel comprend-il et a-t-il accès aux procédures disciplinaires et de griefs ?"
+          }
+        },
+        {
+          "id": "S5_25",
+          "type": "boolean",
+          "label": {
+            "fr": "5.26. Les rôles et responsabilités du personnel sont-ils clairement définis et connus ?",
+            "en": "5.26. Les rôles et responsabilités du personnel sont-ils clairement définis et connus ?"
+          }
+        },
+        {
+          "id": "S5_26",
+          "type": "boolean",
+          "label": {
+            "fr": "5.27. L'organisation évalue-t-elle régulièrement la performance du personnel ?",
+            "en": "5.27. L'organisation évalue-t-elle régulièrement la performance du personnel ?"
+          }
+        },
+        {
+          "id": "S5_27",
+          "type": "boolean",
+          "label": {
+            "fr": "5.28. Dans la globalité, l'organisation dispose-t-elle d'un plan de renforcement des capacités des staffs ?",
+            "en": "5.28. Dans la globalité, l'organisation dispose-t-elle d'un plan de renforcement des capacités des staffs ?"
+          }
+        },
+        {
+          "id": "S5_28",
+          "type": "boolean",
+          "label": {
+            "fr": "5.29. Les cas de sous-performance sont-ils traités via des plans de développement et procédures disciplinaires ?",
+            "en": "5.29. Les cas de sous-performance sont-ils traités via des plans de développement et procédures disciplinaires ?"
+          }
+        }
       ]
     },
     {
-      "id": "PPM",
-      "label": { "fr": "Gestion de la performance des projets", "en": "Project Performance Management" },
+      "id": "S6",
+      "label": {
+        "fr": "Finances",
+        "en": "Finance"
+      },
       "questions": [
-        { "id": "PPM_001", "label": { "fr": "Our organization has clearly written MERL plans that are in line with the strategic plan and its programs", "en": "Our organization has clearly written MERL plans that are in line with the strategic plan and its programs" } },
-        { "id": "PPM_002", "label": { "fr": "All programs and projects have clearly defined results at different levels (input, output, outcome and impact)", "en": "All programs and projects have clearly defined results at different levels (input, output, outcome and impact)" } },
-        { "id": "PPM_003", "label": { "fr": "All programs and projects have indicators for the different levels of results (input, output, outcome, impact)", "en": "All programs and projects have indicators for the different levels of results (input, output, outcome, impact)" } },
-        { "id": "PPM_004", "label": { "fr": "Our organization has a complete set of data collection tools", "en": "Our organization has a complete set of data collection tools" } },
-        { "id": "PPM_005", "label": { "fr": "Our organization has staff assigned the responsibility of MERL", "en": "Our organization has staff assigned the responsibility of MERL" } },
-        { "id": "PPM_006", "label": { "fr": "Our organization has staff who are skilled and experienced in MERL", "en": "Our organization has staff who are skilled and experienced in MERL" } },
-        { "id": "PPM_007", "label": { "fr": "Our organization has enough budgetary allocation for implementing MERL activities", "en": "Our organization has enough budgetary allocation for implementing MERL activities" } },
-        { "id": "PPM_008", "label": { "fr": "Our organization collects data from relevant sites/sources regularly", "en": "Our organization collects data from relevant sites/sources regularly" } },
-        { "id": "PPM_009", "label": { "fr": "Our organization conducts timely analysis of data generated to determine trends", "en": "Our organization conducts timely analysis of data generated to determine trends" } },
-        { "id": "PPM_010", "label": { "fr": "Our organization addresses data quality issues (timeliness, integrity, reliability, precision, validity, etc.)", "en": "Our organization addresses data quality issues (timeliness, integrity, reliability, precision, validity, etc.)" } },
-        { "id": "PPM_011", "label": { "fr": "Our organization produces high quality reports regularly and timely", "en": "Our organization produces high quality reports regularly and timely" } },
-        { "id": "PPM_012", "label": { "fr": "Our organization's reports are shared internally", "en": "Our organization's reports are shared internally" } },
-        { "id": "PPM_013", "label": { "fr": "Our organization's reports are shared externally with other stakeholders", "en": "Our organization's reports are shared externally with other stakeholders" } },
-        { "id": "PPM_014", "label": { "fr": "Our organization has an effective way of filing data/information (both physical and electronic files)", "en": "Our organization has an effective way of filing data/information (both physical and electronic files)" } },
-        { "id": "PPM_015", "label": { "fr": "Our organization undertakes regular and timely evaluations of its programs/projects", "en": "Our organization undertakes regular and timely evaluations of its programs/projects" } },
-        { "id": "PPM_016", "label": { "fr": "Our organization uses information generated from MERL processes for decision making", "en": "Our organization uses information generated from MERL processes for decision making" } },
-        { "id": "PPM_017", "label": { "fr": "Our organization upholds learning through regular exchange visits, conferences and other means", "en": "Our organization upholds learning through regular exchange visits, conferences and other means" } }
+        {
+          "id": "S6_01",
+          "type": "boolean",
+          "label": {
+            "fr": "6.1. Existe-t-il un manuel financier ?",
+            "en": "6.1. Existe-t-il un manuel financier ?"
+          }
+        },
+        {
+          "id": "S6_02",
+          "type": "boolean",
+          "label": {
+            "fr": "6.2. Existe-t-il un logiciel comptable ?",
+            "en": "6.2. Existe-t-il un logiciel comptable ?"
+          }
+        },
+        {
+          "id": "S6_03",
+          "type": "boolean",
+          "label": {
+            "fr": "6.3. Existe-t-il un plan comptable ?",
+            "en": "6.3. Existe-t-il un plan comptable ?"
+          }
+        },
+        {
+          "id": "S6_04",
+          "type": "boolean",
+          "label": {
+            "fr": "6.4. Votre organisation dispose-t-elle d'une stratégie de mobilisation de fonds ?",
+            "en": "6.4. Votre organisation dispose-t-elle d'une stratégie de mobilisation de fonds ?"
+          }
+        },
+        {
+          "id": "S6_05",
+          "type": "boolean",
+          "label": {
+            "fr": "6.5. Votre organisation dispose-t-elle de réserves pour survivre en l'absence de financement externe ?",
+            "en": "6.5. Votre organisation dispose-t-elle de réserves pour survivre en l'absence de financement externe ?"
+          }
+        },
+        {
+          "id": "S6_06",
+          "type": "boolean",
+          "label": {
+            "fr": "6.6. Existe-t-il une règle de double signature pour l'approbation des paiements et des engagements financiers ?",
+            "en": "6.6. Existe-t-il une règle de double signature pour l'approbation des paiements et des engagements financiers ?"
+          }
+        },
+        {
+          "id": "S6_07",
+          "type": "boolean",
+          "label": {
+            "fr": "6.7. Existe-t-il un système de suivi budgétaire permettant de comparer régulièrement les dépenses réelles au budget approuvé ?",
+            "en": "6.7. Existe-t-il un système de suivi budgétaire permettant de comparer régulièrement les dépenses réelles au budget approuvé ?"
+          }
+        },
+        {
+          "id": "S6_08",
+          "type": "boolean",
+          "label": {
+            "fr": "6.8. L'organisation dispose-t-elle d'un audit externe réalisé par un auditeur indépendant ?",
+            "en": "6.8. L'organisation dispose-t-elle d'un audit externe réalisé par un auditeur indépendant ?"
+          }
+        },
+        {
+          "id": "S6_09",
+          "type": "boolean",
+          "label": {
+            "fr": "6.9. Existe-t-il une fonction ou un processus d'audit interne permettant de contrôler les opérations et procédures internes ?",
+            "en": "6.9. Existe-t-il une fonction ou un processus d'audit interne permettant de contrôler les opérations et procédures internes ?"
+          }
+        },
+        {
+          "id": "S6_10",
+          "type": "boolean",
+          "label": {
+            "fr": "6.10. L'organisation a-t-elle mis en place une politique de gestion de la trésorerie incluant des plafonds de caisse et des contrôles inopinés réguliers ?",
+            "en": "6.10. L'organisation a-t-elle mis en place une politique de gestion de la trésorerie incluant des plafonds de caisse et des contrôles inopinés réguliers ?"
+          }
+        },
+        {
+          "id": "S6_11",
+          "type": "boolean",
+          "label": {
+            "fr": "6.11. Existe-t-il un mécanisme de signalement (whistleblowing) permettant de dénoncer de manière confidentielle les fraudes, abus ou manquements éthiques ?",
+            "en": "6.11. Existe-t-il un mécanisme de signalement (whistleblowing) permettant de dénoncer de manière confidentielle les fraudes, abus ou manquements éthiques ?"
+          }
+        }
       ]
     },
     {
-      "id": "EXT",
-      "label": { "fr": "Relations extérieures et durabilité", "en": "External Relations and Sustainability" },
+      "id": "S7",
+      "label": {
+        "fr": "Logistique et achats",
+        "en": "Logistics and Procurement"
+      },
       "questions": [
-        { "id": "EXT_001", "label": { "fr": "Our organization has a documented plan on how to raise funds and other resources", "en": "Our organization has a documented plan on how to raise funds and other resources" } },
-        { "id": "EXT_002", "label": { "fr": "Our organization has a mechanism for generating own income (e.g. a business, sale of products, offering consultancy services, etc.)", "en": "Our organization has a mechanism for generating own income (e.g. a business, sale of products, offering consultancy services, etc.)" } },
-        { "id": "EXT_003", "label": { "fr": "Board members and staff have skills and capacities required in resource mobilization", "en": "Board members and staff have skills and capacities required in resource mobilization" } },
-        { "id": "EXT_004", "label": { "fr": "Our organization links resource mobilization to our strategic plan", "en": "Our organization links resource mobilization to our strategic plan" } },
-        { "id": "EXT_005", "label": { "fr": "Implementation of the resource mobilization plan is on schedule", "en": "Implementation of the resource mobilization plan is on schedule" } },
-        { "id": "EXT_006", "label": { "fr": "Our organization has a track record of mobilizing resources from local (national) sources", "en": "Our organization has a track record of mobilizing resources from local (national) sources" } },
-        { "id": "EXT_007", "label": { "fr": "Our organization has a track record of mobilizing resources from sources outside the country", "en": "Our organization has a track record of mobilizing resources from sources outside the country" } },
-        { "id": "EXT_008", "label": { "fr": "Our organization has a plan for investing part of the income it generates", "en": "Our organization has a plan for investing part of the income it generates" } },
-        { "id": "EXT_009", "label": { "fr": "Resource mobilization is a team effort in our organization", "en": "Resource mobilization is a team effort in our organization" } },
-        { "id": "EXT_010", "label": { "fr": "Our organization monitors and evaluates the resource mobilization endeavors", "en": "Our organization monitors and evaluates the resource mobilization endeavors" } },
-        { "id": "EXT_011", "label": { "fr": "Our organization receives technical support and resources from donors", "en": "Our organization receives technical support and resources from donors" } },
-        { "id": "EXT_012", "label": { "fr": "Our organization engages with donors in a relationship that benefits both parties", "en": "Our organization engages with donors in a relationship that benefits both parties" } },
-        { "id": "EXT_013", "label": { "fr": "Our organization has a donor retention mechanism", "en": "Our organization has a donor retention mechanism" } },
-        { "id": "EXT_014", "label": { "fr": "Our organization engages with the community at grass root levels", "en": "Our organization engages with the community at grass root levels" } },
-        { "id": "EXT_015", "label": { "fr": "Our organization has a wide circle of contacts from the community (bankers, lawyers, government officials, business community, etc.)", "en": "Our organization has a wide circle of contacts from the community (bankers, lawyers, government officials, business community, etc.)" } },
-        { "id": "EXT_016", "label": { "fr": "Our organization can clearly define criteria for identifying its stakeholders/audience", "en": "Our organization can clearly define criteria for identifying its stakeholders/audience" } },
-        { "id": "EXT_017", "label": { "fr": "Our organization has a clearly articulated strategy for managing relationships", "en": "Our organization has a clearly articulated strategy for managing relationships" } },
-        { "id": "EXT_018", "label": { "fr": "Our organization regularly uses communication tools (brochures, annual reports, newsletters, webpage, social media) to give updates on achievements", "en": "Our organization regularly uses communication tools (brochures, annual reports, newsletters, webpage, social media) to give updates on achievements" } },
-        { "id": "EXT_019", "label": { "fr": "Our organization is responsive to beneficiaries' needs", "en": "Our organization is responsive to beneficiaries' needs" } },
-        { "id": "EXT_020", "label": { "fr": "Our organization holds capacity building activities for beneficiaries through training, demonstrations, extension services and mentoring", "en": "Our organization holds capacity building activities for beneficiaries through training, demonstrations, extension services and mentoring" } },
-        { "id": "EXT_021", "label": { "fr": "Our organization promotes positive support and working relationship amongst beneficiaries", "en": "Our organization promotes positive support and working relationship amongst beneficiaries" } },
-        { "id": "EXT_022", "label": { "fr": "Our organization enhances beneficiaries' access to information, capacity development and other forms of support", "en": "Our organization enhances beneficiaries' access to information, capacity development and other forms of support" } },
-        { "id": "EXT_023", "label": { "fr": "Our organization partners with other CSOs in a relationship that benefits both parties", "en": "Our organization partners with other CSOs in a relationship that benefits both parties" } },
-        { "id": "EXT_024", "label": { "fr": "Our organization has minutes of meetings, memos, or reports which indicate cooperation with relevant community organizations", "en": "Our organization has minutes of meetings, memos, or reports which indicate cooperation with relevant community organizations" } },
-        { "id": "EXT_025", "label": { "fr": "Our organization's staff actively participate in community coalitions and local civic organizations as representatives of the organization", "en": "Our organization's staff actively participate in community coalitions and local civic organizations as representatives of the organization" } },
-        { "id": "EXT_026", "label": { "fr": "Our organization has a written mechanism for identifying the private sector to work with", "en": "Our organization has a written mechanism for identifying the private sector to work with" } },
-        { "id": "EXT_027", "label": { "fr": "Our organization has a working relationship with the private sector", "en": "Our organization has a working relationship with the private sector" } },
-        { "id": "EXT_028", "label": { "fr": "Our organization has received resources from the private sector to support its work", "en": "Our organization has received resources from the private sector to support its work" } },
-        { "id": "EXT_029", "label": { "fr": "Our organization has a clear mechanism to engage with the media", "en": "Our organization has a clear mechanism to engage with the media" } },
-        { "id": "EXT_030", "label": { "fr": "Our organization has received recognition in the local media where stories on our work have been highlighted", "en": "Our organization has received recognition in the local media where stories on our work have been highlighted" } },
-        { "id": "EXT_031", "label": { "fr": "Our organization has an updated list of media contacts", "en": "Our organization has an updated list of media contacts" } },
-        { "id": "EXT_032", "label": { "fr": "Our organization regularly engages with the media", "en": "Our organization regularly engages with the media" } },
-        { "id": "EXT_033", "label": { "fr": "Our organization sets aside resources to engage the media", "en": "Our organization sets aside resources to engage the media" } },
-        { "id": "EXT_034", "label": { "fr": "Our organization has a clear mechanism of engaging with Government and legislative institutions", "en": "Our organization has a clear mechanism of engaging with Government and legislative institutions" } },
-        { "id": "EXT_035", "label": { "fr": "Our organization engages legislative and local government representatives who are regularly invited to our events", "en": "Our organization engages legislative and local government representatives who are regularly invited to our events" } },
-        { "id": "EXT_036", "label": { "fr": "Our organization has a way of obtaining and giving important information to and from government on public issues", "en": "Our organization has a way of obtaining and giving important information to and from government on public issues" } },
-        { "id": "EXT_037", "label": { "fr": "Our organization takes into consideration national, regional and local development priorities in its work", "en": "Our organization takes into consideration national, regional and local development priorities in its work" } }
+        {
+          "id": "S7_01",
+          "type": "boolean",
+          "label": {
+            "fr": "7.1. Existe-t-il un manuel des procédures logistiques définissant clairement les procédures d'achats, d'approvisionnement, de gestion des stocks et les amortissements ?",
+            "en": "7.1. Existe-t-il un manuel des procédures logistiques définissant clairement les procédures d'achats, d'approvisionnement, de gestion des stocks et les amortissements ?"
+          }
+        },
+        {
+          "id": "S7_02",
+          "type": "boolean",
+          "label": {
+            "fr": "7.2. Existe-t-il un plan formalisé d'achats et d'approvisionnement aligné sur les projets et le budget ?",
+            "en": "7.2. Existe-t-il un plan formalisé d'achats et d'approvisionnement aligné sur les projets et le budget ?"
+          }
+        },
+        {
+          "id": "S7_03",
+          "type": "boolean",
+          "label": {
+            "fr": "7.3. Existe-t-il un comité achats ?",
+            "en": "7.3. Existe-t-il un comité achats ?"
+          }
+        },
+        {
+          "id": "S7_04",
+          "type": "boolean",
+          "label": {
+            "fr": "7.4. L'organisation dispose-t-elle de procédures d'achats comprenant demandes de cotation, processus d'appel d'offres, analyse des offres et seuils d'achats clairement définis ?",
+            "en": "7.4. L'organisation dispose-t-elle de procédures d'achats comprenant demandes de cotation, processus d'appel d'offres, analyse des offres et seuils d'achats clairement définis ?"
+          }
+        },
+        {
+          "id": "S7_05",
+          "type": "boolean",
+          "label": {
+            "fr": "7.5. Existe-t-il un registre ou une base de fournisseurs utilisée pour les achats et approvisionnements ?",
+            "en": "7.5. Existe-t-il un registre ou une base de fournisseurs utilisée pour les achats et approvisionnements ?"
+          }
+        },
+        {
+          "id": "S7_06",
+          "type": "boolean",
+          "label": {
+            "fr": "7.6. Existe-t-il une due diligence des fournisseurs (vérification légale, financière, éthique et opérationnelle) avant leur engagement ?",
+            "en": "7.6. Existe-t-il une due diligence des fournisseurs (vérification légale, financière, éthique et opérationnelle) avant leur engagement ?"
+          }
+        },
+        {
+          "id": "S7_07",
+          "type": "boolean",
+          "label": {
+            "fr": "7.7. L'organisation a-t-elle mis en place un système de gestion des stocks comprenant fiches de stock, procédures d'entrepôt et inventaires réguliers ?",
+            "en": "7.7. L'organisation a-t-elle mis en place un système de gestion des stocks comprenant fiches de stock, procédures d'entrepôt et inventaires réguliers ?"
+          }
+        },
+        {
+          "id": "S7_08",
+          "type": "boolean",
+          "label": {
+            "fr": "7.8. Existe-t-il un système de gestion des actifs comprenant un registre des actifs et un marquage/étiquetage des biens (asset register et asset tagging) ?",
+            "en": "7.8. Existe-t-il un système de gestion des actifs comprenant un registre des actifs et un marquage/étiquetage des biens (asset register et asset tagging) ?"
+          }
+        },
+        {
+          "id": "S7_09",
+          "type": "boolean",
+          "label": {
+            "fr": "7.9. Existe-t-il une politique de gestion des véhicules incluant le suivi du carburant (fuel monitoring) et l'utilisation de carnets de bord (logbooks) ?",
+            "en": "7.9. Existe-t-il une politique de gestion des véhicules incluant le suivi du carburant (fuel monitoring) et l'utilisation de carnets de bord (logbooks) ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "S8",
+      "label": {
+        "fr": "MEAL",
+        "en": "MEAL"
+      },
+      "questions": [
+        {
+          "id": "S8_01",
+          "type": "boolean",
+          "label": {
+            "fr": "8.1. Chaque projet dispose-t-il d'un plan MEAL accessible au personnel concerné ?",
+            "en": "8.1. Chaque projet dispose-t-il d'un plan MEAL accessible au personnel concerné ?"
+          }
+        },
+        {
+          "id": "S8_02",
+          "type": "boolean",
+          "label": {
+            "fr": "8.2. Les politiques et procédures MEAL sont-elles clairement communiquées aux équipes ?",
+            "en": "8.2. Les politiques et procédures MEAL sont-elles clairement communiquées aux équipes ?"
+          }
+        },
+        {
+          "id": "S8_03",
+          "type": "boolean",
+          "label": {
+            "fr": "8.3. Les rôles et responsabilités MEAL sont-ils définis dans les fiches de poste ?",
+            "en": "8.3. Les rôles et responsabilités MEAL sont-ils définis dans les fiches de poste ?"
+          }
+        },
+        {
+          "id": "S8_04",
+          "type": "boolean",
+          "label": {
+            "fr": "8.4. Les lignes budgétaires MEAL sont-elles incluses dans les budgets de projet ?",
+            "en": "8.4. Les lignes budgétaires MEAL sont-elles incluses dans les budgets de projet ?"
+          }
+        },
+        {
+          "id": "S8_05",
+          "type": "boolean",
+          "label": {
+            "fr": "8.5. Existe-t-il un système de gestion de l'information incluant données de bénéficiaires et qualité ?",
+            "en": "8.5. Existe-t-il un système de gestion de l'information incluant données de bénéficiaires et qualité ?"
+          }
+        },
+        {
+          "id": "S8_06",
+          "type": "boolean",
+          "label": {
+            "fr": "8.6. Les politiques de confidentialité et consentement éclairé sont-elles appliquées ?",
+            "en": "8.6. Les politiques de confidentialité et consentement éclairé sont-elles appliquées ?"
+          }
+        },
+        {
+          "id": "S8_07",
+          "type": "boolean",
+          "label": {
+            "fr": "8.7. Un protocole de protection des données est-il en place avec contrôles réguliers ?",
+            "en": "8.7. Un protocole de protection des données est-il en place avec contrôles réguliers ?"
+          }
+        },
+        {
+          "id": "S8_08",
+          "type": "boolean",
+          "label": {
+            "fr": "8.9. Des rapports de situation sont-ils régulièrement produits et partagés ?",
+            "en": "8.9. Des rapports de situation sont-ils régulièrement produits et partagés ?"
+          }
+        },
+        {
+          "id": "S8_09",
+          "type": "boolean",
+          "label": {
+            "fr": "8.10. Des évaluations des besoins/baselines sont-elles menées quand les données manquent ?",
+            "en": "8.10. Des évaluations des besoins/baselines sont-elles menées quand les données manquent ?"
+          },
+          "required": false
+        },
+        {
+          "id": "S8_10",
+          "type": "boolean",
+          "label": {
+            "fr": "8.11. Les données sont-elles désagrégées par sexe, âge et autres critères pertinents ?",
+            "en": "8.11. Les données sont-elles désagrégées par sexe, âge et autres critères pertinents ?"
+          }
+        },
+        {
+          "id": "S8_11",
+          "type": "boolean",
+          "label": {
+            "fr": "8.12. Les plans MEAL, budgets et workplans sont-ils régulièrement revus en réunion ?",
+            "en": "8.12. Les plans MEAL, budgets et workplans sont-ils régulièrement revus en réunion ?"
+          }
+        },
+        {
+          "id": "S8_12",
+          "type": "boolean",
+          "label": {
+            "fr": "8.13. Les recommandations et apprentissages sont-ils communiqués et mis en action ?",
+            "en": "8.13. Les recommandations et apprentissages sont-ils communiqués et mis en action ?"
+          }
+        },
+        {
+          "id": "S8_13",
+          "type": "boolean",
+          "label": {
+            "fr": "8.14. Les données MEAL sont-elles utilisées dans la prise de décision stratégique ?",
+            "en": "8.14. Les données MEAL sont-elles utilisées dans la prise de décision stratégique ?"
+          }
+        },
+        {
+          "id": "S8_14",
+          "type": "boolean",
+          "label": {
+            "fr": "8.15. L'organisation surveille-t-elle régulièrement sa performance (compétences, participation, plaintes, MEAL) ?",
+            "en": "8.15. L'organisation surveille-t-elle régulièrement sa performance (compétences, participation, plaintes, MEAL) ?"
+          }
+        },
+        {
+          "id": "S8_15",
+          "type": "boolean",
+          "label": {
+            "fr": "8.16. Les données de suivi et plaintes sont-elles revues pour tirer des leçons ?",
+            "en": "8.16. Les données de suivi et plaintes sont-elles revues pour tirer des leçons ?"
+          }
+        },
+        {
+          "id": "S8_16",
+          "type": "boolean",
+          "label": {
+            "fr": "8.17. L'organisation adapte-t-elle ses pratiques en fonction des évaluations et feedbacks ?",
+            "en": "8.17. L'organisation adapte-t-elle ses pratiques en fonction des évaluations et feedbacks ?"
+          }
+        },
+        {
+          "id": "S8_17",
+          "type": "boolean",
+          "label": {
+            "fr": "8.18. Les plans d'amélioration sont-ils partagés avec les bénéficiaires et parties prenantes ?",
+            "en": "8.18. Les plans d'amélioration sont-ils partagés avec les bénéficiaires et parties prenantes ?"
+          }
+        },
+        {
+          "id": "S8_18",
+          "type": "boolean",
+          "label": {
+            "fr": "8.20. Votre organisation dispose-t-elle d'un mécanisme de capitalisation des leçons apprises, bonnes pratiques et échecs rencontrés dans la mise en œuvre de vos opérations ?",
+            "en": "8.20. Votre organisation dispose-t-elle d'un mécanisme de capitalisation des leçons apprises, bonnes pratiques et échecs rencontrés dans la mise en œuvre de vos opérations ?"
+          }
+        },
+        {
+          "id": "S8_19",
+          "type": "boolean",
+          "label": {
+            "fr": "8.21. L'apprentissage est-il synthétisé et appliqué à travers les projets ?",
+            "en": "8.21. L'apprentissage est-il synthétisé et appliqué à travers les projets ?"
+          }
+        },
+        {
+          "id": "S8_20",
+          "type": "boolean",
+          "label": {
+            "fr": "8.22. L'organisation identifie-t-elle les bénéficiaires selon des critères de vulnérabilité ?",
+            "en": "8.22. L'organisation identifie-t-elle les bénéficiaires selon des critères de vulnérabilité ?"
+          }
+        },
+        {
+          "id": "S8_21",
+          "type": "boolean",
+          "label": {
+            "fr": "8.23. Les bénéficiaires participent-ils aux différentes étapes du projet ?",
+            "en": "8.23. Les bénéficiaires participent-ils aux différentes étapes du projet ?"
+          }
+        },
+        {
+          "id": "S8_22",
+          "type": "boolean",
+          "label": {
+            "fr": "8.24. La participation est-elle encouragée tout au long du cycle du programme ?",
+            "en": "8.24. La participation est-elle encouragée tout au long du cycle du programme ?"
+          }
+        },
+        {
+          "id": "S8_23",
+          "type": "boolean",
+          "label": {
+            "fr": "8.25. L'organisation comprend-elle les attentes en matière de participation communautaire ?",
+            "en": "8.25. L'organisation comprend-elle les attentes en matière de participation communautaire ?"
+          }
+        },
+        {
+          "id": "S8_24",
+          "type": "boolean",
+          "label": {
+            "fr": "8.26. Les bénéficiaires et parties prenantes ont-ils le droit de déposer une plainte ?",
+            "en": "8.26. Les bénéficiaires et parties prenantes ont-ils le droit de déposer une plainte ?"
+          }
+        },
+        {
+          "id": "S8_25",
+          "type": "boolean",
+          "label": {
+            "fr": "8.27. Un mécanisme de plaintes et feedback impartial, sûr et accessible est-il en place ?",
+            "en": "8.27. Un mécanisme de plaintes et feedback impartial, sûr et accessible est-il en place ?"
+          }
+        },
+        {
+          "id": "S8_26",
+          "type": "boolean",
+          "label": {
+            "fr": "8.28. Les bénéficiaires connaissent-ils le mécanisme et savent-ils comment l'utiliser ?",
+            "en": "8.28. Les bénéficiaires connaissent-ils le mécanisme et savent-ils comment l'utiliser ?"
+          }
+        },
+        {
+          "id": "S8_27",
+          "type": "boolean",
+          "label": {
+            "fr": "8.29. Un registre des plaintes et réponses est-il tenu à jour ?",
+            "en": "8.29. Un registre des plaintes et réponses est-il tenu à jour ?"
+          }
+        },
+        {
+          "id": "S8_28",
+          "type": "boolean",
+          "label": {
+            "fr": "8.30. Des délais standards sont-ils définis pour la clôture des plaintes ?",
+            "en": "8.30. Des délais standards sont-ils définis pour la clôture des plaintes ?"
+          }
+        },
+        {
+          "id": "S8_29",
+          "type": "boolean",
+          "label": {
+            "fr": "8.31. Votre organisation dispose-t-elle d'un mécanisme de calcul des avantages aux staffs (logement, soins médicaux, transports) ?",
+            "en": "8.31. Votre organisation dispose-t-elle d'un mécanisme de calcul des avantages aux staffs (logement, soins médicaux, transports) ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "S9",
+      "label": {
+        "fr": "Sécurité et accès",
+        "en": "Security and Access"
+      },
+      "questions": [
+        {
+          "id": "S9_01",
+          "type": "boolean",
+          "label": {
+            "fr": "9.1. La présence et l'usage d'armes à feu ou autres armes par le personnel, dans les locaux ou véhicules, est-elle interdite ?",
+            "en": "9.1. La présence et l'usage d'armes à feu ou autres armes par le personnel, dans les locaux ou véhicules, est-elle interdite ?"
+          }
+        },
+        {
+          "id": "S9_02",
+          "type": "boolean",
+          "label": {
+            "fr": "9.2. Votre organisation adhère-t-elle aux normes humanitaires SPHERE, CHS, INEE, CALP, MERS, SMPE ?",
+            "en": "9.2. Votre organisation adhère-t-elle aux normes humanitaires SPHERE, CHS, INEE, CALP, MERS, SMPE ?"
+          }
+        },
+        {
+          "id": "S9_03",
+          "type": "boolean",
+          "label": {
+            "fr": "9.3. L'organisation fait-elle usage de gardes armés pour ses bureaux, installations ou convois ?",
+            "en": "9.3. L'organisation fait-elle usage de gardes armés pour ses bureaux, installations ou convois ?"
+          }
+        },
+        {
+          "id": "S9_04",
+          "type": "boolean",
+          "label": {
+            "fr": "9.4. Votre organisation dispose-t-elle d'une politique de gestion sécuritaire ?",
+            "en": "9.4. Votre organisation dispose-t-elle d'une politique de gestion sécuritaire ?"
+          }
+        },
+        {
+          "id": "S9_05",
+          "type": "boolean",
+          "label": {
+            "fr": "9.5. Votre organisation dispose-t-elle d'un plan de sécurité ?",
+            "en": "9.5. Votre organisation dispose-t-elle d'un plan de sécurité ?"
+          }
+        },
+        {
+          "id": "S9_06",
+          "type": "boolean",
+          "label": {
+            "fr": "9.6. Existe-t-il des procédures opérationnelles standard de sécurité (SOP sécurité) ?",
+            "en": "9.6. Existe-t-il des procédures opérationnelles standard de sécurité (SOP sécurité) ?"
+          }
+        },
+        {
+          "id": "S9_07",
+          "type": "boolean",
+          "label": {
+            "fr": "9.7. Existe-t-il une SOP sécurité ?",
+            "en": "9.7. Existe-t-il une SOP sécurité ?"
+          }
+        },
+        {
+          "id": "S9_08",
+          "type": "boolean",
+          "label": {
+            "fr": "9.8. Existe-t-il un plan d'évacuation ?",
+            "en": "9.8. Existe-t-il un plan d'évacuation ?"
+          }
+        },
+        {
+          "id": "S9_09",
+          "type": "multiselect",
+          "label": {
+            "fr": "9.9. Existe-t-il :",
+            "en": "9.9. Existe-t-il :"
+          },
+          "options": [
+            {
+              "value": "option1",
+              "label": {
+                "fr": "Une analyse du contexte ?",
+                "en": "Une analyse du contexte ?"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option2",
+              "label": {
+                "fr": "Une analyse des risques ?",
+                "en": "Une analyse des risques ?"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option3",
+              "label": {
+                "fr": "Une cartographie sécuritaire ?",
+                "en": "Une cartographie sécuritaire ?"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "id": "S9_10",
+          "type": "boolean",
+          "label": {
+            "fr": "9.10. Existe-t-il un système de signalement des incidents ?",
+            "en": "9.10. Existe-t-il un système de signalement des incidents ?"
+          }
+        },
+        {
+          "id": "S9_11",
+          "type": "boolean",
+          "label": {
+            "fr": "9.11. Existe-t-il une base de données des incidents ?",
+            "en": "9.11. Existe-t-il une base de données des incidents ?"
+          }
+        },
+        {
+          "id": "S9_12",
+          "type": "multiselect",
+          "label": {
+            "fr": "9.12. Les staffs reçoivent-ils :",
+            "en": "9.12. Les staffs reçoivent-ils :"
+          },
+          "options": [
+            {
+              "value": "option1",
+              "label": {
+                "fr": "Briefings de sécurité ?",
+                "en": "Briefings de sécurité ?"
+              },
+              "weight": 1
+            },
+            {
+              "value": "option2",
+              "label": {
+                "fr": "Formations en sécurité ?",
+                "en": "Formations en sécurité ?"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "id": "S9_13",
+          "type": "boolean",
+          "label": {
+            "fr": "9.13. L'organisation dispose-t-elle des mesures nécessaires pour opérer en sécurité dans un environnement sous pression ?",
+            "en": "9.13. L'organisation dispose-t-elle des mesures nécessaires pour opérer en sécurité dans un environnement sous pression ?"
+          }
+        },
+        {
+          "id": "S9_14",
+          "type": "boolean",
+          "label": {
+            "fr": "9.14. L'organisation bénéficie-t-elle de l'acceptation des communautés locales où elle intervient ?",
+            "en": "9.14. L'organisation bénéficie-t-elle de l'acceptation des communautés locales où elle intervient ?"
+          }
+        },
+        {
+          "id": "S9_15",
+          "type": "boolean",
+          "label": {
+            "fr": "9.16. Tous les incidents de sécurité sont-ils rapportés par écrit aux autorités désignées et aux partenaires, dans des délais appropriés ?",
+            "en": "9.16. Tous les incidents de sécurité sont-ils rapportés par écrit aux autorités désignées et aux partenaires, dans des délais appropriés ?"
+          }
+        },
+        {
+          "id": "S9_16",
+          "type": "boolean",
+          "label": {
+            "fr": "9.17. Votre organisation dispose-t-elle d'une politique de communication ?",
+            "en": "9.17. Votre organisation dispose-t-elle d'une politique de communication ?"
+          }
+        },
+        {
+          "id": "S9_17",
+          "type": "boolean",
+          "label": {
+            "fr": "9.18. Un plan de communication sécurisé est-il établi (ex. arbre de communication interne) ?",
+            "en": "9.18. Un plan de communication sécurisé est-il établi (ex. arbre de communication interne) ?"
+          }
+        },
+        {
+          "id": "S9_18",
+          "type": "boolean",
+          "label": {
+            "fr": "9.20. Votre organisation dispose-t-elle des fiches de consentement pour publier les informations sur les enfants ?",
+            "en": "9.20. Votre organisation dispose-t-elle des fiches de consentement pour publier les informations sur les enfants ?"
+          }
+        },
+        {
+          "id": "S9_19",
+          "type": "boolean",
+          "label": {
+            "fr": "9.21. L'organisation dispose-t-elle de personnel dédié à la sécurité au siège et de points focaux sécurité dans chaque bureau terrain ?",
+            "en": "9.21. L'organisation dispose-t-elle de personnel dédié à la sécurité au siège et de points focaux sécurité dans chaque bureau terrain ?"
+          }
+        },
+        {
+          "id": "S9_20",
+          "type": "boolean",
+          "label": {
+            "fr": "9.24. L'organisation a-t-elle une expérience avérée de mise en œuvre sécurisée dans des zones à haut risque ?",
+            "en": "9.24. L'organisation a-t-elle une expérience avérée de mise en œuvre sécurisée dans des zones à haut risque ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "label": {
+        "fr": "ICT",
+        "en": "ICT"
+      },
+      "questions": [
+        {
+          "id": "S10_01",
+          "type": "boolean",
+          "label": {
+            "fr": "10.1. Existe-t-il une politique informatique (IT policy) définissant l'utilisation des systèmes et équipements IT ?",
+            "en": "10.1. Existe-t-il une politique informatique (IT policy) définissant l'utilisation des systèmes et équipements IT ?"
+          }
+        },
+        {
+          "id": "S10_02",
+          "type": "boolean",
+          "label": {
+            "fr": "10.2. Existe-t-il un mécanisme de consentement pour la collecte et l'utilisation des données des bénéficiaires ?",
+            "en": "10.2. Existe-t-il un mécanisme de consentement pour la collecte et l'utilisation des données des bénéficiaires ?"
+          }
+        },
+        {
+          "id": "S10_03",
+          "type": "boolean",
+          "label": {
+            "fr": "10.3. Disposez-vous d'une politique sur la cybercriminalité ?",
+            "en": "10.3. Disposez-vous d'une politique sur la cybercriminalité ?"
+          }
+        },
+        {
+          "id": "S10_04",
+          "type": "boolean",
+          "label": {
+            "fr": "10.4. Existe-t-il une politique de protection des données (data protection policy) ?",
+            "en": "10.4. Existe-t-il une politique de protection des données (data protection policy) ?"
+          }
+        },
+        {
+          "id": "S10_05",
+          "type": "boolean",
+          "label": {
+            "fr": "10.5. L'organisation a-t-elle mis en place des solutions de cybersécurité (antivirus, firewall, sécurité cloud) ?",
+            "en": "10.5. L'organisation a-t-elle mis en place des solutions de cybersécurité (antivirus, firewall, sécurité cloud) ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "S11",
+      "label": {
+        "fr": "PSEA",
+        "en": "PSEA"
+      },
+      "questions": [
+        {
+          "id": "S11_01",
+          "type": "boolean",
+          "label": {
+            "fr": "11.1. Existe-t-il une politique PSEA (Prévention de l'Exploitation et des Abus Sexuels) ?",
+            "en": "11.1. Existe-t-il une politique PSEA (Prévention de l'Exploitation et des Abus Sexuels) ?"
+          }
+        },
+        {
+          "id": "S11_02",
+          "type": "boolean",
+          "label": {
+            "fr": "11.2. Votre organisation dispose-t-elle d'une équipe formée sur les investigations et la gestion des cas ?",
+            "en": "11.2. Votre organisation dispose-t-elle d'une équipe formée sur les investigations et la gestion des cas ?"
+          }
+        },
+        {
+          "id": "S11_03",
+          "type": "boolean",
+          "label": {
+            "fr": "11.3. Existe-t-il un code de conduite applicable au personnel et aux partenaires ?",
+            "en": "11.3. Existe-t-il un code de conduite applicable au personnel et aux partenaires ?"
+          }
+        },
+        {
+          "id": "S11_04",
+          "type": "boolean",
+          "label": {
+            "fr": "11.4. Existe-t-il des procédures opérationnelles d'enquête (SOP investigation) en cas d'allégations ?",
+            "en": "11.4. Existe-t-il des procédures opérationnelles d'enquête (SOP investigation) en cas d'allégations ?"
+          }
+        },
+        {
+          "id": "S11_05",
+          "type": "boolean",
+          "label": {
+            "fr": "11.5. Vos donateurs acceptent-ils de donner des fonds suffisants pour les activités PSEA ?",
+            "en": "11.5. Vos donateurs acceptent-ils de donner des fonds suffisants pour les activités PSEA ?"
+          }
+        },
+        {
+          "id": "S11_06",
+          "type": "boolean",
+          "label": {
+            "fr": "11.6. Existe-t-il des procédures de sanctions disciplinaires en cas de manquement ?",
+            "en": "11.6. Existe-t-il des procédures de sanctions disciplinaires en cas de manquement ?"
+          }
+        }
+      ]
+    },
+    {
+      "id": "S12",
+      "label": {
+        "fr": "Partenariat et réseautage",
+        "en": "Partnership and Networking"
+      },
+      "questions": [
+        {
+          "id": "S12_01",
+          "type": "boolean",
+          "label": {
+            "fr": "12.1. Votre organisation dispose-t-elle d'une politique de partenariat ?",
+            "en": "12.1. Votre organisation dispose-t-elle d'une politique de partenariat ?"
+          }
+        },
+        {
+          "id": "S12_02",
+          "type": "boolean",
+          "label": {
+            "fr": "12.2. Avez-vous un leadership dans le mécanisme de coordination ?",
+            "en": "12.2. Avez-vous un leadership dans le mécanisme de coordination ?"
+          }
+        },
+        {
+          "id": "S12_03",
+          "type": "boolean",
+          "label": {
+            "fr": "12.3. Votre organisation dispose-t-elle d'un point focal coordination et réseautage ?",
+            "en": "12.3. Votre organisation dispose-t-elle d'un point focal coordination et réseautage ?"
+          }
+        },
+        {
+          "id": "S12_04",
+          "type": "boolean",
+          "label": {
+            "fr": "12.4. Les contrats de partenariat avec les partenaires sont-ils profitables à votre organisation ?",
+            "en": "12.4. Les contrats de partenariat avec les partenaires sont-ils profitables à votre organisation ?"
+          }
+        },
+        {
+          "id": "S12_05",
+          "type": "boolean",
+          "label": {
+            "fr": "12.5. Avez-vous 3 à 4 partenaires institutionnels pour les 5 prochaines années ?",
+            "en": "12.5. Avez-vous 3 à 4 partenaires institutionnels pour les 5 prochaines années ?"
+          }
+        },
+        {
+          "id": "S12_06",
+          "type": "boolean",
+          "label": {
+            "fr": "12.6. Votre organisation est-elle enregistrée dans la plateforme UNPP ?",
+            "en": "12.6. Votre organisation est-elle enregistrée dans la plateforme UNPP ?"
+          }
+        },
+        {
+          "id": "S12_07",
+          "type": "boolean",
+          "label": {
+            "fr": "12.7. Votre organisation est-elle enregistrée dans la plateforme du Fonds Humanitaire / One GMS ?",
+            "en": "12.7. Votre organisation est-elle enregistrée dans la plateforme du Fonds Humanitaire / One GMS ?"
+          }
+        },
+        {
+          "id": "S12_08",
+          "type": "boolean",
+          "label": {
+            "fr": "12.8. À part les financements des ONG internationales, les agences UN en RDC et les Fonds Humanitaires, êtes-vous en contact avec d'autres donateurs ?",
+            "en": "12.8. À part les financements des ONG internationales, les agences UN en RDC et les Fonds Humanitaires, êtes-vous en contact avec d'autres donateurs ?"
+          }
+        },
+        {
+          "id": "S12_09",
+          "type": "boolean",
+          "label": {
+            "fr": "12.9. Appartenez-vous à des réseaux au niveau national ?",
+            "en": "12.9. Appartenez-vous à des réseaux au niveau national ?"
+          }
+        },
+        {
+          "id": "S12_10",
+          "type": "boolean",
+          "label": {
+            "fr": "12.11. Avez-vous une politique de travailler avec les sous-partenaires ?",
+            "en": "12.11. Avez-vous une politique de travailler avec les sous-partenaires ?"
+          }
+        },
+        {
+          "id": "S12_11",
+          "type": "boolean",
+          "label": {
+            "fr": "12.12. Disposez-vous d'une cartographie des donateurs en lien avec vos domaines d'intervention ?",
+            "en": "12.12. Disposez-vous d'une cartographie des donateurs en lien avec vos domaines d'intervention ?"
+          }
+        }
       ]
     }
   ]

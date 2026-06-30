@@ -88,9 +88,9 @@
               <v-chip
                 size="small"
                 variant="tonal"
-                :color="answerColor(question.id, assessment)"
+                :color="answerColor(question, assessment)"
               >
-                {{ answerLabel(question.id, assessment) }}
+                {{ answerLabel(question, assessment) }}
               </v-chip>
             </div>
           </div>
@@ -102,7 +102,13 @@
 
 <script setup lang="ts">
 import questionsData from '@/assets/assessmentQuestions.json'
-import type { Assessment } from '@/models/interfaces/Assessment'
+import type { Assessment, AssessmentAnswer } from '@/models/interfaces/Assessment'
+import {
+  AssessmentFormService,
+  type Question,
+  type QuestionGroup,
+  type QuestionLabel,
+} from '@/services/forms/AssessmentFormService'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
 import { computed, onMounted, ref } from 'vue'
@@ -110,53 +116,57 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import AssessmentRadarChart from './components/AssessmentRadarChart.vue'
 
-interface QuestionLabel { fr: string; en: string }
-interface Question { id: string; label: QuestionLabel }
-interface QuestionGroup { id: string; label: QuestionLabel; questions: Question[] }
-
 const route = useRoute()
 const { locale, t } = useI18n()
 const applicationStore = useApplicationStore()
 const assessmentsStore = useAssessmentsStore()
 
-const questionGroups: QuestionGroup[] = questionsData.groups as QuestionGroup[]
+const questionGroups: QuestionGroup[] = AssessmentFormService.visibleGroups(
+  questionsData.groups as QuestionGroup[],
+)
 
 function getLabel(label: QuestionLabel): string {
-  return label[locale.value as 'fr' | 'en'] ?? label.fr
+  return AssessmentFormService.getLabel(label, locale.value)
 }
 
-function getAnswer(questionId: string, a: Assessment): boolean | null | undefined {
-  return a.fields?.sections?.answers?.[questionId]
+function getAnswer(questionId: string, a: Assessment): AssessmentAnswer {
+  return a.fields?.sections?.answers?.[questionId] ?? null
 }
 
-function answerLabel(questionId: string, a: Assessment): string {
-  const v = getAnswer(questionId, a)
-  if (v === true) return t('assessments.report.yes')
-  if (v === false) return t('assessments.report.no')
-  return t('assessments.report.notAvailable')
+function answerLabel(question: Question, a: Assessment): string {
+  const v = getAnswer(question.id, a)
+  if (!AssessmentFormService.isAnswered(question, v)) return t('assessments.report.notAvailable')
+  if (question.type === 'boolean') return v ? t('assessments.report.yes') : t('assessments.report.no')
+  if (question.type === 'text') return String(v)
+  if (question.type === 'select') {
+    const opt = question.options?.find((o) => o.value === v)
+    return opt ? getLabel(opt.label) : String(v)
+  }
+  // multiselect
+  const selected = Array.isArray(v) ? v : []
+  return (question.options ?? [])
+    .filter((o) => selected.includes(o.value))
+    .map((o) => getLabel(o.label))
+    .join(', ')
 }
 
-function answerColor(questionId: string, a: Assessment): string {
-  const v = getAnswer(questionId, a)
-  if (v === true) return 'success'
-  if (v === false) return 'error'
-  return 'default'
+function answerColor(question: Question, a: Assessment): string {
+  const v = getAnswer(question.id, a)
+  if (!AssessmentFormService.isAnswered(question, v)) return 'default'
+  if (question.type === 'boolean') return v ? 'success' : 'error'
+  return 'main-blue'
 }
 
 function groupAnsweredCount(group: QuestionGroup, a: Assessment): number {
-  return group.questions.filter((q) => {
-    const v = getAnswer(q.id, a)
-    return v !== null && v !== undefined
-  }).length
+  return group.questions.filter((q) => AssessmentFormService.isAnswered(q, getAnswer(q.id, a))).length
 }
 
 function globalScore(a: Assessment): number {
-  const total = questionGroups.reduce((sum, g) => sum + g.questions.length, 0)
-  const yes = questionGroups.reduce(
-    (sum, g) => sum + g.questions.filter((q) => getAnswer(q.id, a) === true).length,
-    0,
+  const answers = a.fields?.sections?.answers ?? {}
+  return AssessmentFormService.scorePercent(
+    questionGroups.flatMap((g) => g.questions),
+    answers,
   )
-  return Math.round((yes / total) * 100)
 }
 
 function radarLabels(a: Assessment): string[] {
@@ -164,10 +174,8 @@ function radarLabels(a: Assessment): string[] {
 }
 
 function radarValues(a: Assessment): number[] {
-  return questionGroups.map((g) => {
-    const yes = g.questions.filter((q) => getAnswer(q.id, a) === true).length
-    return Math.round((yes / g.questions.length) * 100)
-  })
+  const answers = a.fields?.sections?.answers ?? {}
+  return questionGroups.map((g) => AssessmentFormService.scorePercent(g.questions, answers))
 }
 
 const assessmentId = computed(() => route.params.assessmentId as string)

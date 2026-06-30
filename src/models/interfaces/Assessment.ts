@@ -1,6 +1,8 @@
+export type AssessmentAnswer = boolean | string | string[] | null
+
 export interface AssessmentFields {
   sections: {
-    answers: Record<string, boolean | null>
+    answers: Record<string, AssessmentAnswer>
   }
 }
 
