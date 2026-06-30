@@ -3,7 +3,7 @@
     <v-progress-linear v-if="loading" indeterminate color="main-blue" class="mb-4" />
 
     <template v-if="assessment">
-      <div class="AssessmentReport__header app-card">
+      <div class="AssessmentReport__header app-card app-card--flat">
         <div class="AssessmentReport__headerTop">
           <div class="AssessmentReport__headerIcon">
             <v-icon icon="$fileCheckOutline" color="main-blue" size="22" />

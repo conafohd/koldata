@@ -1,6 +1,6 @@
 <template>
   <div class="AssessmentsFormView">
-    <div class="AssessmentsFormView__hero app-card">
+    <div class="AssessmentsFormView__hero app-card app-card--flat">
       <div class="AssessmentsFormView__heroLeft">
         <div class="AssessmentsFormView__heroIcon">
           <v-icon icon="$circleEditOutline" color="main-blue" size="24" />

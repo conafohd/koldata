@@ -1,5 +1,5 @@
 <template>
-  <div class="AssessmentForm">
+  <div ref="rootEl" class="AssessmentForm">
     <v-alert
       v-if="isFinalized"
       type="info"
@@ -9,10 +9,10 @@
       {{ $t('assessments.form.readOnly') }}
     </v-alert>
 
-    <v-stepper v-model="step" :items="steps" alt-labels flat class="AssessmentForm__stepper">
+    <v-stepper v-model="step" :items="steps" color="main-blue" alt-labels flat class="AssessmentForm__stepper">
       <!-- Step 1 — Identity -->
       <template #item.1>
-        <div class="AssessmentForm__card app-card">
+        <div class="AssessmentForm__card app-card app-card--flat">
           <div class="form-field">
             <div class="form-label">{{ $t('assessments.form.campaignTitle') }}</div>
             <v-text-field
@@ -62,9 +62,9 @@
         </div>
       </template>
 
-      <!-- Step 2 — Questionnaire -->
+      <!-- Step 2 — Questionnaire (one part at a time) -->
       <template #item.2>
-        <div class="AssessmentForm__card app-card">
+        <div class="AssessmentForm__card app-card app-card--flat">
           <div class="AssessmentForm__progress">
             <div class="AssessmentForm__progressHeader">
               <span class="form-label">{{ answeredCount }} / {{ totalQuestions }} {{ $t('assessments.form.questionsAnswered') }}</span>
@@ -79,50 +79,85 @@
             />
           </div>
 
-          <div
-            v-for="(group, gi) in questionGroups"
-            :key="group.id"
-            class="AssessmentForm__group"
-            :class="{ 'mt-6': gi > 0 }"
+          <!-- Part selector doubles as the section title -->
+          <div v-if="currentGroup" class="AssessmentForm__groupHeader">
+            <v-select
+              :model-value="partIndex"
+              :items="partItems"
+              variant="outlined"
+              density="compact"
+              hide-details
+              flat
+              class="AssessmentForm__partSelect"
+              @update:model-value="goToPart"
+            >
+              <template #selection="{ item }">
+                <span class="AssessmentForm__partSelectText">{{ item.raw.title }}</span>
+              </template>
+              <template #item="{ item, props: itemProps }">
+                <v-list-item v-bind="itemProps" :title="item.raw.title">
+                  <template #append>
+                    <v-chip
+                      size="x-small"
+                      :color="item.raw.answered === item.raw.total ? 'success' : 'default'"
+                      variant="tonal"
+                    >
+                      {{ item.raw.answered }}/{{ item.raw.total }}
+                    </v-chip>
+                  </template>
+                </v-list-item>
+              </template>
+            </v-select>
+            <v-chip
+              size="x-small"
+              :color="groupAnsweredCount(currentGroup) === currentGroup.questions.length ? 'success' : 'default'"
+              variant="tonal"
+              class="ml-auto"
+            >
+              {{ groupAnsweredCount(currentGroup) }}/{{ currentGroup.questions.length }}
+            </v-chip>
+          </div>
+
+          <div ref="groupWrap" class="AssessmentForm__groupWrap">
+          <transition
+            :name="slideName"
+            @before-leave="lockHeight"
+            @enter="animateHeight"
           >
-            <div class="AssessmentForm__groupHeader">
-              <span class="AssessmentForm__groupIndex">{{ gi + 1 }}</span>
-              <span class="AssessmentForm__groupTitle">{{ getLabel(group.label) }}</span>
-              <v-chip
-                size="x-small"
-                :color="groupAnsweredCount(group) === group.questions.length ? 'success' : 'default'"
-                variant="tonal"
-                class="ml-auto"
-              >
-                {{ groupAnsweredCount(group) }}/{{ group.questions.length }}
-              </v-chip>
-            </div>
+          <div v-if="currentGroup" :key="partIndex" class="AssessmentForm__group">
             <div class="AssessmentForm__questions">
               <div
-                v-for="question in group.questions"
+                v-for="question in currentGroup.questions"
                 :key="question.id"
                 class="AssessmentForm__question"
+                :class="{ 'AssessmentForm__question--missing': showErrors && !isAnswered(question.id) }"
               >
-                <span class="AssessmentForm__questionText">{{ getLabel(question.label) }}</span>
+                <span class="AssessmentForm__questionText">
+                  {{ getLabel(question.label) }}
+                  <span class="AssessmentForm__required">*</span>
+                </span>
                 <v-btn-toggle
                   v-model="answers[question.id]"
                   density="compact"
                   divided
                   rounded="lg"
                   :disabled="isFinalized"
+                  class="AssessmentForm__toggle"
                 >
-                  <v-btn :value="true" size="small">{{ $t('assessments.form.yes') }}</v-btn>
-                  <v-btn :value="false" size="small">{{ $t('assessments.form.no') }}</v-btn>
+                  <v-btn :value="true" size="small" color="success" variant="tonal">{{ $t('assessments.form.yes') }}</v-btn>
+                  <v-btn :value="false" size="small" color="error" variant="tonal">{{ $t('assessments.form.no') }}</v-btn>
                 </v-btn-toggle>
               </div>
             </div>
+          </div>
+          </transition>
           </div>
         </div>
       </template>
 
       <!-- Step 3 — Review -->
       <template #item.3>
-        <div class="AssessmentForm__card app-card">
+        <div class="AssessmentForm__card app-card app-card--flat">
           <div class="AssessmentForm__review">
             <div class="AssessmentForm__reviewRow">
               <span class="AssessmentForm__reviewLabel">{{ $t('assessments.form.campaignTitle') }}</span>
@@ -139,10 +174,12 @@
             <div class="AssessmentForm__reviewRow">
               <span class="AssessmentForm__reviewLabel">{{ $t('assessments.form.stepFields') }}</span>
               <div class="AssessmentForm__reviewGroups">
-                <div
-                  v-for="group in questionGroups"
+                <button
+                  v-for="(group, gi) in questionGroups"
                   :key="group.id"
+                  type="button"
                   class="AssessmentForm__reviewGroup"
+                  @click="jumpToPart(gi)"
                 >
                   <span class="AssessmentForm__reviewGroupName">{{ getLabel(group.label) }}</span>
                   <v-chip
@@ -152,10 +189,19 @@
                   >
                     {{ groupAnsweredCount(group) }}/{{ group.questions.length }}
                   </v-chip>
-                </div>
+                  <v-icon icon="$chevronRight" size="16" class="AssessmentForm__reviewGroupArrow" />
+                </button>
               </div>
             </div>
           </div>
+          <v-alert
+            v-if="!isFinalized && !allAnswered"
+            type="error"
+            variant="tonal"
+            class="mt-5"
+          >
+            {{ $t('assessments.form.incompleteWarning', { count: totalQuestions - answeredCount }) }}
+          </v-alert>
           <v-alert
             v-if="!isFinalized"
             type="warning"
@@ -170,15 +216,15 @@
       <template #actions>
         <div class="AssessmentForm__actions">
           <v-btn
-            v-if="step > 1"
+            v-if="step > 1 || partIndex > 0"
             variant="outlined"
-            @click="step--"
+            @click="handlePrev"
           >
             {{ $t('assessments.form.previous') }}
           </v-btn>
           <v-spacer />
           <v-btn
-            v-if="step < steps.length && !isFinalized"
+            v-if="step < steps.length"
             color="main-blue"
             :disabled="step === 1 && dateOrderError"
             :loading="autoSaving"
@@ -203,13 +249,6 @@
               {{ $t('assessments.form.finalize') }}
             </v-btn>
           </template>
-          <v-btn
-            v-if="step < steps.length && isFinalized"
-            color="main-blue"
-            @click="step++"
-          >
-            {{ $t('assessments.form.next') }}
-          </v-btn>
         </div>
       </template>
     </v-stepper>
@@ -218,13 +257,14 @@
       <v-card flat>
         <v-card-title>{{ $t('assessments.form.periodStart') }}</v-card-title>
         <v-card-text>
-          <v-date-picker v-model="tempStartDate" :max="endDateAsDate" full-width />
+          <v-date-picker
+            v-model="tempStartDate"
+            :max="endDateAsDate"
+            full-width
+            hide-header
+            @update:model-value="confirmPicker('start')"
+          />
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn @click="showStartPicker = false">{{ $t('forms.cancel') }}</v-btn>
-          <v-btn color="main-blue" @click="confirmPicker('start')">{{ $t('forms.confirm') }}</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -232,13 +272,14 @@
       <v-card flat>
         <v-card-title>{{ $t('assessments.form.periodEnd') }}</v-card-title>
         <v-card-text>
-          <v-date-picker v-model="tempEndDate" :min="startDateAsDate" full-width />
+          <v-date-picker
+            v-model="tempEndDate"
+            :min="startDateAsDate"
+            full-width
+            hide-header
+            @update:model-value="confirmPicker('end')"
+          />
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn @click="showEndPicker = false">{{ $t('forms.cancel') }}</v-btn>
-          <v-btn color="main-blue" @click="confirmPicker('end')">{{ $t('forms.confirm') }}</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
@@ -249,7 +290,7 @@ import questionsData from '@/assets/assessmentQuestions.json'
 import type { Assessment, AssessmentUpdate } from '@/models/interfaces/Assessment'
 import { formatDateToString } from '@/services/utils/FormatDate'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 interface QuestionLabel { fr: string; en: string }
@@ -275,11 +316,16 @@ function getLabel(label: QuestionLabel): string {
   return label[locale.value as 'fr' | 'en'] ?? label.fr
 }
 
+function isAnswered(questionId: string): boolean {
+  return answers.value[questionId] !== undefined && answers.value[questionId] !== null
+}
+
 function groupAnsweredCount(group: QuestionGroup): number {
-  return group.questions.filter((q) => answers.value[q.id] !== undefined && answers.value[q.id] !== null).length
+  return group.questions.filter((q) => isAnswered(q.id)).length
 }
 
 const step = ref(1)
+const showErrors = ref(false)
 const autoSaving = ref(false)
 const saving = ref(false)
 const finalizing = ref(false)
@@ -293,6 +339,85 @@ const steps = computed(() => [
   t('assessments.form.stepFields'),
   t('assessments.form.stepReview'),
 ])
+
+// Index of the currently displayed questionnaire part (0-based)
+const partIndex = ref(0)
+const currentGroup = computed(() => questionGroups[partIndex.value])
+
+const partItems = computed(() =>
+  questionGroups.map((g, i) => ({
+    value: i,
+    title: `${i + 1}. ${getLabel(g.label)}`,
+    answered: groupAnsweredCount(g),
+    total: g.questions.length,
+  })),
+)
+
+const rootEl = ref<HTMLElement | null>(null)
+const groupWrap = ref<HTMLElement | null>(null)
+const slideName = ref<'slide-next' | 'slide-prev'>('slide-next')
+
+function scrollToTop() {
+  nextTick(() => {
+    const cards = rootEl.value?.querySelectorAll<HTMLElement>('.AssessmentForm__card')
+    // Only the active step's card is visible; scroll to it
+    const card = cards && Array.from(cards).find((c) => c.offsetParent !== null)
+    ;(card ?? rootEl.value)?.scrollIntoView({ block: 'start' })
+  })
+}
+
+// Animate the wrapper height alongside the slide so there's no vertical jump.
+// The height transition is applied only for the duration of the slide.
+function lockHeight() {
+  const w = groupWrap.value
+  if (w) w.style.height = `${w.offsetHeight}px`
+}
+function animateHeight(el: Element) {
+  const w = groupWrap.value
+  if (!w) return
+  const target = (el as HTMLElement).offsetHeight
+  void w.offsetHeight // force reflow so the locked height is committed
+  w.style.transition = 'height 0.28s ease'
+  w.style.height = `${target}px`
+  const done = (e: TransitionEvent) => {
+    if (e.propertyName !== 'height') return
+    w.style.transition = ''
+    w.style.height = ''
+    w.removeEventListener('transitionend', done)
+  }
+  w.addEventListener('transitionend', done)
+}
+
+async function goToPart(index: number) {
+  if (index === partIndex.value || index < 0 || index >= questionGroups.length) return
+  slideName.value = index > partIndex.value ? 'slide-next' : 'slide-prev'
+  // Switch immediately so the animation is instant, then persist in the background
+  partIndex.value = index
+  scrollToTop()
+  if (!isFinalized.value) {
+    autoSaving.value = true
+    await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
+    autoSaving.value = false
+  }
+}
+
+// Jump from the recap straight to a questionnaire part
+function jumpToPart(index: number) {
+  partIndex.value = index
+  step.value = 2
+  scrollToTop()
+}
+
+// Clear any leftover inline height from an interrupted slide when re-entering step 2
+watch(step, (value) => {
+  if (value !== 2) return
+  nextTick(() => {
+    if (groupWrap.value) {
+      groupWrap.value.style.transition = ''
+      groupWrap.value.style.height = ''
+    }
+  })
+})
 
 const isFinalized = computed(() => !!props.assessment.finalized_at)
 
@@ -315,7 +440,14 @@ const dateOrderError = computed(() => {
 })
 
 const answeredCount = computed(() =>
-  Object.values(answers.value).filter((v) => v !== null && v !== undefined).length,
+  questionGroups.reduce((sum, g) => sum + groupAnsweredCount(g), 0),
+)
+
+const allAnswered = computed(() => answeredCount.value === totalQuestions)
+
+// Index of the first part that still has unanswered questions, or -1 if none
+const firstIncompletePart = computed(() =>
+  questionGroups.findIndex((g) => groupAnsweredCount(g) < g.questions.length),
 )
 
 watch(() => props.assessment, (newVal) => {
@@ -360,10 +492,36 @@ function confirmPicker(type: 'start' | 'end') {
 }
 
 async function handleNext() {
-  autoSaving.value = true
-  await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
-  autoSaving.value = false
+  // While in the questionnaire step, page through parts before advancing
+  if (step.value === 2 && partIndex.value < questionGroups.length - 1) {
+    await goToPart(partIndex.value + 1)
+    return
+  }
+  if (!isFinalized.value) {
+    autoSaving.value = true
+    await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
+    autoSaving.value = false
+  }
+  if (step.value === 1) partIndex.value = 0
   step.value++
+  scrollToTop()
+}
+
+async function handlePrev() {
+  // While in the questionnaire step, page back through parts before stepping back
+  if (step.value === 2 && partIndex.value > 0) {
+    await goToPart(partIndex.value - 1)
+    return
+  }
+  // Coming back from review lands on the last part for a continuous flow
+  if (step.value === 3) {
+    step.value--
+    partIndex.value = questionGroups.length - 1
+    scrollToTop()
+    return
+  }
+  step.value--
+  scrollToTop()
 }
 
 async function handleSave() {
@@ -374,6 +532,15 @@ async function handleSave() {
 }
 
 async function handleFinalize() {
+  // All questions are mandatory before finalizing
+  if (!allAnswered.value) {
+    showErrors.value = true
+    if (firstIncompletePart.value !== -1) {
+      step.value = 2
+      partIndex.value = firstIncompletePart.value
+    }
+    return
+  }
   finalizing.value = true
   await assessmentsStore.finalizeAssessment(props.assessment.id, buildUpdate())
   finalizing.value = false
@@ -382,12 +549,68 @@ async function handleFinalize() {
 </script>
 
 <style scoped lang="scss">
+// Directional slide between questionnaire parts — both parts move at once
+.AssessmentForm__groupWrap {
+  position: relative;
+  overflow: hidden;
+  overflow-anchor: none;
+}
+
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+// Both parts are taken out of flow during the slide; the wrapper height is animated in JS
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.slide-next-enter-from {
+  transform: translateX(40px);
+  opacity: 0;
+}
+.slide-next-leave-to {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+.slide-prev-enter-from {
+  transform: translateX(-40px);
+  opacity: 0;
+}
+.slide-prev-leave-to {
+  transform: translateX(40px);
+  opacity: 0;
+}
+
 .AssessmentForm {
+  // Prevent the browser from "anchoring" the scroll position while the
+  // questionnaire wrapper animates its height (which caused a jump above the card)
+  overflow-anchor: none;
+
   &__stepper {
     background: transparent;
 
     :deep(.v-stepper-header) {
       box-shadow: none;
+    }
+
+    :deep(.v-stepper-item__title) {
+      font-size: 0.8rem;
+    }
+
+    :deep(.v-stepper-item--selected .v-avatar),
+    :deep(.v-stepper-item--complete .v-avatar) {
+      background: rgb(var(--v-theme-main-blue)) !important;
+      color: #fff !important;
     }
 
     :deep(.v-stepper-window) {
@@ -401,10 +624,16 @@ async function handleFinalize() {
   }
 
   &__actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 1rem 0 0;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+    background: #fff;
+    border-top: 1px solid #f1f5f9;
   }
 
   &__progress {
@@ -426,14 +655,28 @@ async function handleFinalize() {
     color: rgb(var(--v-theme-main-blue));
   }
 
-  &__group {
-    border-top: 1px solid #f1f5f9;
-    padding-top: 1.25rem;
+  &__partSelect {
+    flex: 1;
 
-    &:first-of-type {
-      border-top: none;
-      padding-top: 0;
+    :deep(.v-field) {
+      border-radius: 8px;
     }
+
+    :deep(.v-field__input) {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+  }
+
+  &__partSelectText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__group {
+    padding-top: 0;
   }
 
   &__groupHeader {
@@ -457,12 +700,6 @@ async function handleFinalize() {
     flex-shrink: 0;
   }
 
-  &__groupTitle {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #1e293b;
-  }
-
   &__questions {
     display: flex;
     flex-direction: column;
@@ -473,11 +710,20 @@ async function handleFinalize() {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.55rem 0;
-    border-bottom: 1px solid #f8fafc;
+    padding: 0.65rem 0.5rem;
+    border-bottom: 1px solid #cbd5e1;
 
     &:last-child {
       border-bottom: none;
+    }
+
+    &--missing {
+      background: rgba(var(--v-theme-error), 0.06);
+      border-radius: 6px;
+
+      .AssessmentForm__questionText {
+        color: rgb(var(--v-theme-error));
+      }
     }
   }
 
@@ -486,6 +732,27 @@ async function handleFinalize() {
     color: #334155;
     flex: 1;
     line-height: 1.5;
+  }
+
+  &__required {
+    color: rgb(var(--v-theme-error));
+    font-weight: 700;
+    margin-left: 0.15rem;
+  }
+
+  &__toggle {
+    border-color: #f1f5f9;
+    background: #fff;
+
+    :deep(.v-btn),
+    :deep(.v-btn__overlay),
+    :deep(.v-divider) {
+      border-color: #f1f5f9;
+    }
+
+    :deep(.v-btn:not(.v-btn--active)) {
+      background: #fff;
+    }
   }
 
   &__review {
@@ -505,11 +772,30 @@ async function handleFinalize() {
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+    width: 100%;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+      background: rgba(51, 92, 142, 0.05);
+      border-color: #e2e8f0;
+    }
   }
 
   &__reviewGroupName {
     font-size: 0.85rem;
     color: #475569;
+    flex: 1;
+  }
+
+  &__reviewGroupArrow {
+    color: #94a3b8;
+    flex-shrink: 0;
   }
 
   &__reviewRow {

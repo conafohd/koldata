@@ -61,6 +61,7 @@
       "save": "Save",
       "finalize": "Finalize",
       "finalizeWarning": "Once finalized, the assessment can no longer be edited.",
+      "incompleteWarning": "All questions are mandatory. {count} question(s) still unanswered.",
       "readOnly": "This assessment is finalized and read-only.",
       "dateOrderError": "Start date cannot be after end date.",
       "datePlaceholder": "DD/MM/YYYY",

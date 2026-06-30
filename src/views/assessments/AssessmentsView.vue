@@ -1,6 +1,6 @@
 <template>
   <div class="AssessmentsView">
-    <div class="AssessmentsView__hero app-card">
+    <div class="AssessmentsView__hero app-card app-card--flat">
       <div class="AssessmentsView__heroLeft">
         <div class="AssessmentsView__heroIcon">
           <v-icon icon="$fileCheckOutline" color="main-blue" size="24" />

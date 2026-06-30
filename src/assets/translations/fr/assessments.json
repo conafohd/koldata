@@ -61,6 +61,7 @@
       "save": "Enregistrer",
       "finalize": "Finaliser",
       "finalizeWarning": "Une fois finalisée, l'évaluation ne pourra plus être modifiée.",
+      "incompleteWarning": "Toutes les questions sont obligatoires. Il reste {count} question(s) sans réponse.",
       "readOnly": "Cette évaluation est finalisée et en lecture seule.",
       "dateOrderError": "La date de début ne peut pas être après la date de fin.",
       "datePlaceholder": "JJ/MM/AAAA",

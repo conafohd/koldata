@@ -42,6 +42,10 @@ body {
   border-radius: 14px;
   background: #fff;
   box-shadow: 0 20px 45px -28px rgba(51, 92, 142, 0.22);
+
+  &--flat {
+    box-shadow: 0 4px 12px -8px rgba(51, 92, 142, 0.18);
+  }
 }
 
 .ContentCard {
