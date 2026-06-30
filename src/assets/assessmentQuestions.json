@@ -13,7 +13,8 @@
           "label": {
             "fr": "1.1. Quel est le nom légal de l'organisation ?",
             "en": "1.1. Quel est le nom légal de l'organisation ?"
-          }
+          },
+          "hidden": true
         },
         {
           "id": "S1_02",
@@ -22,7 +23,8 @@
             "fr": "1.2. Quelle est la date de création ?",
             "en": "1.2. Quelle est la date de création ?"
           },
-          "inputType": "date"
+          "inputType": "date",
+          "hidden": true
         },
         {
           "id": "S1_03",
@@ -72,7 +74,8 @@
           "label": {
             "fr": "1.6. Où se trouve le siège social ?",
             "en": "1.6. Où se trouve le siège social ?"
-          }
+          },
+          "hidden": true
         },
         {
           "id": "S1_06",
@@ -97,7 +100,8 @@
           "label": {
             "fr": "1.9. Quel est le budget annuel des 3 dernières années ?",
             "en": "1.9. Quel est le budget annuel des 3 dernières années ?"
-          }
+          },
+          "hidden": true
         },
         {
           "id": "S1_09",
@@ -113,7 +117,8 @@
           "label": {
             "fr": "1.11. Quels sont les principaux secteurs d'intervention ?",
             "en": "1.11. Quels sont les principaux secteurs d'intervention ?"
-          }
+          },
+          "hidden": true
         },
         {
           "id": "S1_11",
