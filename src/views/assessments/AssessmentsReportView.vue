@@ -18,6 +18,17 @@
             <v-icon start icon="$checkCircle" size="14" />
             {{ $t('assessments.status.finalized') }}
           </v-chip>
+          <v-btn
+            color="main-blue"
+            variant="flat"
+            size="small"
+            prepend-icon="$download"
+            :loading="exporting"
+            class="ml-2"
+            @click="onExportPdf"
+          >
+            {{ $t('assessments.report.exportPdf') }}
+          </v-btn>
         </div>
 
         <v-divider class="my-4" />
@@ -109,8 +120,13 @@ import {
   type QuestionGroup,
   type QuestionLabel,
 } from '@/services/forms/AssessmentFormService'
+import conafohdLogoUrl from '@/assets/img/conafohd-logo.png'
+import { AssessmentPdfService, type PdfSection } from '@/services/assessments/AssessmentPdfService'
+import { RadarImageService } from '@/services/assessments/RadarImageService'
+import { imageToDataUrl } from '@/services/utils/ImageToDataUrl'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
+import { useAssociationsStore } from '@/stores/associationsStore'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -120,6 +136,7 @@ const route = useRoute()
 const { locale, t } = useI18n()
 const applicationStore = useApplicationStore()
 const assessmentsStore = useAssessmentsStore()
+const associationsStore = useAssociationsStore()
 
 const questionGroups: QuestionGroup[] = AssessmentFormService.visibleGroups(
   questionsData.groups as QuestionGroup[],
@@ -179,9 +196,15 @@ function radarValues(a: Assessment): number[] {
 }
 
 const assessmentId = computed(() => route.params.assessmentId as string)
+const associationId = computed(() => route.params.id as string)
 
 const assessment = ref<Assessment | null>(null)
 const loading = ref(false)
+const exporting = ref(false)
+
+const association = computed(() =>
+  associationsStore.associationsList.find((a) => a.id === associationId.value),
+)
 
 onMounted(async () => {
   applicationStore.setActiveTab()
@@ -195,12 +218,96 @@ onMounted(async () => {
     assessment.value = await assessmentsStore.getAssessmentById(assessmentId.value)
   }
 
+  if (!associationsStore.associationsList.length) {
+    await associationsStore.getAssociationsList()
+  }
+
   loading.value = false
 })
 
 function formatDate(dateStr: string | null): string {
   if (!dateStr) return ''
   return new Date(dateStr).toLocaleDateString('fr-FR')
+}
+
+function compactDate(dateStr: string | null): string {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}${m}${day}`
+}
+
+function buildFileName(a: Assessment): string {
+  const start = compactDate(a.period_start)
+  const end = compactDate(a.period_end)
+  const period = [start, end].filter(Boolean).join('_')
+  return period ? `oca_evaluation_${period}.pdf` : 'oca_evaluation.pdf'
+}
+
+function answerTone(question: Question, a: Assessment): 'positive' | 'negative' | 'neutral' {
+  const color = answerColor(question, a)
+  if (color === 'success') return 'positive'
+  if (color === 'error') return 'negative'
+  return 'neutral'
+}
+
+async function onExportPdf(): Promise<void> {
+  if (!assessment.value) return
+  exporting.value = true
+  try {
+    const a = assessment.value
+    const associationName = association.value?.nom ?? ''
+
+    const [associationLogo, conafohdLogo, radarImage] = await Promise.all([
+      imageToDataUrl(association.value?.logo_url ?? null),
+      imageToDataUrl(conafohdLogoUrl),
+      RadarImageService.toPng(radarLabels(a), radarValues(a)),
+    ])
+
+    const sections: PdfSection[] = questionGroups.map((group) => ({
+      title: getLabel(group.label),
+      answered: groupAnsweredCount(group, a),
+      total: group.questions.length,
+      questions: group.questions.map((q) => ({
+        text: getLabel(q.label),
+        answer: answerLabel(q, a),
+        tone: answerTone(q, a),
+      })),
+    }))
+
+    await AssessmentPdfService.generate({
+      fileName: buildFileName(a),
+      reportTitle: t('assessments.report.title'),
+      associationName,
+      associationLogo,
+      conafohdLogo,
+      radarImage,
+      meta: [
+        {
+          label: t('assessments.report.period'),
+          small: true,
+          value:
+            a.period_start || a.period_end
+              ? `${formatDate(a.period_start) || '?'} - ${formatDate(a.period_end) || '?'}`
+              : t('assessments.report.notAvailable'),
+        },
+        { label: t('assessments.report.createdOn'), value: formatDate(a.created_at), small: true },
+        {
+          label: t('assessments.report.finalizedOn'),
+          small: true,
+          value: a.finalized_at ? formatDate(a.finalized_at) : t('assessments.report.notAvailable'),
+        },
+        { label: t('assessments.report.globalScore'), value: `${globalScore(a)}%`, small: true },
+      ],
+      sectionsHeading: t('assessments.report.sections'),
+      sections,
+      footerText: t('assessments.report.generatedOn', { date: formatDate(new Date().toISOString()) }),
+    })
+  } finally {
+    exporting.value = false
+  }
 }
 </script>
 

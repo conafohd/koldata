@@ -39,7 +39,9 @@
       "backToList": "Back to assessments",
       "yes": "Yes",
       "no": "No",
-      "globalScore": "Global score"
+      "globalScore": "Global score",
+      "exportPdf": "Export as PDF",
+      "generatedOn": "Report generated on {date}"
     },
     "delete": {
       "confirm": "Delete this assessment?",
@@ -68,6 +70,10 @@
       "yes": "Yes",
       "no": "No",
       "questionsAnswered": "questions answered",
+      "panel": {
+        "title": "Assessment content",
+        "overallProgress": "Overall progress"
+      },
       "placeholder": {
         "sectionTitle": "Section to be filled in",
         "sectionDesc": "Fields for this section will be defined later."

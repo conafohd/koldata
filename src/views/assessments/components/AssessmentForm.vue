@@ -1,5 +1,7 @@
 <template>
   <div class="AssessmentForm">
+    <div class="AssessmentForm__layout">
+    <div class="AssessmentForm__main">
     <v-alert
       v-if="isFinalized"
       type="info"
@@ -211,7 +213,23 @@
             </div>
             <div class="AssessmentForm__reviewRow">
               <span class="AssessmentForm__reviewLabel">{{ $t('assessments.form.periodEnd') }}</span>
-              <span class="AssessmentForm__reviewValue">{{ formatDate(periodEnd) || '—' }}</span>
+              <span v-if="isFinalized" class="AssessmentForm__reviewValue">{{ formatDate(periodEnd) || '—' }}</span>
+              <v-text-field
+                v-else
+                :model-value="formatDate(periodEnd)"
+                :placeholder="$t('assessments.form.datePlaceholder')"
+                variant="outlined"
+                density="compact"
+                readonly
+                hide-details
+                append-inner-icon="$calendar"
+                class="AssessmentForm__reviewDate"
+                @click="openPicker('end')"
+                @click:append-inner="openPicker('end')"
+                clearable
+                @click:clear="periodEnd = ''"
+                :error-messages="dateOrderError ? $t('assessments.form.dateOrderError') : ''"
+              />
             </div>
             <div class="AssessmentForm__reviewRow">
               <span class="AssessmentForm__reviewLabel">{{ $t('assessments.form.stepFields') }}</span>
@@ -294,6 +312,16 @@
         </div>
       </template>
     </v-stepper>
+    </div>
+
+    <AssessmentProgressPanel
+      v-if="step === 2"
+      :question-groups="questionGroups"
+      :answers="answers"
+      :part-index="partIndex"
+      @navigate-part="jumpToPart"
+    />
+    </div>
 
     <v-dialog v-model="showStartPicker" max-width="400px">
       <v-card flat>
@@ -301,7 +329,7 @@
         <v-card-text>
           <v-date-picker
             v-model="tempStartDate"
-            :max="endDateAsDate"
+            :max="startMaxDate"
             full-width
             hide-header
             @update:model-value="confirmPicker('start')"
@@ -317,6 +345,7 @@
           <v-date-picker
             v-model="tempEndDate"
             :min="startDateAsDate"
+            :max="endMaxDate"
             full-width
             hide-header
             @update:model-value="confirmPicker('end')"
@@ -340,6 +369,7 @@ import { formatDateToString } from '@/services/utils/FormatDate'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
 import { computed, nextTick, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import AssessmentProgressPanel from './AssessmentProgressPanel.vue'
 
 const props = defineProps<{
   assessment: Assessment
@@ -462,11 +492,12 @@ async function goToPart(index: number) {
   }
 }
 
-// Jump from the recap straight to a questionnaire part
+// Jump from the recap or side panel straight to a questionnaire part
 function jumpToPart(index: number) {
   partIndex.value = index
   step.value = 2
 }
+
 
 // Clear any leftover inline height from an interrupted slide when re-entering step 2
 watch(step, (value) => {
@@ -488,12 +519,18 @@ const answers = ref<Record<string, AssessmentAnswer>>(
   { ...(props.assessment.fields?.sections?.answers ?? {}) },
 )
 
+// End date can never be in the future
+const today = new Date()
+
 const startDateAsDate = computed(() =>
   periodStart.value ? new Date(periodStart.value) : undefined,
 )
 const endDateAsDate = computed(() =>
   periodEnd.value ? new Date(periodEnd.value) : undefined,
 )
+// The end picker is capped at today; the start picker at the end date (or today)
+const endMaxDate = computed(() => today)
+const startMaxDate = computed(() => endDateAsDate.value ?? today)
 const dateOrderError = computed(() => {
   if (!periodStart.value || !periodEnd.value) return false
   return new Date(periodStart.value) > new Date(periodEnd.value)
@@ -661,6 +698,22 @@ async function handleFinalize() {
   // questionnaire wrapper animates its height (which caused a jump above the card)
   overflow-anchor: none;
 
+  &__layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    @media (max-width: 960px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+
+
   &__stepper {
     background: transparent;
 
@@ -710,6 +763,11 @@ async function handleFinalize() {
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+
+    // On desktop the side panel shows overall progress instead
+    @media (min-width: 961px) {
+      display: none;
+    }
   }
 
   &__progressHeader {
@@ -753,6 +811,11 @@ async function handleFinalize() {
     align-items: center;
     gap: 0.6rem;
     margin-bottom: 0.75rem;
+
+    // On desktop the side panel handles section navigation
+    @media (min-width: 961px) {
+      display: none;
+    }
   }
 
   &__groupIndex {
@@ -905,6 +968,12 @@ async function handleFinalize() {
   &__reviewValue {
     color: #1e293b;
     font-size: 0.95rem;
+  }
+
+  &__reviewDate {
+    flex: 1;
+    max-width: 20rem;
+    min-width: 12rem;
   }
 }
 

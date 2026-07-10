@@ -39,7 +39,9 @@
       "backToList": "Retour aux évaluations",
       "yes": "Oui",
       "no": "Non",
-      "globalScore": "Score global"
+      "globalScore": "Score global",
+      "exportPdf": "Exporter en PDF",
+      "generatedOn": "Rapport généré le {date}"
     },
     "delete": {
       "confirm": "Supprimer cette évaluation ?",
@@ -68,6 +70,10 @@
       "yes": "Oui",
       "no": "Non",
       "questionsAnswered": "questions répondues",
+      "panel": {
+        "title": "Contenu de l'évaluation",
+        "overallProgress": "Progression globale"
+      },
       "placeholder": {
         "sectionTitle": "Section à compléter",
         "sectionDesc": "Les champs de cette section seront définis ultérieurement."
