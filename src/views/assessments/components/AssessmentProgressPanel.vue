@@ -94,7 +94,7 @@ const overallPct = computed(() =>
 
 <style lang="scss">
 .AssessmentProgressPanel {
-  width: 360px;
+  width: 380px;
   flex-shrink: 0;
   position: sticky;
   top: 1rem;

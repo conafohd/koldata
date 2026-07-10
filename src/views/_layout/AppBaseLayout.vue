@@ -30,7 +30,7 @@ const isWide = computed(() => route.name === 'assessments-edit')
   margin: 0 auto;
 
   &--wide {
-    width: 1400px;
+    width: 1200px;
   }
 
   .AppBaseLayout__content {
