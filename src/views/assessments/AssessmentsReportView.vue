@@ -85,9 +85,7 @@
           <div class="AssessmentReport__groupHeader">
             <span class="AssessmentReport__groupIndex">{{ gi + 1 }}</span>
             <span class="AssessmentReport__groupTitle">{{ getLabel(group.label) }}</span>
-            <v-chip size="x-small" variant="tonal" color="main-blue" class="ml-auto">
-              {{ groupAnsweredCount(group, assessment) }}/{{ group.questions.length }}
-            </v-chip>
+
           </div>
           <div class="AssessmentReport__questions">
             <div
@@ -172,10 +170,6 @@ function answerColor(question: Question, a: Assessment): string {
   if (!AssessmentFormService.isAnswered(question, v)) return 'default'
   if (question.type === 'boolean') return v ? 'success' : 'error'
   return 'main-blue'
-}
-
-function groupAnsweredCount(group: QuestionGroup, a: Assessment): number {
-  return group.questions.filter((q) => AssessmentFormService.isAnswered(q, getAnswer(q.id, a))).length
 }
 
 function globalScore(a: Assessment): number {
@@ -268,8 +262,6 @@ async function onExportPdf(): Promise<void> {
 
     const sections: PdfSection[] = questionGroups.map((group) => ({
       title: getLabel(group.label),
-      answered: groupAnsweredCount(group, a),
-      total: group.questions.length,
       questions: group.questions.map((q) => ({
         text: getLabel(q.label),
         answer: answerLabel(q, a),

@@ -8,8 +8,6 @@ export interface PdfQuestion {
 
 export interface PdfSection {
   title: string
-  answered: number
-  total: number
   questions: PdfQuestion[]
 }
 
@@ -18,7 +16,7 @@ export interface PdfMetaItem {
   value: string
   // Rendered smaller and non-bold (e.g. secondary dates)
   small?: boolean
-}
+}   
 
 export interface AssessmentPdfData {
   fileName: string
@@ -67,14 +65,18 @@ export class AssessmentPdfService {
       }
     }
 
-    // ---- Header band: logos (both left-aligned) + association name --------
+    // ---- Header band: logos (flush right, partner then CONAFOHD) ----------
     const logoH = 46
-    if (data.conafohdLogo) {
-      AssessmentPdfService.tryImage(doc, data.conafohdLogo, margin, y, 110, logoH)
-    }
-    if (data.associationLogo) {
-      AssessmentPdfService.tryImage(doc, data.associationLogo, margin + 122, y, 110, logoH)
-    }
+    const headerLogos = [data.associationLogo, data.conafohdLogo]
+      .map((src) => (src ? AssessmentPdfService.fitImage(doc, src, 110, logoH) : null))
+      .filter((logo) => logo !== null)
+    // Pack them edge to edge and right-align the whole group
+    let logoX = pageW - margin - headerLogos.reduce((sum, logo) => sum + logo.width, 0)
+    headerLogos.forEach((logo) => {
+      // Vertically centre within the band so logos of different ratios align
+      doc.addImage(logo.dataUrl, logo.fileType, logoX, y + (logoH - logo.height) / 2, logo.width, logo.height)
+      logoX += logo.width
+    })
 
     y += logoH + 18
     // Shrink the association name to fit the content width (long NGO names)
@@ -194,10 +196,6 @@ export class AssessmentPdfService {
       doc.setFontSize(11)
       doc.setTextColor(...INK)
       doc.text(`${si + 1}. ${section.title}`, innerX, cy + 10)
-      doc.setFont('helvetica', 'normal')
-      doc.setFontSize(9.5)
-      doc.setTextColor(...BLUE)
-      doc.text(`${section.answered}/${section.total}`, innerRight, cy + 10, { align: 'right' })
       cy += headerH
       doc.setDrawColor(...LINE)
       doc.setLineWidth(0.8)
@@ -266,28 +264,26 @@ export class AssessmentPdfService {
     doc.text(String(page), pageW - margin, pageH - margin / 2, { align: 'right' })
   }
 
-  // Embeds an image scaled to fit within the (maxW × maxH) box while preserving
-  // its natural aspect ratio. Images never break the layout if decoding fails.
-  private static tryImage(
+  // Measures an image and scales it to fit within the (maxW × maxH) box while
+  // preserving its natural aspect ratio, returning the draw-ready dimensions.
+  // Returns null for images that cannot be decoded (e.g. unreachable logo URL).
+  private static fitImage(
     doc: jsPDF,
     dataUrl: string,
-    x: number,
-    y: number,
     maxW: number,
     maxH: number,
-    align: 'left' | 'right' = 'left',
-  ): void {
+  ): { dataUrl: string; fileType: string; width: number; height: number } | null {
     try {
       const props = doc.getImageProperties(dataUrl)
       const scale = Math.min(maxW / props.width, maxH / props.height)
-      const width = props.width * scale
-      const height = props.height * scale
-      const drawX = align === 'right' ? x + (maxW - width) : x
-      // Vertically centre within the box so logos of different ratios align
-      const drawY = y + (maxH - height) / 2
-      doc.addImage(dataUrl, props.fileType, drawX, drawY, width, height)
+      return {
+        dataUrl,
+        fileType: props.fileType,
+        width: props.width * scale,
+        height: props.height * scale,
+      }
     } catch {
-      // Skip images that cannot be decoded (e.g. unreachable logo URL)
+      return null
     }
   }
 }
