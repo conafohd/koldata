@@ -15,18 +15,20 @@
       <!-- Step 1 — Identity -->
       <template #item.1>
         <div class="AssessmentForm__card app-card app-card--flat">
-          <div class="form-field">
-            <div class="form-label">{{ $t('assessments.form.campaignTitle') }}</div>
-            <v-text-field
-              v-model="title"
-              :placeholder="$t('assessments.form.campaignTitlePlaceholder')"
-              variant="outlined"
-              density="comfortable"
-              :readonly="isFinalized"
-              hide-details
-              autofocus
-            />
-          </div>
+          <v-row>
+            <v-col cols="12" sm="6">
+              <div class="form-label mb-1">{{ $t('assessments.form.campaignTitle') }}</div>
+              <v-text-field
+                v-model="title"
+                :placeholder="$t('assessments.form.campaignTitlePlaceholder')"
+                variant="outlined"
+                density="comfortable"
+                :readonly="isFinalized"
+                hide-details
+                autofocus
+              />
+            </v-col>
+          </v-row>
           <v-row class="mt-2">
             <v-col cols="12" sm="6">
               <div class="form-label mb-1">{{ $t('assessments.form.periodStart') }}</div>
@@ -41,22 +43,6 @@
                 @click:append-inner="!isFinalized && openPicker('start')"
                 clearable
                 @click:clear="periodStart = ''"
-                :error-messages="dateOrderError ? $t('assessments.form.dateOrderError') : ''"
-              />
-            </v-col>
-            <v-col cols="12" sm="6">
-              <div class="form-label mb-1">{{ $t('assessments.form.periodEnd') }}</div>
-              <v-text-field
-                :model-value="formatDate(periodEnd)"
-                :placeholder="$t('assessments.form.datePlaceholder')"
-                variant="outlined"
-                density="comfortable"
-                readonly
-                append-inner-icon="$calendar"
-                @click="!isFinalized && openPicker('end')"
-                @click:append-inner="!isFinalized && openPicker('end')"
-                clearable
-                @click:clear="periodEnd = ''"
                 :error-messages="dateOrderError ? $t('assessments.form.dateOrderError') : ''"
               />
             </v-col>
@@ -283,6 +269,15 @@
             {{ $t('assessments.form.previous') }}
           </v-btn>
           <v-spacer />
+          <v-btn
+            v-if="step === 2"
+            variant="text"
+            color="main-blue"
+            class="mr-2"
+            @click="handleGoToEnd"
+          >
+            {{ $t('assessments.form.goToEnd') }}
+          </v-btn>
           <v-btn
             v-if="step < steps.length"
             color="main-blue"
@@ -611,6 +606,17 @@ async function handleNext() {
   step.value++
 }
 
+// Skip the remaining questionnaire parts and jump straight to the review step
+async function handleGoToEnd() {
+  if (!isFinalized.value) {
+    autoSaving.value = true
+    await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
+    autoSaving.value = false
+  }
+  partIndex.value = questionGroups.length - 1
+  step.value = steps.value.length
+}
+
 async function handlePrev() {
   // While in the questionnaire step, page back through parts before stepping back
   if (step.value === 2 && partIndex.value > 0) {
@@ -632,6 +638,14 @@ async function handleSave() {
   saving.value = false
   emit('saved')
 }
+
+// Called by the parent view to persist the draft before leaving the form
+async function saveDraft() {
+  if (isFinalized.value) return
+  await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
+}
+
+defineExpose({ saveDraft })
 
 async function handleFinalize() {
   // All questions are mandatory before finalizing

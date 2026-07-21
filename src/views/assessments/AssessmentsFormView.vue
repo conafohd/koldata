@@ -23,12 +23,24 @@
           ? $t('assessments.status.finalized')
           : $t('assessments.status.inProgress') }}
       </v-chip>
+      <v-btn
+        v-if="assessment && !assessment.finalized_at"
+        variant="tonal"
+        color="main-blue"
+        size="large"
+        :loading="exiting"
+        class="ml-2"
+        @click="handleSaveAndExit"
+      >
+        {{ $t('assessments.form.saveAndExit') }}
+      </v-btn>
     </div>
 
     <v-progress-linear v-if="loading" indeterminate color="main-blue" class="mb-4" />
 
     <template v-if="assessment">
       <AssessmentForm
+        ref="formRef"
         :assessment="assessment"
         @saved="onSaved"
         @finalized="onFinalized"
@@ -55,6 +67,8 @@ const assessmentId = computed(() => route.params.assessmentId as string)
 
 const assessment = ref<Assessment | null>(null)
 const loading = ref(false)
+const exiting = ref(false)
+const formRef = ref<InstanceType<typeof AssessmentForm> | null>(null)
 
 onMounted(async () => {
   applicationStore.setActiveTab()
@@ -75,6 +89,13 @@ onMounted(async () => {
 onUnmounted(() => {
   assessmentsStore.closeAssessment()
 })
+
+async function handleSaveAndExit() {
+  exiting.value = true
+  await formRef.value?.saveDraft()
+  exiting.value = false
+  router.push({ name: 'assessments', params: { id: associationId.value } })
+}
 
 function onSaved() {}
 
