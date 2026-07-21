@@ -27,7 +27,6 @@
         v-if="assessment && !assessment.finalized_at"
         variant="tonal"
         color="main-blue"
-        size="large"
         :loading="exiting"
         class="ml-2"
         @click="handleSaveAndExit"
