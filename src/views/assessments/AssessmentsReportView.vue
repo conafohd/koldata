@@ -119,9 +119,10 @@ import {
   type QuestionLabel,
 } from '@/services/forms/AssessmentFormService'
 import conafohdLogoUrl from '@/assets/img/conafohd-logo.png'
+import koldataLogoUrl from '@/assets/img/logo.webp'
 import { AssessmentPdfService, type PdfSection } from '@/services/assessments/AssessmentPdfService'
 import { RadarImageService } from '@/services/assessments/RadarImageService'
-import { imageToDataUrl } from '@/services/utils/ImageToDataUrl'
+import { imageToDataUrl, imageToPngDataUrl } from '@/services/utils/ImageToDataUrl'
 import { useApplicationStore } from '@/stores/applicationStore'
 import { useAssessmentsStore } from '@/stores/assessmentsStore'
 import { useAssociationsStore } from '@/stores/associationsStore'
@@ -254,7 +255,8 @@ async function onExportPdf(): Promise<void> {
     const a = assessment.value
     const associationName = association.value?.nom ?? ''
 
-    const [associationLogo, conafohdLogo, radarImage] = await Promise.all([
+    const [koldataLogo, associationLogo, conafohdLogo, radarImage] = await Promise.all([
+      imageToPngDataUrl(koldataLogoUrl),
       imageToDataUrl(association.value?.logo_url ?? null),
       imageToDataUrl(conafohdLogoUrl),
       RadarImageService.toPng(radarLabels(a), radarValues(a)),
@@ -273,6 +275,7 @@ async function onExportPdf(): Promise<void> {
       fileName: buildFileName(a),
       reportTitle: t('assessments.report.title'),
       associationName,
+      koldataLogo,
       associationLogo,
       conafohdLogo,
       radarImage,

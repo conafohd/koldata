@@ -22,6 +22,7 @@ export interface AssessmentPdfData {
   fileName: string
   reportTitle: string
   associationName: string
+  koldataLogo: string | null
   associationLogo: string | null
   conafohdLogo: string | null
   radarImage: string | null
@@ -65,9 +66,9 @@ export class AssessmentPdfService {
       }
     }
 
-    // ---- Header band: logos (flush right, partner then CONAFOHD) ----------
+    // ---- Header band: logos (flush right, KOL Data, partner, then CONAFOHD)-
     const logoH = 46
-    const headerLogos = [data.associationLogo, data.conafohdLogo]
+    const headerLogos = [data.koldataLogo, data.associationLogo, data.conafohdLogo]
       .map((src) => (src ? AssessmentPdfService.fitImage(doc, src, 110, logoH) : null))
       .filter((logo) => logo !== null)
     // Pack them edge to edge and right-align the whole group

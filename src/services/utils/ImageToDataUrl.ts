@@ -19,3 +19,31 @@ export async function imageToDataUrl(url: string | null | undefined): Promise<st
     return null
   }
 }
+
+/**
+ * Loads an image URL and re-encodes it as a PNG data URL via a canvas. Use this
+ * for formats jsPDF cannot embed natively (e.g. WEBP). Returns null on failure
+ * so callers can omit the image gracefully.
+ */
+export async function imageToPngDataUrl(url: string | null | undefined): Promise<string | null> {
+  if (!url) return null
+  try {
+    return await new Promise<string | null>((resolve) => {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = img.naturalWidth
+        canvas.height = img.naturalHeight
+        const ctx = canvas.getContext('2d')
+        if (!ctx) return resolve(null)
+        ctx.drawImage(img, 0, 0)
+        resolve(canvas.toDataURL('image/png'))
+      }
+      img.onerror = () => resolve(null)
+      img.src = url
+    })
+  } catch {
+    return null
+  }
+}
