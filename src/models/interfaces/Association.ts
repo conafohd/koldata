@@ -1,6 +1,9 @@
 import type { InterventionSector } from "../enums/InterventionSector";
 import type { AssociationType } from "../enums/associations/AssociationType";
 
+/** Annual budgets keyed by year string, e.g. { "2024": 1200, "2023": 900 }. */
+export type BudgetByYear = Record<string, number>;
+
 export interface Association {
   id: string;
   created_at: string;
@@ -23,12 +26,7 @@ export interface Association {
   longitude: number;
   altitude: number | null;
   precision: number | null;
-  budget_2022: number | null;
-  budget_2023: number | null;
-  budget_2024: number | null;
-  budget_2025: number | null;
-  budget_2026: number | null;
-  budget_2027: number | null;
+  budget: BudgetByYear | null;
   nb_salaries: number;
   nb_benevoles: number;
   nom_resp_edition: string;

@@ -243,22 +243,13 @@
           $t('associations.form.hints.budgets_history')
         }}</span>
         <div class="d-flex justify-space-around mt-2 flex-wrap">
-          <div class="d-flex align-center">
-            <span class="ContentCard__contentTitle">2022:</span>
-            <span class="ContentCard__contentText ml-2">{{ association.budget_2022 }} $US</span>
+          <div v-for="budget in budgetEntries" :key="budget.year" class="d-flex align-center">
+            <span class="ContentCard__contentTitle">{{ budget.year }}:</span>
+            <span class="ContentCard__contentText ml-2">{{ budget.amount }} $US</span>
           </div>
-          <div class="d-flex align-center">
-            <span class="ContentCard__contentTitle">2023:</span>
-            <span class="ContentCard__contentText ml-2">{{ association.budget_2023 }} $US</span>
-          </div>
-          <div class="d-flex align-center">
-            <span class="ContentCard__contentTitle">2024:</span>
-            <span class="ContentCard__contentText ml-2">{{ association.budget_2024 }} $US</span>
-          </div>
-          <div class="d-flex align-center">
-            <span class="ContentCard__contentTitle">2025:</span>
-            <span class="ContentCard__contentText ml-2">{{ association.budget_2025 }} $US</span>
-          </div>
+          <span v-if="budgetEntries.length === 0" class="ContentCard__contentText">
+            {{ $t('associations.form.hints.no_budget') }}
+          </span>
         </div>
       </div>
     </div>
@@ -272,10 +263,17 @@ import { useAdminBoundariesStore } from '@/stores/adminBoundariesStore'
 import { useProjectsStore } from '@/stores/projectsStore'
 import { Map, Marker, NavigationControl, type LngLatLike } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 const props = defineProps<{
   association: Association
 }>()
+
+// Budget years present in the record, most recent first.
+const budgetEntries = computed(() =>
+  Object.entries(props.association.budget ?? {})
+    .map(([year, amount]) => ({ year, amount }))
+    .sort((a, b) => Number(b.year) - Number(a.year)),
+)
 const adminBoundStore = useAdminBoundariesStore()
 const projectsStore = useProjectsStore()
 function getProjectsCount(): number {

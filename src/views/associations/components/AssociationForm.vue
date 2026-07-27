@@ -415,39 +415,12 @@
               $t('associations.form.hints.budgets_history')
             }}</span>
             <v-number-input
+              v-for="budget in associationForm.budgetModels"
+              :key="budget.year"
               controlVariant="stacked"
-              :label="$t('associations.form.fields.budget_2025')"
+              :label="$t('associations.form.fields.budget_year', { year: budget.year })"
               :placeholder="$t('associations.form.placeholders.enter_budget')"
-              v-model="associationForm.form.budget_2025.value.value"
-              :error-messages="associationForm.form.budget_2025.errorMessage.value"
-              @blur="associationForm.form.budget_2025.handleBlur"
-              variant="outlined"
-            />
-            <v-number-input
-              controlVariant="stacked"
-              :label="$t('associations.form.fields.budget_2024')"
-              :placeholder="$t('associations.form.placeholders.enter_budget')"
-              v-model="associationForm.form.budget_2024.value.value"
-              :error-messages="associationForm.form.budget_2024.errorMessage.value"
-              @blur="associationForm.form.budget_2024.handleBlur"
-              variant="outlined"
-            />
-            <v-number-input
-              controlVariant="stacked"
-              :label="$t('associations.form.fields.budget_2023')"
-              :placeholder="$t('associations.form.placeholders.enter_budget')"
-              v-model="associationForm.form.budget_2023.value.value"
-              :error-messages="associationForm.form.budget_2023.errorMessage.value"
-              @blur="associationForm.form.budget_2023.handleBlur"
-              variant="outlined"
-            />
-            <v-number-input
-              controlVariant="stacked"
-              :label="$t('associations.form.fields.budget_2022')"
-              :placeholder="$t('associations.form.placeholders.enter_budget')"
-              v-model="associationForm.form.budget_2022.value.value"
-              :error-messages="associationForm.form.budget_2022.errorMessage.value"
-              @blur="associationForm.form.budget_2022.handleBlur"
+              v-model="budget.model.value"
               variant="outlined"
             />
             <v-divider color="light-blue mb-3" thickness="2" opacity="1"></v-divider>

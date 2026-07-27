@@ -1,6 +1,6 @@
 import { InterventionSector } from "@/models/enums/InterventionSector";
 import { AssociationType } from "@/models/enums/associations/AssociationType";
-import type { Association } from "@/models/interfaces/Association";
+import type { Association, BudgetByYear } from "@/models/interfaces/Association";
 import { i18n } from "@/plugins/i18n";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useField, useForm } from "vee-validate";
@@ -93,39 +93,12 @@ export class AssociationFormService {
         .optional()
         .nullable(),
 
-        budget_2022: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .optional()
-        .nullable(),
-
-        budget_2023: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .optional()
-        .nullable(),
-
-        budget_2024: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .optional()
-        .nullable(),
-
-        budget_2025: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .optional()
-        .nullable(),
-
-        budget_2026: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
-        .optional()
-        .nullable(),
-
-        budget_2027: z
-        .number()
-        .min(0, { message: i18n.t('forms.errors.positiveNumber') })
+        // Dynamic per-year budgets keyed by year string, e.g. { "2024": 1200 }.
+        budget: z
+        .record(
+            z.string(),
+            z.number().min(0, { message: i18n.t('forms.errors.positiveNumber') }).nullable(),
+        )
         .optional()
         .nullable(),
 
@@ -284,12 +257,7 @@ export class AssociationFormService {
             longitude: useField<number>('longitude', '', { validateOnValueUpdate: true }),
             altitude: useField<number | null>('altitude', '', { validateOnValueUpdate: true }),
             precision: useField<number | null>('precision', '', { validateOnValueUpdate: true }),
-            budget_2022: useField<number | null>('budget_2022', '', { validateOnValueUpdate: true }),
-            budget_2023: useField<number | null>('budget_2023', '', { validateOnValueUpdate: true }),
-            budget_2024: useField<number | null>('budget_2024', '', { validateOnValueUpdate: true }),
-            budget_2025: useField<number | null>('budget_2025', '', { validateOnValueUpdate: true }),
-            budget_2026: useField<number | null>('budget_2026', '', { validateOnValueUpdate: true }),
-            budget_2027: useField<number | null>('budget_2027', '', { validateOnValueUpdate: true }),
+            budget: useField<BudgetByYear>('budget', undefined, { validateOnValueUpdate: true }),
             nb_salaries: useField<number>('nb_salaries', '', { validateOnValueUpdate: true }),
             nb_benevoles: useField<number>('nb_benevoles', '', { validateOnValueUpdate: true }),
             nom_resp_edition: useField<string>('nom_resp_edition', '', { validateOnValueUpdate: true }),
@@ -307,8 +275,30 @@ export class AssociationFormService {
             autre_social_media: useField<string>('autre_social_media', '', { validateOnValueUpdate: true })
         }
 
+        // Rolling window of budget years shown in the form: current year back to
+        // y-4 (5 inputs). Each model reads/writes a single year within the
+        // `budget` record; years outside this window that already hold a value
+        // are left untouched, so historical data is preserved on save.
+        const currentYear = new Date().getFullYear()
+        const budgetYears = Array.from({ length: 5 }, (_, i) => currentYear - i)
+        const budgetModels = budgetYears.map((year) => ({
+            year,
+            model: computed<number | null>({
+                get: () => form.budget.value.value?.[String(year)] ?? null,
+                set: (value) => {
+                    const next: BudgetByYear = { ...(form.budget.value.value ?? {}) }
+                    if (value === null || value === undefined || Number.isNaN(value)) {
+                        delete next[String(year)]
+                    } else {
+                        next[String(year)] = value
+                    }
+                    form.budget.value.value = next
+                },
+            }),
+        }))
+
         const isValid = computed(() => meta.value.valid)
 
-        return { form, errors, handleSubmit, isSubmitting, isValid }
+        return { form, errors, handleSubmit, isSubmitting, isValid, budgetModels }
     }
 }
