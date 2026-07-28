@@ -98,11 +98,11 @@
             </v-select>
             <v-chip
               size="x-small"
-              :color="groupAnsweredCount(currentGroup) === currentGroup.questions.length ? 'success' : 'default'"
+              :color="groupAnsweredCount(currentGroup) === groupTotalCount(currentGroup) ? 'success' : 'default'"
               variant="tonal"
               class="ml-auto"
             >
-              {{ groupAnsweredCount(currentGroup) }}/{{ currentGroup.questions.length }}
+              {{ groupAnsweredCount(currentGroup) }}/{{ groupTotalCount(currentGroup) }}
             </v-chip>
           </div>
 
@@ -281,10 +281,10 @@
                   <span class="AssessmentForm__reviewGroupName">{{ getLabel(group.label) }}</span>
                   <v-chip
                     size="x-small"
-                    :color="groupAnsweredCount(group) === group.questions.length ? 'success' : 'warning'"
+                    :color="groupAnsweredCount(group) === groupTotalCount(group) ? 'success' : 'warning'"
                     variant="tonal"
                   >
-                    {{ groupAnsweredCount(group) }}/{{ group.questions.length }}
+                    {{ groupAnsweredCount(group) }}/{{ groupTotalCount(group) }}
                   </v-chip>
                   <v-icon icon="$chevronRight" size="16" class="AssessmentForm__reviewGroupArrow" />
                 </button>
@@ -432,7 +432,10 @@ const assessmentsStore = useAssessmentsStore()
 const questionGroups: QuestionGroup[] = AssessmentFormService.visibleGroups(
   questionsData.groups as QuestionGroup[],
 )
-const totalQuestions = questionGroups.reduce((sum, g) => sum + g.questions.length, 0)
+const totalQuestions = questionGroups.reduce(
+  (sum, g) => sum + g.questions.filter((q) => AssessmentFormService.isRequired(q)).length,
+  0,
+)
 
 function getLabel(label: QuestionLabel): string {
   return AssessmentFormService.getLabel(label, locale.value)
@@ -481,8 +484,18 @@ const questionById = computed<Record<string, Question>>(() => {
   return map
 })
 
+// Progress counters track only what is needed to finalize, so optional
+// ("si applicable") questions are left out of both numerator and denominator.
+function groupRequiredQuestions(group: QuestionGroup): Question[] {
+  return group.questions.filter((q) => AssessmentFormService.isRequired(q))
+}
+
 function groupAnsweredCount(group: QuestionGroup): number {
-  return group.questions.filter((q) => isAnswered(q.id)).length
+  return groupRequiredQuestions(group).filter((q) => isAnswered(q.id)).length
+}
+
+function groupTotalCount(group: QuestionGroup): number {
+  return groupRequiredQuestions(group).length
 }
 
 // Questions that must be answered before finalizing (excludes optional ones).
@@ -515,7 +528,7 @@ const partItems = computed(() =>
     value: i,
     title: `${i + 1}. ${getLabel(g.label)}`,
     answered: groupAnsweredCount(g),
-    total: g.questions.length,
+    total: groupTotalCount(g),
   })),
 )
 

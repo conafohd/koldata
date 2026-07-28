@@ -4610,9 +4610,10 @@
           "index": 65,
           "type": "level",
           "label": {
-            "fr": "Votre organisation gère-t-elle sa flotte de véhicules de manière à garantir leur disponibilité, leur sécurité, leur bon état de fonctionnement et une utilisation efficiente des ressources ?",
-            "en": "Votre organisation gère-t-elle sa flotte de véhicules de manière à garantir leur disponibilité, leur sécurité, leur bon état de fonctionnement et une utilisation efficiente des ressources ?"
+            "fr": "(si applicable) Votre organisation gère-t-elle sa flotte de véhicules de manière à garantir leur disponibilité, leur sécurité, leur bon état de fonctionnement et une utilisation efficiente des ressources ?",
+            "en": "(si applicable) Votre organisation gère-t-elle sa flotte de véhicules de manière à garantir leur disponibilité, leur sécurité, leur bon état de fonctionnement et une utilisation efficiente des ressources ?"
           },
+          "required": false,
           "levels": [
             {
               "value": 0,

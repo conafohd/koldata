@@ -165,7 +165,11 @@ export class AssessmentFormService {
     }
   }
 
-  /** Percentage score over a set of questions, ignoring unscored ones (max 0). */
+  /**
+   * Percentage score over a set of questions, ignoring unscored ones (max 0)
+   * and optional questions left unanswered — those are "not applicable" and
+   * must not drag the score down, so they stay out of the denominator.
+   */
   static scorePercent(
     questions: Question[],
     answers: Record<string, AssessmentAnswer>,
@@ -175,6 +179,7 @@ export class AssessmentFormService {
     for (const q of questions) {
       const qMax = this.maxScore(q)
       if (qMax === 0) continue
+      if (!this.isRequired(q) && !this.isAnswered(q, answers[q.id] ?? null)) continue
       max += qMax
       earned += this.earnedScore(q, answers[q.id] ?? null)
     }
