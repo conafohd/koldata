@@ -124,6 +124,7 @@
                 }"
               >
                 <span class="AssessmentForm__questionText">
+                  <span class="AssessmentForm__questionIndex">{{ question.index }}.</span>
                   {{ getLabel(question.label) }}
                   <span v-if="AssessmentFormService.isRequired(question)" class="AssessmentForm__required">*</span>
                 </span>
@@ -912,6 +913,12 @@ async function handleFinalize() {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+  }
+
+  &__questionIndex {
+    color: rgb(var(--v-theme-main-blue));
+    font-weight: 700;
+    margin-right: 0.35rem;
   }
 
   &__questions {

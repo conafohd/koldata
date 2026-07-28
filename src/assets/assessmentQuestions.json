@@ -9,6 +9,7 @@
       "questions": [
         {
           "id": "S1_01",
+          "index": 1,
           "type": "level",
           "label": {
             "fr": "La vision et la mission de votre organisation servent-elles réellement à orienter les activités et les décisions de l'organisation ?",
@@ -79,6 +80,7 @@
         },
         {
           "id": "S1_02",
+          "index": 2,
           "type": "level",
           "label": {
             "fr": "Les nouveaux programmes, partenariats et opportunités de financement sont-ils systématiquement analysés afin de vérifier leur cohérence avec la mission, le mandat et les priorités stratégiques de votre organisation ?",
@@ -149,6 +151,7 @@
         },
         {
           "id": "S1_03",
+          "index": 3,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'un organe de gouvernance conforme à ses statuts et à la législation applicable aux ASBL en République démocratique du Congo, composé de personnes ayant les compétences nécessaires pour exercer efficacement leurs responsabilités ?",
@@ -219,6 +222,7 @@
         },
         {
           "id": "S1_04",
+          "index": 4,
           "type": "level",
           "label": {
             "fr": "L'organe de gouvernance se réunit-il régulièrement, prend-il des décisions documentées et assure-t-il un suivi effectif de leur mise en œuvre ?",
@@ -289,6 +293,7 @@
         },
         {
           "id": "S1_05",
+          "index": 5,
           "type": "level",
           "label": {
             "fr": "Les responsabilités respectives du Conseil d'administration (ou de l'organe de gouvernance) et de la Direction sont-elles clairement définies, comprises et effectivement respectées ?",
@@ -359,6 +364,7 @@
         },
         {
           "id": "S1_06",
+          "index": 6,
           "type": "level",
           "label": {
             "fr": "Le Conseil d'administration assure-t-il une véritable supervision stratégique de l'organisation en suivant la mise en œuvre de la stratégie, les performances institutionnelles et les principaux risques ?",
@@ -429,6 +435,7 @@
         },
         {
           "id": "S1_07",
+          "index": 7,
           "type": "level",
           "label": {
             "fr": "Le Conseil d'administration assure-t-il un suivi régulier de la Direction Exécutive, définit-il clairement ses responsabilités et évalue-t-il sa performance ?",
@@ -499,6 +506,7 @@
         },
         {
           "id": "S1_08",
+          "index": 8,
           "type": "level",
           "label": {
             "fr": "Votre organisation applique-t-elle des règles d'éthique et dispose-t-elle de mécanismes permettant de prévenir, déclarer et traiter les conflits d'intérêts ainsi que les manquements à l'intégrité ?",
@@ -569,6 +577,7 @@
         },
         {
           "id": "S1_09",
+          "index": 9,
           "type": "level",
           "label": {
             "fr": "Votre organisation respecte-t-elle les obligations légales, réglementaires et administratives applicables en République démocratique du Congo et assure-t-elle un suivi régulier de leur conformité ?",
@@ -639,6 +648,7 @@
         },
         {
           "id": "S1_10",
+          "index": 10,
           "type": "level",
           "label": {
             "fr": "Les membres de votre organisation exercent-ils effectivement leurs responsabilités de gouvernance conformément aux statuts et participent-ils aux principales décisions de l'organisation ?",
@@ -718,6 +728,7 @@
       "questions": [
         {
           "id": "S2_01",
+          "index": 11,
           "type": "level",
           "label": {
             "fr": "La stratégie de votre organisation définit-elle des priorités claires, réalistes et adaptées au contexte dans lequel elle intervient ?",
@@ -788,6 +799,7 @@
         },
         {
           "id": "S2_02",
+          "index": 12,
           "type": "level",
           "label": {
             "fr": "La planification opérationnelle de votre organisation permet-elle de mettre en œuvre les priorités stratégiques et d'en suivre efficacement la réalisation ?",
@@ -858,6 +870,7 @@
         },
         {
           "id": "S2_03",
+          "index": 13,
           "type": "level",
           "label": {
             "fr": "La Direction assure-t-elle un pilotage efficace de l'organisation en prenant des décisions adaptées, en suivant leur mise en œuvre et en mobilisant les ressources nécessaires ?",
@@ -928,6 +941,7 @@
         },
         {
           "id": "S2_04",
+          "index": 14,
           "type": "level",
           "label": {
             "fr": "Les responsabilités, les niveaux d'autorité et les mécanismes de coordination sont-ils clairement définis et appliqués dans l'ensemble de votre organisation ?",
@@ -998,6 +1012,7 @@
         },
         {
           "id": "S2_05",
+          "index": 15,
           "type": "level",
           "label": {
             "fr": "Votre organisation analyse-t-elle régulièrement son environnement, anticipe-t-elle les évolutions de son contexte et conduit-elle les changements nécessaires afin d'adapter son fonctionnement ?",
@@ -1068,6 +1083,7 @@
         },
         {
           "id": "S2_06",
+          "index": 16,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre une démarche structurée de développement organisationnel permettant de renforcer durablement ses capacités institutionnelles, ses systèmes et son fonctionnement ?",
@@ -1138,6 +1154,7 @@
         },
         {
           "id": "S2_07",
+          "index": 17,
           "type": "level",
           "label": {
             "fr": "Votre organisation anticipe-t-elle les risques liés au départ ou à l'absence des personnes occupant des fonctions clés et met-elle en place des mesures permettant d'assurer la continuité du management ?",
@@ -1217,6 +1234,7 @@
       "questions": [
         {
           "id": "S3_01",
+          "index": 18,
           "type": "level",
           "label": {
             "fr": "Votre organisation conçoit-elle ses programmes à partir d'une analyse structurée des besoins, du contexte, des conflits, des risques et des priorités des populations concernées, en tenant compte, lorsque cela est pertinent, des liens entre action humanitaire, développement et paix dans le contexte de la RDC ?",
@@ -1287,6 +1305,7 @@
         },
         {
           "id": "S3_02",
+          "index": 19,
           "type": "level",
           "label": {
             "fr": "Les interventions de votre organisation sont-elles conçues selon des approches techniques cohérentes, fondées sur des standards reconnus, adaptées au contexte congolais et intégrant, lorsque cela est pertinent, la réduction des risques de catastrophe, l'action anticipatoire et l'adaptation au changement climatique ?",
@@ -1357,6 +1376,7 @@
         },
         {
           "id": "S3_03",
+          "index": 20,
           "type": "level",
           "label": {
             "fr": "Les objectifs, les activités et les ressources de vos programmes sont-ils cohérents, réalistes et adaptés aux capacités de votre organisation ?",
@@ -1427,6 +1447,7 @@
         },
         {
           "id": "S3_04",
+          "index": 21,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre ses programmes conformément aux objectifs, aux plans approuvés et aux modalités opérationnelles définies ?",
@@ -1497,6 +1518,7 @@
         },
         {
           "id": "S3_05",
+          "index": 22,
           "type": "level",
           "label": {
             "fr": "Votre organisation adapte-t-elle ses programmes de manière structurée en fonction de l'évolution du contexte, des résultats obtenus et des enseignements tirés de leur mise en œuvre ?",
@@ -1567,6 +1589,7 @@
         },
         {
           "id": "S3_06",
+          "index": 23,
           "type": "level",
           "label": {
             "fr": "Les ressources humaines, financières, matérielles et logistiques sont-elles mobilisées et coordonnées de manière à assurer une mise en œuvre efficace de vos programmes ?",
@@ -1637,6 +1660,7 @@
         },
         {
           "id": "S3_07",
+          "index": 24,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en place des mécanismes permettant d'assurer la qualité technique de ses programmes tout au long de leur mise en œuvre ?",
@@ -1707,6 +1731,7 @@
         },
         {
           "id": "S3_08",
+          "index": 25,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle les insuffisances de ses programmes, met-elle en œuvre des actions d'amélioration et vérifie-t-elle leur efficacité ?",
@@ -1777,6 +1802,7 @@
         },
         {
           "id": "S3_09",
+          "index": 26,
           "type": "level",
           "label": {
             "fr": "Votre organisation définit-elle clairement les rôles, les responsabilités et les modalités de collaboration avec ses partenaires de mise en œuvre, et assure-t-elle un suivi régulier de ces partenariats ?",
@@ -1856,6 +1882,7 @@
       "questions": [
         {
           "id": "S4_01",
+          "index": 27,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'un système de suivi permettant de mesurer régulièrement la mise en œuvre et les résultats de ses programmes ?",
@@ -1926,6 +1953,7 @@
         },
         {
           "id": "S4_02",
+          "index": 28,
           "type": "level",
           "label": {
             "fr": "Les indicateurs et les données collectées sont-ils analysés et utilisés pour suivre les progrès réalisés et identifier les écarts de performance ?",
@@ -1996,6 +2024,7 @@
         },
         {
           "id": "S4_03",
+          "index": 29,
           "type": "level",
           "label": {
             "fr": "Votre organisation collecte-t-elle, vérifie-t-elle, analyse-t-elle, stocke-t-elle et archive-t-elle les données selon des procédures définies garantissant leur qualité, leur fiabilité, leur traçabilité et leur utilisation pour le pilotage des programmes ?",
@@ -2066,6 +2095,7 @@
         },
         {
           "id": "S4_04",
+          "index": 30,
           "type": "level",
           "label": {
             "fr": "Les données sensibles de votre organisation sont-elles protégées et leur accès, leur utilisation, leur partage et leur conservation sont-ils gérés conformément aux exigences applicables ?",
@@ -2136,6 +2166,7 @@
         },
         {
           "id": "S4_05",
+          "index": 31,
           "type": "level",
           "label": {
             "fr": "Votre organisation planifie-t-elle, réalise-t-elle et utilise-t-elle des évaluations de manière structurée afin d'apprécier la pertinence, la performance et les résultats de ses programmes ?",
@@ -2206,6 +2237,7 @@
         },
         {
           "id": "S4_06",
+          "index": 32,
           "type": "level",
           "label": {
             "fr": "Votre organisation capitalise-t-elle, partage-t-elle et utilise-t-elle les enseignements issus du suivi, des évaluations et de l'expérience afin d'améliorer durablement ses pratiques, ses programmes et ses décisions ?",
@@ -2276,6 +2308,7 @@
         },
         {
           "id": "S4_07",
+          "index": 33,
           "type": "level",
           "label": {
             "fr": "Votre organisation informe-t-elle les populations concernées, favorise-t-elle leur participation tout au long du cycle des programmes et met-elle à leur disposition des mécanismes de feedback et de gestion des plaintes accessibles, confidentiels, sûrs et adaptés aux réalités locales des zones d'intervention en RDC ?",
@@ -2346,6 +2379,7 @@
         },
         {
           "id": "S4_08",
+          "index": 34,
           "type": "level",
           "label": {
             "fr": "Votre organisation utilise-t-elle de manière systématique les résultats du suivi, des évaluations, des retours des populations et des autres informations disponibles pour orienter ses décisions et améliorer ses programmes ?",
@@ -2425,6 +2459,7 @@
       "questions": [
         {
           "id": "S5_01",
+          "index": 35,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle de politiques et de procédures de gestion des ressources humaines appliquées de manière cohérente ?",
@@ -2495,6 +2530,7 @@
         },
         {
           "id": "S5_02",
+          "index": 36,
           "type": "level",
           "label": {
             "fr": "Votre organisation recrute-t-elle son personnel selon des procédures transparentes, objectives et adaptées à ses besoins opérationnels, afin de garantir l'équité des recrutements et l'adéquation des compétences aux postes à pourvoir ?",
@@ -2565,6 +2601,7 @@
         },
         {
           "id": "S5_03",
+          "index": 37,
           "type": "level",
           "label": {
             "fr": "Les dossiers du personnel, les contrats de travail, la paie et les obligations administratives, fiscales et sociales sont-ils gérés de manière complète, fiable et conforme au Code du travail congolais ainsi qu'aux exigences des institutions compétentes ?",
@@ -2635,6 +2672,7 @@
         },
         {
           "id": "S5_04",
+          "index": 38,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle les besoins de développement des compétences de son personnel et met-elle en œuvre des actions adaptées afin de renforcer durablement les capacités nécessaires à la réalisation de sa mission ?",
@@ -2705,6 +2743,7 @@
         },
         {
           "id": "S5_05",
+          "index": 39,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle, planifie-t-elle et gère-t-elle les compétences nécessaires à la réalisation de sa stratégie et de ses activités afin de garantir durablement la disponibilité des capacités critiques ?",
@@ -2775,6 +2814,7 @@
         },
         {
           "id": "S5_06",
+          "index": 40,
           "type": "level",
           "label": {
             "fr": "Votre organisation évalue-t-elle régulièrement les performances de son personnel et utilise-t-elle les résultats de ces évaluations pour accompagner le développement professionnel des collaborateurs et améliorer la performance de l'organisation ?",
@@ -2845,6 +2885,7 @@
         },
         {
           "id": "S5_07",
+          "index": 41,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des mesures adaptées pour assurer la santé, la sécurité, le bien-être et le devoir de protection de son personnel, en tenant compte des risques liés à ses activités et à ses contextes d'intervention ?",
@@ -2915,6 +2956,7 @@
         },
         {
           "id": "S5_08",
+          "index": 42,
           "type": "level",
           "label": {
             "fr": "Votre organisation recrute-t-elle, intègre-t-elle, accompagne-t-elle et supervise-t-elle ses volontaires selon des modalités adaptées à leurs responsabilités, afin qu'ils contribuent efficacement et en toute sécurité à la réalisation de la mission ?",
@@ -2994,6 +3036,7 @@
       "questions": [
         {
           "id": "S6_01",
+          "index": 43,
           "type": "level",
           "label": {
             "fr": "Les responsabilités financières de votre organisation sont-elles clairement définies et exercées selon une séparation appropriée des fonctions afin de garantir une gestion financière fiable et de limiter les risques d'erreur ou de fraude ?",
@@ -3064,6 +3107,7 @@
         },
         {
           "id": "S6_02",
+          "index": 44,
           "type": "level",
           "label": {
             "fr": "Votre organisation élabore-t-elle ses budgets selon un processus structuré, participatif et réaliste, fondé sur les besoins opérationnels et des hypothèses financières clairement définies ?",
@@ -3134,6 +3178,7 @@
         },
         {
           "id": "S6_03",
+          "index": 45,
           "type": "level",
           "label": {
             "fr": "Votre organisation alloue-t-elle ses ressources financières en fonction de ses priorités stratégiques, de ses besoins opérationnels et de ses capacités de mise en œuvre afin de maximiser l'impact de ses interventions ?",
@@ -3204,6 +3249,7 @@
         },
         {
           "id": "S6_04",
+          "index": 46,
           "type": "level",
           "label": {
             "fr": "Votre organisation enregistre-t-elle l'ensemble de ses opérations financières de manière complète, exacte et dans des délais appropriés, conformément à ses procédures, au référentiel comptable applicable en RDC et aux exigences des bailleurs ?",
@@ -3274,6 +3320,7 @@
         },
         {
           "id": "S6_05",
+          "index": 47,
           "type": "level",
           "label": {
             "fr": "Votre organisation réalise-t-elle régulièrement les rapprochements, les contrôles et les clôtures comptables nécessaires afin de garantir l'exactitude, l'exhaustivité et la fiabilité de son information financière ?",
@@ -3344,6 +3391,7 @@
         },
         {
           "id": "S6_06",
+          "index": 48,
           "type": "level",
           "label": {
             "fr": "Votre organisation assure-t-elle un suivi régulier de l'exécution budgétaire, analyse-t-elle les écarts entre prévisions et réalisations et prend-elle les mesures nécessaires pour ajuster sa gestion financière ?",
@@ -3414,6 +3462,7 @@
         },
         {
           "id": "S6_07",
+          "index": 49,
           "type": "level",
           "label": {
             "fr": "Votre organisation utilise-t-elle l'information financière pour soutenir les décisions de gestion, la planification et le pilotage de ses activités ?",
@@ -3484,6 +3533,7 @@
         },
         {
           "id": "S6_08",
+          "index": 50,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des mécanismes de contrôle interne adaptés afin de prévenir, détecter et corriger les erreurs, les irrégularités et les fraudes ?",
@@ -3554,6 +3604,7 @@
         },
         {
           "id": "S6_09",
+          "index": 51,
           "type": "level",
           "label": {
             "fr": "Votre organisation assure-t-elle un suivi systématique des recommandations issues des audits, des contrôles ou des revues financières jusqu'à leur mise en œuvre effective ?",
@@ -3624,6 +3675,7 @@
         },
         {
           "id": "S6_10",
+          "index": 52,
           "type": "level",
           "label": {
             "fr": "Votre organisation planifie-t-elle et suit-elle sa trésorerie de manière à anticiper ses besoins de liquidités, prévenir les ruptures de financement et assurer la continuité de ses activités ?",
@@ -3694,6 +3746,7 @@
         },
         {
           "id": "S6_11",
+          "index": 53,
           "type": "level",
           "label": {
             "fr": "Votre organisation respecte-t-elle les exigences financières des bailleurs et des autorités compétentes en produisant des rapports financiers fiables, complets et transmis dans les délais requis ?",
@@ -3764,6 +3817,7 @@
         },
         {
           "id": "S6_12",
+          "index": 54,
           "type": "level",
           "label": {
             "fr": "Votre organisation analyse-t-elle régulièrement sa situation financière, sa dépendance aux financements externes et sa capacité à maintenir ses fonctions essentielles en cas d'interruption des financements, et met-elle en œuvre une stratégie visant à renforcer durablement sa résilience financière ?",
@@ -3843,6 +3897,7 @@
       "questions": [
         {
           "id": "S7_01",
+          "index": 55,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'une fonction Supply Chain reposant sur des politiques, des procédures et des responsabilités clairement définies et appliquées de manière cohérente ?",
@@ -3913,6 +3968,7 @@
         },
         {
           "id": "S7_02",
+          "index": 56,
           "type": "level",
           "label": {
             "fr": "Votre organisation planifie-t-elle ses achats en fonction des activités, des budgets, des délais opérationnels et des contraintes d'approvisionnement afin d'assurer la disponibilité des biens et services nécessaires aux programmes ?",
@@ -3983,6 +4039,7 @@
         },
         {
           "id": "S7_03",
+          "index": 57,
           "type": "level",
           "label": {
             "fr": "Votre organisation applique-t-elle des procédures d'achat transparentes, équitables et documentées, permettant de sélectionner les fournisseurs selon des critères objectifs et de garantir une utilisation efficiente des ressources ?",
@@ -4053,6 +4110,7 @@
         },
         {
           "id": "S7_04",
+          "index": 58,
           "type": "level",
           "label": {
             "fr": "Votre organisation suit-elle la performance de son processus d'achat afin de garantir que les biens et services requis sont obtenus dans les délais, avec la qualité attendue et en réponse aux besoins opérationnels ?",
@@ -4123,6 +4181,7 @@
         },
         {
           "id": "S7_05",
+          "index": 59,
           "type": "level",
           "label": {
             "fr": "Votre organisation sélectionne-t-elle, évalue-t-elle et suit-elle ses fournisseurs selon des critères objectifs afin de garantir leur capacité à répondre durablement aux besoins de l'organisation ?",
@@ -4193,6 +4252,7 @@
         },
         {
           "id": "S7_06",
+          "index": 60,
           "type": "level",
           "label": {
             "fr": "Votre organisation gère-t-elle et révise-t-elle les relations contractuelles avec ses fournisseurs afin d'assurer la qualité des prestations, la maîtrise des risques et la continuité des approvisionnements ?",
@@ -4263,6 +4323,7 @@
         },
         {
           "id": "S7_07",
+          "index": 61,
           "type": "level",
           "label": {
             "fr": "Votre organisation gère-t-elle ses stocks de manière fiable afin d'assurer leur disponibilité, leur exactitude et leur traçabilité tout au long de leur cycle de gestion ?",
@@ -4333,6 +4394,7 @@
         },
         {
           "id": "S7_08",
+          "index": 62,
           "type": "level",
           "label": {
             "fr": "Les conditions d'entreposage permettent-elles de préserver la qualité, la sécurité, l'intégrité et l'accessibilité des biens stockés ?",
@@ -4403,6 +4465,7 @@
         },
         {
           "id": "S7_09",
+          "index": 63,
           "type": "level",
           "label": {
             "fr": "Votre organisation planifie-t-elle, documente-t-elle et suit-elle ses opérations de distribution et de transport afin de garantir que les biens parviennent aux bons destinataires, dans les délais prévus et dans des conditions appropriées ?",
@@ -4473,6 +4536,7 @@
         },
         {
           "id": "S7_10",
+          "index": 64,
           "type": "level",
           "label": {
             "fr": "Votre organisation enregistre-t-elle, suit-elle et gère-t-elle ses actifs et équipements tout au long de leur cycle de vie, depuis leur acquisition jusqu'à leur retrait ou leur cession ?",
@@ -4543,6 +4607,7 @@
         },
         {
           "id": "S7_11",
+          "index": 65,
           "type": "level",
           "label": {
             "fr": "Votre organisation gère-t-elle sa flotte de véhicules de manière à garantir leur disponibilité, leur sécurité, leur bon état de fonctionnement et une utilisation efficiente des ressources ?",
@@ -4613,6 +4678,7 @@
         },
         {
           "id": "S7_12",
+          "index": 66,
           "type": "level",
           "label": {
             "fr": "Votre organisation planifie-t-elle, réalise-t-elle et suit-elle la maintenance de ses infrastructures, équipements et autres actifs critiques afin d'assurer leur disponibilité et de limiter les interruptions opérationnelles ?",
@@ -4683,6 +4749,7 @@
         },
         {
           "id": "S7_13",
+          "index": 67,
           "type": "level",
           "label": {
             "fr": "Votre organisation suit-elle et analyse-t-elle la performance de sa Supply Chain afin d'orienter les décisions de gestion et d'améliorer en continu l'efficacité, la qualité de service et la résilience de sa fonction logistique ?",
@@ -4762,6 +4829,7 @@
       "questions": [
         {
           "id": "S8_01",
+          "index": 68,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'un système structuré de gestion des risques permettant d'identifier, d'analyser, de traiter et de suivre les risques susceptibles d'affecter la réalisation de sa mission et de ses programmes en RDC ?",
@@ -4832,6 +4900,7 @@
         },
         {
           "id": "S8_02",
+          "index": 69,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre un dispositif de contrôle interne définissant les principaux contrôles, les responsabilités et les mécanismes de suivi afin de réduire les risques et d'assurer une gestion fiable de ses activités ?",
@@ -4902,6 +4971,7 @@
         },
         {
           "id": "S8_03",
+          "index": 70,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle, suit-elle et respecte-t-elle les exigences légales, réglementaires, statutaires et contractuelles applicables à ses activités ?",
@@ -4972,6 +5042,7 @@
         },
         {
           "id": "S8_04",
+          "index": 71,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des mesures de prévention, de détection et de traitement de la fraude, de la corruption, des conflits d'intérêts et des autres atteintes à l'intégrité ?",
@@ -5042,6 +5113,7 @@
         },
         {
           "id": "S8_05",
+          "index": 72,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre un dispositif de prévention du Safeguarding et de la PSEA adapté à ses activités, à ses risques et aux populations avec lesquelles elle travaille ?",
@@ -5112,6 +5184,7 @@
         },
         {
           "id": "S8_06",
+          "index": 73,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle de mécanismes accessibles, confidentiels et fiables permettant de signaler, gérer et traiter les cas de Safeguarding dans le respect des personnes concernées et des procédures établies ?",
@@ -5182,6 +5255,7 @@
         },
         {
           "id": "S8_07",
+          "index": 74,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle de dispositifs permettant d'anticiper, de préparer et de gérer les crises susceptibles d'affecter ses activités en RDC, notamment les conflits, les déplacements, les épidémies, les catastrophes naturelles, les restrictions d'accès et les ruptures de services essentiels, tout en assurant la continuité de ses opérations ?",
@@ -5252,6 +5326,7 @@
         },
         {
           "id": "S8_08",
+          "index": 75,
           "type": "level",
           "label": {
             "fr": "Votre organisation utilise-t-elle les résultats des audits, contrôles, incidents, enquêtes et analyses de risques pour améliorer en continu ses dispositifs de maîtrise des risques, de conformité et d'intégrité ?",
@@ -5331,6 +5406,7 @@
       "questions": [
         {
           "id": "S9_01",
+          "index": 76,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'une stratégie de partenariat clairement définie et utilise-t-elle cette stratégie pour développer des partenariats cohérents avec sa mission, ses priorités et son développement organisationnel ?",
@@ -5401,6 +5477,7 @@
         },
         {
           "id": "S9_02",
+          "index": 77,
           "type": "level",
           "label": {
             "fr": "Votre organisation sélectionne-t-elle, formalise-t-elle, met-elle en œuvre et suit-elle ses partenariats selon des procédures transparentes, équitables et clairement définies, garantissant une répartition équilibrée des responsabilités, des risques, des coûts et des ressources ?",
@@ -5471,6 +5548,7 @@
         },
         {
           "id": "S9_03",
+          "index": 78,
           "type": "level",
           "label": {
             "fr": "Votre organisation contribue-t-elle au renforcement des capacités de ses partenaires de manière planifiée, adaptée à leurs besoins et fondée sur des objectifs de développement mutuel ?",
@@ -5541,6 +5619,7 @@
         },
         {
           "id": "S9_04",
+          "index": 79,
           "type": "level",
           "label": {
             "fr": "Votre organisation participe-t-elle de manière active et pertinente aux mécanismes de coordination humanitaire, de développement et de la société civile en RDC, et contribue-t-elle, lorsque cela est pertinent, à leur animation ou à leur leadership ?",
@@ -5611,6 +5690,7 @@
         },
         {
           "id": "S9_05",
+          "index": 80,
           "type": "level",
           "label": {
             "fr": "Votre organisation représente-t-elle ses positions et conduit-elle, lorsque cela est pertinent, des actions de plaidoyer fondées sur des données fiables, cohérentes avec sa mission et adaptées aux dynamiques politiques, institutionnelles et sécuritaires de la RDC ?",
@@ -5681,6 +5761,7 @@
         },
         {
           "id": "S9_06",
+          "index": 81,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre une communication institutionnelle cohérente, transparente et adaptée à ses différentes parties prenantes, tout en garantissant le respect du consentement, de la confidentialité et de la dignité des personnes concernées ?",
@@ -5751,6 +5832,7 @@
         },
         {
           "id": "S9_07",
+          "index": 82,
           "type": "level",
           "label": {
             "fr": "Votre organisation entretient-elle des relations transparentes et constructives avec ses partenaires institutionnels grâce à un partage d'information fiable, régulier et adapté à leurs attentes ?",
@@ -5821,6 +5903,7 @@
         },
         {
           "id": "S9_08",
+          "index": 83,
           "type": "level",
           "label": {
             "fr": "Votre organisation utilise-t-elle les retours d'expérience issus de ses partenariats et de sa participation aux réseaux pour renforcer sa stratégie de collaboration et améliorer ses pratiques ?",
@@ -5900,6 +5983,7 @@
       "questions": [
         {
           "id": "S10_01",
+          "index": 84,
           "type": "level",
           "label": {
             "fr": "Votre organisation dispose-t-elle d'une stratégie de mobilisation des ressources alignée sur sa mission, sa vision, son plan stratégique et le contexte de financement en RDC ?",
@@ -5970,6 +6054,7 @@
         },
         {
           "id": "S10_02",
+          "index": 85,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle, analyse-t-elle et priorise-t-elle les opportunités de financement en fonction de sa stratégie, de ses capacités et de son positionnement ?",
@@ -6040,6 +6125,7 @@
         },
         {
           "id": "S10_03",
+          "index": 86,
           "type": "level",
           "label": {
             "fr": "Votre organisation développe-t-elle des propositions de financement de qualité, coordonnées entre les différentes fonctions et fondées sur des analyses pertinentes afin de répondre efficacement aux opportunités de financement ?",
@@ -6110,6 +6196,7 @@
         },
         {
           "id": "S10_04",
+          "index": 87,
           "type": "level",
           "label": {
             "fr": "Votre organisation développe-t-elle et entretient-elle des relations de confiance avec ses bailleurs et partenaires financiers grâce à un dialogue régulier, transparent et stratégique ?",
@@ -6180,6 +6267,7 @@
         },
         {
           "id": "S10_05",
+          "index": 88,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre une stratégie de diversification de ses ressources afin de réduire sa dépendance financière et de renforcer sa pérennité ?",
@@ -6250,6 +6338,7 @@
         },
         {
           "id": "S10_06",
+          "index": 89,
           "type": "level",
           "label": {
             "fr": "Votre organisation renforce-t-elle durablement son positionnement institutionnel, sa crédibilité et sa pérennité en développant ses relations stratégiques, sa visibilité, son influence et sa reconnaissance auprès de ses principales parties prenantes ?",
@@ -6320,6 +6409,7 @@
         },
         {
           "id": "S10_07",
+          "index": 90,
           "type": "level",
           "label": {
             "fr": "Votre organisation suit-elle et analyse-t-elle la performance de ses activités de mobilisation des ressources et utilise-t-elle les enseignements tirés pour améliorer sa stratégie et ses pratiques ?",
@@ -6399,6 +6489,7 @@
       "questions": [
         {
           "id": "S11_01",
+          "index": 91,
           "type": "level",
           "label": {
             "fr": "Votre organisation définit-elle et met-elle en œuvre une gouvernance de l'information garantissant que les informations essentielles sont produites, organisées, accessibles, tenues à jour et utilisées de manière cohérente pour soutenir ses activités et sa prise de décision ?",
@@ -6469,6 +6560,7 @@
         },
         {
           "id": "S11_02",
+          "index": 92,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des systèmes d'information et des outils numériques adaptés à ses besoins, intégrés dans ses processus de travail et utilisés efficacement par les équipes ?",
@@ -6539,6 +6631,7 @@
         },
         {
           "id": "S11_03",
+          "index": 93,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des pratiques de gestion des données garantissant leur qualité, leur cohérence, leur disponibilité et leur utilisation pour soutenir les activités et la prise de décision ?",
@@ -6609,6 +6702,7 @@
         },
         {
           "id": "S11_04",
+          "index": 94,
           "type": "level",
           "label": {
             "fr": "Votre organisation identifie-t-elle, organise-t-elle, conserve-t-elle et met-elle à disposition les connaissances essentielles afin de préserver sa mémoire institutionnelle et de faciliter leur réutilisation ?",
@@ -6679,6 +6773,7 @@
         },
         {
           "id": "S11_05",
+          "index": 95,
           "type": "level",
           "label": {
             "fr": "Votre organisation met-elle en œuvre des mesures proportionnées pour protéger ses informations et ses systèmes, prévenir les risques de cybercriminalité, respecter les exigences applicables en RDC et maintenir la continuité de ses activités en cas d'incident ?",

@@ -33,6 +33,8 @@ export type TextInputType = 'text' | 'number' | 'date'
 
 export interface Question {
   id: string
+  /** Running criterion number across the whole questionnaire (1-based, continuous between sections). */
+  index: number
   type: QuestionType
   label: QuestionLabel
   /** Defaults to true when omitted. */
