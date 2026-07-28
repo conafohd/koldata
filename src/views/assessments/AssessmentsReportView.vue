@@ -67,7 +67,7 @@
 
       <div class="AssessmentReport__chart">
         <AssessmentRadarChart
-          :labels="radarLabels(assessment)"
+          :labels="radarLabels()"
           :values="radarValues(assessment)"
         />
       </div>
@@ -152,6 +152,10 @@ function getAnswer(questionId: string, a: Assessment): AssessmentAnswer {
 function answerLabel(question: Question, a: Assessment): string {
   const v = getAnswer(question.id, a)
   if (!AssessmentFormService.isAnswered(question, v)) return t('assessments.report.notAvailable')
+  if (question.type === 'level') {
+    const lvl = question.levels?.find((l) => l.value === v)
+    return lvl ? `${lvl.value} – ${getLabel(lvl.name)}` : String(v)
+  }
   if (question.type === 'boolean') return v ? t('assessments.report.yes') : t('assessments.report.no')
   if (question.type === 'text') return String(v)
   if (question.type === 'select') {
@@ -169,6 +173,7 @@ function answerLabel(question: Question, a: Assessment): string {
 function answerColor(question: Question, a: Assessment): string {
   const v = getAnswer(question.id, a)
   if (!AssessmentFormService.isAnswered(question, v)) return 'default'
+  if (question.type === 'level') return AssessmentFormService.levelColor(v as number)
   if (question.type === 'boolean') return v ? 'success' : 'error'
   return 'main-blue'
 }
@@ -181,7 +186,7 @@ function globalScore(a: Assessment): number {
   )
 }
 
-function radarLabels(a: Assessment): string[] {
+function radarLabels(): string[] {
   return questionGroups.map((g) => getLabel(g.label))
 }
 
@@ -259,7 +264,7 @@ async function onExportPdf(): Promise<void> {
       imageToPngDataUrl(koldataLogoUrl),
       imageToDataUrl(association.value?.logo_url ?? null),
       imageToDataUrl(conafohdLogoUrl),
-      RadarImageService.toPng(radarLabels(a), radarValues(a)),
+      RadarImageService.toPng(radarLabels(), radarValues(a)),
     ])
 
     const sections: PdfSection[] = questionGroups.map((group) => ({

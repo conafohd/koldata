@@ -71,6 +71,7 @@
       "datePlaceholder": "DD/MM/YYYY",
       "yes": "Yes",
       "no": "No",
+      "levelNotSelected": "Not provided",
       "questionsAnswered": "questions answered",
       "panel": {
         "title": "Assessment content",

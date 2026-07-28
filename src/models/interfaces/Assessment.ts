@@ -1,4 +1,4 @@
-export type AssessmentAnswer = boolean | string | string[] | null
+export type AssessmentAnswer = boolean | number | string | string[] | null
 
 export interface AssessmentFields {
   sections: {

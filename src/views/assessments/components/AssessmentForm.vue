@@ -128,8 +128,58 @@
                   <span v-if="AssessmentFormService.isRequired(question)" class="AssessmentForm__required">*</span>
                 </span>
 
+                <div
+                  v-if="question.type === 'level'"
+                  class="AssessmentForm__level"
+                >
+                  <v-select
+                    :model-value="levelValue(question.id)"
+                    @update:model-value="setLevel(question.id, $event)"
+                    :items="levelItems(question)"
+                    item-title="title"
+                    item-value="value"
+                    :placeholder="$t('assessments.form.levelNotSelected')"
+                    persistent-placeholder
+                    clearable
+                    variant="outlined"
+                    density="compact"
+                    hide-details
+                    :disabled="isFinalized"
+                    class="AssessmentForm__input"
+                  />
+                  <v-menu
+                    open-on-hover
+                    :close-on-content-click="false"
+                    location="bottom end"
+                    max-width="440"
+                  >
+                    <template #activator="{ props: menuProps }">
+                      <v-icon
+                        v-bind="menuProps"
+                        icon="$informationSlabBoxOutline"
+                        size="22"
+                        color="main-blue"
+                        tabindex="0"
+                        class="AssessmentForm__info"
+                      />
+                    </template>
+                    <v-card class="AssessmentForm__rubric" elevation="4">
+                      <div
+                        v-for="lvl in (question.levels ?? [])"
+                        :key="lvl.value"
+                        class="AssessmentForm__rubricLevel"
+                      >
+                        <span class="AssessmentForm__rubricName">
+                          {{ lvl.value }} – {{ getLabel(lvl.name) }}
+                        </span>
+                        <span class="AssessmentForm__rubricDesc">{{ getLabel(lvl.description) }}</span>
+                      </div>
+                    </v-card>
+                  </v-menu>
+                </div>
+
                 <v-btn-toggle
-                  v-if="question.type === 'boolean'"
+                  v-else-if="question.type === 'boolean'"
                   v-model="answers[question.id]"
                   density="compact"
                   divided
@@ -389,6 +439,24 @@ function getLabel(label: QuestionLabel): string {
 
 function optionItems(question: Question) {
   return (question.options ?? []).map((o) => ({ value: o.value, title: getLabel(o.label) }))
+}
+
+// Dropdown items for a `level` question: "0 – Pas en place" … "3 – Bonne pratique".
+function levelItems(question: Question) {
+  return (question.levels ?? []).map((l) => ({
+    value: l.value,
+    title: `${l.value} – ${getLabel(l.name)}`,
+  }))
+}
+
+function levelValue(questionId: string): number | null {
+  const v = answers.value[questionId]
+  return typeof v === 'number' ? v : null
+}
+
+// `clearable` emits null when cleared, which maps back to "not selected".
+function setLevel(questionId: string, value: unknown): void {
+  answers.value[questionId] = typeof value === 'number' ? value : null
 }
 
 function getMulti(questionId: string): string[] {
@@ -882,6 +950,54 @@ async function handleFinalize() {
 
   &__input {
     width: 100%;
+  }
+
+  // Level dropdown + info icon side by side
+  &__level {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+
+    .AssessmentForm__input {
+      flex: 1;
+    }
+  }
+
+  &__info {
+    cursor: pointer;
+    flex: 0 0 auto;
+
+    &:focus-visible {
+      outline: 2px solid rgb(var(--v-theme-main-blue));
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+  }
+
+  &__rubric {
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  &__rubricLevel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  &__rubricName {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgb(var(--v-theme-main-blue));
+  }
+
+  &__rubricDesc {
+    font-size: 0.8rem;
+    color: #475569;
+    line-height: 1.45;
   }
 
   &__questionText {

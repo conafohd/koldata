@@ -65,7 +65,8 @@ const customTheme: ThemeDefinition = {
     'main-purple': '#6431F6',
     'main-grey': '#575757',
     'light-grey': '#D9D9D9',
-    'main-yellow': '#FFCD00'
+    'main-yellow': '#FFCD00',
+    'main-orange': '#F57C00'
   }
 }
 

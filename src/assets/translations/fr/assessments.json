@@ -71,6 +71,7 @@
       "datePlaceholder": "JJ/MM/AAAA",
       "yes": "Oui",
       "no": "Non",
+      "levelNotSelected": "Non renseigné",
       "questionsAnswered": "questions répondues",
       "panel": {
         "title": "Contenu de l'évaluation",

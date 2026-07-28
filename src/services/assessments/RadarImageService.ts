@@ -62,12 +62,46 @@ export class RadarImageService {
             ticks: { stepSize: 20, backdropColor: 'transparent', color: '#94a3b8', font: { size: 12 } },
             grid: { color: '#e2e8f0' },
             angleLines: { color: '#e2e8f0' },
-            pointLabels: { color: '#334155', font: { size: 14 } },
+            pointLabels: {
+              color: '#334155',
+              font: { size: 14 },
+              // Wrap long section titles onto multiple lines (chart.js renders an
+              // array of strings as separate lines) so they don't overflow the
+              // canvas — mirrors the on-screen radar chart's behaviour.
+              callback: (label: string) => RadarImageService.wrapLabel(label, 24),
+            },
           },
         },
       },
     })
 
+    return RadarImageService.capture(chart, canvas)
+  }
+
+  /**
+   * Splits a label into lines no longer than `maxLen` characters, breaking on
+   * word boundaries. Returns an array (one entry per line) which chart.js draws
+   * as stacked lines for a point label.
+   */
+  private static wrapLabel(label: string, maxLen: number): string | string[] {
+    if (label.length <= maxLen) return label
+    const words = label.split(' ')
+    const lines: string[] = []
+    let current = ''
+    for (const word of words) {
+      const candidate = current ? `${current} ${word}` : word
+      if (candidate.length <= maxLen) {
+        current = candidate
+      } else {
+        if (current) lines.push(current)
+        current = word
+      }
+    }
+    if (current) lines.push(current)
+    return lines
+  }
+
+  private static async capture(chart: Chart, canvas: HTMLCanvasElement): Promise<string> {
     try {
       // Ensure a paint cycle has completed before capturing
       await new Promise((resolve) => requestAnimationFrame(() => resolve(null)))
