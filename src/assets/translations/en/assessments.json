@@ -41,6 +41,7 @@
       "no": "No",
       "globalScore": "Global score",
       "exportPdf": "Export as PDF",
+      "capacityPlan": "Annex 1 – Capacity-Building Plan",
       "generatedOn": "Report generated on {date}"
     },
     "delete": {
@@ -58,6 +59,12 @@
       "campaignTitlePlaceholder": "E.g. Assessment 2026",
       "periodStart": "Start of period",
       "periodEnd": "End of period",
+      "documents": {
+        "guide": {
+          "name": "User guide",
+          "description": "How to complete the assessment"
+        }
+      },
       "saveAndExit": "Save and exit",
       "next": "Next",
       "goToEnd": "Go to end",

@@ -12,12 +12,25 @@
           <p class="AssessmentsFormView__heroSub">{{ $t('assessments.form.heroSub') }}</p>
         </div>
       </div>
+      <v-btn
+        v-if="formRef?.step !== 1"
+        variant="text"
+        color="main-blue"
+        size="small"
+        prepend-icon="$fileDocumentOutline"
+        href="/documents/Évaluation des Capacités Organisationnelles - Guide de l'utilisateur.pdf"
+        download
+        target="_blank"
+      >
+        {{ $t('assessments.form.documents.guide.name') }}
+      </v-btn>
       <v-chip
         v-if="assessment"
         :color="assessment.finalized_at ? 'success' : 'main-blue'"
         size="small"
         variant="tonal"
         :prepend-icon="assessment.finalized_at ? '$checkCircle' : '$circleEditOutline'"
+        class="ml-2"
       >
         {{ assessment.finalized_at
           ? $t('assessments.status.finalized')

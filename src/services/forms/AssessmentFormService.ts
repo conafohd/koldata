@@ -80,16 +80,6 @@ export class AssessmentFormService {
   }
 
   /**
-   * Coarse tone for the PDF (which only has positive/negative/neutral): 0
-   * negative, 3 positive, the in-between levels neutral.
-   */
-  static levelTone(value: number): 'positive' | 'negative' | 'neutral' {
-    if (value >= LEVEL_MAX_SCORE) return 'positive'
-    if (value <= 0) return 'negative'
-    return 'neutral'
-  }
-
-  /**
    * Vuetify colour for a 0–3 level, as a red → orange → yellow → green scale:
    * 0 Pas en place, 1 En développement, 2 Fonctionnel, 3 Bonne pratique.
    */

@@ -41,6 +41,7 @@
       "no": "Non",
       "globalScore": "Score global",
       "exportPdf": "Exporter en PDF",
+      "capacityPlan": "Annexe 1 – Plan de Renforcement des Capacités",
       "generatedOn": "Rapport généré le {date}"
     },
     "delete": {
@@ -58,6 +59,12 @@
       "campaignTitlePlaceholder": "Ex : Évaluation 2026",
       "periodStart": "Début de période",
       "periodEnd": "Fin de période",
+      "documents": {
+        "guide": {
+          "name": "Guide de l'utilisateur",
+          "description": "Comment remplir l'évaluation"
+        }
+      },
       "saveAndExit": "Enregistrer et quitter",
       "next": "Suivant",
       "goToEnd": "Aller à la fin",

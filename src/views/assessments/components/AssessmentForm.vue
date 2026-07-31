@@ -16,35 +16,54 @@
       <template #item.1>
         <div class="AssessmentForm__card app-card app-card--flat">
           <v-row>
-            <v-col cols="12" sm="6">
-              <div class="form-label mb-1">{{ $t('assessments.form.campaignTitle') }}</div>
-              <v-text-field
-                v-model="title"
-                :placeholder="$t('assessments.form.campaignTitlePlaceholder')"
-                variant="outlined"
-                density="comfortable"
-                :readonly="isFinalized"
-                hide-details
-                autofocus
-              />
+            <v-col cols="12" md="8">
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <div class="form-label mb-1">{{ $t('assessments.form.campaignTitle') }}</div>
+                  <v-text-field
+                    v-model="title"
+                    :placeholder="$t('assessments.form.campaignTitlePlaceholder')"
+                    variant="outlined"
+                    density="comfortable"
+                    :readonly="isFinalized"
+                    hide-details
+                    autofocus
+                  />
+                </v-col>
+              </v-row>
+              <v-row class="mt-2">
+                <v-col cols="12" sm="6">
+                  <div class="form-label mb-1">{{ $t('assessments.form.periodStart') }}</div>
+                  <v-text-field
+                    :model-value="formatDate(periodStart)"
+                    :placeholder="$t('assessments.form.datePlaceholder')"
+                    variant="outlined"
+                    density="comfortable"
+                    readonly
+                    append-inner-icon="$calendar"
+                    @click="!isFinalized && openPicker('start')"
+                    @click:append-inner="!isFinalized && openPicker('start')"
+                    clearable
+                    @click:clear="periodStart = ''"
+                    :error-messages="dateOrderError ? $t('assessments.form.dateOrderError') : ''"
+                  />
+                </v-col>
+              </v-row>
             </v-col>
-          </v-row>
-          <v-row class="mt-2">
-            <v-col cols="12" sm="6">
-              <div class="form-label mb-1">{{ $t('assessments.form.periodStart') }}</div>
-              <v-text-field
-                :model-value="formatDate(periodStart)"
-                :placeholder="$t('assessments.form.datePlaceholder')"
-                variant="outlined"
-                density="comfortable"
-                readonly
-                append-inner-icon="$calendar"
-                @click="!isFinalized && openPicker('start')"
-                @click:append-inner="!isFinalized && openPicker('start')"
-                clearable
-                @click:clear="periodStart = ''"
-                :error-messages="dateOrderError ? $t('assessments.form.dateOrderError') : ''"
-              />
+            <v-col cols="12" md="4">
+              <a
+                class="AssessmentForm__docs"
+                :href="resourceDocument.href"
+                download
+                target="_blank"
+              >
+                <v-icon icon="$fileDocumentOutline" size="20" class="AssessmentForm__docsIcon" />
+                <div class="AssessmentForm__docsText">
+                  <div class="AssessmentForm__docsName">{{ resourceDocument.name }}</div>
+                  <div class="AssessmentForm__docsDesc">{{ resourceDocument.description }}</div>
+                </div>
+                <v-icon icon="$download" size="18" class="AssessmentForm__docsDownload" />
+              </a>
             </v-col>
           </v-row>
         </div>
@@ -437,6 +456,12 @@ const totalQuestions = questionGroups.reduce(
   0,
 )
 
+const resourceDocument = computed(() => ({
+  href: '/documents/Évaluation des Capacités Organisationnelles - Guide de l\'utilisateur.pdf',
+  name: t('assessments.form.documents.guide.name'),
+  description: t('assessments.form.documents.guide.description'),
+}))
+
 function getLabel(label: QuestionLabel): string {
   return AssessmentFormService.getLabel(label, locale.value)
 }
@@ -727,7 +752,7 @@ async function saveDraft() {
   await assessmentsStore.saveAssessment(props.assessment.id, buildUpdate())
 }
 
-defineExpose({ saveDraft })
+defineExpose({ saveDraft, step })
 
 async function handleFinalize() {
   // All questions are mandatory before finalizing
@@ -1125,6 +1150,55 @@ async function handleFinalize() {
     max-width: 20rem;
     min-width: 12rem;
   }
+}
+
+.AssessmentForm__docs {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background: rgba(51, 92, 142, 0.05);
+  border: 1px solid #e2e8f0;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: rgb(var(--v-theme-main-blue));
+    box-shadow: 0 2px 6px rgba(51, 92, 142, 0.12);
+
+    .AssessmentForm__docsDownload {
+      color: rgb(var(--v-theme-main-blue));
+    }
+  }
+}
+
+.AssessmentForm__docsIcon {
+  color: rgb(var(--v-theme-main-blue));
+  flex-shrink: 0;
+}
+
+.AssessmentForm__docsText {
+  flex: 1;
+  min-width: 0;
+}
+
+.AssessmentForm__docsName {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+}
+
+.AssessmentForm__docsDesc {
+  font-size: 0.75rem;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+.AssessmentForm__docsDownload {
+  color: #94a3b8;
+  flex-shrink: 0;
 }
 
 .form-field {

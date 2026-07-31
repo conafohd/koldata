@@ -1,9 +1,11 @@
 import type { jsPDF } from 'jspdf'
 
+export type PdfTone = 'positive' | 'negative' | 'developing' | 'functional' | 'neutral'
+
 export interface PdfQuestion {
   text: string
   answer: string
-  tone: 'positive' | 'negative' | 'neutral'
+  tone: PdfTone
 }
 
 export interface PdfSection {
@@ -38,6 +40,9 @@ const SLATE: [number, number, number] = [71, 85, 105]
 const MUTED: [number, number, number] = [148, 163, 184]
 const GREEN: [number, number, number] = [34, 139, 87]
 const RED: [number, number, number] = [200, 60, 60]
+// Matches Vuetify theme colors main-orange (#F57C00) and main-yellow (#FFCD00)
+const ORANGE: [number, number, number] = [245, 124, 0]
+const YELLOW: [number, number, number] = [255, 205, 0]
 const LINE: [number, number, number] = [226, 232, 240]
 
 /**
@@ -68,15 +73,20 @@ export class AssessmentPdfService {
 
     // ---- Header band: logos (flush right, KOL Data, partner, then CONAFOHD)-
     const logoH = 46
+    const logoGap = 16
     const headerLogos = [data.koldataLogo, data.associationLogo, data.conafohdLogo]
       .map((src) => (src ? AssessmentPdfService.fitImage(doc, src, 110, logoH) : null))
       .filter((logo) => logo !== null)
-    // Pack them edge to edge and right-align the whole group
-    let logoX = pageW - margin - headerLogos.reduce((sum, logo) => sum + logo.width, 0)
+    // Pack them with a gap between each and right-align the whole group
+    let logoX =
+      pageW -
+      margin -
+      headerLogos.reduce((sum, logo) => sum + logo.width, 0) -
+      logoGap * (headerLogos.length - 1)
     headerLogos.forEach((logo) => {
       // Vertically centre within the band so logos of different ratios align
       doc.addImage(logo.dataUrl, logo.fileType, logoX, y + (logoH - logo.height) / 2, logo.width, logo.height)
-      logoX += logo.width
+      logoX += logo.width + logoGap
     })
 
     y += logoH + 18
@@ -222,7 +232,16 @@ export class AssessmentPdfService {
         doc.setTextColor(...SLATE)
         doc.text(row.qLines, innerX, qFirst)
 
-        const tone = row.tone === 'positive' ? GREEN : row.tone === 'negative' ? RED : SLATE
+        const tone =
+          row.tone === 'positive'
+            ? GREEN
+            : row.tone === 'negative'
+              ? RED
+              : row.tone === 'developing'
+                ? ORANGE
+                : row.tone === 'functional'
+                  ? YELLOW
+                  : SLATE
         doc.setFont('helvetica', 'bold')
         doc.setTextColor(...tone)
         doc.text(row.aLines, innerRight, aFirst, { align: 'right' })

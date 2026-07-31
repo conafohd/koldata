@@ -20,6 +20,18 @@
           </v-chip>
           <v-btn
             color="main-blue"
+            variant="outlined"
+            size="small"
+            prepend-icon="$download"
+            class="ml-2"
+            href="/documents/Annexe 1 - Plan de renforcement de capacités.xlsx"
+            download
+            target="_blank"
+          >
+            {{ $t('assessments.report.capacityPlan') }}
+          </v-btn>
+          <v-btn
+            color="main-blue"
             variant="flat"
             size="small"
             prepend-icon="$download"
@@ -120,7 +132,7 @@ import {
 } from '@/services/forms/AssessmentFormService'
 import conafohdLogoUrl from '@/assets/img/conafohd-logo.png'
 import koldataLogoUrl from '@/assets/img/logo.webp'
-import { AssessmentPdfService, type PdfSection } from '@/services/assessments/AssessmentPdfService'
+import { AssessmentPdfService, type PdfSection, type PdfTone } from '@/services/assessments/AssessmentPdfService'
 import { RadarImageService } from '@/services/assessments/RadarImageService'
 import { imageToDataUrl, imageToPngDataUrl } from '@/services/utils/ImageToDataUrl'
 import { useApplicationStore } from '@/stores/applicationStore'
@@ -246,10 +258,12 @@ function buildFileName(a: Assessment): string {
   return period ? `oca_evaluation_${period}.pdf` : 'oca_evaluation.pdf'
 }
 
-function answerTone(question: Question, a: Assessment): 'positive' | 'negative' | 'neutral' {
+function answerTone(question: Question, a: Assessment): PdfTone {
   const color = answerColor(question, a)
   if (color === 'success') return 'positive'
   if (color === 'error') return 'negative'
+  if (color === 'main-orange') return 'developing'
+  if (color === 'main-yellow') return 'functional'
   return 'neutral'
 }
 
