@@ -88,7 +88,7 @@
             />
             <LogoUpload
               v-model="associationForm.form.logo_url.value.value"
-              :association-id="associationsStore.associationToEdit?.id || 'temp-' + Date.now()"
+              :association-id="logoAssociationId"
               @update:model-value="associationForm.form.logo_url.handleChange"
             />
             <v-text-field
@@ -456,6 +456,12 @@ const showDialog = computed(
 const associationForm = AssociationFormService.getAssociationForm(
   associationsStore.associationToEdit,
 )
+
+const logoAssociationId = computed(() => {
+  const edited = associationsStore.associationToEdit
+  if (!edited) return 'temp-' + Date.now()
+  return (edited as AssociationUpdate).association_id || edited.id
+})
 
 onMounted(async () => {
   await adminBoundariesStore.fetchBoundaries()
