@@ -39,8 +39,8 @@ export class LogoUploadService {
     return this.getPublicUrl(data.path)
   }
 
-  static async deleteLogo(logoUrl: string): Promise<void> {
-    await this.checkUserPermissions()
+  static async deleteLogo(logoUrl: string, associationId?: string): Promise<void> {
+    await this.checkUserPermissions(associationId)
 
     const path = this.extractPathFromUrl(logoUrl)
     if (!path) return

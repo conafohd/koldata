@@ -75,7 +75,7 @@ const onFileSelected = async (event: Event) => {
 
   try {
     if (currentLogoUrl.value) {
-      await LogoUploadService.deleteLogo(currentLogoUrl.value)
+      await LogoUploadService.deleteLogo(currentLogoUrl.value, props.associationId)
     }
 
     const logoUrl = await LogoUploadService.uploadLogo(resizedFile, props.associationId)
@@ -95,7 +95,7 @@ const removeLogo = async () => {
   if (!currentLogoUrl.value) return
 
   try {
-    await LogoUploadService.deleteLogo(currentLogoUrl.value)
+    await LogoUploadService.deleteLogo(currentLogoUrl.value, props.associationId)
     currentLogoUrl.value = null
     emit('update:modelValue', null)
     addNotification(i18n.t('logoStorage.deleteSuccess'), NotificationType.SUCCESS)
